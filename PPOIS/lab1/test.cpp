@@ -1,4 +1,4 @@
-#include "/UNIVERSITY/Pivo/BSUIR/PPOIS/lab1/Project/lib.h"
+#include "lib.h"
 #include <sstream>
 #include <streambuf>
 #include <gtest/gtest.h>
