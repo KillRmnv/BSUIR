@@ -1,17 +1,18 @@
 #include "UI.h"
-using namespace sets;
+#include"input.h"
+using namespace sets_ns;
 void UI::menu()
 {
-	input forsets;
+	Input_set forsets;
 	do {
 		forsets.string_input();
-	} while (!forsets.sets(this->num_1));
+	} while (!forsets.Create_set(this->num_1));
 	std::cout << this->num_1; std::cout << std::endl;
 	do {
 		forsets.string_input();
-	} while (!forsets.sets(this->num_2));
+	} while (!forsets.Create_set(this->num_2));
 	std::cout << this->num_2; std::cout << std::endl;
-	set result; int choice = 1; std::string input;
+	Set result; int choice = 1; std::string input;
 	do {
 		do {
 			if (std::cin.fail() || choice < 1 || choice>10) {
@@ -35,13 +36,13 @@ void UI::menu()
 		case 2:
 			std::cin.ignore();
 			do {
-				forsets.string_input(); result.~set(); result = this->num_1;
-			} while (!forsets.sets(result));
+				forsets.string_input(); result.~Set(); result = this->num_1;
+			} while (!forsets.Create_set(result));
 			this->num_1 = result;
 			std::cout << this->num_1; std::cout << std::endl;
 			do {
-				forsets.string_input(); result.~set(); result = this->num_2;
-			} while (!forsets.sets(result));  this->num_2 = result; result.~set();
+				forsets.string_input(); result.~Set(); result = this->num_2;
+			} while (!forsets.Create_set(result));  this->num_2 = result; result.~Set();
 			std::cout << this->num_2; std::cout << std::endl;
 			break;
 		case 3:
@@ -86,24 +87,24 @@ void UI::menu()
 				std::cout << "Не принадлежит" << std::endl;
 			break;
 		case 6:
-			result = this->num_1 + this->num_2; std::cout << result; result.~set();
+			result = this->num_1 + this->num_2; std::cout << result; result.~Set();
 			std::cout << std::endl;
 			break;
 		case 7:
-			result = this->num_1 * this->num_2; std::cout << result; result.~set();
+			result = this->num_1 * this->num_2; std::cout << result; result.~Set();
 			std::cout << std::endl;
 			break;
 		case 8:
-			result = this->num_1 - this->num_2; std::cout << result << std::endl;  result.~set();
-			result = this->num_2 - this->num_1; std::cout << result << std::endl;  result.~set();
+			result = this->num_1 - this->num_2; std::cout << result << std::endl;  result.~Set();
+			result = this->num_2 - this->num_1; std::cout << result << std::endl;  result.~Set();
 			break;
 		case 9:
 			result = this->num_1;
 			result.PowerSet();
-			std::cout << result << std::endl; result.~set();
+			std::cout << result << std::endl; result.~Set();
 			result = this->num_2;
 			result.PowerSet();
-			std::cout << result << std::endl; result.~set();
+			std::cout << result << std::endl; result.~Set();
 			break;
 		case 10:
 			return;

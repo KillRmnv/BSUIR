@@ -1,10 +1,10 @@
 #pragma once
-#include "lib.h"
-using namespace sets;
+#include "sets.h"
+using namespace sets_ns;
 class UI {
 private:
-	sets::set num_1;
-	sets::set num_2;
+	sets_ns::Set num_1;
+	sets_ns::Set num_2;
 public:
 	void menu();
 };
