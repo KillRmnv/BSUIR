@@ -32,7 +32,19 @@ public class LogicExpressionParser {
                 if (i == 8) {
                     result.put(result.size(), key);
                     expression = replaceKeyInExpression(expression, key, result.size());
-                } else if (i > 2 && i < 7) {
+                } if(i==2){
+                    int num=key.charAt(1)-'0';
+                    int size = key.length();
+                    String logicExpression=key.substring(1,2);
+                    key += "\\(" + key.substring(1, key.length() - 1) + "\\)";
+                    key = key.substring(size);
+                    expression=expression.replaceAll(key, logicExpression);
+                }
+                else if(i==1){
+                    expression=expression.replaceAll(key, String.valueOf(result.size()));
+                    result.put(result.size(), key);
+                }
+                else if (i > 2 && i < 7) {
                     String logicExpression = expressionMatcher.group();
                     int size = key.length();
                     key += "\\(" + key.substring(1, key.length() - 1) + "\\)";
