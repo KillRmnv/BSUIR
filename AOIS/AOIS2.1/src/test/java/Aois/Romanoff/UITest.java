@@ -1,7 +1,5 @@
-package org.example;
-import org.junit.jupiter.api.BeforeEach;
+package Aois.Romanoff;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.*;
 

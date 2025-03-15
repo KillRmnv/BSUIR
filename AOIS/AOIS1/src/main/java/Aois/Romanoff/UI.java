@@ -1,7 +1,5 @@
-package org.example;
+package Aois.Romanoff;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class UI {
     private final IOHandler ioHandler;

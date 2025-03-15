@@ -1,4 +1,4 @@
-package org.example;
+package Aois.Romanoff;
 import java.util.Scanner;
 
 public class App {

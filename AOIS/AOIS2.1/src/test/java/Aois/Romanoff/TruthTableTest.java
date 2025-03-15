@@ -1,4 +1,4 @@
-package org.example;
+package Aois.Romanoff;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

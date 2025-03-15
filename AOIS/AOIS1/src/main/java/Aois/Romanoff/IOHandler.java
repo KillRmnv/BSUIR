@@ -1,4 +1,4 @@
-package org.example;
+package Aois.Romanoff;
 
 public interface IOHandler {
     int readInt(String prompt);
