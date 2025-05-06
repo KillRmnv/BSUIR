@@ -4,6 +4,7 @@ import by.romanov.ppois.*;
 import by.romanov.ppois.Police.PoliceStates.InitialState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class EnforcementDepartmentContext implements Context {
     @JsonIgnore
     private State nextStage;
     private Map<Integer, PoliceMan> policeMans;
+    @Setter
     private  int policeMan;
     private TransferData transfer;
    public EnforcementDepartmentContext(){

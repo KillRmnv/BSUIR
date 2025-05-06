@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="823.0" prefWidth="1243.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.Romanov.MainController">
+
+    <TreeView fx:id="treeView" layoutX="6.0" layoutY="14.0" prefHeight="727.0" prefWidth="1206.0">
+
+    </TreeView>
+
+    <TableView fx:id="tableView" layoutX="10" layoutY="16.0" prefHeight="727.0" prefWidth="1206.0">
+        <columns>
+            <TableColumn fx:id="fioColumn" prefWidth="316.0" text="FIO">
+                <cellValueFactory>
+                    <PropertyValueFactory property="fio" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="accountNumberColumn" prefWidth="261.0" text="Account Number">
+                <cellValueFactory>
+                    <PropertyValueFactory property="accountNumber" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="addressColumn" prefWidth="286.0" text="Address">
+                <cellValueFactory>
+                    <PropertyValueFactory property="address" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="phonesColumn" maxWidth="254.0" minWidth="20.0" prefWidth="180.0" text="Phones">
+                <columns>
+                    <TableColumn fx:id="mobilePhoneColumn" prefWidth="170.0" text="Mobile Phone">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="mobilePhone" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="townPhoneColumn" prefWidth="170.0" text="Town Phone">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="townPhone" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <Button fx:id="addButton" layoutX="23.0" layoutY="770.0" onAction="#addCustomer" text="Add Customers" />
+    <Button fx:id="deleteButton" layoutX="157.0" layoutY="770.0" onAction="#deleteCustomer" text="Delete Customers" />
+    <Button fx:id="searchButton" layoutX="307.0" layoutY="770.0" onAction="#searchCustomer" text="Search Customers" />
+    <Button fx:id="treeViewButton" layoutX="456.0" layoutY="770.0" onAction="#showTreeView" text="Tree View" />
+    <Button fx:id="tableViewButton" layoutX="548.0" layoutY="770.0" onAction="#showTableView" text="Table View" />
+    <Button layoutX="650.0" layoutY="770.0" onAction="#loadXmlData" text="XML Source" fx:id="xmlButton" />
+    <Button fx:id="sqlButton" layoutX="753.0" layoutY="770.0" onAction="#loadSqlData" text="SQL Source" />
+   <Button fx:id="prevPageButton" layoutX="934.0" layoutY="770.0" mnemonicParsing="false" onAction="#prevPage" text="Prevoiuse page" />
+   <Button fx:id="nextPageButton" layoutX="1062.0" layoutY="770.0" mnemonicParsing="false" onAction="#nextPage" text="NextPage" />
+    <Button fx:id="migrateButton" layoutX="858.0" layoutY="770.0" mnemonicParsing="false" onAction="#migrateData" text="Migrate" />
+   <Label fx:id="pageLabel" layoutX="1153.0" layoutY="754.0" prefHeight="16.0" prefWidth="64.0" text="Label" />
+</AnchorPane>

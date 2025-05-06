@@ -17,4 +17,5 @@ public interface Input {
     boolean handleQTE();
     void show(List<String> messages);
     void showNum(int num);
+    String getLine(String prompt);
 }

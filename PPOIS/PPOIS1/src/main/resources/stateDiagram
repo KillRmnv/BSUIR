@@ -1,11 +1,11 @@
 @startuml
 ' ===== Главная машина состояний =====
-[*] --> main.InitialState : Инициализация
+[*] --> main.InitialState 
 state "Police" as main {
     
     main.NewCaseState --> InitialState
     state "ControleCentreState" as s1 {
-        [*] --> s1.InitialState : Старт подмашины 1
+        [*] --> s1.InitialState 
         s1.InitialState --> ReceiveCallState : Событие приема вызова
         s1.InitialState --> ManipulatingSuspectSourceState : Событие изменения списка подозреваемых
         ReceiveCallState --> ChooseLawState: Событие выбора кодекса
@@ -18,37 +18,37 @@ state "Police" as main {
         ManipulatingSuspectSourceState --> DeleteSuspectState
         DeleteSuspectState --> main.InitialState
         DescribingHairColorState --> main.InitialState: Окончание опроса [прием вызова пользователя]/ переход в начало()
-        DescribingHairColorState --> main.NewCaseState: Окончание опроса [не прием вызова пользователя]/ переход в начало()
+        DescribingHairColorState --> main.NewCaseState
     }
 
     state "EnforcementDepartmentState" as s2 {
-        [*] --> s2.InitialState : Старт подмашины 2
+        [*] --> s2.InitialState 
         s2.InitialState --> CatchingSuspectState 
+        s2.InitialState --> main.InitialState:[Отсутствие дел]
+        CatchingSuspectState --> main.PoliceManDeathState: смерть полицейского
         CatchingSuspectState --> main.InitialState
     }
     state "HRDepartmentState" as s3 {
-        [*] --> s3.InitialState : Старт подмашины 3
-        s3.InitialState --> HirePoliceManState : Событие B
+        [*] --> s3.InitialState 
+        s3.InitialState --> HirePoliceManState 
         s3.InitialState --> FirePoliceManState
     }
     s3 --> InitialState
     state "InvestigationDepartmentState" as s4 {
-        [*] --> ChooseCaseState : Старт подмашины 4
+        [*] --> ChooseCaseState 
         ChooseCaseState --> InterviewingWitnessesState 
         InterviewingWitnessesState --> main.NewEnforcementDepartmentCaseState
         ChooseCaseState --> main.InitialState:[Отсутствие дел]
     }
      state "PublicSafetyDepartmentState" as s5 {
-        [*] --> s5.InitialState : Старт подмашины 5
-        s5.InitialState --> SchoolCampaigningState : Событие B
+        [*] --> s5.InitialState 
+        s5.InitialState --> SchoolCampaigningState 
         s5.InitialState --> AreasPatrolState
-        s5.SchoolCampaigningState --> main.InitialState
-        AreasPatrolState --> main.NewCaseState:[произошло преступление]
+        SchoolCampaigningState --> main.InitialState
+        AreasPatrolState --> main.NewCaseState:Произошло преступление
         AreasPatrolState --> main.InitialState
     }
    main.NewEnforcementDepartmentCaseState --> InitialState
 
 }
-
-
 @enduml

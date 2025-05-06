@@ -46,7 +46,7 @@ public class JacksonSerializer {
         ControlCentreContext controlCentreContext;
         SuspectSource suspectSource = new SuspectSource();
         for (int i = 0; i < 30; i++) {
-            Traits randomTraits = new Traits(true);
+            Traits randomTraits = new Traits(false);
             Suspect randomSuspect = new Suspect();
             randomSuspect.setTraits(randomTraits);
             suspectSource.addSuspect(randomSuspect);

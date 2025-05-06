@@ -14,6 +14,8 @@ public class DeleteSuspectState implements State {
         ControlCentereInput input = new ControlCentereInput(((ControlCentreContext) context).getInput());
       if(!((ControlCentreContext) context).getSuspectSource().deleteSuspect(input.fullName())){
           input.noSuchSuspect();
+      }else{
+            input.successfulDeleteSuspect();
       }
     }
 

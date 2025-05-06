@@ -17,9 +17,10 @@ public class ManipulatingSuspectSourceState implements State {
                 input.show(((ControlCentreContext) context).getSuspectSource().getSuspects());
                 break;
             case 2:
-                return new DescribingAgeState();
-            case 3:
                 return  new DeleteSuspectState();
+            case 3:
+                return new DescribingAgeState();
+
         }
         ((ControlCentreContext) context).setNextStage(new InitialState());
         return null;

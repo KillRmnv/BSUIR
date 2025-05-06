@@ -2,7 +2,6 @@ package by.romanov.ppois.PublicSafetyDepartment.PublicSafetyStates;
 
 import by.romanov.ppois.Case;
 import by.romanov.ppois.Context;
-import by.romanov.ppois.Department;
 import by.romanov.ppois.Police.PoliceStates.InitialState;
 import by.romanov.ppois.Police.PoliceStates.NewCaseState;
 import by.romanov.ppois.PublicSafetyDepartment.PublicSafetyDepartmentContext;
@@ -21,7 +20,7 @@ public class AreasPatrolState implements State {
         List<String> areas = new ArrayList<>(Arrays.asList("Советский", "Центральный", "Первомайский", "Партизанский", "Заводской",
                 "Ленинский", "Октябрьский", "Московский", "Фрунзенский"));
         int choice=pubSafeInput.chooseCityArea(areas);
-        pubSafeInput.showPatrolingArea(areas.get(choice));
+        pubSafeInput.showPatrollingArea(areas.get(choice));
     }
 
     @Override

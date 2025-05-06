@@ -21,11 +21,11 @@ public class ControlCentereInput {
         switch (choiceInt) {
             case 1:
                 input.show(laws.printCriminalLaws());
-                return laws.getCRIMINAL_LAWS().get(input.getChoice("Введите номер закона", 0, 9));
+                return laws.getCRIMINAL_LAWS().get(input.getChoice("Введите номер закона", 1, 10)-1);
 
             case 2:
                 input.show(laws.printAdminLaws());
-                return laws.getADMIN_LAWS().get(input.getChoice("Введите номер закона", 0, 9));
+                return laws.getADMIN_LAWS().get(input.getChoice("Введите номер закона", 1, 10)-1);
         }
         return null;
     }
@@ -78,7 +78,7 @@ public class ControlCentereInput {
         int amnt = witnesses();
         List<String> contacts = new ArrayList<>();
         for (int i = 0; i < amnt; i++) {
-            String contact = input.getRegex("Введите email или номер телефона:",
+            String contact = input.getRegex("Введите email или номер телефона(9 цифр):",
                     "^(\\+\\d{9}|[^@\\s]+@[^@\\s]+)$");
             contacts.add(contact);
         }
@@ -137,9 +137,12 @@ public class ControlCentereInput {
                 """, 0, 99);
     }
     public String fullName(){
-        return input.getString("Имя Фамилия Отчество:");
+        return input.getLine("Имя Фамилия Отчество:");
     }
     public void noSuchSuspect(){
         input.show("Такого подозреваемого нет");
+    }
+    public void successfulDeleteSuspect(){
+        input.show("Список подозреваемых обновлен");
     }
 }

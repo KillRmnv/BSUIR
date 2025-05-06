@@ -103,16 +103,39 @@ class StateCoverageTest {
         assertDoesNotThrow(() -> state.run(context));
     }
 
-//    @Test
-//    void testNewCaseState() throws Exception {
-//        PoliceContext policeContext = Mockito.mock(PoliceContext.class);
-//        when(policeContext.getControlCentre()).thenReturn((ControlCentre) Mockito.mock(ControlCentre.class));
-//        when(policeContext.getPublicSafetyDepartment()).thenReturn((PublicSafetyDepartment) Mockito.mock(PublicSafetyDepartment.class));
-//        when(policeContext.getInvestigationDepartment()).thenReturn((InvestigationDepartment) Mockito.mock(InvestigationDepartment.class));
-//
-//        NewCaseState state = new NewCaseState();
-//        assertDoesNotThrow(() -> state.run(policeContext));
-//    }
+    @Test
+    void testNewCaseState() throws Exception {
+        // Мок контекста, в котором есть TransferData
+        EnforcementDepartmentContext mockContext = new EnforcementDepartmentContext();
+        Case mockCase = new Case(); // если нужно, можно замокать или задать поля
+        mockContext.getTransfer().setCaseData(mockCase);
+
+        // Мок ControlCentre
+        ControlCentre mockControlCentre = Mockito.mock(ControlCentre.class);
+        when(mockControlCentre.getContext()).thenReturn(mockContext);
+
+        // Мок PublicSafetyDepartment
+        EnforcementDepartmentContext mockPublicContext = new EnforcementDepartmentContext();
+        mockPublicContext.getTransfer().setCaseData(mockCase);
+        PublicSafetyDepartment mockPublic = Mockito.mock(PublicSafetyDepartment.class);
+        when(mockPublic.getContext()).thenReturn(mockPublicContext);
+
+        // Мок InvestigationDepartment
+        InvestigationDepartmentContext investigationContext = new InvestigationDepartmentContext();
+        InvestigationDepartment mockInvestigation = Mockito.mock(InvestigationDepartment.class);
+        when(mockInvestigation.getContext()).thenReturn(investigationContext);
+
+        // Мок основного контекста
+        PoliceContext policeContext = Mockito.mock(PoliceContext.class);
+        when(policeContext.getControlCentre()).thenReturn(mockControlCentre);
+        when(policeContext.getPublicSafetyDepartment()).thenReturn(mockPublic);
+        when(policeContext.getInvestigationDepartment()).thenReturn(mockInvestigation);
+
+        // Тест
+        NewCaseState state = new NewCaseState();
+        assertDoesNotThrow(() -> state.run(policeContext));
+    }
+
 
     @Test
     void testNewEnforcementDepartmentCaseState() throws Exception {
@@ -249,6 +272,7 @@ class StateCoverageTest {
 //        PoliceMan policeMan = new PoliceMan(1);
 //        policeMan.setExperience(50);
 //        policeMans.put(1, policeMan);
+//        context.setPoliceMans(policeMans);
 //
 //        // Mock context behavior
 //        when(context.getCases()).thenReturn(new ArrayList<>(List.of(testCase)));
@@ -256,7 +280,8 @@ class StateCoverageTest {
 //        when(context.getChoice()).thenReturn(0);
 //
 //        // Make sure getPoliceMan() returns the actual police man, not just an index
-//        when(context.getPoliceMan()).thenReturn(policeMan); // Changed from returning 1 to returning policeMan
+//        when(context.getPoliceMan()).thenReturn(1); // Возвращает индекс
+//        when(context.getPoliceMans()).thenReturn(Map.of(1, policeMan)); // Возвращает мапу
 //
 //        // Also mock the setPoliceMan method to store the police man
 //        doAnswer(invocation -> {

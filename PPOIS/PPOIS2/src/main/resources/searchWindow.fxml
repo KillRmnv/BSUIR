@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.Romanov.SearchController">
+    <TableView fx:id="tableView" layoutY="10" prefHeight="367.0" prefWidth="1101.0">
+        <columns>
+            <TableColumn fx:id="fioColumn" prefWidth="301.0" text="FIO">
+                <cellValueFactory>
+                    <PropertyValueFactory property="fio" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="accountNumberColumn" prefWidth="201.0" text="Account Number">
+                <cellValueFactory>
+                    <PropertyValueFactory property="accountNumber" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="addressColumn" prefWidth="224.0" text="Address">
+                <cellValueFactory>
+                    <PropertyValueFactory property="address" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="phonesColumn" minWidth="0.0" prefWidth="284.0" text="Phones">
+                <columns>
+                    <TableColumn fx:id="mobilePhoneColumn" minWidth="150.0" prefWidth="-1.0" text="Mobile Phone">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="mobilePhone" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="townPhoneColumn" minWidth="150.0" prefWidth="-1.0" text="Town Phone">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="townPhone" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableColumn>
+        </columns>
+    </TableView>
+    <TextField fx:id="nameField" layoutX="611.0" layoutY="397.0" promptText="Name">
+
+    </TextField>
+    <TextField fx:id="addressField" layoutX="419.0" layoutY="397.0" promptText="Address">
+
+    </TextField>
+    <TextField fx:id="mobilePhoneField" layoutX="225.0" layoutY="397.0" promptText="MobilePhone">
+
+    </TextField>
+    <TextField fx:id="townPhoneField" layoutX="33.0" layoutY="397.0" promptText="TownPhone">
+
+    </TextField>
+    <Button fx:id="searchButton" layoutX="33.0" layoutY="433.0" onAction="#searchCustomer" text="Search">
+
+    </Button>
+    <Button fx:id="prevPageButton" layoutX="838.0" layoutY="445.0" mnemonicParsing="false" onAction="#prevPage" text="Prevoiuse page" />
+    <Button fx:id="nextPageButton" layoutX="973.0" layoutY="445.0" mnemonicParsing="false" onAction="#nextPage" text="NextPage" />
+    <Label fx:id="pageLabel" layoutX="1023.0" layoutY="381.0" prefHeight="16.0" prefWidth="64.0" text="Label" />
+   <TextField fx:id="accountNumberField" layoutX="802.0" layoutY="397.0" promptText="Account Number" />
+</AnchorPane>

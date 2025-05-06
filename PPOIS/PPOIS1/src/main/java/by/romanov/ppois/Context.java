@@ -2,9 +2,7 @@ package by.romanov.ppois;
 
 
 public interface Context {
-
     default void setInput(Input input) {
-
     }
     default Input getInput() {
         return null;

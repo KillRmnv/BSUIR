@@ -13,7 +13,7 @@ public class SchoolCampaigningState implements State {
         PublicSafetyDepartmentContext publicSafetyDepartmentContext = (PublicSafetyDepartmentContext) context;
         PublicSafetyDepartmentInput pubSafeInput=new PublicSafetyDepartmentInput(publicSafetyDepartmentContext.getInput());
         int choice=pubSafeInput.chooseSchool();
-        String school="Школа №"+choice+1;
+        String school="Школа №"+choice;
         pubSafeInput.showSchool(school);
     }
 

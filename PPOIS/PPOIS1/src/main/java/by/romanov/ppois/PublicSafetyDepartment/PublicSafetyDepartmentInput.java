@@ -23,7 +23,7 @@ public class PublicSafetyDepartmentInput  {
     public int chooseCityArea( List<String> areas){
         return input.getChoice(areas,0,areas.size()-1);
     }
-    public void showPatrolingArea(String area){
+    public void showPatrollingArea(String area){
         input.show("Патруль отправился в "+area+" район");
     }
     public void showSchool(String school){

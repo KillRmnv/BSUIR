@@ -19,12 +19,20 @@ public class Traits {
     public Traits(Boolean rand) {
         Random random = new Random();
         int randNum = random.nextInt(95);
-        this.age = randNum*100+randNum+random.nextInt(5);
-        randNum=130 + random.nextInt(80);
-        this.height = randNum*1000+randNum+random.nextInt(10);
-        randNum= 30 + random.nextInt(130);
-        this.weight = randNum*1000+randNum+random.nextInt(20);
+        if(rand) {
+            this.age = randNum * 100 + randNum + random.nextInt(5);
+            randNum = 130 + random.nextInt(80);
+            this.height = randNum * 1000 + randNum + random.nextInt(10);
+            randNum = 30 + random.nextInt(130);
+            this.weight = randNum * 1000 + randNum + random.nextInt(20);
 
+        }else{
+            this.age = randNum   ;
+            randNum = 130 + random.nextInt(80);
+            this.height = randNum  ;
+            randNum = 30 + random.nextInt(130);
+            this.weight = randNum;
+        }
         this.hairColor = HAIR_COLORS[random.nextInt(HAIR_COLORS.length)];
     }
 

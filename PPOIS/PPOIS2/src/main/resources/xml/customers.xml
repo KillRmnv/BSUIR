@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Customers>
+    <Customer FullName="Романов Кирилл Викторович">
+        <Account>69696969</Account>
+        <Address>Минск</Address>
+        <MobilePhone>+333790768</MobilePhone>
+        <TownPhone>+123456789</TownPhone>
+    </Customer>
+
+    <Customer FullName="Иванов Сергей Петрович">
+        <Account>12345678</Account>
+        <Address>ул. Ленина, д. 15, кв. 34</Address>
+        <MobilePhone>+791234567</MobilePhone>
+        <TownPhone>+749512345</TownPhone>
+    </Customer>
+    <Customer FullName="Смирнова Анна Владимировна">
+        <Account>23456789</Account>
+        <Address>пр. Мира, д. 42, кв. 12</Address>
+        <MobilePhone>+792345678</MobilePhone>
+        <TownPhone>+749623456</TownPhone>
+    </Customer>
+    <Customer FullName="Козлов Дмитрий Игоревич">
+        <Account>34567890</Account>
+        <Address>ул. Гагарина, д. 7, кв. 89</Address>
+        <MobilePhone>+793456789</MobilePhone>
+        <TownPhone>+749734567</TownPhone>
+    </Customer>
+    <Customer FullName="Петрова Елена Александровна">
+        <Account>45678901</Account>
+        <Address>ул. Пушкина, д. 23, кв. 56</Address>
+        <MobilePhone>+794567890</MobilePhone>
+        <TownPhone>+749845678</TownPhone>
+    </Customer>
+    <Customer FullName="Соколов Андрей Николаевич">
+        <Account>56789012</Account>
+        <Address>ул. Чехова, д. 11, кв. 3</Address>
+        <MobilePhone>+795678901</MobilePhone>
+        <TownPhone>+749956789</TownPhone>
+    </Customer>
+    <Customer FullName="Михайлова Ольга Сергеевна">
+        <Account>67890123</Account>
+        <Address>пр. Космонавтов, д. 33, кв. 17</Address>
+        <MobilePhone>+796789012</MobilePhone>
+        <TownPhone>+749067890</TownPhone>
+    </Customer>
+    <Customer FullName="Новиков Павел Викторович">
+        <Account>78901234</Account>
+        <Address>ул. Садовая, д. 5, кв. 22</Address>
+        <MobilePhone>+797890123</MobilePhone>
+        <TownPhone>+749178901</TownPhone>
+    </Customer>
+    <Customer FullName="Федорова Мария Дмитриевна">
+        <Account>89012345</Account>
+        <Address>ул. Лесная, д. 9, кв. 45</Address>
+        <MobilePhone>+798901234</MobilePhone>
+        <TownPhone>+749289012</TownPhone>
+    </Customer>
+    <Customer FullName="Васнецов Игорь Олегович">
+        <Account>90123456</Account>
+        <Address>ул. Центральная, д. 18, кв. 7</Address>
+        <MobilePhone>+799012345</MobilePhone>
+        <TownPhone>+749390123</TownPhone>
+    </Customer>
+    <Customer FullName="Белова Татьяна Ивановна">
+        <Account>12345607</Account>
+        <Address>ул. Зеленая, д. 27, кв. 14</Address>
+        <MobilePhone>+790123456</MobilePhone>
+        <TownPhone>+749401234</TownPhone>
+    </Customer>
+    <Customer FullName="Григорьев Артем Сергеевич">
+        <Account>11223344</Account>
+        <Address>ул. Солнечная, д. 3, кв. 8</Address>
+        <MobilePhone>+791112233</MobilePhone>
+        <TownPhone>+749511223</TownPhone>
+    </Customer>
+    <Customer FullName="Дмитриева Анастасия Павловна">
+        <Account>22334455</Account>
+        <Address>пр. Ленинградский, д. 55, кв. 21</Address>
+        <MobilePhone>+792223344</MobilePhone>
+        <TownPhone>+749622334</TownPhone>
+    </Customer>
+    <Customer FullName="Егоров Виктор Андреевич">
+        <Account>33445566</Account>
+        <Address>ул. Речная, д. 12, кв. 33</Address>
+        <MobilePhone>+793334455</MobilePhone>
+        <TownPhone>+749733445</TownPhone>
+    </Customer>
+    <Customer FullName="Жукова Екатерина Михайловна">
+        <Account>44556677</Account>
+        <Address>ул. Горная, д. 6, кв. 19</Address>
+        <MobilePhone>+794445566</MobilePhone>
+        <TownPhone>+749844556</TownPhone>
+    </Customer>
+    <Customer FullName="Зайцев Алексей Владимирович">
+        <Account>55667788</Account>
+        <Address>ул. Парковая, д. 24, кв. 5</Address>
+        <MobilePhone>+795556677</MobilePhone>
+        <TownPhone>+749955667</TownPhone>
+    </Customer>
+    <Customer FullName="Ильина Юлия Олеговна">
+        <Account>66778899</Account>
+        <Address>ул. Весенняя, д. 17, кв. 11</Address>
+        <MobilePhone>+796667788</MobilePhone>
+        <TownPhone>+749066778</TownPhone>
+    </Customer>
+    <Customer FullName="Крылов Антон Петрович">
+        <Account>77889900</Account>
+        <Address>ул. Северная, д. 8, кв. 30</Address>
+        <MobilePhone>+797778899</MobilePhone>
+        <TownPhone>+749177889</TownPhone>
+    </Customer>
+    <Customer FullName="Лебедева Надежда Игоревна">
+        <Account>88990011</Account>
+        <Address>ул. Южная, д. 13, кв. 42</Address>
+        <MobilePhone>+798889900</MobilePhone>
+        <TownPhone>+749288990</TownPhone>
+    </Customer>
+    <Customer FullName="Морозов Денис Александрович">
+        <Account>99001122</Account>
+        <Address>ул. Восточная, д. 20, кв. 25</Address>
+        <MobilePhone>+799990011</MobilePhone>
+        <TownPhone>+749399001</TownPhone>
+    </Customer>
+    <Customer FullName="Никитина Светлана Викторовна">
+        <Account>10012233</Account>
+        <Address>ул. Западная, д. 4, кв. 9</Address>
+        <MobilePhone>+790001122</MobilePhone>
+        <TownPhone>+749400112</TownPhone>
+    </Customer>
+    <Customer FullName="Орлов Максим Сергеевич">
+        <Account>10203040</Account>
+        <Address>ул. Фрунзе, д. 10, кв. 16</Address>
+        <MobilePhone>+791020304</MobilePhone>
+        <TownPhone>+749510203</TownPhone>
+    </Customer>
+    <Customer FullName="Павлова Алина Денисовна">
+        <Account>20304050</Account>
+        <Address>ул. Кирова, д. 22, кв. 38</Address>
+        <MobilePhone>+792030405</MobilePhone>
+        <TownPhone>+749620304</TownPhone>
+    </Customer>
+    <Customer FullName="Романов Кирилл Алексеевич">
+        <Account>30405060</Account>
+        <Address>ул. Советская, д. 14, кв. 7</Address>
+        <MobilePhone>+793040506</MobilePhone>
+        <TownPhone>+749730405</TownPhone>
+    </Customer>
+    <Customer FullName="Семенова Виктория Андреевна">
+        <Account>40506070</Account>
+        <Address>ул. Маяковского, д. 19, кв. 23</Address>
+        <MobilePhone>+794040506</MobilePhone>
+        <TownPhone>+749840506</TownPhone>
+    </Customer>
+    <Customer FullName="Тарасов Артем Ильич">
+        <Account>50607080</Account>
+        <Address>ул. Толстого, д. 31, кв. 12</Address>
+        <MobilePhone>+795050607</MobilePhone>
+        <TownPhone>+749950607</TownPhone>
+    </Customer>
+    <Customer FullName="Устинова Дарья Евгеньевна">
+        <Account>60708090</Account>
+        <Address>ул. Дзержинского, д. 5, кв. 44</Address>
+        <MobilePhone>+796060708</MobilePhone>
+        <TownPhone>+749060708</TownPhone>
+    </Customer>
+    <Customer FullName="Фролов Иван Васильевич">
+        <Account>70809010</Account>
+        <Address>ул. Куйбышева, д. 27, кв. 18</Address>
+        <MobilePhone>+797070809</MobilePhone>
+        <TownPhone>+749170809</TownPhone>
+    </Customer>
+    <Customer FullName="Хохлова Анастасия Сергеевна">
+        <Account>80901020</Account>
+        <Address>ул. Щорса, д. 11, кв. 29</Address>
+        <MobilePhone>+798080901</MobilePhone>
+        <TownPhone>+749280901</TownPhone>
+    </Customer>
+    <Customer FullName="Цветков Михаил Юрьевич">
+        <Account>90102030</Account>
+        <Address>ул. Белинского, д. 9, кв. 6</Address>
+        <MobilePhone>+799090102</MobilePhone>
+        <TownPhone>+749390102</TownPhone>
+    </Customer>
+    <Customer FullName="Шестакова Елена Владимировна">
+        <Account>10200304</Account>
+        <Address>ул. Некрасова, д. 16, кв. 31</Address>
+        <MobilePhone>+790010203</MobilePhone>
+        <TownPhone>+749401020</TownPhone>
+    </Customer>
+    <Customer FullName="Яковлев Александр Дмитриевич">
+        <Account>12121212</Account>
+        <Address>ул. Гоголя, д. 25, кв. 10</Address>
+        <MobilePhone>+791212121</MobilePhone>
+        <TownPhone>+749512121</TownPhone>
+    </Customer>
+    <Customer FullName="Алексеева Кристина Олеговна">
+        <Account>23232323</Account>
+        <Address>ул. Тургенева, д. 8, кв. 15</Address>
+        <MobilePhone>+792323232</MobilePhone>
+        <TownPhone>+749623232</TownPhone>
+    </Customer>
+    <Customer FullName="Борисов Антон Игоревич">
+        <Account>34343434</Account>
+        <Address>ул. Достоевского, д. 13, кв. 27</Address>
+        <MobilePhone>+793434343</MobilePhone>
+        <TownPhone>+749734343</TownPhone>
+    </Customer>
+    <Customer FullName="Воронова Ольга Павловна">
+        <Account>45454545</Account>
+        <Address>ул. Лермонтова, д. 7, кв. 33</Address>
+        <MobilePhone>+794545454</MobilePhone>
+        <TownPhone>+749845454</TownPhone>
+    </Customer>
+    <Customer FullName="Гусев Роман Витальевич">
+        <Account>56565656</Account>
+        <Address>ул. Блока, д. 21, кв. 9</Address>
+        <MobilePhone>+795656565</MobilePhone>
+        <TownPhone>+749956565</TownPhone>
+    </Customer>
+    <Customer FullName="Данилова Арина Алексеевна">
+        <Account>67676767</Account>
+        <Address>ул. Есенина, д. 12, кв. 24</Address>
+        <MobilePhone>+796767676</MobilePhone>
+        <TownPhone>+749067676</TownPhone>
+    </Customer>
+    <Customer FullName="Ефимов Владислав Николаевич">
+        <Account>78787878</Account>
+        <Address>ул. Чехова, д. 18, кв. 41</Address>
+        <MobilePhone>+797878787</MobilePhone>
+        <TownPhone>+749178787</TownPhone>
+    </Customer>
+    <Customer FullName="Жданова Марина Сергеевна">
+        <Account>89898989</Account>
+        <Address>ул. Твардовского, д. 4, кв. 13</Address>
+        <MobilePhone>+798989898</MobilePhone>
+        <TownPhone>+749289898</TownPhone>
+    </Customer>
+    <Customer FullName="Зимин Артём Валерьевич">
+        <Account>90909090</Account>
+        <Address>ул. Фадеева, д. 30, кв. 22</Address>
+        <MobilePhone>+799090909</MobilePhone>
+        <TownPhone>+749390909</TownPhone>
+    </Customer>
+    <Customer FullName="Исаева Динара Рашидовна">
+        <Account>10100101</Account>
+        <Address>ул. Шолохова, д. 17, кв. 8</Address>
+        <MobilePhone>+790010101</MobilePhone>
+        <TownPhone>+749401010</TownPhone>
+    </Customer>
+    <Customer FullName="Карпов Илья Андреевич">
+        <Account>11223344</Account>
+        <Address>ул. Островского, д. 11, кв. 35</Address>
+        <MobilePhone>+791122334</MobilePhone>
+        <TownPhone>+749511223</TownPhone>
+    </Customer>
+    <Customer FullName="Ларина Валерия Денисовна">
+        <Account>22334455</Account>
+        <Address>ул. Короленко, д. 6, кв. 19</Address>
+        <MobilePhone>+792233445</MobilePhone>
+        <TownPhone>+749622334</TownPhone>
+    </Customer>
+    <Customer FullName="Медведев Павел Олегович">
+        <Account>33445566</Account>
+        <Address>ул. Грибоедова, д. 14, кв. 28</Address>
+        <MobilePhone>+793344556</MobilePhone>
+        <TownPhone>+749733445</TownPhone>
+    </Customer>
+    <Customer FullName="Носова Ангелина Игоревна">
+        <Account>44556677</Account>
+        <Address>ул. Барто, д. 9, кв. 16</Address>
+        <MobilePhone>+794455667</MobilePhone>
+        <TownPhone>+749844556</TownPhone>
+    </Customer>
+    <Customer FullName="Овчинников Денис Владимирович">
+        <Account>55667788</Account>
+        <Address>ул. Терешковой, д. 23, кв. 7</Address>
+        <MobilePhone>+795566778</MobilePhone>
+        <TownPhone>+749955667</TownPhone>
+    </Customer>
+    <Customer FullName="Панова Анастасия Романовна">
+        <Account>66778899</Account>
+        <Address>ул. Чайковского, д. 15, кв. 20</Address>
+        <MobilePhone>+796677889</MobilePhone>
+        <TownPhone>+749066778</TownPhone>
+    </Customer>
+    <Customer FullName="Рыбаков Артём Сергеевич">
+        <Account>77889900</Account>
+        <Address>ул. Менделеева, д. 12, кв. 11</Address>
+        <MobilePhone>+797788990</MobilePhone>
+        <TownPhone>+749177889</TownPhone>
+    </Customer>
+    <Customer FullName="Савельева Ксения Андреевна">
+        <Account>88990011</Account>
+        <Address>ул. Попова, д. 8, кв. 34</Address>
+        <MobilePhone>+798899001</MobilePhone>
+        <TownPhone>+749288990</TownPhone>
+    </Customer>
+    <Customer FullName="Тимофеев Глеб Ильич">
+        <Account>99001122</Account>
+        <Address>ул. Куприна, д. 19, кв. 25</Address>
+        <MobilePhone>+799900112</MobilePhone>
+        <TownPhone>+749399001</TownPhone>
+    </Customer>
+    <Customer FullName="Ульянова София Максимовна">
+        <Account>11223003</Account>
+        <Address>ул. Радищева, д. 10, кв. 5</Address>
+        <MobilePhone>+790011223</MobilePhone>
+        <TownPhone>+749401122</TownPhone>
+    </Customer>
+</Customers>

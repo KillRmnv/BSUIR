@@ -77,7 +77,7 @@ public class ConsoleInput implements Input {
 
                 int num1 = Integer.parseInt(parts[0].trim());
                 int num2 = Integer.parseInt(parts[1].trim());
-                if (num1 > max || num2 > max || num1 < min || num2 < min) {
+                if (num1 > max || num2 > max || num1 < min || num2 < min||num1>num2) {
                     throw new RuntimeException("Выход за границы.");
                 }
                 numbers.add(num1);
@@ -97,6 +97,7 @@ public class ConsoleInput implements Input {
     @Override
     public String getRegex(String prompt, String regex) {
         System.out.println(prompt);
+        clearBuffer();
         while (true) {
             try {
                String input= scanner.nextLine();
@@ -158,9 +159,8 @@ public class ConsoleInput implements Input {
 
     @Override
     public boolean handleQTE() {
-        long endTime = System.currentTimeMillis() + 2000; // 2 секунды на реакцию
+        long endTime = System.currentTimeMillis() + 2000;
         try {
-            // Очистка буфера ввода перед началом QTE
             while (System.in.available() > 0) {
                 System.in.read();
             }
@@ -168,7 +168,7 @@ public class ConsoleInput implements Input {
             while (System.currentTimeMillis() < endTime) {
                 if (System.in.available() > 0) {
                     int input = System.in.read();
-                    if (input == ' ' || input == '\n' || input == '\r') { // Проверка пробела или Enter
+                    if (input == ' ' || input == '\n' || input == '\r') {
                         return true;
                     }
                 }
@@ -193,5 +193,22 @@ public class ConsoleInput implements Input {
     @Override
     public void showNum(int num){
         System.out.print(num+".");
+    }
+
+    @Override
+    public String getLine(String prompt) {
+        System.out.println(prompt);
+        clearBuffer();
+        return scanner.nextLine();
+    }
+    public void clearBuffer() {
+        if (!scanner.hasNext()) {
+            return;
+        }
+
+        if (scanner.hasNext("\\R")) {
+            scanner.nextLine();
+        }
+        scanner.skip("\\s*");
     }
 }

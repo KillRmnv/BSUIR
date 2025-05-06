@@ -32,11 +32,10 @@ public class StateMachine {
         } else {
             File file = new File("./src/main/resources/"+getStateFileName());
             file.delete();
-            loaded = true;
         }
         currentStateClassName = state.getClass().getName();
-        State next=null;
         while (currentState != null) {
+            saveCurrentStateName();
             currentState.run(context);
             currentState = currentState.next(context);
 
@@ -45,7 +44,6 @@ public class StateMachine {
             }
 
             saveContextToFile();
-            saveCurrentStateName();
         }
         File file = new File("./src/main/resources/"+getStateFileName());
         if (file.exists())
