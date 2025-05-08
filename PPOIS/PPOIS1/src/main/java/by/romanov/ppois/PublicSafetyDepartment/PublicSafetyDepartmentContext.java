@@ -1,6 +1,8 @@
 package by.romanov.ppois.PublicSafetyDepartment;
 
 import by.romanov.ppois.*;
+import by.romanov.ppois.Entities.Law;
+import by.romanov.ppois.Entities.LawRegistry;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -9,32 +11,41 @@ import java.util.HashMap;
 @Data
 public class PublicSafetyDepartmentContext implements Context {
     private TransferData transfer;
+    private String page;
     @JsonIgnore
-    private Input input;
+    private Source source;
+    @JsonIgnore
+    private UserInterface userInterface;
     private HashMap<Integer, Law> criminalLaws;
     @JsonIgnore
     private State next;
     public PublicSafetyDepartmentContext() {
-        input=new ConsoleInput();
+        userInterface=new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
     public PublicSafetyDepartmentContext(LawRegistry laws){
         criminalLaws=laws.getCRIMINAL_LAWS();
-        input=new ConsoleInput();
         transfer=new TransferData();
+        userInterface=new ConsoleUserInterface(new ConsoleInput());
+        page="";
+        source=new JacksonSerializer();
     }
     public PublicSafetyDepartmentContext(Input input) {
-        this.input=input;
         transfer=new TransferData();
         criminalLaws=new LawRegistry().getCRIMINAL_LAWS();
+        userInterface=new ConsoleUserInterface(input);
+        page="";
+        source=new JacksonSerializer();
     }
+    @JsonIgnore
     @Override
     public void setInput(Input input) {
-        this.input =  input;
+        userInterface.setInput(input);
     }
-
+    @JsonIgnore
     @Override
     public Input getInput() {
-        return (Input) input;
+        return  userInterface.getInput();
     }
 
     @Override

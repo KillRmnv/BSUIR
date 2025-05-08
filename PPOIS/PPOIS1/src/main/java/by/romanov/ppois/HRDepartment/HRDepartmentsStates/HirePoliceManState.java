@@ -3,7 +3,7 @@ package by.romanov.ppois.HRDepartment.HRDepartmentsStates;
 import by.romanov.ppois.Context;
 import by.romanov.ppois.HRDepartment.HRDepartmentContext;
 import by.romanov.ppois.HRDepartment.HRDepartmentInput;
-import by.romanov.ppois.PoliceMan;
+import by.romanov.ppois.Entities.PoliceMan;
 import by.romanov.ppois.State;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class HirePoliceManState implements State {
         List<PoliceMan> newPoliceMans = new ArrayList<>();
         Random random = new Random();
         int choice=0;
-        input.showBudget(hrContext.getBudget());
+        context.getUserInterface().show("Бюджет:" + hrContext.getBudget());
         do {
             for (int index = 0; index < 10; index++) {
                 int randomId = random.nextInt();
@@ -27,9 +27,13 @@ public class HirePoliceManState implements State {
                 }
                 PoliceMan newOne = new PoliceMan(randomId);
                 newPoliceMans.add(newOne);
-                input.showPoliceManInfo(newOne.Info(),index);
+                context.getUserInterface().showNum(index);
+                context.getUserInterface().show(newOne.Info());
             }
-            input.showLastTwoHireOptions();
+            context.getUserInterface().show("""
+                10.Обновить
+                11.Назад
+                """);
             choice = input.getPoliceManHireChoice();
             if (choice == 11) {
                 break;

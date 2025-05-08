@@ -14,7 +14,7 @@ public class SchoolCampaigningState implements State {
         PublicSafetyDepartmentInput pubSafeInput=new PublicSafetyDepartmentInput(publicSafetyDepartmentContext.getInput());
         int choice=pubSafeInput.chooseSchool();
         String school="Школа №"+choice;
-        pubSafeInput.showSchool(school);
+        context.getUserInterface().show("Патруль отправился в "+school);
     }
 
     @Override

@@ -4,6 +4,7 @@ import by.romanov.ppois.Context;
 import by.romanov.ppois.EnforcementDepartment.EnforcementDepartmentContext;
 import by.romanov.ppois.InvestigationDepartment.InvestigationDepartmentContext;
 
+import by.romanov.ppois.JacksonSerializer;
 import by.romanov.ppois.Police.PoliceContext;
 import by.romanov.ppois.State;
 import by.romanov.ppois.StateMachine;
@@ -20,8 +21,8 @@ public class NewEnforcementDepartmentCaseState implements State {
         PoliceContext policeContext = (PoliceContext) context;
         var newCase = ((InvestigationDepartmentContext) policeContext.getInvestigationDepartment().getContext()).getTransfer().getCaseData();
         ((EnforcementDepartmentContext) policeContext.getEnforcementDepartment().getContext()).addCase(newCase);
-        StateMachine.saveContextToFile(policeContext.getInvestigationDepartment().getContext());
-        StateMachine.saveContextToFile(policeContext.getEnforcementDepartment().getContext());
+        policeContext.getSource().saveContextToFile(policeContext.getInvestigationDepartment().getContext());
+        policeContext.getSource().saveContextToFile(policeContext.getEnforcementDepartment().getContext());
     }
 
     @Override

@@ -12,9 +12,9 @@ public class ManipulatingSuspectSourceState implements State {
     @Override
     public State next(Context context) {
         ControlCentereInput input = new ControlCentereInput(((ControlCentreContext) context).getInput());
-        switch (input.chooseDbAction()) {
+        switch (input.chooseSourceAction()) {
             case 1:
-                input.show(((ControlCentreContext) context).getSuspectSource().getSuspects());
+                input.show(((ControlCentreContext) context).getSuspectSource().getSuspects(),context.getUserInterface());
                 break;
             case 2:
                 return  new DeleteSuspectState();

@@ -1,4 +1,4 @@
-package by.romanov.ppois;
+package by.romanov.ppois.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -42,7 +42,7 @@ public class Case {
 
     public Case(HashMap<Integer, Law> laws) {
         Random randLaw = new Random();
-        Integer rand = randLaw.nextInt(laws.size());
+        Integer rand = randLaw.nextInt(laws.size()-1);
         Law brokenLaw = laws.get(rand);
         contacts = generateRandomContacts();
         type = 1;

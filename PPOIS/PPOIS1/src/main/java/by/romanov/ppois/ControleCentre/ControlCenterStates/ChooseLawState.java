@@ -13,7 +13,7 @@ public class ChooseLawState implements State {
         ControlCentreContext controlCentreContext = (ControlCentreContext) context;
         ControlCentereInput input=new ControlCentereInput( controlCentreContext.getInput());
         var newCase=controlCentreContext.getCurrentCase();
-        newCase.setLaw(input.chooseLaw(newCase.getType(),controlCentreContext.getLawRegistry()));
+        newCase.setLaw(input.chooseLaw(newCase.getType(),controlCentreContext.getLawRegistry(),context.getUserInterface()));
         controlCentreContext.setCurrentCase(newCase);
         //controlCentreContext.getTransfer().setCaseData(newCase);
     }

@@ -101,7 +101,8 @@ public class SearchController implements Initializable {
     public void prevPage() {
         pageNumber--;
         pageLabel.setText("Page:" + pageNumber);
-        tableView.setItems(FXCollections.observableArrayList(searchResults.subList(pageNumber, (pageNumber + 1)
+        tableView.setItems(FXCollections.observableArrayList(searchResults.subList(pageNumber
+                *CustomerProcessingSystemConstants.amountOfCustomersOnPage, (pageNumber + 1)
                 * CustomerProcessingSystemConstants.amountOfCustomersOnPage)));
         if (pageNumber == 0) {
             ViewObjectsBuilder.hideButton(prevPageButton);

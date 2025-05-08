@@ -57,11 +57,6 @@ public class ConsoleInput implements Input {
     }
 
     @Override
-    public void show(String message) {
-        System.out.println(message);
-    }
-
-    @Override
     public List<Integer> getNumberRange(String prompt, int min, int max) {
         System.out.println(prompt);
         List<Integer> numbers = new ArrayList<>();
@@ -77,7 +72,7 @@ public class ConsoleInput implements Input {
 
                 int num1 = Integer.parseInt(parts[0].trim());
                 int num2 = Integer.parseInt(parts[1].trim());
-                if (num1 > max || num2 > max || num1 < min || num2 < min||num1>num2) {
+                if (num1 > max || num2 > max || num1 < min || num2 < min || num1 > num2) {
                     throw new RuntimeException("Выход за границы.");
                 }
                 numbers.add(num1);
@@ -100,7 +95,7 @@ public class ConsoleInput implements Input {
         clearBuffer();
         while (true) {
             try {
-               String input= scanner.nextLine();
+                String input = scanner.nextLine();
                 if (Pattern.compile(regex).matcher(input).find()) {
                     return input;
                 } else {
@@ -113,32 +108,27 @@ public class ConsoleInput implements Input {
     }
 
     @Override
-    public void showNumericRange(String prompt, int min, int max) {
-        System.out.println(prompt);
-        System.out.print(min + "-" + max);
-        System.out.println();
-    }
-
-    @Override
-    public <K,V> int getChoiceFromMap(String prompt, Map<K, V> map) throws NoSuchMethodException, IllegalArgumentException, InvocationTargetException, IllegalAccessException {
+    public <K, V> int getChoiceFromMap(String prompt, Map<K, V> map) throws NoSuchMethodException, IllegalArgumentException,
+            InvocationTargetException, IllegalAccessException {
         System.out.println(prompt);
         List<K> keys = new ArrayList<>();
-        int index=0;
+        int index = 0;
         for (var key : map.keySet()) {
             System.out.println(index + ":");
             Method infoMethod;
             try {
                 infoMethod = map.get(key).getClass().getDeclaredMethod("Info");
             } catch (NoSuchMethodException e) {
-                throw new NoSuchMethodException("В множестве значений экземпляров map должен быть реализован метод Info," +
-                        " который возвращает List<String> с информацией о полях класса");
+                throw new NoSuchMethodException("В множестве значений экземпляров map должен быть реализован метод Info," + " который возвращает List<String> с информацией о полях класса");
             }
             if (!infoMethod.getReturnType().equals(List.class)) {
                 throw new IllegalArgumentException("Метод Info должен возвращать List<String>");
             }
             infoMethod.setAccessible(true);
             List<String> info = (List<String>) infoMethod.invoke(map.get(key));
-            show(info);
+            for (int i= 0; i < info.size(); i++) {
+                System.out.println(info.get(i));
+            }
             keys.add(key);
             index++;
         }
@@ -146,7 +136,7 @@ public class ConsoleInput implements Input {
         while (true) {
             try {
                 choiceInt = scanner.nextInt();
-                if (choiceInt>=keys.size()) {
+                if (choiceInt >= keys.size()) {
                     throw new Exception("Такого ключа нет");
                 }
                 break;
@@ -185,22 +175,12 @@ public class ConsoleInput implements Input {
     }
 
     @Override
-    public void show(List<String> messages) {
-        for (int index = 0; index < messages.size(); index++) {
-            System.out.println(messages.get(index));
-        }
-    }
-    @Override
-    public void showNum(int num){
-        System.out.print(num+".");
-    }
-
-    @Override
     public String getLine(String prompt) {
         System.out.println(prompt);
         clearBuffer();
         return scanner.nextLine();
     }
+
     public void clearBuffer() {
         if (!scanner.hasNext()) {
             return;

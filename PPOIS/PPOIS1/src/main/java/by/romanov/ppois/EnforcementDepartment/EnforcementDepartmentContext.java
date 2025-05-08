@@ -1,6 +1,8 @@
 package by.romanov.ppois.EnforcementDepartment;
 
 import by.romanov.ppois.*;
+import by.romanov.ppois.Entities.Case;
+import by.romanov.ppois.Entities.PoliceMan;
 import by.romanov.ppois.Police.PoliceStates.InitialState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -13,49 +15,69 @@ import java.util.Map;
 
 @Data
 public class EnforcementDepartmentContext implements Context {
-    @JsonIgnore
-    private Input input;
+
     private List<Case> cases;
-    int choice;
+    private int choice;
+    @JsonIgnore
+    private UserInterface userInterface;
     @JsonIgnore
     private State nextStage;
     private Map<Integer, PoliceMan> policeMans;
     @Setter
-    private  int policeMan;
+    private int policeMan;
     private TransferData transfer;
-   public EnforcementDepartmentContext(){
+    @JsonIgnore
+    private Source source;
+
+    public EnforcementDepartmentContext() {
         policeMans = new HashMap<>();
         cases = new ArrayList<>();
-        transfer=new TransferData();
-        input=new ConsoleInput();
+        transfer = new TransferData();
+        userInterface = new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
-    public EnforcementDepartmentContext(HashMap<Integer, PoliceMan> policeMans){
+
+    public EnforcementDepartmentContext(HashMap<Integer, PoliceMan> policeMans) {
         this.policeMans = policeMans;
         cases = new ArrayList<>();
-        input=new ConsoleInput();
-        nextStage=new InitialState();
-        transfer=new TransferData();
+        nextStage = new InitialState();
+        transfer = new TransferData();
+        userInterface = new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
-    public EnforcementDepartmentContext(Input input){
-       this.input=input;
-       cases = new ArrayList<>();
-       transfer=new TransferData();
-       nextStage=new InitialState();
-       this.policeMans = new HashMap<>();
 
+    public EnforcementDepartmentContext(Input input) {
+        cases = new ArrayList<>();
+        transfer = new TransferData();
+        nextStage = new InitialState();
+        this.policeMans = new HashMap<>();
+        userInterface = new ConsoleUserInterface(input);
+        source=new JacksonSerializer();
     }
+
     public void addCase(Case newCase) {
         cases.add(newCase);
     }
 
     @Override
-    public void setInput(Input input) {
-        this.input= input;
+    public void setUserInterface(UserInterface userInterface) {
+        this.userInterface = userInterface;
     }
 
+
+    @Override
+    public UserInterface getUserInterface() {
+        return userInterface;
+    }
+    @JsonIgnore
+    @Override
+    public void setInput(Input input) {
+        userInterface.setInput(input);
+    }
+    @JsonIgnore
     @Override
     public Input getInput() {
-        return  input;
+        return userInterface.getInput();
     }
 
     @Override
@@ -64,7 +86,8 @@ public class EnforcementDepartmentContext implements Context {
     public State getNextState() {
         return new InitialState();
     }
-    public void delCase(int index){
+
+    public void delCase(int index) {
         cases.remove(index);
     }
 }

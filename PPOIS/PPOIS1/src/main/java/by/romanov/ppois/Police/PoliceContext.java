@@ -5,6 +5,7 @@ import by.romanov.ppois.ControleCentre.ControlCentre;
 import by.romanov.ppois.ControleCentre.ControlCentreContext;
 import by.romanov.ppois.EnforcementDepartment.EnforcementDepartment;
 import by.romanov.ppois.EnforcementDepartment.EnforcementDepartmentContext;
+import by.romanov.ppois.Entities.*;
 import by.romanov.ppois.HRDepartment.HRDepartment;
 import by.romanov.ppois.HRDepartment.HRDepartmentContext;
 import by.romanov.ppois.InvestigationDepartment.InvestigationDepartment;
@@ -20,7 +21,9 @@ import java.util.HashMap;
 @Data
 public class PoliceContext implements Context {
     @JsonIgnore
-    private Input input;
+    private Source source;
+    @JsonIgnore
+    private UserInterface userInterface;
     private Department choice;
     private ControlCentre controlCentre;
     private EnforcementDepartment enforcementDepartment;
@@ -47,22 +50,25 @@ public class PoliceContext implements Context {
         investigationDepartment = new InvestigationDepartment(new InvestigationDepartmentContext(suspectSource));
         enforcementDepartment = new EnforcementDepartment(new EnforcementDepartmentContext(policeMans));
         hrDepartment = new HRDepartment(new HRDepartmentContext(policeMans));
-        input = new ConsoleInput();
         publicSafetyDepartment=new PublicSafetyDepartment(new PublicSafetyDepartmentContext(laws));
+        userInterface=new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
-    public PoliceContext(ControlCentreContext controlCentreContext,InvestigationDepartmentContext investigationDepartmentContext,EnforcementDepartmentContext enforcementDepartmentCont
+    public PoliceContext(ControlCentreContext controlCentreContext,InvestigationDepartmentContext investigationDepartmentContext,
+                         EnforcementDepartmentContext enforcementDepartmentCont
     ,HRDepartmentContext hrDepartmentContext,PublicSafetyDepartmentContext publicSafetyDepartmentContext) throws Exception {
         controlCentre = new ControlCentre(controlCentreContext);
         investigationDepartment = new InvestigationDepartment(investigationDepartmentContext);
         enforcementDepartment = new EnforcementDepartment(enforcementDepartmentCont);
         hrDepartment = new HRDepartment(hrDepartmentContext);
-        input = new ConsoleInput();
         publicSafetyDepartment=new PublicSafetyDepartment(publicSafetyDepartmentContext);
+        userInterface=new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
-
+    @JsonIgnore
     @Override
     public void setInput(Input input) {
-        this.input = input;
+        userInterface.setInput(input);
     }
 
     @Override
@@ -71,10 +77,10 @@ public class PoliceContext implements Context {
     public State getNextState() {
         return new InitialState();
     }
-
+    @JsonIgnore
     @Override
     public Input getInput() {
-        return (Input) input;
+        return (Input) userInterface.getInput();
     }
 
     public void setDepartment(Department department) {

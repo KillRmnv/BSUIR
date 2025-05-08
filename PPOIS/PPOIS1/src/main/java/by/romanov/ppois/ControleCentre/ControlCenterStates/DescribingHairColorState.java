@@ -6,8 +6,8 @@ import by.romanov.ppois.ControleCentre.ControlCentreContext;
 import by.romanov.ppois.Police.PoliceStates.InitialState;
 import by.romanov.ppois.Police.PoliceStates.NewCaseState;
 import by.romanov.ppois.State;
-import by.romanov.ppois.Suspect;
-import by.romanov.ppois.SuspectSource;
+import by.romanov.ppois.Entities.Suspect;
+import by.romanov.ppois.Entities.SuspectSource;
 
 import java.lang.reflect.InvocationTargetException;
 

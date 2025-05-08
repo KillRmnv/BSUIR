@@ -3,6 +3,9 @@ package by.romanov.ppois.EnforcementDepartment.EnforcementDepartmentStates;
 import by.romanov.ppois.*;
 import by.romanov.ppois.EnforcementDepartment.EnforcementDepartmentContext;
 import by.romanov.ppois.EnforcementDepartment.EnforcementDepartmentInput;
+import by.romanov.ppois.Entities.Case;
+import by.romanov.ppois.Entities.PoliceMan;
+import by.romanov.ppois.Entities.Suspect;
 import by.romanov.ppois.Police.PoliceStates.PoliceManDeathState;
 
 import java.lang.reflect.InvocationTargetException;
@@ -12,24 +15,22 @@ public class CatchingSuspectState implements State {
     @Override
     public void run(Context context) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         EnforcementDepartmentContext contextEnforcementDepartment = (EnforcementDepartmentContext) context;
-        EnforcementDepartmentInput input=new EnforcementDepartmentInput( contextEnforcementDepartment.getInput());
-        if(!contextEnforcementDepartment.getCases().isEmpty()) {
+        EnforcementDepartmentInput input = new EnforcementDepartmentInput(contextEnforcementDepartment.getInput());
+        if (!contextEnforcementDepartment.getCases().isEmpty()) {
             Case currCase = contextEnforcementDepartment.getCases().get(contextEnforcementDepartment.getChoice());
             Suspect suspect = currCase.getSuspects().getFirst();
             int numPoliceMan = input.
                     choosePoliceMan(contextEnforcementDepartment.getPoliceMans());
             contextEnforcementDepartment.setPoliceMan(numPoliceMan);
-
-
             PoliceMan policeMan = contextEnforcementDepartment.getPoliceMans().get(numPoliceMan);
             int decreaseInChance = 0;
             if (input.chooseAction() == 1) {
-                input.qteMessage();
+                contextEnforcementDepartment.getUserInterface().show("Критическая ситуация:быстро нажмите ПРОБЕЛ (у вас 2 секунды)!");
                 if (context.getInput().handleQTE()) {
-                    input.successQTE();
+                    contextEnforcementDepartment.getUserInterface().show("Шанс поимки увеличен!");
                     decreaseInChance = -1;
-                }else{
-                    input.failureQTE();
+                } else {
+                    contextEnforcementDepartment.getUserInterface().show("Вы не успели");
                 }
             }
 
@@ -37,22 +38,30 @@ public class CatchingSuspectState implements State {
                 int currTry = tryToCatch(policeMan, suspect, decreaseInChance, context);
                 if (currTry == 0) {
                     decreaseInChance++;
-                    input.Failure();
+                    contextEnforcementDepartment.getUserInterface().show("Преступник ускользнул!");
+
                 } else if (currTry == 1) {
-                    input.Success();
-                    input.suspectCaught(currCase.getLaw());
+                    contextEnforcementDepartment.getUserInterface().show("Преступник пойман!");
+                    contextEnforcementDepartment.getUserInterface().show("""
+                            Преступник пойман и наказан:
+                            """ + currCase.getLaw().getPunishment());
+
                     contextEnforcementDepartment.delCase(contextEnforcementDepartment.getChoice());
                     return;
                 } else {
-                    input.deathOfPoliceman();
+                    contextEnforcementDepartment.getUserInterface().show("Критический провал:полицейский убит,преступник ускользнул!")
+                    ;
+
                     contextEnforcementDepartment.setNextStage(new PoliceManDeathState());
                     return;
                 }
             }
-            input.suspectEscaped();
+            contextEnforcementDepartment.getUserInterface().show("Преступник скрылся. Дело отправлено в архив");
+
             contextEnforcementDepartment.delCase(contextEnforcementDepartment.getChoice());
-        }else{
-            input.noCaseMessage();
+        } else {
+            contextEnforcementDepartment.getUserInterface().show("Дел нет");
+
         }
     }
 
@@ -62,7 +71,7 @@ public class CatchingSuspectState implements State {
         return null;
     }
 
-    private int tryToCatch(PoliceMan policeMan, Suspect suspect, int decreaseInChance,Context context) {
+    private int tryToCatch(PoliceMan policeMan, Suspect suspect, int decreaseInChance, Context context) {
         double randomFactor = 1 + (Math.random() * 0.2 - 0.1);
         double chance = ((double) policeMan.getExperience() / (policeMan.getExperience() + suspect.getIntellegence())) * 100 * randomFactor;
         chance = chance + decreaseInChance * (chance * 0.05);
@@ -73,7 +82,8 @@ public class CatchingSuspectState implements State {
         } else if (tryToCatch > chance * 0.2) {
             return 0;
         } else {
-            ((EnforcementDepartmentInput) context.getInput()).qteMessageCriticFailure();
+            context.getUserInterface().show("Критическая ситуация:быстро нажмите ПРОБЕЛ (у вас 2 секунды)!");
+
             if (context.getInput().handleQTE()) {
                 return 0;
             }

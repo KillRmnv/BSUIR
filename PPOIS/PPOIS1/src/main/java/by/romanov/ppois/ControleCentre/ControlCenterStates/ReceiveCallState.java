@@ -3,6 +3,7 @@ package by.romanov.ppois.ControleCentre.ControlCenterStates;
 import by.romanov.ppois.*;
 import by.romanov.ppois.ControleCentre.ControlCentereInput;
 import by.romanov.ppois.ControleCentre.ControlCentreContext;
+import by.romanov.ppois.Entities.Case;
 import by.romanov.ppois.Police.PoliceStates.NewCaseState;
 
 public class ReceiveCallState implements State {

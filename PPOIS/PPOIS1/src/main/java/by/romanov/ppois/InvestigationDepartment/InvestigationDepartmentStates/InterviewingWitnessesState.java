@@ -1,6 +1,10 @@
 package by.romanov.ppois.InvestigationDepartment.InvestigationDepartmentStates;
 
 import by.romanov.ppois.*;
+import by.romanov.ppois.Entities.Case;
+import by.romanov.ppois.Entities.Suspect;
+import by.romanov.ppois.Entities.SuspectSource;
+import by.romanov.ppois.Entities.Traits;
 import by.romanov.ppois.InvestigationDepartment.InvestigationDepartmentContext;
 import by.romanov.ppois.InvestigationDepartment.InvestigationDepartmentInput;
 import by.romanov.ppois.Police.PoliceStates.NewEnforcementDepartmentCaseState;
@@ -18,7 +22,10 @@ public class InterviewingWitnessesState implements State {
         List<String> contacts = currentCase.getContacts();
         for (var contact : contacts) {
             Traits newTrait = new Traits(true);
-            input.interview(contact, newTrait);
+            context.getUserInterface().show("Цвет волос: "+newTrait.getHairColor());
+            context.getUserInterface().showNumericRange("Вес: ", newTrait.getWeight() / 1000, newTrait.getWeight() % 1000);
+            context.getUserInterface().showNumericRange("Рост: ", newTrait.getHeight() / 1000, newTrait.getHeight() % 1000);
+            context.getUserInterface().showNumericRange("Возраст: ", newTrait.getAge() / 100, newTrait.getAge() % 100);
             witnessTraits.add(newTrait);
         }
         AtomicInteger maxWitnesses = new AtomicInteger(0);

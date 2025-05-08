@@ -1,5 +1,7 @@
 package by.romanov.ppois;
 
+import by.romanov.ppois.Entities.PoliceMan;
+import by.romanov.ppois.Entities.Traits;
 import by.romanov.ppois.HRDepartment.HRDepartmentContext;
 import by.romanov.ppois.Police.PoliceStates.InitialState;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +18,9 @@ class MockInput implements Input {
     public String getString() {
         return "";
     }
-
+    public String getLine(){
+        return "";
+    }
 
     public int getInt() {
         return 0;
@@ -38,10 +42,6 @@ class MockInput implements Input {
     }
 
     @Override
-    public void show(String message) {
-    }
-
-    @Override
     public List<Integer> getNumberRange(String prompt, int min, int max) {
         return List.of(min, max);
     }
@@ -51,9 +51,6 @@ class MockInput implements Input {
         return "";
     }
 
-    @Override
-    public void showNumericRange(String prompt, int min, int max) {
-    }
 
     @Override
     public <K, V> int getChoiceFromMap(String prompt, Map<K, V> map) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -65,12 +62,11 @@ class MockInput implements Input {
         return false;
     }
 
-    @Override
-    public void show(List<String> messages) {
-    }
+
 
     @Override
-    public void showNum(int num) {
+    public String getLine(String prompt) {
+        return "";
     }
 }
 

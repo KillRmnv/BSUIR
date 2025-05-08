@@ -1,6 +1,9 @@
 package by.romanov.ppois.ControleCentre;
 
 import by.romanov.ppois.*;
+import by.romanov.ppois.Entities.Law;
+import by.romanov.ppois.Entities.LawRegistry;
+import by.romanov.ppois.Entities.Suspect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +20,14 @@ public class ControlCentereInput {
         this.input = input;
     }
 
-    public Law chooseLaw(int choiceInt, LawRegistry laws) {
+    public Law chooseLaw(int choiceInt, LawRegistry laws, UserInterface userInterface) {
         switch (choiceInt) {
             case 1:
-                input.show(laws.printCriminalLaws());
+                userInterface.show(laws.printCriminalLaws());
                 return laws.getCRIMINAL_LAWS().get(input.getChoice("Введите номер закона", 1, 10)-1);
 
             case 2:
-                input.show(laws.printAdminLaws());
+                userInterface.show(laws.printAdminLaws());
                 return laws.getADMIN_LAWS().get(input.getChoice("Введите номер закона", 1, 10)-1);
         }
         return null;
@@ -106,19 +109,19 @@ public class ControlCentereInput {
                 2. Действия с списоком подозреваемых 
                 """, 1, 2);
     }
-    public int chooseDbAction(){
+    public int chooseSourceAction(){
         return input.getChoice("""
                 1. Просмотреть список подозреваемых
                 2. Удалить из списка подозреваемых
                 3. Добавить в список подозреваемых
                 """, 1, 3);
     }
-    public void show(Map<String, Suspect> suspectMap){
+    public void show(Map<String, Suspect> suspectMap, UserInterface userInterface){
         int index=0;
         for(var suspect : suspectMap.values()) {
-            input.showNum(index);
+            userInterface.showNum(index);
             index++;
-            input.show(suspect.Info());
+            userInterface.show(suspect.Info());
         }
     }
     public int exactHeight() {
@@ -139,10 +142,5 @@ public class ControlCentereInput {
     public String fullName(){
         return input.getLine("Имя Фамилия Отчество:");
     }
-    public void noSuchSuspect(){
-        input.show("Такого подозреваемого нет");
-    }
-    public void successfulDeleteSuspect(){
-        input.show("Список подозреваемых обновлен");
-    }
+
 }

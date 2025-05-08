@@ -1,6 +1,9 @@
 package by.romanov.ppois.ControleCentre;
 
 import by.romanov.ppois.*;
+import by.romanov.ppois.Entities.Case;
+import by.romanov.ppois.Entities.LawRegistry;
+import by.romanov.ppois.Entities.SuspectSource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -9,46 +12,61 @@ public class ControlCentreContext implements Context {
     private LawRegistry lawRegistry;
     private SuspectSource suspectSource;
     @JsonIgnore
-    private Input input;
+    private UserInterface userInterface;
     @JsonIgnore
     private State nextStage;
     private Boolean isReceivingCall;
     private TransferData transfer;
     private Case currentCase;
+    @JsonIgnore
+    private Source source;
 
     public ControlCentreContext(SuspectSource suspectSource, LawRegistry lawRegistry) {
         this.suspectSource = suspectSource;
-        this.input = new ConsoleInput();
         this.lawRegistry = lawRegistry;
         transfer=new TransferData();
         isReceivingCall=false;
+        userInterface=new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
 
     public ControlCentreContext() {
         this.suspectSource = new SuspectSource();
-        this.input = new ConsoleInput();
         this.lawRegistry = new LawRegistry();
         transfer=new TransferData();
         isReceivingCall=false;
         currentCase=new Case();
+        userInterface=new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
 
     public ControlCentreContext(Input input) {
         this.suspectSource = new SuspectSource();
-        this.input = input;
         this.lawRegistry = new LawRegistry();
         transfer=new TransferData();
         isReceivingCall=false;
+        userInterface=new ConsoleUserInterface(input);
+        source=new JacksonSerializer();
     }
 
+    @Override
+    public void setUserInterface(UserInterface userInterface) {
+        this.userInterface = userInterface;
+    }
+
+    @Override
+    public UserInterface getUserInterface() {
+        return userInterface;
+    }
+    @JsonIgnore
     @Override
     public void setInput(Input input) {
-        this.input = input;
+        userInterface.setInput(input);
     }
-
+    @JsonIgnore
     @Override
     public Input getInput() {
-        return input;
+        return userInterface.getInput();
     }
     @JsonIgnore
 

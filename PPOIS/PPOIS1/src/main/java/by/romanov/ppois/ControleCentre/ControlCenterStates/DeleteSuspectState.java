@@ -13,9 +13,9 @@ public class DeleteSuspectState implements State {
     public void run(Context context) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         ControlCentereInput input = new ControlCentereInput(((ControlCentreContext) context).getInput());
       if(!((ControlCentreContext) context).getSuspectSource().deleteSuspect(input.fullName())){
-          input.noSuchSuspect();
+          context.getUserInterface().show("Такого подозреваемого нет");
       }else{
-            input.successfulDeleteSuspect();
+          context.getUserInterface().show("Список подозреваемых обновлен");
       }
     }
 

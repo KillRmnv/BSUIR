@@ -14,7 +14,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Police police;
         PoliceContext policeContext = JacksonSerializer.load();
-
         police = new Police(policeContext);
         police.runAll(new by.romanov.ppois.Police.PoliceStates.InitialState());
     }

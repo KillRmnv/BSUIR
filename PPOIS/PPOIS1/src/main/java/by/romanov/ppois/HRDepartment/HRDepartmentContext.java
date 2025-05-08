@@ -1,6 +1,7 @@
 package by.romanov.ppois.HRDepartment;
 
 import by.romanov.ppois.*;
+import by.romanov.ppois.Entities.PoliceMan;
 import by.romanov.ppois.Police.PoliceStates.InitialState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -11,30 +12,35 @@ import java.util.HashMap;
 public class HRDepartmentContext implements Context {
     private HashMap<Integer, PoliceMan> policeMans = new HashMap<>();
     @JsonIgnore
-    private Input input;
+    private UserInterface userInterface;
     private int budget;
     private TransferData transfer;
+    @JsonIgnore
+    private Source source;
     public HRDepartmentContext() {
         budget=10000;
-        input=new ConsoleInput();
         transfer=new TransferData();
+        userInterface=new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
     public HRDepartmentContext(Input input) {
-        this.input=input;
         budget=10000;
         transfer=new TransferData();
+        userInterface=new ConsoleUserInterface(input);
+        source=new JacksonSerializer();
     }
 
     public HRDepartmentContext(HashMap<Integer, PoliceMan> policeMans) {
         this.policeMans = policeMans;
         budget=10000;
-        input=new ConsoleInput();
         transfer=new TransferData();
+        userInterface=new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
-
+    @JsonIgnore
     @Override
     public void setInput(Input input) {
-       this.input= input;
+        userInterface.setInput(input);
     }
     public void delPoliceMan(int index){
         if(policeMans.containsKey(index)) {
@@ -50,10 +56,10 @@ public class HRDepartmentContext implements Context {
         policeMans.put(policeMans.size(), policeMan);
         budget-=policeMan.getSalary();
     }
-
+    @JsonIgnore
     @Override
     public Input getInput() {
-        return (Input)input;
+        return userInterface.getInput();
     }
 
     @Override

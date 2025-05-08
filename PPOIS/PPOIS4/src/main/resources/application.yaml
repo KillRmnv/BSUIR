@@ -1,0 +1,10 @@
+micronaut:
+  application:
+    name: ppois4
+  views:
+    enabled: true
+    thymeleaf:
+      enabled: true
+      prefix: classpath:views/
+      suffix: .html
+

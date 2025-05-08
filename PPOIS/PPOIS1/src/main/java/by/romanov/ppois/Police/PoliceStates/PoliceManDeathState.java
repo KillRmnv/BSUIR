@@ -5,7 +5,7 @@ import by.romanov.ppois.EnforcementDepartment.EnforcementDepartmentContext;
 import by.romanov.ppois.HRDepartment.HRDepartmentContext;
 import by.romanov.ppois.Police.PoliceContext;
 import by.romanov.ppois.State;
-import by.romanov.ppois.StateMachine;
+import by.romanov.ppois.JacksonSerializer;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -16,7 +16,7 @@ public class PoliceManDeathState implements State {
         PoliceContext policeContext = (PoliceContext) context;
         int policeMan = ((EnforcementDepartmentContext) policeContext.getEnforcementDepartment().getContext()).getPoliceMan();
         ((HRDepartmentContext) policeContext.getHrDepartment().getContext()).delPoliceMan(policeMan);
-        StateMachine.saveContextToFile(policeContext.getHrDepartment().getContext());
+        context.getSource().saveContextToFile(policeContext.getHrDepartment().getContext());
     }
 
     @Override

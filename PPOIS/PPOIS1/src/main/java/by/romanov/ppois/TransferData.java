@@ -1,5 +1,9 @@
 package by.romanov.ppois;
 
+import by.romanov.ppois.Entities.Case;
+import by.romanov.ppois.Entities.PoliceMan;
+import by.romanov.ppois.Entities.Suspect;
+import by.romanov.ppois.Entities.Traits;
 import lombok.Data;
 
 @Data

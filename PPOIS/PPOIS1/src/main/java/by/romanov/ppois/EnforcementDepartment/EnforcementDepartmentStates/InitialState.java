@@ -14,7 +14,7 @@ public class InitialState implements State {
             enforcementDepartmentContext.setChoice(input.
                     chooseCase(enforcementDepartmentContext.getCases().size()));
         } else {
-            input.noCaseMessage();
+            context.getUserInterface().show("Дел нет");
             enforcementDepartmentContext.setNextStage(new InitialState());
         }
     }

@@ -1,4 +1,4 @@
-package by.romanov.ppois;
+package by.romanov.ppois.Entities;
 
 import lombok.Data;
 

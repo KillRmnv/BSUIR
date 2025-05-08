@@ -1,4 +1,4 @@
-package by.romanov.ppois;
+package by.romanov.ppois.Entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 

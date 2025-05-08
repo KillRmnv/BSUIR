@@ -5,8 +5,7 @@ import by.romanov.ppois.ControleCentre.ControlCentre;
 import by.romanov.ppois.ControleCentre.ControlCentreContext;
 import by.romanov.ppois.EnforcementDepartment.EnforcementDepartment;
 import by.romanov.ppois.EnforcementDepartment.EnforcementDepartmentContext;
-import by.romanov.ppois.EnforcementDepartment.EnforcementDepartmentInput;
-import by.romanov.ppois.EnforcementDepartment.EnforcementDepartmentStates.CatchingSuspectState;
+import by.romanov.ppois.Entities.*;
 import by.romanov.ppois.HRDepartment.HRDepartment;
 import by.romanov.ppois.HRDepartment.HRDepartmentContext;
 import by.romanov.ppois.HRDepartment.HRDepartmentsStates.FirePoliceManState;
@@ -30,7 +29,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
 class StateCoverageTest {
@@ -167,6 +165,9 @@ class StateCoverageTest {
         // Создаем тестовый Case и настраиваем его возврат
         Case testCase = new Case();
         when(transferData.getCaseData()).thenReturn(testCase);
+        // Мок Source
+        Source source = Mockito.mock(Source.class);
+        when(policeContext.getSource()).thenReturn(source);
 
         NewEnforcementDepartmentCaseState state = new NewEnforcementDepartmentCaseState();
         assertDoesNotThrow(() -> state.run(policeContext));
@@ -188,6 +189,9 @@ class StateCoverageTest {
         EnforcementDepartment enforcementDepartment = Mockito.mock(EnforcementDepartment.class);
         when(enforcementDepartment.getContext()).thenReturn(enforcementContext);
         when(policeContext.getEnforcementDepartment()).thenReturn(enforcementDepartment);
+        // Мок Source
+        Source source = Mockito.mock(Source.class);
+        when(policeContext.getSource()).thenReturn(source);
 
         PoliceManDeathState state = new PoliceManDeathState();
         assertDoesNotThrow(() -> state.run(policeContext));

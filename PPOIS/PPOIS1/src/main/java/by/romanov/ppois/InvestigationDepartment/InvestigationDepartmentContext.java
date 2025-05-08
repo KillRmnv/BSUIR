@@ -1,8 +1,9 @@
 package by.romanov.ppois.InvestigationDepartment;
 
 import by.romanov.ppois.*;
+import by.romanov.ppois.Entities.Case;
+import by.romanov.ppois.Entities.SuspectSource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -11,33 +12,38 @@ import java.util.List;
 @Data
 public class InvestigationDepartmentContext implements Context {
     private TransferData transfer;
-    @JsonIgnore
-    private Input input;
     private List<Case> cases;
     private SuspectSource suspectSource;
     private Case CurrentCase;
     @JsonIgnore
+    private UserInterface userInterface;
+    @JsonIgnore
     private State choice;
+    @JsonIgnore
+    private Source source;
     public InvestigationDepartmentContext(){
         transfer = new TransferData();
         cases = new ArrayList<>();
         suspectSource = new SuspectSource();
         CurrentCase = new Case();
-        input=new ConsoleInput();
+        userInterface=new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
     public InvestigationDepartmentContext(SuspectSource suspectSource) {
         this.suspectSource = suspectSource;
         this.cases = new ArrayList<>();
         this.CurrentCase = new Case();
-        input=new ConsoleInput();
         transfer=new TransferData();
+        userInterface=new ConsoleUserInterface(new ConsoleInput());
+        source=new JacksonSerializer();
     }
     public InvestigationDepartmentContext(Input input) {
-        this.input = input;
         this.cases = new ArrayList<>();
         this.CurrentCase = new Case();
         transfer=new TransferData();
         suspectSource=new SuspectSource();
+        userInterface=new ConsoleUserInterface(input);
+        source=new JacksonSerializer();
     }
 
     public void addCase(Case cases) {
@@ -45,20 +51,15 @@ public class InvestigationDepartmentContext implements Context {
             this.cases.add(cases);
     }
 
-    public void delCasenSuspect() {
-        //TODO: implement
-        suspectSource.deleteSuspect(CurrentCase.getSuspects().getFirst().getFullName());
-        cases.remove(CurrentCase);
-    }
-
+    @JsonIgnore
     @Override
     public void setInput(Input input) {
-        this.input =  input;
+        userInterface.setInput(input);
     }
-
+    @JsonIgnore
     @Override
     public Input getInput() {
-        return (Input) input;
+        return userInterface.getInput();
     }
 
     @Override

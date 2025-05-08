@@ -17,7 +17,7 @@ public class ChooseCaseState implements State {
             investigationDepartmentContext.setCurrentCase(investigationDepartmentContext.getCases().
                     get(input.chooseCase(investigationDepartmentContext.getCases().size())));
         } else {
-            input.noCaseMessage();
+            context.getUserInterface().show("Дел нет");
         }
     }
 

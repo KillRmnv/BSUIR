@@ -1,8 +1,8 @@
 package by.romanov.ppois;
 
-import by.romanov.ppois.Suspect;
-import by.romanov.ppois.SuspectSource;
-import by.romanov.ppois.Traits;
+import by.romanov.ppois.Entities.Suspect;
+import by.romanov.ppois.Entities.SuspectSource;
+import by.romanov.ppois.Entities.Traits;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
