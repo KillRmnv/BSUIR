@@ -7,4 +7,7 @@ micronaut:
       enabled: true
       prefix: classpath:views/
       suffix: .html
-
+  session:
+    max-inactive-interval: 30s
+  server:
+    port: 8001

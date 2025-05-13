@@ -11,7 +11,7 @@ public class Suspect extends Human {
     public Suspect() {
         generateRandomName();
 
-        this.traits = new Traits();
+        this.traits = new Traits(true);
 
         this.intellegence = generateBiasedIntellegence();
     }

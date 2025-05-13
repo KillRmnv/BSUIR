@@ -15,6 +15,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>io.micronaut.views</groupId>
+            <artifactId>micronaut-views-handlebars</artifactId>
+            <version>5.4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut</groupId>
+            <artifactId>micronaut-websocket</artifactId>
+            <version>4.6.5</version>
+        </dependency>
+        <dependency>
             <groupId>ppois.Romanov</groupId>
             <artifactId>PPOIS1</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -28,6 +38,11 @@
             <groupId>io.micronaut</groupId>
             <artifactId>micronaut-http-server-netty</artifactId>
             <version>4.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut.session</groupId>
+            <artifactId>micronaut-session</artifactId>
+            <version>4.3.0</version>
         </dependency>
         <dependency>
             <groupId>io.micronaut</groupId>

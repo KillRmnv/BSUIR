@@ -1,20 +1,18 @@
 package by.romanov.ppois;
 
-import by.romanov.ppois.Police.Police;
-import by.romanov.ppois.Police.PoliceContext;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-
+import by.romanov.ppois.Repository.JacksonSerializer;
+import by.romanov.ppois.Repository.Source;
+import by.romanov.ppois.StateMachine.Context;
+import by.romanov.ppois.StateMachine.Police.PoliceStates.InitialState;
+import by.romanov.ppois.StateMachine.StateMachine;
+import by.romanov.ppois.Ui.ConsoleUserInterface;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Police police;
-        PoliceContext policeContext = JacksonSerializer.load();
-        police = new Police(policeContext);
-        police.runAll(new by.romanov.ppois.Police.PoliceStates.InitialState());
+        StateMachine police;
+        Source source=new JacksonSerializer();
+        Context policeContext = (Context) source.load(new ConsoleUserInterface());
+        police = new StateMachine(policeContext,source);
+        police.runAll(new InitialState());
     }
 }

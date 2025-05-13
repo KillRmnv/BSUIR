@@ -43,7 +43,7 @@
             </TableColumn>
         </columns>
     </TableView>
-
+    <ChoiceBox fx:id="pageAmountChoice" layoutX="1160.0" layoutY="770.0" onAction="#changeAmntOfCustomersOnPage" />
     <Button fx:id="addButton" layoutX="23.0" layoutY="770.0" onAction="#addCustomer" text="Add Customers" />
     <Button fx:id="deleteButton" layoutX="157.0" layoutY="770.0" onAction="#deleteCustomer" text="Delete Customers" />
     <Button fx:id="searchButton" layoutX="307.0" layoutY="770.0" onAction="#searchCustomer" text="Search Customers" />
@@ -51,7 +51,7 @@
     <Button fx:id="tableViewButton" layoutX="548.0" layoutY="770.0" onAction="#showTableView" text="Table View" />
     <Button layoutX="650.0" layoutY="770.0" onAction="#loadXmlData" text="XML Source" fx:id="xmlButton" />
     <Button fx:id="sqlButton" layoutX="753.0" layoutY="770.0" onAction="#loadSqlData" text="SQL Source" />
-   <Button fx:id="prevPageButton" layoutX="934.0" layoutY="770.0" mnemonicParsing="false" onAction="#prevPage" text="Prevoiuse page" />
+   <Button fx:id="prevPageButton" layoutX="934.0" layoutY="770.0" mnemonicParsing="false" onAction="#prevPage" text="Previous page" />
    <Button fx:id="nextPageButton" layoutX="1062.0" layoutY="770.0" mnemonicParsing="false" onAction="#nextPage" text="NextPage" />
     <Button fx:id="migrateButton" layoutX="858.0" layoutY="770.0" mnemonicParsing="false" onAction="#migrateData" text="Migrate" />
    <Label fx:id="pageLabel" layoutX="1153.0" layoutY="754.0" prefHeight="16.0" prefWidth="64.0" text="Label" />

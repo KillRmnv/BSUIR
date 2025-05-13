@@ -27,11 +27,11 @@ public class ViewObjectsBuilder {
         townPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("townPhone"));
     }
     public static void setItemsTable(List<Customer> toShow,
-                  int pageNumber,
+                  int customersOnPageAmount,
                   TableView<Customer> tableView,
                   Button nextPageButton,
                   Button prevPageButton){
-        if ( CustomerProcessingSystemConstants.amountOfCustomersOnPage == toShow.size())
+        if ( !toShow.isEmpty())
             tableView.setItems(FXCollections.observableArrayList(toShow));
         else {
             tableView.setItems(FXCollections.observableArrayList(toShow));

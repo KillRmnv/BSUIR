@@ -12,6 +12,7 @@ public class TransferData {
     private Suspect suspectData;
     private PoliceMan policeManData;
     private Traits traits;
+    private int choice;
     public TransferData(){
         caseData=new Case();
         suspectData=new Suspect();

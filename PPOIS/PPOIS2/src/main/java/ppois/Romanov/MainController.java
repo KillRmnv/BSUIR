@@ -1,6 +1,7 @@
 package ppois.Romanov;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +14,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable,Controller {
+public class MainController implements Initializable, Controller {
+    @FXML
+    private ChoiceBox pageAmountChoice;
     @FXML
     private Button migrateButton;
     @FXML
@@ -60,15 +63,16 @@ public class MainController implements Initializable,Controller {
     public void showTableView() throws Exception {
         ViewObjectsBuilder.showViewObject(tableView);
         ViewObjectsBuilder.hideViewObject(treeView);
+
         pageLabel.setVisible(true);
         pageNumber = 0;
         ViewObjectsBuilder.createColumns(fioColumn, accountNumberColumn, addressColumn, mobilePhoneColumn, townPhoneColumn);
         var customers = customerProcessingSystem.loadCustomers(0,
-                CustomerProcessingSystemConstants.amountOfCustomersOnPage);
+                (Integer) pageAmountChoice.getValue());
         tableView.setItems(FXCollections.observableArrayList(customers));
         pageLabel.setText("Page:" + pageNumber);
         ViewObjectsBuilder.hideButton(prevPageButton);
-        if (customers.size() < CustomerProcessingSystemConstants.amountOfCustomersOnPage)
+        if (customers.size() < (Integer) pageAmountChoice.getValue())
             ViewObjectsBuilder.hideButton(nextPageButton);
         else
             ViewObjectsBuilder.showButton(nextPageButton);
@@ -132,15 +136,18 @@ public class MainController implements Initializable,Controller {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
+        ObservableList<Integer> pages = FXCollections.observableArrayList(10, 15, 20);
+        pageAmountChoice.setItems(pages);
+        pageAmountChoice.setValue(15);
         showTreeView();
     }
 
     public void prevPage() throws Exception {
         pageNumber--;
         pageLabel.setText("Page:" + pageNumber);
-        List<Customer> toShow=customerProcessingSystem.loadCustomers(pageNumber*
-                        CustomerProcessingSystemConstants.amountOfCustomersOnPage, (pageNumber + 1)
-                * CustomerProcessingSystemConstants.amountOfCustomersOnPage);
+        List<Customer> toShow = customerProcessingSystem.loadCustomers(pageNumber *
+                (Integer) pageAmountChoice.getValue(), (pageNumber + 1)
+                * (Integer) pageAmountChoice.getValue());
         tableView.setItems(FXCollections.observableArrayList(toShow));
         if (pageNumber == 0) {
             ViewObjectsBuilder.hideButton(prevPageButton);
@@ -152,17 +159,23 @@ public class MainController implements Initializable,Controller {
         tableView.setItems(FXCollections.observableArrayList());
         pageLabel.setText("Page:" + pageNumber);
         List<Customer> toShow = customerProcessingSystem.loadCustomers(pageNumber *
-                        CustomerProcessingSystemConstants.amountOfCustomersOnPage,
-                (pageNumber + 1) * CustomerProcessingSystemConstants.amountOfCustomersOnPage);
-        ViewObjectsBuilder.setItemsTable(toShow, pageNumber, tableView, nextPageButton, prevPageButton);
+                        (Integer) pageAmountChoice.getValue(),
+                (pageNumber + 1) * (Integer) pageAmountChoice.getValue());
+        ViewObjectsBuilder.setItemsTable(toShow, (Integer) pageAmountChoice.getValue(), tableView, nextPageButton, prevPageButton);
     }
 
     public void nextPage() throws Exception {
         pageNumber++;
         List<Customer> toShow = customerProcessingSystem.loadCustomers(pageNumber *
-                        CustomerProcessingSystemConstants.amountOfCustomersOnPage,
-                (pageNumber + 1) * CustomerProcessingSystemConstants.amountOfCustomersOnPage);
+                        (Integer) pageAmountChoice.getValue(),
+                (pageNumber + 1) * (Integer) pageAmountChoice.getValue());
         ViewObjectsBuilder.nextPage(pageNumber, pageLabel, nextPageButton, prevPageButton, tableView, toShow);
+        toShow = customerProcessingSystem.loadCustomers((pageNumber + 1) *
+                        (Integer) pageAmountChoice.getValue(),
+                (pageNumber + 1) * (Integer) pageAmountChoice.getValue() + 1);
+        if (toShow.isEmpty()) {
+            ViewObjectsBuilder.hideButton(nextPageButton);
+        }
     }
 
     @Override
@@ -170,7 +183,12 @@ public class MainController implements Initializable,Controller {
         this.customerProcessingSystem = customerProcessingSystem;
     }
 
-    public void migrateData( ) throws Exception {
+    public void migrateData() throws Exception {
         customerProcessingSystem.migrate();
+    }
+
+    public void changeAmntOfCustomersOnPage() throws Exception {
+        if (tableView.isVisible())
+            showTableView();
     }
 }
