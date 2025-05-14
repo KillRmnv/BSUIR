@@ -12,11 +12,15 @@ import java.util.List;
 public class CaseJsonRepository implements Repository<List<Case>, Case,Integer> {
     private static final ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule());
-    private static final String FILE_PATH = "./src/main/resources/casesInvestigationDepartment.json";
+    private static String FILE_PATH = "./src/main/resources/casesInvestigationDepartment.json";
     private List<Case> cases;
 
     public CaseJsonRepository() {
         this.cases = new ArrayList<>();
+    }
+
+    public CaseJsonRepository(String file) {
+        FILE_PATH=file;
     }
 
     @Override

@@ -13,13 +13,15 @@ import java.util.Map;
 public class LawRegistryJsonRepository implements Repository<LawRegistry, Law,Law> {
     private static final ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule());
-    private static final String FILE_PATH = "./src/main/resources/law_registry.json";
+    private static  String FILE_PATH = "./src/main/resources/law_registry.json";
     private LawRegistry lawRegistry;
 
     public LawRegistryJsonRepository() {
         this.lawRegistry = new LawRegistry();
     }
-
+    public LawRegistryJsonRepository(String file) {
+        FILE_PATH=file;
+    }
 
     @Override
     public void saveAll(LawRegistry lawRegistry) throws IOException {
@@ -43,15 +45,17 @@ public class LawRegistryJsonRepository implements Repository<LawRegistry, Law,La
         HashMap<Integer, Law> criminalLaws = lawRegistry.getCRIMINAL_LAWS();
         if (criminalLaws.containsKey(law.getId()) && criminalLaws.get(law.getId()).equals(law)) {
             criminalLaws.remove(law.getId());
-            lawRegistry.setCRIMINAL_LAWS(criminalLaws);
+            saveAll(lawRegistry);
+            return true;
         } else {
             HashMap<Integer, Law> adminLaws = lawRegistry.getADMIN_LAWS();
             if (adminLaws.containsKey(law.getId()) && adminLaws.get(law.getId()).equals(law)) {
                 adminLaws.remove(law.getId());
-                lawRegistry.setADMIN_LAWS(adminLaws);
+                saveAll(lawRegistry);
+                return true;
             }
         }
-        saveAll(lawRegistry);
+
         return false;
     }
 

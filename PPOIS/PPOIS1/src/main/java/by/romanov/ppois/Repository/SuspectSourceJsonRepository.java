@@ -13,11 +13,16 @@ import java.util.Map;
 public class SuspectSourceJsonRepository implements Repository<SuspectSource, Suspect, String> {
     private static final ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule());
-    private static final String FILE_PATH = "./src/main/resources/suspect_source.json";
+    private static  String FILE_PATH = "./src/main/resources/suspect_source.json";
     private SuspectSource suspectSource;
 
     public SuspectSourceJsonRepository() {
         this.suspectSource = new SuspectSource();
+    }
+
+    public SuspectSourceJsonRepository(String filePath) {
+        FILE_PATH = filePath;
+
     }
 
     @Override
@@ -45,19 +50,30 @@ public class SuspectSourceJsonRepository implements Repository<SuspectSource, Su
 
     @Override
     public boolean delete(Suspect suspect) throws IOException {
+        suspectSource=loadAll();
+        int size=suspectSource.getSuspects().size();
         suspectSource.deleteSuspect(suspect.getFullName());
+        if(size==suspectSource.getSuspects().size()){
+            return false;
+        }
         saveAll(suspectSource);
-        return false;
+        return true;
     }
 
     @Override
     public void add(Suspect suspect) throws IOException {
+        if(suspectSource.getSuspects().isEmpty()){
+            suspectSource=loadAll();
+        }
         suspectSource.addSuspect(suspect);
         saveAll(suspectSource);
     }
 
     @Override
     public Suspect load(String key) throws IOException {
+        if(suspectSource.getSuspects().isEmpty()){
+            suspectSource=loadAll();
+        }
         return suspectSource.getSuspects().get(key);
     }
 

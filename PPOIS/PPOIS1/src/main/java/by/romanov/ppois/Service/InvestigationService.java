@@ -26,13 +26,7 @@ public class InvestigationService {
         this.suspectRepository = suspectRepository;
     }
 
-    public Case chooseCase(int caseIndex) throws IOException {
-        List<Case> cases = findActiveCases();
-        if (!cases.isEmpty() && caseIndex >= 0 && caseIndex < cases.size()) {
-            return cases.get(caseIndex);
-        }
-        return null;
-    }
+
 
     public void interviewWitnesses(Case currentCase,List<Traits> witnessTraits) throws IOException {
         AtomicInteger maxWitnesses = new AtomicInteger(0);
@@ -50,7 +44,7 @@ public class InvestigationService {
         caseRepository.add(currentCase);
     }
 
-    protected void setSuspects(Case currentCase, Set<Suspect> intersection, boolean empty, Iterator<Suspect> iterator, Set<Suspect> witnessSuspects, Set<Suspect> userSuspects) {
+    public void setSuspects(Case currentCase, Set<Suspect> intersection, boolean empty, Iterator<Suspect> iterator, Set<Suspect> witnessSuspects, Set<Suspect> userSuspects) {
         userSuspects = intersection;
         if (!userSuspects.isEmpty()) {
             currentCase.setSuspects(new ArrayList<>(Collections.singletonList(userSuspects.iterator().next())));
@@ -61,13 +55,5 @@ public class InvestigationService {
         }
     }
 
-    public List<Case> findActiveCases() throws IOException {
-        List<Case> activeCases = new ArrayList<>();
-        for (Case c : caseRepository.loadAll()) {
-            if (c.isActive()) {
-                activeCases.add(c);
-            }
-        }
-        return activeCases;
-    }
+
 }

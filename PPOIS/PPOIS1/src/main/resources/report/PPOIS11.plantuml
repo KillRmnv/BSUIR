@@ -1,0 +1,981 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class AreasPatrolState {
+  + AreasPatrolState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class Case {
+  + Case(Law, List<String>): 
+  + Case(HashMap<Integer, Law>): 
+  + Case(): 
+  - contacts: List<String>
+  - suspects: List<Suspect>
+  - law: Law
+  - type: Integer
+  - commonTraits: Traits
+  - active: boolean
+  + empty(): boolean
+  - generateRandomContacts(): List<String>
+  + toString(): String
+  - generateSimplePhone(): String
+  + equals(Object): boolean
+  + hashCode(): int
+   commonTraits: Traits
+   contacts: List<String>
+   active: boolean
+   law: Law
+   type: Integer
+   suspects: List<Suspect>
+}
+class CaseJsonRepository {
+  + CaseJsonRepository(String): 
+  + CaseJsonRepository(): 
+  + delete(Case): boolean
+  + load(Integer): Case
+  + add(Case): void
+  + saveAll(List<Case>): void
+  + loadAll(): List<Case>
+}
+class CaseJsonRepositoryTest {
+  + CaseJsonRepositoryTest(): 
+  ~ testSaveAllAndLoadAll(): void
+  ~ setUp(): void
+  ~ testDeleteNonExistent(): void
+  ~ testLoadByIndex(): void
+  ~ testAdd(): void
+  ~ testLoadInvalidIndex(): void
+  ~ testDeleteSuccess(): void
+  ~ testLoadAllEmptyFile(): void
+}
+class CatchingSuspectState {
+  + CatchingSuspectState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class ChooseCaseState {
+  + ChooseCaseState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class ChooseLawState {
+  + ChooseLawState(): 
+  + next(Context): State
+  + run(Context): void
+}
+class ConsoleInput {
+  + ConsoleInput(): 
+  + getLine(String): String
+  + getString(String): String
+  + getRegex(String, String): String
+  + getChoiceFromMap(String, Map<K, V>): int
+  + getChoice(String, int, int): int
+  + getNumberRange(String, int, int): List<Integer>
+  + clearBuffer(): void
+  + handleQTE(): boolean
+  + getChoice(List<String>, int, int): int
+}
+class ConsoleUserInterface {
+  + ConsoleUserInterface(): 
+  + ConsoleUserInterface(ConsoleInput): 
+  + showMap(Map<K, V>, String): void
+  + show(String): void
+  + showNumericRange(String, int, int): void
+   consoleInput: ConsoleInput
+}
+class ContactsState {
+  + ContactsState(): 
+  + next(Context): State
+  + run(Context): void
+}
+interface Context << interface >> {
+   input: ConsoleInput
+   nextState: State
+   transfer: TransferData
+   userInterface: ConsoleUserInterface
+}
+class ControlCentereInput {
+  + ControlCentereInput(ConsoleInput): 
+  ~ ControlCentereInput(): 
+  + exactAge(): int
+  + chooseLaw(int, LawRegistry, ConsoleUserInterface): Law
+  + exactWeight(): int
+  + show(Map<String, Suspect>, ConsoleUserInterface): void
+  + describeHairColor(): int
+  + witnesses(): int
+  + weight(): int
+  + height(): int
+  + chooseSourceAction(): int
+  + witnessContactData(): List<String>
+  + fullName(): String
+  + receiveCall(): int
+  + describeSuspect(): int
+  + exactHeight(): int
+  + age(): int
+  + chooseOptions(): int
+}
+class ControlCentre {
+  + ControlCentre(ControlCentreContext, Source): 
+  + equals(Object): boolean
+  # canEqual(Object): boolean
+  + toString(): String
+  + hashCode(): int
+}
+class ControlCentreContext {
+  + ControlCentreContext(Repository<LawRegistry, Law, Law>, Repository<SuspectSource, Suspect, String>, ConsoleUserInterface): 
+  + ControlCentreContext(): 
+  + ControlCentreContext(ConsoleUserInterface): 
+  - userInterface: ConsoleUserInterface
+  - nextStage: State
+  - transfer: TransferData
+  - isReceivingCall: Boolean
+  - currentCase: Case
+  ~ controlCentreService: ControlCentreService
+  + equals(Object): boolean
+  # canEqual(Object): boolean
+  + hashCode(): int
+  + toString(): String
+   input: ConsoleInput
+   isReceivingCall: Boolean
+   transfer: TransferData
+   controlCentreService: ControlCentreService
+   userInterface: ConsoleUserInterface
+   nextState: State
+   currentCase: Case
+   nextStage: State
+}
+class ControlCentreService {
+  + ControlCentreService(): 
+  + ControlCentreService(Repository<LawRegistry, Law, Law>, Repository<SuspectSource, Suspect, String>): 
+  # lawRepository: Repository<LawRegistry, Law, Law>
+  # suspectRepository: Repository<SuspectSource, Suspect, String>
+  + deleteSuspect(String): String
+  + equals(Object): boolean
+  # canEqual(Object): boolean
+  + toString(): String
+  + describeHairColor(Case, Traits, boolean, String): void
+  + hashCode(): int
+   suspectRepository: Repository<SuspectSource, Suspect, String>
+   lawRepository: Repository<LawRegistry, Law, Law>
+}
+class ControleCentreState {
+  + ControleCentreState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class DeleteSuspectState {
+  + DeleteSuspectState(): 
+  + run(Context): void
+  + next(Context): State
+}
+enum Department << enumeration >> {
+  - Department(int): 
+  - code: int
+  + values(): Department[]
+  + fromCode(int): Department
+  + valueOf(String): Department
+   code: int
+   choice: int
+}
+class DescribingAgeState {
+  + DescribingAgeState(): 
+  + next(Context): State
+  + run(Context): void
+}
+class DescribingHairColorState {
+  + DescribingHairColorState(): 
+  + next(Context): State
+  + run(Context): void
+}
+class DescribingHeightState {
+  + DescribingHeightState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class DescribingWeightState {
+  + DescribingWeightState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class EnforcementDepartment {
+  + EnforcementDepartment(EnforcementDepartmentContext, Source): 
+  + equals(Object): boolean
+  # canEqual(Object): boolean
+  + toString(): String
+  + hashCode(): int
+}
+class EnforcementDepartmentContext {
+  + EnforcementDepartmentContext(): 
+  + EnforcementDepartmentContext(ConsoleUserInterface): 
+  - policeMan: int
+  - choice: int
+  - enforcementService: EnforcementService
+  - policeManRepository: Repository<HashMap<Integer, PoliceMan>, PoliceMan, Integer>
+  - nextStage: State
+  - userInterface: ConsoleUserInterface
+  - transfer: TransferData
+  # canEqual(Object): boolean
+  + hashCode(): int
+  + findActiveCases(): List<Case>
+  + equals(Object): boolean
+  + toString(): String
+   input: ConsoleInput
+   policeManRepository: Repository<HashMap<Integer, PoliceMan>, PoliceMan, Integer>
+   transfer: TransferData
+   userInterface: ConsoleUserInterface
+   choice: int
+   nextState: State
+   enforcementService: EnforcementService
+   nextStage: State
+   policeMan: int
+}
+class EnforcementDepartmentInput {
+  + EnforcementDepartmentInput(): 
+  + EnforcementDepartmentInput(ConsoleInput): 
+  + askForRepeat(): int
+  + choosePoliceMan(Map<K, V>): int
+  + chooseAction(): int
+  + chooseCase(int): int
+}
+class EnforcementDepartmentState {
+  + EnforcementDepartmentState(): 
+  + next(Context): State
+  + run(Context): void
+}
+class EnforcementService {
+  + EnforcementService(Repository<HashMap<Integer, PoliceMan>, PoliceMan, Integer>, Repository<List<Case>, Case, Integer>): 
+  + EnforcementService(): 
+  + catchSuspect(Case, PoliceMan, AtomicInteger): String
+  # tryToCatch(PoliceMan, Suspect, AtomicInteger): int
+   availablePoliceMen: HashMap<Integer, PoliceMan>
+   activeCases: List<Case>
+}
+class FirePoliceManState {
+  + FirePoliceManState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class HRDepartment {
+  + HRDepartment(HRDepartmentContext, Source): 
+  + equals(Object): boolean
+  # canEqual(Object): boolean
+  + toString(): String
+  + hashCode(): int
+}
+class HRDepartmentContext {
+  + HRDepartmentContext(): 
+  + HRDepartmentContext(ConsoleUserInterface): 
+  + HRDepartmentContext(Repository<HashMap<Integer, PoliceMan>, PoliceMan, Integer>, ConsoleUserInterface): 
+  - userInterface: ConsoleUserInterface
+  - hrService: HRService
+  - transfer: TransferData
+  - budget: int
+  + delPoliceMan(int): void
+  + equals(Object): boolean
+  # canEqual(Object): boolean
+  + toString(): String
+  + hashCode(): int
+  + addPoliceMan(PoliceMan): void
+   input: ConsoleInput
+   hrService: HRService
+   nextState: State
+   budget: int
+   transfer: TransferData
+   userInterface: ConsoleUserInterface
+}
+class HRDepartmentInput {
+  + HRDepartmentInput(ConsoleInput): 
+  + HRDepartmentInput(): 
+  + getPoliceManFireChoice(int): int
+  + chooseOption(): int
+   policeManHireChoice: int
+}
+class HRDepartmentState {
+  + HRDepartmentState(): 
+  + next(Context): State
+  + run(Context): void
+}
+class HRService {
+  + HRService(Repository<HashMap<Integer, PoliceMan>, PoliceMan, Integer>): 
+  + HRService(): 
+  # policeManRepository: Repository<HashMap<Integer, PoliceMan>, PoliceMan, Integer>
+  # budget: double
+  # canEqual(Object): boolean
+  + equals(Object): boolean
+  + toString(): String
+  + generateNewPoliceMans(): HashMap<Integer, PoliceMan>
+  + hashCode(): int
+   availablePoliceMans: HashMap<Integer, PoliceMan>
+   budget: double
+   policeManRepository: Repository<HashMap<Integer, PoliceMan>, PoliceMan, Integer>
+}
+class HirePoliceManState {
+  + HirePoliceManState(): 
+  + next(Context): State
+  + run(Context): void
+}
+class Human {
+  + Human(): 
+  + Human(String, String, String, Traits): 
+  # name: String
+  # secondName: String
+  # traits: Traits
+  # thirdName: String
+  # generateRandomName(): void
+  # canEqual(Object): boolean
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+   name: String
+   fullName: String
+   thirdName: String
+   traits: Traits
+   secondName: String
+}
+class InitialState {
+  + InitialState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class InitialState {
+  + InitialState(): 
+  + next(Context): State
+  + run(Context): void
+}
+class InitialState {
+  + InitialState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class InitialState {
+  + InitialState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class InitialState {
+  + InitialState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class InterviewingWitnessesState {
+  + InterviewingWitnessesState(): 
+  + next(Context): State
+  + run(Context): void
+}
+class InvestigationDepartment {
+  + InvestigationDepartment(InvestigationDepartmentContext, Source): 
+  # canEqual(Object): boolean
+  + equals(Object): boolean
+  + hashCode(): int
+  + toString(): String
+}
+class InvestigationDepartmentContext {
+  + InvestigationDepartmentContext(ConsoleUserInterface, Repository<List<Case>, Case, Integer>, Repository<SuspectSource, Suspect, String>): 
+  + InvestigationDepartmentContext(ConsoleUserInterface): 
+  + InvestigationDepartmentContext(): 
+  - investigationService: InvestigationService
+  - userInterface: ConsoleUserInterface
+  - transfer: TransferData
+  - choice: State
+  + toString(): String
+  # canEqual(Object): boolean
+  + addCase(Case): void
+  + hashCode(): int
+  + equals(Object): boolean
+  + findActiveCases(): List<Case>
+   input: ConsoleInput
+   investigationService: InvestigationService
+   nextState: State
+   transfer: TransferData
+   userInterface: ConsoleUserInterface
+   choice: State
+}
+class InvestigationDepartmentInput {
+  + InvestigationDepartmentInput(): 
+  + InvestigationDepartmentInput(ConsoleInput): 
+  + chooseCase(int): int
+}
+class InvestigationDepartmentState {
+  + InvestigationDepartmentState(): 
+  + next(Context): State
+  + run(Context): void
+}
+class InvestigationService {
+  + InvestigationService(): 
+  + InvestigationService(Repository<List<Case>, Case, Integer>, Repository<SuspectSource, Suspect, String>): 
+  # caseRepository: Repository<List<Case>, Case, Integer>
+  # suspectRepository: Repository<SuspectSource, Suspect, String>
+  + toString(): String
+  # setSuspects(Case, Set<Suspect>, boolean, Iterator<Suspect>, Set<Suspect>, Set<Suspect>): void
+  + interviewWitnesses(Case, List<Traits>): void
+  # canEqual(Object): boolean
+  + equals(Object): boolean
+  + hashCode(): int
+   caseRepository: Repository<List<Case>, Case, Integer>
+   suspectRepository: Repository<SuspectSource, Suspect, String>
+}
+class JacksonSerializer {
+  + JacksonSerializer(): 
+  + getStateFileName(Object): String
+  + loadStateFromFile(Context): State
+  + loadFromFile(String, Class<T>): T
+  + saveCurrentStateName(State, Context): void
+  + deleteState(Object): void
+  + saveToFile(Object): void
+  - loadOrCreatePublicSafetyContext(ConsoleUserInterface): PublicSafetyDepartmentContext
+  - loadOrCreateEnforcementContext(ConsoleUserInterface): EnforcementDepartmentContext
+  - loadOrCreateHRContext(ConsoleUserInterface): HRDepartmentContext
+  - loadOrCreateInvestigationContext(ConsoleUserInterface): InvestigationDepartmentContext
+  + loadState(State, Context, State): State
+  + load(ConsoleUserInterface): Object
+  - loadOrCreateControlCentreContext(ConsoleUserInterface): ControlCentreContext
+}
+class Law {
+  + Law(): 
+  + Law(int, String, String, String): 
+  - id: int
+  - description: String
+  - punishment: String
+  - type: String
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+  # canEqual(Object): boolean
+   description: String
+   type: String
+   id: int
+   punishment: String
+}
+class LawRegistry {
+  + LawRegistry(): 
+  - CRIMINAL_LAWS: HashMap<Integer, Law>
+  - ADMIN_LAWS: HashMap<Integer, Law>
+  + hashCode(): int
+  + toString(): String
+  + printCriminalLaws(): String
+  + equals(Object): boolean
+  + printAdminLaws(): String
+  # canEqual(Object): boolean
+   CRIMINAL_LAWS: HashMap<Integer, Law>
+   ADMIN_LAWS: HashMap<Integer, Law>
+}
+class LawRegistryJsonRepository {
+  + LawRegistryJsonRepository(): 
+  + LawRegistryJsonRepository(String): 
+  + saveAll(LawRegistry): void
+  + load(Law): Law
+  + loadAll(): LawRegistry
+  + delete(Law): boolean
+  + add(Law): void
+}
+class LawRegistryJsonRepositoryTest {
+  + LawRegistryJsonRepositoryTest(): 
+  ~ testAddCriminalLaw(): void
+  ~ testLoadNonExistentLaw(): void
+  ~ setUp(): void
+  ~ testDeleteNonExistentLaw(): void
+  ~ testAddInvalidLawType(): void
+  ~ testLoadCriminalLaw(): void
+  ~ testDeleteAdminLawSuccess(): void
+  ~ testSaveAllAndLoadAll(): void
+  ~ testLoadAllEmptyFile(): void
+  ~ testAddAdminLaw(): void
+  ~ testLoadAdminLaw(): void
+  ~ testDeleteCriminalLawSuccess(): void
+}
+class Main {
+  + Main(): 
+  + main(String[]): void
+}
+class ManipulatingSuspectSourceState {
+  + ManipulatingSuspectSourceState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class NewCaseState {
+  + NewCaseState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class Police {
+  + Police(PoliceContext, Source): 
+  + Police(): 
+  + toString(): String
+  + hashCode(): int
+  + equals(Object): boolean
+  # canEqual(Object): boolean
+}
+class PoliceContext {
+  + PoliceContext(ControlCentreContext, InvestigationDepartmentContext, EnforcementDepartmentContext, HRDepartmentContext, PublicSafetyDepartmentContext, ConsoleUserInterface): 
+  + PoliceContext(): 
+  + PoliceContext(ConsoleUserInterface): 
+  - hrDepartment: HRDepartment
+  - choice: Department
+  - controlCentre: ControlCentre
+  - investigationDepartment: InvestigationDepartment
+  - publicSafetyDepartment: PublicSafetyDepartment
+  - userInterface: ConsoleUserInterface
+  - enforcementDepartment: EnforcementDepartment
+  + hashCode(): int
+  # canEqual(Object): boolean
+  + equals(Object): boolean
+  + toString(): String
+   input: ConsoleInput
+   hrDepartment: HRDepartment
+   publicSafetyDepartment: PublicSafetyDepartment
+   enforcementDepartment: EnforcementDepartment
+   userInterface: ConsoleUserInterface
+   investigationDepartment: InvestigationDepartment
+   department: Department
+   nextState: State
+   controlCentre: ControlCentre
+   choice: Department
+}
+class PoliceInput {
+  + PoliceInput(ConsoleInput): 
+  + chooseDepartment(): int
+}
+class PoliceMan {
+  + PoliceMan(int): 
+  + PoliceMan(): 
+  + PoliceMan(String, String, String, Traits, int, int, int): 
+  ~ salary: int
+  ~ id: int
+  ~ experience: int
+  + Info(): List<String>
+  # canEqual(Object): boolean
+  + gainExperience(int): void
+  + equals(Object): boolean
+  + hashCode(): int
+  - generateRandomExperience(): int
+  - calculateSalary(): int
+  + toString(): String
+   salary: int
+   id: int
+   experience: int
+}
+class PoliceMansJsonRepository {
+  + PoliceMansJsonRepository(String): 
+  + PoliceMansJsonRepository(): 
+  + saveAll(HashMap<Integer, PoliceMan>): void
+  + load(Integer): PoliceMan
+  + add(PoliceMan): void
+  + loadAll(): HashMap<Integer, PoliceMan>
+  + delete(PoliceMan): boolean
+}
+class PoliceMansJsonRepositoryTest {
+  + PoliceMansJsonRepositoryTest(): 
+  ~ testDeleteNonExistent(): void
+  ~ testLoad(): void
+  ~ testLoadNonExistent(): void
+  ~ testSaveAllAndLoadAll(): void
+  ~ testAdd(): void
+  ~ testDeleteSuccess(): void
+  ~ setUp(): void
+  ~ testLoadCorruptedFile(): void
+  ~ testLoadAllEmptyFile(): void
+}
+class PublicSafetyDepartment {
+  + PublicSafetyDepartment(PublicSafetyDepartmentContext, Source): 
+  + PublicSafetyDepartment(): 
+  # canEqual(Object): boolean
+  + equals(Object): boolean
+  + hashCode(): int
+  + toString(): String
+}
+class PublicSafetyDepartmentContext {
+  + PublicSafetyDepartmentContext(): 
+  + PublicSafetyDepartmentContext(ConsoleUserInterface): 
+  - next: State
+  - publicSafetyService: PublicSafetyService
+  - userInterface: ConsoleUserInterface
+  - transfer: TransferData
+  + toString(): String
+  + equals(Object): boolean
+  + hashCode(): int
+  # canEqual(Object): boolean
+   input: ConsoleInput
+   transfer: TransferData
+   userInterface: ConsoleUserInterface
+   lawRegistry: LawRegistry
+   next: State
+   publicSafetyService: PublicSafetyService
+   nextState: State
+}
+class PublicSafetyDepartmentInput {
+  + PublicSafetyDepartmentInput(ConsoleInput): 
+  + PublicSafetyDepartmentInput(): 
+  + chooseSchool(): int
+  + chooseOption(): int
+  + chooseCityArea(List<String>): int
+}
+class PublicSafetyDepartmentState {
+  + PublicSafetyDepartmentState(): 
+  + run(Context): void
+  + next(Context): State
+}
+class PublicSafetyService {
+  + PublicSafetyService(): 
+  + PublicSafetyService(Repository<LawRegistry, Law, Law>): 
+  # lawRegistry: Repository<LawRegistry, Law, Law>
+  # areas: List<String>
+  # canEqual(Object): boolean
+  + toString(): String
+  + checkForCrime(): Case
+  + hashCode(): int
+  + equals(Object): boolean
+   areas: List<String>
+   lawRegistry: Repository<LawRegistry, Law, Law>
+}
+class ReceiveCallState {
+  + ReceiveCallState(): 
+  + run(Context): void
+  + next(Context): State
+}
+interface Repository<Source, Record, Key> << interface >> {
+  + saveAll(Source): void
+  + delete(Record): boolean
+  + add(Record): void
+  + loadAll(): Source
+  + load(Key): Record
+}
+class SchoolCampaigningState {
+  + SchoolCampaigningState(): 
+  + run(Context): void
+  + next(Context): State
+}
+interface Source << interface >> {
+  + loadState(State, Context, State): State
+  + load(ConsoleUserInterface): Object
+  + saveCurrentStateName(State, Context): void
+  + deleteState(Object): void
+  + saveToFile(Object): void
+}
+interface State << interface >> {
+  + run(Context): void
+  + next(Context): State
+}
+class StateMachine {
+  + StateMachine(Context, Source): 
+  + StateMachine(): 
+  # currentState: State
+  # context: Context
+  # source: Source
+  # canEqual(Object): boolean
+  + hashCode(): int
+  + runAll(State): void
+  + equals(Object): boolean
+  + toString(): String
+   source: Source
+   context: Context
+   currentState: State
+}
+class Suspect {
+  + Suspect(): 
+  + Suspect(Suspect): 
+  + Suspect(String, String, String, Traits): 
+  - intellegence: int
+  + Info(): String
+  + equals(Object): boolean
+  + toString(): String
+  + hashCode(): int
+  # canEqual(Object): boolean
+  - generateBiasedIntellegence(): int
+   intellegence: int
+   fullName: String
+}
+class SuspectSource {
+  + SuspectSource(): 
+  - suspects: Map<String, Suspect>
+  - suspectTraits: Map<String, Map<Integer, Set<String>>>
+  + hashCode(): int
+  + findSuspectsBasedOnCommonTraits(List<Traits>, AtomicInteger): Set<Suspect>
+  + intersection(Set<Suspect>, Set<Suspect>): Set<Suspect>
+  + toString(): String
+  + traitStringHair(int): String
+  + traitNumHair(String): int
+  # canEqual(Object): boolean
+  + addSuspect(Suspect): void
+  + deleteSuspect(String): boolean
+  + equals(Object): boolean
+  - adjastSuspectByTraits(Map<String, Integer>, Set<String>, AtomicInteger, Set<String>): void
+   suspectTraits: Map<String, Map<Integer, Set<String>>>
+   suspects: Map<String, Suspect>
+}
+class SuspectSourceJsonRepository {
+  + SuspectSourceJsonRepository(): 
+  + SuspectSourceJsonRepository(String): 
+  + saveAll(SuspectSource): void
+  + add(Suspect): void
+  - initData(): void
+  + loadAll(): SuspectSource
+  + delete(Suspect): boolean
+  + load(String): Suspect
+}
+class SuspectSourceJsonRepositoryTest {
+  + SuspectSourceJsonRepositoryTest(): 
+  ~ testDeleteNonExistent(): void
+  ~ setUp(): void
+  ~ testSaveAllAndLoadAll(): void
+  ~ testLoadNonExistent(): void
+  ~ testDeleteSuccess(): void
+  ~ testLoadAllEmptyFile(): void
+  ~ testLoadCorruptedFile(): void
+  ~ testLoad(): void
+  ~ testAdd(): void
+}
+class Traits {
+  + Traits(): 
+  + Traits(Boolean): 
+  + Traits(Traits): 
+  - weight: int
+  - age: int
+  - hairColor: String
+  - height: int
+  + equals(Object): boolean
+  # canEqual(Object): boolean
+  + toString(): String
+  + hashCode(): int
+   weight: int
+   hairColor: String
+   age: int
+   height: int
+}
+class TransferData {
+  + TransferData(): 
+  - policeManData: PoliceMan
+  - traits: Traits
+  - caseData: Case
+  - choice: int
+  - suspectData: Suspect
+  + equals(Object): boolean
+  + hashCode(): int
+  + toString(): String
+  # canEqual(Object): boolean
+   suspectData: Suspect
+   choice: int
+   policeManData: PoliceMan
+   caseData: Case
+   traits: Traits
+}
+
+AreasPatrolState                 -[#595959,dashed]->  Context                         
+AreasPatrolState                 -[#008200,dashed]-^  State                           
+Case                            "1" *-[#595959,plain]-> "law\n1" Law                             
+Case                            "1" *-[#595959,plain]-> "suspects\n*" Suspect                         
+Case                            "1" *-[#595959,plain]-> "commonTraits\n1" Traits                          
+CaseJsonRepository              "1" *-[#595959,plain]-> "cases\n*" Case                            
+CaseJsonRepository               -[#008200,dashed]-^  Repository                      
+CaseJsonRepositoryTest          "1" *-[#595959,plain]-> "repository\n1" CaseJsonRepository              
+CatchingSuspectState             -[#595959,dashed]->  Context                         
+CatchingSuspectState             -[#008200,dashed]-^  State                           
+ChooseCaseState                  -[#595959,dashed]->  Context                         
+ChooseCaseState                  -[#008200,dashed]-^  State                           
+ChooseLawState                   -[#595959,dashed]->  Context                         
+ChooseLawState                   -[#008200,dashed]-^  State                           
+ConsoleUserInterface            "1" *-[#595959,plain]-> "input\n1" ConsoleInput                    
+ContactsState                    -[#595959,dashed]->  Context                         
+ContactsState                    -[#008200,dashed]-^  State                           
+Context                          -[#595959,dashed]->  ConsoleInput                    
+Context                          -[#595959,dashed]->  ConsoleUserInterface            
+Context                          -[#595959,dashed]->  State                           
+Context                          -[#595959,dashed]->  TransferData                    
+ControlCentereInput             "1" *-[#595959,plain]-> "input\n1" ConsoleInput                    
+ControlCentereInput              -[#595959,dashed]->  ConsoleUserInterface            
+ControlCentereInput              -[#595959,dashed]->  Law                             
+ControlCentereInput              -[#595959,dashed]->  LawRegistry                     
+ControlCentereInput              -[#595959,dashed]->  Suspect                         
+ControlCentre                    -[#595959,dashed]->  ControlCentreContext            
+ControlCentre                    -[#595959,dashed]->  Source                          
+ControlCentre                    -[#000082,plain]-^  StateMachine                    
+ControlCentreContext            "1" *-[#595959,plain]-> "currentCase\n1" Case                            
+ControlCentreContext             -[#595959,dashed]->  ConsoleInput                    
+ControlCentreContext            "1" *-[#595959,plain]-> "userInterface\n1" ConsoleUserInterface            
+ControlCentreContext             -[#008200,dashed]-^  Context                         
+ControlCentreContext            "1" *-[#595959,plain]-> "controlCentreService\n1" ControlCentreService            
+ControlCentreContext             -[#595959,dashed]->  Law                             
+ControlCentreContext             -[#595959,dashed]->  LawRegistry                     
+ControlCentreContext             -[#595959,dashed]->  Repository                      
+ControlCentreContext            "1" *-[#595959,plain]-> "nextStage\n1" State                           
+ControlCentreContext             -[#595959,dashed]->  Suspect                         
+ControlCentreContext             -[#595959,dashed]->  SuspectSource                   
+ControlCentreContext            "1" *-[#595959,plain]-> "transfer\n1" TransferData                    
+ControlCentreService             -[#595959,dashed]->  Case                            
+ControlCentreService             -[#595959,dashed]->  Law                             
+ControlCentreService             -[#595959,dashed]->  LawRegistry                     
+ControlCentreService            "1" *-[#595959,plain]-> "lawRepository\n1" Repository                      
+ControlCentreService             -[#595959,dashed]->  Suspect                         
+ControlCentreService             -[#595959,dashed]->  SuspectSource                   
+ControlCentreService             -[#595959,dashed]->  Traits                          
+ControleCentreState              -[#595959,dashed]->  Context                         
+ControleCentreState              -[#008200,dashed]-^  State                           
+DeleteSuspectState               -[#595959,dashed]->  Context                         
+DeleteSuspectState               -[#008200,dashed]-^  State                           
+DescribingAgeState               -[#595959,dashed]->  Context                         
+DescribingAgeState               -[#008200,dashed]-^  State                           
+DescribingHairColorState         -[#595959,dashed]->  Context                         
+DescribingHairColorState         -[#008200,dashed]-^  State                           
+DescribingHeightState            -[#595959,dashed]->  Context                         
+DescribingHeightState            -[#008200,dashed]-^  State                           
+DescribingWeightState            -[#595959,dashed]->  Context                         
+DescribingWeightState            -[#008200,dashed]-^  State                           
+EnforcementDepartment            -[#595959,dashed]->  EnforcementDepartmentContext    
+EnforcementDepartment            -[#595959,dashed]->  Source                          
+EnforcementDepartment            -[#000082,plain]-^  StateMachine                    
+EnforcementDepartmentContext     -[#595959,dashed]->  Case                            
+EnforcementDepartmentContext     -[#595959,dashed]->  ConsoleInput                    
+EnforcementDepartmentContext    "1" *-[#595959,plain]-> "userInterface\n1" ConsoleUserInterface            
+EnforcementDepartmentContext     -[#008200,dashed]-^  Context                         
+EnforcementDepartmentContext    "1" *-[#595959,plain]-> "enforcementService\n1" EnforcementService              
+EnforcementDepartmentContext     -[#595959,dashed]->  PoliceMan                       
+EnforcementDepartmentContext    "1" *-[#595959,plain]-> "policeManRepository\n1" Repository                      
+EnforcementDepartmentContext    "1" *-[#595959,plain]-> "nextStage\n1" State                           
+EnforcementDepartmentContext    "1" *-[#595959,plain]-> "transfer\n1" TransferData                    
+EnforcementDepartmentInput      "1" *-[#595959,plain]-> "input\n1" ConsoleInput                    
+EnforcementDepartmentState       -[#595959,dashed]->  Context                         
+EnforcementDepartmentState       -[#008200,dashed]-^  State                           
+EnforcementService               -[#595959,dashed]->  Case                            
+EnforcementService               -[#595959,dashed]->  PoliceMan                       
+EnforcementService              "1" *-[#595959,plain]-> "policeManRepository\n1" Repository                      
+EnforcementService               -[#595959,dashed]->  Suspect                         
+FirePoliceManState               -[#595959,dashed]->  Context                         
+FirePoliceManState               -[#008200,dashed]-^  State                           
+HRDepartment                     -[#595959,dashed]->  HRDepartmentContext             
+HRDepartment                     -[#595959,dashed]->  Source                          
+HRDepartment                     -[#000082,plain]-^  StateMachine                    
+HRDepartmentContext              -[#595959,dashed]->  ConsoleInput                    
+HRDepartmentContext             "1" *-[#595959,plain]-> "userInterface\n1" ConsoleUserInterface            
+HRDepartmentContext              -[#008200,dashed]-^  Context                         
+HRDepartmentContext             "1" *-[#595959,plain]-> "hrService\n1" HRService                       
+HRDepartmentContext              -[#595959,dashed]->  PoliceMan                       
+HRDepartmentContext              -[#595959,dashed]->  Repository                      
+HRDepartmentContext              -[#595959,dashed]->  State                           
+HRDepartmentContext             "1" *-[#595959,plain]-> "transfer\n1" TransferData                    
+HRDepartmentInput               "1" *-[#595959,plain]-> "input\n1" ConsoleInput                    
+HRDepartmentState                -[#595959,dashed]->  Context                         
+HRDepartmentState                -[#008200,dashed]-^  State                           
+HRService                        -[#595959,dashed]->  PoliceMan                       
+HRService                       "1" *-[#595959,plain]-> "policeManRepository\n1" Repository                      
+HirePoliceManState               -[#595959,dashed]->  Context                         
+HirePoliceManState               -[#008200,dashed]-^  State                           
+Human                           "1" *-[#595959,plain]-> "traits\n1" Traits                          
+InitialState                     -[#595959,dashed]->  Context                         
+InitialState                     -[#595959,dashed]->  Context                         
+InitialState                     -[#595959,dashed]->  Context                         
+InitialState                     -[#595959,dashed]->  Context                         
+InitialState                     -[#595959,dashed]->  Context                         
+InitialState                     -[#008200,dashed]-^  State                           
+InitialState                     -[#008200,dashed]-^  State                           
+InitialState                     -[#008200,dashed]-^  State                           
+InitialState                     -[#008200,dashed]-^  State                           
+InitialState                     -[#008200,dashed]-^  State                           
+InterviewingWitnessesState       -[#595959,dashed]->  Context                         
+InterviewingWitnessesState       -[#008200,dashed]-^  State                           
+InvestigationDepartment          -[#595959,dashed]->  InvestigationDepartmentContext  
+InvestigationDepartment          -[#595959,dashed]->  Source                          
+InvestigationDepartment          -[#000082,plain]-^  StateMachine                    
+InvestigationDepartmentContext   -[#595959,dashed]->  Case                            
+InvestigationDepartmentContext   -[#595959,dashed]->  ConsoleInput                    
+InvestigationDepartmentContext  "1" *-[#595959,plain]-> "userInterface\n1" ConsoleUserInterface            
+InvestigationDepartmentContext   -[#008200,dashed]-^  Context                         
+InvestigationDepartmentContext  "1" *-[#595959,plain]-> "investigationService\n1" InvestigationService            
+InvestigationDepartmentContext   -[#595959,dashed]->  Repository                      
+InvestigationDepartmentContext  "1" *-[#595959,plain]-> "choice\n1" State                           
+InvestigationDepartmentContext   -[#595959,dashed]->  Suspect                         
+InvestigationDepartmentContext   -[#595959,dashed]->  SuspectSource                   
+InvestigationDepartmentContext  "1" *-[#595959,plain]-> "transfer\n1" TransferData                    
+InvestigationDepartmentInput    "1" *-[#595959,plain]-> "input\n1" ConsoleInput                    
+InvestigationDepartmentState     -[#595959,dashed]->  Context                         
+InvestigationDepartmentState     -[#008200,dashed]-^  State                           
+InvestigationService             -[#595959,dashed]->  Case                            
+InvestigationService            "1" *-[#595959,plain]-> "caseRepository\n1" Repository                      
+InvestigationService             -[#595959,dashed]->  Suspect                         
+InvestigationService             -[#595959,dashed]->  SuspectSource                   
+InvestigationService             -[#595959,dashed]->  Traits                          
+JacksonSerializer                -[#595959,dashed]->  ConsoleUserInterface            
+JacksonSerializer                -[#595959,dashed]->  Context                         
+JacksonSerializer                -[#595959,dashed]->  ControlCentreContext            
+JacksonSerializer                -[#595959,dashed]->  EnforcementDepartmentContext    
+JacksonSerializer                -[#595959,dashed]->  HRDepartmentContext             
+JacksonSerializer                -[#595959,dashed]->  InvestigationDepartmentContext  
+JacksonSerializer                -[#595959,dashed]->  PublicSafetyDepartmentContext   
+JacksonSerializer                -[#008200,dashed]-^  Source                          
+JacksonSerializer                -[#595959,dashed]->  State                           
+LawRegistry                     "1" *-[#595959,plain]-> "CRIMINAL_LAWS\n*" Law                             
+LawRegistryJsonRepository        -[#595959,dashed]->  Law                             
+LawRegistryJsonRepository       "1" *-[#595959,plain]-> "lawRegistry\n1" LawRegistry                     
+LawRegistryJsonRepository        -[#008200,dashed]-^  Repository                      
+LawRegistryJsonRepositoryTest   "1" *-[#595959,plain]-> "repository\n1" LawRegistryJsonRepository       
+ManipulatingSuspectSourceState   -[#595959,dashed]->  Context                         
+ManipulatingSuspectSourceState   -[#008200,dashed]-^  State                           
+NewCaseState                     -[#595959,dashed]->  Context                         
+NewCaseState                     -[#008200,dashed]-^  State                           
+Police                           -[#595959,dashed]->  PoliceContext                   
+Police                           -[#595959,dashed]->  Source                          
+Police                           -[#000082,plain]-^  StateMachine                    
+PoliceContext                    -[#595959,dashed]->  ConsoleInput                    
+PoliceContext                   "1" *-[#595959,plain]-> "userInterface\n1" ConsoleUserInterface            
+PoliceContext                    -[#008200,dashed]-^  Context                         
+PoliceContext                   "1" *-[#595959,plain]-> "controlCentre\n1" ControlCentre                   
+PoliceContext                    -[#595959,dashed]->  ControlCentreContext            
+PoliceContext                   "1" *-[#595959,plain]-> "choice\n1" Department                      
+PoliceContext                   "1" *-[#595959,plain]-> "enforcementDepartment\n1" EnforcementDepartment           
+PoliceContext                    -[#595959,dashed]->  EnforcementDepartmentContext    
+PoliceContext                   "1" *-[#595959,plain]-> "hrDepartment\n1" HRDepartment                    
+PoliceContext                    -[#595959,dashed]->  HRDepartmentContext             
+PoliceContext                   "1" *-[#595959,plain]-> "investigationDepartment\n1" InvestigationDepartment         
+PoliceContext                    -[#595959,dashed]->  InvestigationDepartmentContext  
+PoliceContext                   "1" *-[#595959,plain]-> "publicSafetyDepartment\n1" PublicSafetyDepartment          
+PoliceContext                    -[#595959,dashed]->  PublicSafetyDepartmentContext   
+PoliceContext                    -[#595959,dashed]->  State                           
+PoliceInput                     "1" *-[#595959,plain]-> "input\n1" ConsoleInput                    
+PoliceMan                        -[#000082,plain]-^  Human                           
+PoliceMan                        -[#595959,dashed]->  Traits                          
+PoliceMansJsonRepository        "1" *-[#595959,plain]-> "policeMans\n*" PoliceMan                       
+PoliceMansJsonRepository         -[#008200,dashed]-^  Repository                      
+PoliceMansJsonRepositoryTest    "1" *-[#595959,plain]-> "repository\n1" PoliceMansJsonRepository        
+PublicSafetyDepartment           -[#595959,dashed]->  PublicSafetyDepartmentContext   
+PublicSafetyDepartment           -[#595959,dashed]->  Source                          
+PublicSafetyDepartment           -[#000082,plain]-^  StateMachine                    
+PublicSafetyDepartmentContext    -[#595959,dashed]->  ConsoleInput                    
+PublicSafetyDepartmentContext   "1" *-[#595959,plain]-> "userInterface\n1" ConsoleUserInterface            
+PublicSafetyDepartmentContext    -[#008200,dashed]-^  Context                         
+PublicSafetyDepartmentContext    -[#595959,dashed]->  LawRegistry                     
+PublicSafetyDepartmentContext   "1" *-[#595959,plain]-> "publicSafetyService\n1" PublicSafetyService             
+PublicSafetyDepartmentContext   "1" *-[#595959,plain]-> "next\n1" State                           
+PublicSafetyDepartmentContext   "1" *-[#595959,plain]-> "transfer\n1" TransferData                    
+PublicSafetyDepartmentInput     "1" *-[#595959,plain]-> "input\n1" ConsoleInput                    
+PublicSafetyDepartmentState      -[#595959,dashed]->  Context                         
+PublicSafetyDepartmentState      -[#008200,dashed]-^  State                           
+PublicSafetyService              -[#595959,dashed]->  Case                            
+PublicSafetyService              -[#595959,dashed]->  Law                             
+PublicSafetyService              -[#595959,dashed]->  LawRegistry                     
+PublicSafetyService             "1" *-[#595959,plain]-> "lawRegistry\n1" Repository                      
+ReceiveCallState                 -[#595959,dashed]->  Context                         
+ReceiveCallState                 -[#008200,dashed]-^  State                           
+SchoolCampaigningState           -[#595959,dashed]->  Context                         
+SchoolCampaigningState           -[#008200,dashed]-^  State                           
+Source                           -[#595959,dashed]->  ConsoleUserInterface            
+Source                           -[#595959,dashed]->  Context                         
+Source                           -[#595959,dashed]->  State                           
+State                            -[#595959,dashed]->  Context                         
+StateMachine                    "1" *-[#595959,plain]-> "context\n1" Context                         
+StateMachine                    "1" *-[#595959,plain]-> "source\n1" Source                          
+StateMachine                    "1" *-[#595959,plain]-> "currentState\n1" State                           
+Suspect                          -[#000082,plain]-^  Human                           
+Suspect                          -[#595959,dashed]->  Traits                          
+SuspectSource                   "1" *-[#595959,plain]-> "suspects\n*" Suspect                         
+SuspectSource                    -[#595959,dashed]->  Traits                          
+SuspectSourceJsonRepository      -[#008200,dashed]-^  Repository                      
+SuspectSourceJsonRepository      -[#595959,dashed]->  Suspect                         
+SuspectSourceJsonRepository     "1" *-[#595959,plain]-> "suspectSource\n1" SuspectSource                   
+SuspectSourceJsonRepositoryTest "1" *-[#595959,plain]-> "repository\n1" SuspectSourceJsonRepository     
+TransferData                    "1" *-[#595959,plain]-> "caseData\n1" Case                            
+TransferData                    "1" *-[#595959,plain]-> "policeManData\n1" PoliceMan                       
+TransferData                    "1" *-[#595959,plain]-> "suspectData\n1" Suspect                         
+TransferData                    "1" *-[#595959,plain]-> "traits\n1" Traits                          
+@enduml

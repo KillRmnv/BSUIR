@@ -13,9 +13,16 @@ public class InitialState implements State {
         EnforcementDepartmentContext enforcementDepartmentContext = (EnforcementDepartmentContext) context;
         EnforcementDepartmentInput input = new EnforcementDepartmentInput(enforcementDepartmentContext.getInput());
         var cases=enforcementDepartmentContext.findActiveCases();
+        context.getTransfer().setCaseData(null);
         if (!cases.isEmpty()) {
-            enforcementDepartmentContext.getTransfer().setCaseData(cases.get(input.
-                    chooseCase(cases.size())));
+            if(enforcementDepartmentContext.getPoliceManRepository().loadAll().isEmpty()) {
+                context.getUserInterface().show("Полицейских нет");
+                enforcementDepartmentContext.setNextStage(new InitialState());
+                return;
+            }else {
+                enforcementDepartmentContext.getTransfer().setCaseData(cases.get(input.
+                        chooseCase(cases.size())));
+            }
         } else {
             context.getUserInterface().show("Дел нет");
             enforcementDepartmentContext.setNextStage(new InitialState());
@@ -24,7 +31,7 @@ public class InitialState implements State {
 
     @Override
     public State next(Context context) throws IOException {
-        if(((EnforcementDepartmentContext) context).findActiveCases().isEmpty()) {
+        if(context.getTransfer().getCaseData() == null) {
             return null;
         }
         return new CatchingSuspectState();

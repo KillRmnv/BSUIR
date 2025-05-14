@@ -18,8 +18,10 @@ public class CatchingSuspectState implements State {
         EnforcementDepartmentInput input = new EnforcementDepartmentInput(contextEnforcementDepartment.getInput());
 
         Case currCase = contextEnforcementDepartment.getTransfer().getCaseData();
+        var map=contextEnforcementDepartment.getPoliceManRepository().loadAll();
+        contextEnforcementDepartment.getUserInterface().showMap(map,"Выберите полицейского:");
         int numPoliceMan = input.
-                choosePoliceMan(contextEnforcementDepartment.getPoliceManRepository().loadAll());
+                choosePoliceMan(map);
         contextEnforcementDepartment.setPoliceMan(numPoliceMan);
         PoliceMan policeMan = contextEnforcementDepartment.getPoliceManRepository().loadAll().get(numPoliceMan);
         AtomicInteger decreaseInChance =new AtomicInteger( 0);
@@ -33,19 +35,18 @@ public class CatchingSuspectState implements State {
                 contextEnforcementDepartment.getUserInterface().show("Вы не успели");
             }
         }
+        choice=1;
         while (choice == 1) {
-            choice = input.askForRepeat();
             contextEnforcementDepartment.getUserInterface().show(contextEnforcementDepartment.getEnforcementService().
                     catchSuspect(currCase, policeMan, decreaseInChance));
-            if(currCase==null||policeMan==null)
+            if(decreaseInChance.get()<-1)
                 break;
+            choice = input.askForRepeat();
         }
     }
-
 
     @Override
     public State next(Context context) {
         return null;
     }
-
 }

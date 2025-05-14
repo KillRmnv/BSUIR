@@ -22,8 +22,8 @@ public class HirePoliceManState implements State {
             newPoliceMans=hrContext.getHrService().generateNewPoliceMans();
             context.getUserInterface().showMap(newPoliceMans,"Выберите полицеского для найма:");
             context.getUserInterface().show("""
-                10.Обновить
-                11.Назад
+                10. Обновить
+                11. Назад
                 """);
 
            choice=  input.getPoliceManHireChoice();

@@ -11,7 +11,7 @@ public class Suspect extends Human {
     public Suspect() {
         generateRandomName();
 
-        this.traits = new Traits(true);
+        this.traits = new Traits(false);
 
         this.intellegence = generateBiasedIntellegence();
     }
@@ -51,5 +51,10 @@ public class Suspect extends Human {
         info.append(traits.getHairColor());
         info.append("\n");
         return info.toString();
+    }
+    public void setFullName(String fullName) {
+        name=fullName;
+        secondName="";
+        thirdName="";
     }
 }

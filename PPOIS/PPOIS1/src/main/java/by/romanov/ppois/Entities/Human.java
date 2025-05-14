@@ -30,7 +30,7 @@ public class Human {
         suspectFullName.append(secondName);
         suspectFullName.append(" ");
         suspectFullName.append(thirdName);
-        return suspectFullName.toString();
+        return suspectFullName.toString().trim();
     }
     protected static final String[] FIRST_NAMES = {
             "Иван", "Пётр", "Сергей", "Алексей", "Дмитрий", "Михаил", "Егор",

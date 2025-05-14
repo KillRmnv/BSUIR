@@ -15,7 +15,7 @@
 <div th:if="${numericRange}" th:text="'Range: ' + ${numericRange}"></div>
 <div th:if="${map}" th:utext="'Map: ' + ${map}"></div>
 
-<form id="inputForm" action="/view/input" method="post">
+<form id="inputForm" action="/views/input" method="post">
     <input type="hidden" name="sessionId" th:value="${sessionId}">
     <label for="choice">Enter your choice:</label>
     <input type="text" id="choice" name="choice">

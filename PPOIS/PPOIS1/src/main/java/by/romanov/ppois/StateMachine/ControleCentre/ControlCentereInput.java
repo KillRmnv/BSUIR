@@ -84,6 +84,7 @@ public class ControlCentereInput {
         for (int i = 0; i < amnt; i++) {
             String contact = input.getRegex("Введите email или номер телефона(9 цифр):",
                     "^(\\+\\d{9}|[^@\\s]+@[^@\\s]+)$");
+            System.out.println("Свидетель добавлен: " + contact);
             contacts.add(contact);
         }
         return contacts;

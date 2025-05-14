@@ -11,13 +11,15 @@ import java.util.HashMap;
 public class PoliceMansJsonRepository implements Repository<HashMap<Integer, PoliceMan>, PoliceMan, Integer> {
     private static final ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule());
-    private static final String FILE_PATH = "./src/main/resources/police_mans.json";
+    private static  String FILE_PATH = "./src/main/resources/police_mans.json";
     private HashMap<Integer, PoliceMan> policeMans;
 
     public PoliceMansJsonRepository() {
         this.policeMans = new HashMap<>();
     }
-
+    public PoliceMansJsonRepository(String filePath) {
+        FILE_PATH = filePath;
+    }
     @Override
     public void saveAll(HashMap<Integer, PoliceMan> data) throws IOException {
         this.policeMans = data;
@@ -38,9 +40,12 @@ public class PoliceMansJsonRepository implements Repository<HashMap<Integer, Pol
 
     @Override
     public boolean delete(PoliceMan policeMan) throws IOException {
+      int size=  policeMans.size();
         policeMans.remove(policeMan.getId());
+        if(policeMans.size()==size)
+            return false;
         saveAll(policeMans);
-        return false;
+        return true;
     }
 
     @Override

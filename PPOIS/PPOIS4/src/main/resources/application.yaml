@@ -1,6 +1,8 @@
 micronaut:
   application:
     name: ppois4
+  scan:
+    packages: by.romanov.ppois.webapp
   views:
     enabled: true
     thymeleaf:
@@ -11,3 +13,8 @@ micronaut:
     max-inactive-interval: 30s
   server:
     port: 8001
+logging:
+  level:
+    root: DEBUG
+    io.micronaut: DEBUG
+    org.thymeleaf: DEBUG

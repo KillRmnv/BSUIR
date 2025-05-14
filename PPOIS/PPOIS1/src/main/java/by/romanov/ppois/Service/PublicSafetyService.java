@@ -27,14 +27,6 @@ public class PublicSafetyService {
         this.lawRegistry = lawRegistry;
     }
 
-    public String patrolArea(int areaIndex) {
-        if (areaIndex >= 0 && areaIndex < areas.size()) {
-            String area = areas.get(areaIndex);
-            return ("Патруль отправился в " + area + " район");
-        }
-        return null;
-    }
-
     public Case checkForCrime() throws IOException {
         Random crime = new Random();
         if (crime.nextInt(100) < 60) {
@@ -43,11 +35,6 @@ public class PublicSafetyService {
         return null;
     }
 
-    public String campaignSchool(int schoolNumber) {
-        String school = "Школа №" + schoolNumber;
-        return ("Патруль отправился в " + school);
-
-    }
 
     public List<String> getAreas() {
         return areas;

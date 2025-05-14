@@ -81,7 +81,7 @@ public class SuspectSource {
         if (suspects.get(suspectName) == null) {
             return false;
         }
-        Traits traits = new Traits(suspects.get(suspectName).getTraits());
+        Traits traits = suspects.get(suspectName).getTraits();
         suspects.remove(suspectName);
         Map<Integer, Set<String>> suspectsByTraits = suspectTraits.get("Hair");
         Set<String> names = suspectsByTraits.get(traitNumHair(traits.getHairColor()));

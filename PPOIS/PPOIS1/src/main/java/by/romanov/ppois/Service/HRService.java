@@ -21,32 +21,7 @@ public class HRService {
         this.budget = 10000;
     }
 
-    public String firePoliceMan(int policeManIndex) throws IOException {
-        List<PoliceMan> policeManList = new ArrayList<>(policeManRepository.loadAll().values());
-        if (policeManIndex >= 0 && policeManIndex < policeManList.size()) {
-            PoliceMan policeMan = policeManList.get(policeManIndex);
-            policeManRepository.delete(policeMan);
-            budget += policeMan.getSalary();
 
-            return "Полицейский уволен. Бюджет: " + budget;
-        }
-        return "";
-    }
-
-    public String hirePoliceMan(int policeManIndex, HashMap<Integer, PoliceMan> newPoliceMans) throws IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-       // userInterface.showMap(newPoliceMans,"Выберите полицейского для найма");
-        if (newPoliceMans.containsKey(policeManIndex)) {
-            PoliceMan policeMan = newPoliceMans.get(policeManIndex);
-            if (budget >= policeMan.getSalary()) {
-                policeManRepository.add(policeMan);
-                budget -= policeMan.getSalary();
-                return "Полицейский нанят. Бюджет: " + budget;
-            } else {
-               return "Недостаточно бюджета для найма";
-            }
-        }
-        return "";
-    }
 
     public HashMap<Integer, PoliceMan> generateNewPoliceMans() throws IOException {
         HashMap<Integer, PoliceMan> newPoliceMans = new LinkedHashMap<>();

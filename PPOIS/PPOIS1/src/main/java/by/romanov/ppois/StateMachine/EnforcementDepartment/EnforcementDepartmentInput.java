@@ -18,7 +18,7 @@ public class EnforcementDepartmentInput {
         return input.getChoice("Выберите дело:", 0, size - 1);
     }
     public <K,V>  int choosePoliceMan(Map<K,V> map)    {
-       return  input.getChoiceFromMap("Выберите полицейского:",map);
+       return  input.getChoiceFromMap("",map);
     }
     public int chooseAction()    {
         return input.getChoice("""

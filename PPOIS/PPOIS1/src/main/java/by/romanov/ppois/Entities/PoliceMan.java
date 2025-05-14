@@ -30,14 +30,14 @@ public class PoliceMan extends Human {
         this.salary = calculateSalary();
     }
 
-    private int generateRandomExperience() {
+    public int generateRandomExperience() {
         Random random = new Random();
         double lambda = 0.05;
         double expValue = -Math.log(1 - random.nextDouble()) / lambda;
         return (int)Math.min(100, expValue);
     }
 
-    private int calculateSalary() {
+    public int calculateSalary() {
         int baseSalary = 500;
         int experienceBonus = experience * 30;
         Random random = new Random();

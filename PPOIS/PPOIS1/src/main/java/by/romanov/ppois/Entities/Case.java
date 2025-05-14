@@ -42,7 +42,10 @@ public class Case {
 
     public Case(HashMap<Integer, Law> laws) {
         Random randLaw = new Random();
-        Integer rand = randLaw.nextInt(laws.size()-1);
+        int rand = randLaw.nextInt(laws.size()-1);
+        if(rand==0){
+            rand++;
+        }
         Law brokenLaw = laws.get(rand);
         contacts = generateRandomContacts();
         type = 1;
@@ -61,7 +64,6 @@ public class Case {
 
                 Objects.equals(law, aCase.law) &&
                 Objects.equals(type, aCase.type) ;
-
     }
 
     @Override
@@ -75,8 +77,7 @@ public class Case {
         }
         return contacts;
     }
-
-    private String generateSimplePhone() {
+    public String generateSimplePhone() {
         Random random = ThreadLocalRandom.current();
         StringBuilder phone = new StringBuilder("+");
         for (int i = 0; i < 9; i++) {
