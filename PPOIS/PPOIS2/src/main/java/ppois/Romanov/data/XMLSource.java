@@ -1,8 +1,10 @@
-package ppois.Romanov;
+package ppois.Romanov.data;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+import ppois.Romanov.entities.Customer;
+import ppois.Romanov.CustomerSearchCriteria;
 
 import javax.xml.parsers.*;
 import javax.xml.transform.OutputKeys;
@@ -12,6 +14,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -229,5 +232,10 @@ public class XMLSource implements Source {
         }
         save(new ArrayList<>(customers.values()));
         return toRemove.size();
+    }
+
+    @Override
+    public int size() throws SQLException {
+        return customers.size();
     }
 }

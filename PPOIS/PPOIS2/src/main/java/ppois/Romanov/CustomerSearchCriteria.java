@@ -1,6 +1,7 @@
 package ppois.Romanov;
 
 import lombok.Data;
+import ppois.Romanov.entities.Customer;
 
 @Data
 public class CustomerSearchCriteria {
@@ -18,6 +19,5 @@ public class CustomerSearchCriteria {
         this.address = customer.getAddress();
         this.mobilePhone = customer.getMobilePhone();
         this.townPhone = customer.getTownPhone();
-
     }
 }

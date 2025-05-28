@@ -4,30 +4,30 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="823.0" prefWidth="1243.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.Romanov.MainController">
+<AnchorPane prefHeight="823.0" prefWidth="1342.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.Romanov.controllers.MainController">
 
-    <TreeView fx:id="treeView" layoutX="6.0" layoutY="14.0" prefHeight="727.0" prefWidth="1206.0">
+    <TreeView fx:id="treeView" layoutX="6.0" layoutY="18.0" prefHeight="723.0" prefWidth="1328.0">
 
     </TreeView>
 
-    <TableView fx:id="tableView" layoutX="10" layoutY="16.0" prefHeight="727.0" prefWidth="1206.0">
+    <TableView fx:id="tableView" layoutX="3.0" layoutY="16.0" prefHeight="723.0" prefWidth="1335.0">
         <columns>
             <TableColumn fx:id="fioColumn" prefWidth="316.0" text="FIO">
                 <cellValueFactory>
                     <PropertyValueFactory property="fio" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="accountNumberColumn" prefWidth="261.0" text="Account Number">
+            <TableColumn fx:id="accountNumberColumn" prefWidth="330.0" text="Account Number">
                 <cellValueFactory>
                     <PropertyValueFactory property="accountNumber" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="addressColumn" prefWidth="286.0" text="Address">
+            <TableColumn fx:id="addressColumn" prefWidth="338.0" text="Address">
                 <cellValueFactory>
                     <PropertyValueFactory property="address" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="phonesColumn" maxWidth="254.0" minWidth="20.0" prefWidth="180.0" text="Phones">
+            <TableColumn fx:id="phonesColumn" maxWidth="396.0" minWidth="20.0" prefWidth="296.0" text="Phones">
                 <columns>
                     <TableColumn fx:id="mobilePhoneColumn" prefWidth="170.0" text="Mobile Phone">
                         <cellValueFactory>
@@ -43,7 +43,7 @@
             </TableColumn>
         </columns>
     </TableView>
-    <ChoiceBox fx:id="pageAmountChoice" layoutX="1160.0" layoutY="770.0" onAction="#changeAmntOfCustomersOnPage" />
+    <ChoiceBox fx:id="pageAmountChoice" layoutX="1256.0" layoutY="770.0" onAction="#changeAmntOfCustomersOnPage" />
     <Button fx:id="addButton" layoutX="23.0" layoutY="770.0" onAction="#addCustomer" text="Add Customers" />
     <Button fx:id="deleteButton" layoutX="157.0" layoutY="770.0" onAction="#deleteCustomer" text="Delete Customers" />
     <Button fx:id="searchButton" layoutX="307.0" layoutY="770.0" onAction="#searchCustomer" text="Search Customers" />
@@ -51,8 +51,11 @@
     <Button fx:id="tableViewButton" layoutX="548.0" layoutY="770.0" onAction="#showTableView" text="Table View" />
     <Button layoutX="650.0" layoutY="770.0" onAction="#loadXmlData" text="XML Source" fx:id="xmlButton" />
     <Button fx:id="sqlButton" layoutX="753.0" layoutY="770.0" onAction="#loadSqlData" text="SQL Source" />
-   <Button fx:id="prevPageButton" layoutX="934.0" layoutY="770.0" mnemonicParsing="false" onAction="#prevPage" text="Previous page" />
-   <Button fx:id="nextPageButton" layoutX="1062.0" layoutY="770.0" mnemonicParsing="false" onAction="#nextPage" text="NextPage" />
+    <Button fx:id="prevPageButton" layoutX="934.0" layoutY="770.0" mnemonicParsing="false" onAction="#prevPage" text="Previous page" />
+    <Button fx:id="nextPageButton" layoutX="1062.0" layoutY="770.0" mnemonicParsing="false" onAction="#nextPage" text="NextPage" />
     <Button fx:id="migrateButton" layoutX="858.0" layoutY="770.0" mnemonicParsing="false" onAction="#migrateData" text="Migrate" />
-   <Label fx:id="pageLabel" layoutX="1153.0" layoutY="754.0" prefHeight="16.0" prefWidth="64.0" text="Label" />
+    <Label fx:id="pageLabel" layoutX="1256.0" layoutY="754.0" prefHeight="16.0" prefWidth="64.0" text="Label" />
+    <Label fx:id="pageNumberLabel" layoutX="1180.0" layoutY="754.0" prefHeight="16.0" prefWidth="64.0" text="pageNum" />
+    <Button fx:id="lastPageButton" layoutX="1062.0" layoutY="742.0" mnemonicParsing="false" onAction="#lastPage" text="LastPage" />
+    <Button fx:id="firstPageButton" layoutX="943.0" layoutY="742.0" mnemonicParsing="false" onAction="#firstPage" text="FirstPage" />
 </AnchorPane>

@@ -1,6 +1,12 @@
 package ppois.Romanov;
 
+import ppois.Romanov.data.SQLiteSource;
+import ppois.Romanov.data.Source;
+import ppois.Romanov.data.XMLSource;
+import ppois.Romanov.entities.Customer;
+
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CustomerProcessingSystem {
@@ -27,7 +33,7 @@ public class CustomerProcessingSystem {
     }
     public void migrate() throws Exception {
         Source anthrSource;
-        if(source.getClass().equals(ppois.Romanov.XMLSource.class)) {
+        if(source.getClass().equals(XMLSource.class)) {
             anthrSource=new SQLiteSource("src/main/resources/db/customers.db");
         }else{
             anthrSource=new XMLSource(new File("src/main/resources/xml/customers.xml"));
@@ -37,5 +43,8 @@ public class CustomerProcessingSystem {
     }
     public void close() throws Exception {
         source.close();
+    }
+    public int getSize() throws SQLException {
+       return source.size();
     }
 }

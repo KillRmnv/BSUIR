@@ -26,15 +26,12 @@ public class InvestigationDepartmentContext implements Context {
     @JsonIgnore
     private InvestigationService investigationService;
 
-
     public InvestigationDepartmentContext() {
-
         transfer=new TransferData();
         userInterface=new ConsoleUserInterface(new ConsoleInput());
         investigationService=new InvestigationService();
     }
     public InvestigationDepartmentContext(ConsoleUserInterface userInterface) {
-
         transfer=new TransferData();
         this.userInterface=userInterface;
         investigationService=new InvestigationService();
@@ -71,13 +68,9 @@ public class InvestigationDepartmentContext implements Context {
     public ConsoleInput getInput() {
         return userInterface.getConsoleInput();
     }
-
     @Override
     @JsonIgnore
-
     public State getNextState() {
         return choice;
     }
-
-
 }

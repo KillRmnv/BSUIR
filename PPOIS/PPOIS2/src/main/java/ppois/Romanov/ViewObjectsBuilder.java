@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ppois.Romanov.controllers.Controller;
+import ppois.Romanov.entities.Customer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -87,7 +89,31 @@ public class ViewObjectsBuilder {
 
     }
     public static  void  nextPage(int pageNumber,Label pageLabel,Button nextPageButton,Button prevPageButton,TableView<Customer> tableView,List<Customer> searchResults){
-        pageLabel.setText("Page:" + pageNumber);
+        pageLabel.setText("Стр:" + pageNumber);
         ViewObjectsBuilder.setItemsTable(searchResults, pageNumber, tableView, nextPageButton, prevPageButton);
     }
+    public static int lastPage(int size,int pageNumber,ChoiceBox pageAmountChoice,Button nextPageButton,Button prevPageButton){
+        pageNumber = size / (Integer) pageAmountChoice.getValue();
+        if (size % (Integer) pageAmountChoice.getValue() == 0) {
+            pageNumber--;
+        }
+        if(pageNumber > 0) {
+            ViewObjectsBuilder.hideButton(nextPageButton);
+            ViewObjectsBuilder.showButton(prevPageButton);
+        }else{
+            ViewObjectsBuilder.showButton(prevPageButton);
+            ViewObjectsBuilder.hideButton(nextPageButton);
+        }
+        return pageNumber;
+    }
+    public static void firstPage(int size,ChoiceBox pageAmountChoice,Button nextPageButton,Button prevPageButton){
+        if(size>(Integer) pageAmountChoice.getValue()){
+            ViewObjectsBuilder.hideButton(prevPageButton);
+            ViewObjectsBuilder.showButton(nextPageButton);
+        }else{
+            ViewObjectsBuilder.hideButton(prevPageButton);
+            ViewObjectsBuilder.hideButton(nextPageButton);
+        }
+    }
+
 }

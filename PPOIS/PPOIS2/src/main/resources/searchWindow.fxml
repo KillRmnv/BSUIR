@@ -4,7 +4,7 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.Romanov.SearchController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.Romanov.controllers.SearchController">
     <TableView fx:id="tableView" layoutY="10" prefHeight="367.0" prefWidth="1101.0">
         <columns>
             <TableColumn fx:id="fioColumn" prefWidth="301.0" text="FIO">
@@ -50,6 +50,8 @@
     <Button fx:id="searchButton" layoutX="33.0" layoutY="433.0" onAction="#searchCustomer" text="Search" />
     <Button fx:id="prevPageButton" layoutX="814.0" layoutY="433.0" mnemonicParsing="false" onAction="#prevPage" text="Previous page" />
     <Button fx:id="nextPageButton" layoutX="942.0" layoutY="433.0" mnemonicParsing="false" onAction="#nextPage" text="NextPage" />
-    <Label fx:id="pageLabel" layoutX="1023.0" layoutY="381.0" prefHeight="16.0" prefWidth="64.0" text="Label" />
     <TextField fx:id="accountNumberField" layoutX="802.0" layoutY="397.0" promptText="Account Number" />
+    <Label fx:id="pageNumberLabel" layoutX="1016.0" layoutY="381.0" prefHeight="16.0" prefWidth="64.0" text="pageNum" />
+    <Button fx:id="lastPageButton" layoutX="944.0" layoutY="467.0" mnemonicParsing="false" onAction="#lastPage" text="LastPage" />
+    <Button fx:id="firstPageButton" layoutX="830.0" layoutY="467.0" mnemonicParsing="false" onAction="#firstPage" text="FirstPage" />
 </AnchorPane>

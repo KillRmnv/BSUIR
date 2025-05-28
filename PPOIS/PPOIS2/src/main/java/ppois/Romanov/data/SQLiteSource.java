@@ -1,6 +1,8 @@
-package ppois.Romanov;
+package ppois.Romanov.data;
 
 import org.sqlite.Function;
+import ppois.Romanov.entities.Customer;
+import ppois.Romanov.CustomerSearchCriteria;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,7 +57,7 @@ public class SQLiteSource implements Source {
 
     @Override
     public List<Customer> load(int start, int limit) throws SQLException {
-        limit=limit-start;
+        limit = limit - start;
         String sql = """
                     SELECT c.FIO, c.ACCOUNT_NUMBER, c.ADDRESS,
                            p.MOBILE_PHONE, p.TOWN_PHONE
@@ -87,16 +89,19 @@ public class SQLiteSource implements Source {
     public List<Customer> load(CustomerSearchCriteria condition) throws SQLException {
         StringBuilder sql = new StringBuilder("SELECT * FROM Customers WHERE ");
         var customers = findRecordsByNameAccountAddress(condition, sql);
-        for (var record : customers) {
-            sql = new StringBuilder("SELECT * FROM Phones WHERE ACCOUNT_NUMBER REGEXP '.*").append(record.getAccountNumber()).append(".*' AND ");
+        for (int record=0;record< customers.size();record++) {
+            sql = new StringBuilder("SELECT * FROM Phones WHERE ACCOUNT_NUMBER REGEXP '.*").append(customers.get(record).getAccountNumber()).append(".*' AND ");
             if (condition == null) {
                 sql.replace(sql.length() - 5, sql.length() - 1, "");
             } else
                 formPhonesConditions(sql, condition);
             ResultSet records = connection.createStatement().executeQuery(sql.toString());
             if (records.next()) {
-                record.setMobilePhone(records.getString("MOBILE_PHONE"));
-                record.setTownPhone(records.getString("TOWN_PHONE"));
+                customers.get(record).setMobilePhone(records.getString("MOBILE_PHONE"));
+                customers.get(record).setTownPhone(records.getString("TOWN_PHONE"));
+            }else{
+                customers.remove(record);
+                record --;
             }
         }
         return customers;
@@ -116,7 +121,7 @@ public class SQLiteSource implements Source {
         sql.append(record.getAddress()).append("');");
         try {
             connection.createStatement().executeUpdate(sql.toString());
-        }catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
 
@@ -129,8 +134,7 @@ public class SQLiteSource implements Source {
 
     @Override
     public int delete(CustomerSearchCriteria condition) throws Exception {
-        StringBuilder sql = new StringBuilder("SELECT * FROM Customers WHERE ");
-        List<Customer> customers = findRecordsByNameAccountAddress(condition, sql);
+        List<Customer> customers = load(condition);
 
         if (customers.isEmpty()) {
             return 0;
@@ -148,15 +152,35 @@ public class SQLiteSource implements Source {
         return deletedCount;
     }
 
+    @Override
+    public int size() throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Customers;";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        int count = 0;
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+        rs.close();
+        stmt.close();
+        return count;
+    }
+
 
     private void formPhonesConditions(StringBuilder sqlPhones, CustomerSearchCriteria condition) {
+        boolean mobPhone = false;
         if (condition.getMobilePhone() != null && !condition.getMobilePhone().isEmpty()) {
             sqlPhones.append("(MOBILE_PHONE REGEXP '.*");
             sqlPhones.append(condition.getMobilePhone()).append(".*'").append(" OR ");
+            mobPhone = true;
         }
         if (condition.getTownPhone() != null && !condition.getTownPhone().isEmpty()) {
             sqlPhones.append("TOWN_PHONE REGEXP '.*");
-            sqlPhones.append(condition.getTownPhone()).append(".*' )");
+
+                sqlPhones.append(condition.getTownPhone()).append(".*'");
+            if (mobPhone)
+                sqlPhones.append(" )");
+
         } else {
             sqlPhones.replace(sqlPhones.length() - 4, sqlPhones.length() - 1, "");
         }

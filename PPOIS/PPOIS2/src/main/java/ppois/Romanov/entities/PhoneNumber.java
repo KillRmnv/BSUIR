@@ -1,4 +1,4 @@
-package ppois.Romanov;
+package ppois.Romanov.entities;
 
 public class PhoneNumber {
     private String number;

@@ -48,6 +48,10 @@ public class CaseJsonRepository implements Repository<List<Case>, Case,Integer> 
         if(cases.size()==size){
             return false;
         }
+        File file = new File(FILE_PATH);
+        if (file.exists()) {
+            file.delete();
+        }
         saveAll(cases);
         return true;
     }

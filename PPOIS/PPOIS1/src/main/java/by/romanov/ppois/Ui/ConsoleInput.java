@@ -120,22 +120,21 @@ public class ConsoleInput {
         return choiceInt;
     }
 
+
     public boolean handleQTE() {
         long endTime = System.currentTimeMillis() + 2000;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
             while (System.in.available() > 0) {
                 System.in.read();
             }
             while (System.currentTimeMillis() < endTime) {
-                if (System.in.available() > 0) {
-                    int input = System.in.read();
-                    if (input == ' ' || input == '\n' || input == '\r') {
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                        while (reader.ready()) {
-                            reader.read();
-                        }
+                if (reader.ready()) {
+                    String input = reader.readLine();
+                    if (input.isEmpty() || input.equals(" ")) {
                         return true;
                     }
+                    return false;
                 }
                 Thread.sleep(10);
             }
@@ -146,7 +145,6 @@ public class ConsoleInput {
             System.out.println("Прерывание потока: " + e.getMessage());
             return false;
         }
-
         return false;
     }
 

@@ -15,7 +15,6 @@ public class LawRegistry {
 
     }
 
-
     public String printCriminalLaws() {
         StringBuilder laws = new StringBuilder();
         for (var law : CRIMINAL_LAWS.values()) {
