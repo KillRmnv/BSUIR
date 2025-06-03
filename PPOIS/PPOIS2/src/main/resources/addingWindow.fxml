@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="255.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.Romanov.controllers.AddingController">
+<AnchorPane prefHeight="255.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.romanov.controllers.AddingController">
     <TextField fx:id="nameField" layoutX="298.0" layoutY="55.0" promptText="Name">
 
     </TextField>

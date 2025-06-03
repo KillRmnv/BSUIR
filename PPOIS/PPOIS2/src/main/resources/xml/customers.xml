@@ -60,6 +60,12 @@
         <MobilePhone>+792030405</MobilePhone>
         <TownPhone>+749620304</TownPhone>
     </Customer>
+    <Customer FullName="Роман  ">
+        <Account>21346578</Account>
+        <Address>г.Минск</Address>
+        <MobilePhone>+543216789</MobilePhone>
+        <TownPhone>+456321789</TownPhone>
+    </Customer>
     <Customer FullName="Ларина Валерия Денисовна">
         <Account>22334455</Account>
         <Address>ул. Короленко, д. 6, кв. 19</Address>
@@ -71,6 +77,12 @@
         <Address>ул. Тургенева, д. 8, кв. 15</Address>
         <MobilePhone>+792323232</MobilePhone>
         <TownPhone>+749623232</TownPhone>
+    </Customer>
+    <Customer FullName="  ">
+        <Account>23333356</Account>
+        <Address/>
+        <MobilePhone>+123456789</MobilePhone>
+        <TownPhone>+564738291</TownPhone>
     </Customer>
     <Customer FullName="Смирнова Анна Владимировна">
         <Account>23456789</Account>
@@ -150,11 +162,11 @@
         <MobilePhone>+795678901</MobilePhone>
         <TownPhone>+749956789</TownPhone>
     </Customer>
-    <Customer FullName="Устинова Дарья Евгеньевна">
-        <Account>60708090</Account>
-        <Address>ул. Дзержинского, д. 5, кв. 44</Address>
-        <MobilePhone>+796060708</MobilePhone>
-        <TownPhone>+749060708</TownPhone>
+    <Customer FullName="Принц Артас ">
+        <Account>66666666</Account>
+        <Address>корлевство Лордерон</Address>
+        <MobilePhone>+123456789</MobilePhone>
+        <TownPhone>+563412789</TownPhone>
     </Customer>
     <Customer FullName="Панова Анастасия Романовна">
         <Account>66778899</Account>

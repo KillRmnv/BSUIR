@@ -3,26 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="255.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.Romanov.controllers.DeleteController">
-    <TextField fx:id="nameField" layoutX="298.0" layoutY="55.0" promptText="Name">
+<AnchorPane prefHeight="293.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.romanov.controllers.DeleteController">
+    <TextField fx:id="nameField" layoutX="322.0" layoutY="55.0" promptText="Name">
 
     </TextField>
-    <TextField fx:id="addressField" layoutX="46.0" layoutY="14.0" promptText="Address">
+    <TextField fx:id="addressField" layoutX="69.0" layoutY="14.0" promptText="Address">
 
     </TextField>
-    <TextField fx:id="mobilePhoneField" layoutX="46.0" layoutY="55.0" promptText="MobilePhone">
+    <TextField fx:id="mobilePhoneField" layoutX="69.0" layoutY="55.0" promptText="MobilePhone">
 
     </TextField>
-    <TextField fx:id="townPhoneField" layoutX="298.0" layoutY="14.0" promptText="TownPhone">
+    <TextField fx:id="townPhoneField" layoutX="322.0" layoutY="14.0" promptText="TownPhone">
 
     </TextField>
-    <TextField fx:id="accountNumberField" layoutX="162.0" layoutY="104.0" promptText="Account Number">
+    <TextField fx:id="accountNumberField" layoutX="194.0" layoutY="108.0" promptText="Account Number">
 
     </TextField>
-    <Button fx:id="deleteButton" layoutX="226.0" layoutY="150.0" onAction="#deleteCustomer" text="Delete">
+    <Button fx:id="deleteButton" layoutX="249.0" layoutY="147.0" onAction="#deleteCustomer" text="Delete">
 
     </Button>
-    <Label fx:id="deleteResult" layoutX="229.0" layoutY="193.0" />
+    <Label fx:id="deleteResult" layoutX="41.0" layoutY="193.0" prefHeight="63.0" prefWidth="498.0" textAlignment="CENTER" />
 
 
 </AnchorPane>

@@ -1,4 +1,4 @@
-package ppois.Romanov;
+package ppois.romanov;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
@@ -9,8 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ppois.Romanov.controllers.Controller;
-import ppois.Romanov.entities.Customer;
+import ppois.romanov.controllers.Controller;
+import ppois.romanov.entities.Customer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class ViewObjectsBuilder {
         townPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("townPhone"));
     }
     public static void setItemsTable(List<Customer> toShow,
-                  int customersOnPageAmount,
+
                   TableView<Customer> tableView,
                   Button nextPageButton,
                   Button prevPageButton){
@@ -90,7 +90,7 @@ public class ViewObjectsBuilder {
     }
     public static  void  nextPage(int pageNumber,Label pageLabel,Button nextPageButton,Button prevPageButton,TableView<Customer> tableView,List<Customer> searchResults){
         pageLabel.setText("Стр:" + pageNumber);
-        ViewObjectsBuilder.setItemsTable(searchResults, pageNumber, tableView, nextPageButton, prevPageButton);
+        ViewObjectsBuilder.setItemsTable(searchResults, tableView, nextPageButton, prevPageButton);
     }
     public static int lastPage(int size,int pageNumber,ChoiceBox pageAmountChoice,Button nextPageButton,Button prevPageButton){
         pageNumber = size / (Integer) pageAmountChoice.getValue();

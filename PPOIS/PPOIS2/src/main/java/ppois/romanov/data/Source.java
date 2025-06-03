@@ -1,7 +1,7 @@
-package ppois.Romanov.data;
+package ppois.romanov.data;
 
-import ppois.Romanov.entities.Customer;
-import ppois.Romanov.CustomerSearchCriteria;
+import ppois.romanov.entities.Customer;
+import ppois.romanov.CustomerSearchCriteria;
 
 import java.sql.SQLException;
 import java.util.List;

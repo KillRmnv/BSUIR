@@ -1,4 +1,4 @@
-package ppois.Romanov.entities;
+package ppois.romanov.entities;
 
 public class AccountNumber {
     private int accountNumber;

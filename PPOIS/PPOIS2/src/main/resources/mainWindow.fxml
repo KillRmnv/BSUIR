@@ -4,7 +4,7 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="823.0" prefWidth="1342.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.Romanov.controllers.MainController">
+<AnchorPane prefHeight="823.0" prefWidth="1342.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ppois.romanov.controllers.MainController">
 
     <TreeView fx:id="treeView" layoutX="6.0" layoutY="18.0" prefHeight="723.0" prefWidth="1328.0">
 
@@ -54,7 +54,6 @@
     <Button fx:id="prevPageButton" layoutX="934.0" layoutY="770.0" mnemonicParsing="false" onAction="#prevPage" text="Previous page" />
     <Button fx:id="nextPageButton" layoutX="1062.0" layoutY="770.0" mnemonicParsing="false" onAction="#nextPage" text="NextPage" />
     <Button fx:id="migrateButton" layoutX="858.0" layoutY="770.0" mnemonicParsing="false" onAction="#migrateData" text="Migrate" />
-    <Label fx:id="pageLabel" layoutX="1256.0" layoutY="754.0" prefHeight="16.0" prefWidth="64.0" text="Label" />
     <Label fx:id="pageNumberLabel" layoutX="1180.0" layoutY="754.0" prefHeight="16.0" prefWidth="64.0" text="pageNum" />
     <Button fx:id="lastPageButton" layoutX="1062.0" layoutY="742.0" mnemonicParsing="false" onAction="#lastPage" text="LastPage" />
     <Button fx:id="firstPageButton" layoutX="943.0" layoutY="742.0" mnemonicParsing="false" onAction="#firstPage" text="FirstPage" />

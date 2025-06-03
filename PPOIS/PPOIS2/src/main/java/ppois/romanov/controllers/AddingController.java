@@ -1,4 +1,4 @@
-package ppois.Romanov.controllers;
+package ppois.romanov.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -6,8 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import lombok.Setter;
-import ppois.Romanov.entities.Customer;
-import ppois.Romanov.CustomerProcessingSystem;
+import ppois.romanov.entities.Customer;
+import ppois.romanov.CustomerProcessingSystem;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,7 +39,15 @@ public class AddingController implements Initializable, Controller {
             addingResult.setText(ignored.getMessage());
             return;
         }
+        if(nameField.getText().isEmpty()) {
+            addingResult.setText("Имя не должно быть пустым");
+            return;
+        }
         customerToAdd.setName(nameField.getText());
+        if(addressField.getText().isEmpty()) {
+            addingResult.setText("Адрес не должен быть пустым");
+            return;
+        }
         customerToAdd.setAddress(addressField.getText());
         try {
             customerToAdd.setMobilePhone(mobilePhoneField.getText());

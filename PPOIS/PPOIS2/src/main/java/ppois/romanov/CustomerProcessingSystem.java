@@ -1,9 +1,9 @@
-package ppois.Romanov;
+package ppois.romanov;
 
-import ppois.Romanov.data.SQLiteSource;
-import ppois.Romanov.data.Source;
-import ppois.Romanov.data.XMLSource;
-import ppois.Romanov.entities.Customer;
+import ppois.romanov.data.SQLiteSource;
+import ppois.romanov.data.Source;
+import ppois.romanov.data.XMLSource;
+import ppois.romanov.entities.Customer;
 
 import java.io.File;
 import java.sql.SQLException;

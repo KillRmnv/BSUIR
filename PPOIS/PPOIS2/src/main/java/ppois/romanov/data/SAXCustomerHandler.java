@@ -1,9 +1,9 @@
-package ppois.Romanov.data;
+package ppois.romanov.data;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
-import ppois.Romanov.entities.Customer;
-import ppois.Romanov.entities.FullName;
+import ppois.romanov.entities.Customer;
+import ppois.romanov.entities.FullName;
 
 import java.util.Map;
 

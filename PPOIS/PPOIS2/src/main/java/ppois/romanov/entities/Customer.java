@@ -1,4 +1,4 @@
-package ppois.Romanov.entities;
+package ppois.romanov.entities;
 
 import lombok.Data;
 

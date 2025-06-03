@@ -1,7 +1,7 @@
-package ppois.Romanov;
+package ppois.romanov;
 
 import lombok.Data;
-import ppois.Romanov.entities.Customer;
+import ppois.romanov.entities.Customer;
 
 @Data
 public class CustomerSearchCriteria {

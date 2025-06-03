@@ -1,4 +1,4 @@
-package ppois.Romanov.controllers;
+package ppois.romanov.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,10 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import ppois.Romanov.*;
-import ppois.Romanov.data.SQLiteSource;
-import ppois.Romanov.data.XMLSource;
-import ppois.Romanov.entities.Customer;
+import ppois.romanov.*;
+import ppois.romanov.data.SQLiteSource;
+import ppois.romanov.data.XMLSource;
+import ppois.romanov.entities.Customer;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,8 +31,7 @@ public class MainController implements Initializable, Controller {
     private Button migrateButton;
     @FXML
     private Button nextPageButton;
-    @FXML
-    private Label pageLabel;
+
     @FXML
     private Button prevPageButton;
 
@@ -76,14 +75,14 @@ public class MainController implements Initializable, Controller {
         ViewObjectsBuilder.showButton(lastPageButton);
         ViewObjectsBuilder.hideButton(firstPageButton);
         pageNumberLabel.setVisible(true);
-        pageLabel.setVisible(true);
+         
         pageNumber = 0;
         pageNumberLabel.setText("Стр:"+String.valueOf(pageNumber));
         ViewObjectsBuilder.createColumns(fioColumn, accountNumberColumn, addressColumn, mobilePhoneColumn, townPhoneColumn);
         var customers = customerProcessingSystem.loadCustomers(0,
                 (Integer) pageAmountChoice.getValue());
         tableView.setItems(FXCollections.observableArrayList(customers));
-        pageLabel.setText("Стр:" + pageNumber);
+          
         ViewObjectsBuilder.hideButton(prevPageButton);
         if (customers.size() < (Integer) pageAmountChoice.getValue())
             ViewObjectsBuilder.hideButton(nextPageButton);
@@ -95,7 +94,7 @@ public class MainController implements Initializable, Controller {
         ViewObjectsBuilder.hideViewObject(tableView);
         ViewObjectsBuilder.showViewObject(treeView);
         pageNumberLabel.setVisible(false);
-        pageLabel.setVisible(false);
+           
         ViewObjectsBuilder.hideButton(prevPageButton);
         ViewObjectsBuilder.hideButton(nextPageButton);
         ViewObjectsBuilder.hideButton(lastPageButton);
@@ -160,7 +159,7 @@ public class MainController implements Initializable, Controller {
 
     public void prevPage() throws Exception {
         pageNumber--;
-        pageLabel.setText("Стр:" + pageNumber);
+          
         List<Customer> toShow = customerProcessingSystem.loadCustomers(pageNumber *
                 (Integer) pageAmountChoice.getValue(), (pageNumber + 1)
                 * (Integer) pageAmountChoice.getValue());
@@ -176,11 +175,11 @@ public class MainController implements Initializable, Controller {
 
     public void loadPage() throws Exception {
         tableView.setItems(FXCollections.observableArrayList());
-        pageLabel.setText("Стр:" + pageNumber);
+          
         List<Customer> toShow = customerProcessingSystem.loadCustomers(pageNumber *
                         (Integer) pageAmountChoice.getValue(),
                 (pageNumber + 1) * (Integer) pageAmountChoice.getValue());
-        ViewObjectsBuilder.setItemsTable(toShow, (Integer) pageAmountChoice.getValue(), tableView, nextPageButton, prevPageButton);
+        ViewObjectsBuilder.setItemsTable(toShow, tableView, nextPageButton, prevPageButton);
         pageNumberLabel.setText("Стр:"+String.valueOf(pageNumber));
     }
 
@@ -189,7 +188,7 @@ public class MainController implements Initializable, Controller {
         List<Customer> toShow = customerProcessingSystem.loadCustomers(pageNumber *
                         (Integer) pageAmountChoice.getValue(),
                 (pageNumber + 1) * (Integer) pageAmountChoice.getValue());
-        ViewObjectsBuilder.nextPage(pageNumber, pageLabel, nextPageButton, prevPageButton, tableView, toShow);
+        ViewObjectsBuilder.nextPage(pageNumber, pageNumberLabel, nextPageButton, prevPageButton, tableView, toShow);
         toShow = customerProcessingSystem.loadCustomers((pageNumber + 1) *
                         (Integer) pageAmountChoice.getValue(),
                 (pageNumber + 1) * (Integer) pageAmountChoice.getValue() + 1);

@@ -50,7 +50,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>ppois.Romanov.Main</mainClass>
+                    <mainClass>ppois.romanov.Main</mainClass>
                     <options>
                         <option>--module-path</option>
                         <option>${project.basedir}/target/lib</option>

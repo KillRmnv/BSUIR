@@ -1,4 +1,4 @@
-package ppois.Romanov.controllers;
+package ppois.romanov.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,10 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import lombok.Setter;
-import ppois.Romanov.entities.Customer;
-import ppois.Romanov.CustomerProcessingSystem;
-import ppois.Romanov.CustomerSearchCriteria;
-import ppois.Romanov.ViewObjectsBuilder;
+import ppois.romanov.entities.Customer;
+import ppois.romanov.CustomerProcessingSystem;
+import ppois.romanov.CustomerSearchCriteria;
+import ppois.romanov.ViewObjectsBuilder;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -181,7 +181,7 @@ public class SearchController implements Initializable, Controller {
             toShow = searchResults.subList(pageNumber * (Integer) pageAmountChoice.getValue(),
                     searchResults.size()-1);
         }
-        ViewObjectsBuilder.setItemsTable(toShow, (Integer) pageAmountChoice.getValue(), tableView, nextPageButton, prevPageButton);
+        ViewObjectsBuilder.setItemsTable(toShow,  tableView, nextPageButton, prevPageButton);
         pageNumberLabel.setText("Стр:"+String.valueOf(pageNumber));
     }
 

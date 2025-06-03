@@ -1,6 +1,6 @@
-package ppois.Romanov.controllers;
+package ppois.romanov.controllers;
 
-import ppois.Romanov.CustomerProcessingSystem;
+import ppois.romanov.CustomerProcessingSystem;
 
 public interface Controller {
     public void setCustomerProcessingSystem(CustomerProcessingSystem customerProcessingSystem);
