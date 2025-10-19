@@ -1,0 +1,3 @@
+/home/kirillromanoff/University/OS/lab4/cmake-build-debug/CMakeFiles/test.dir
+/home/kirillromanoff/University/OS/lab4/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kirillromanoff/University/OS/lab4/cmake-build-debug/CMakeFiles/rebuild_cache.dir

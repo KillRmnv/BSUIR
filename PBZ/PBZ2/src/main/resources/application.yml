@@ -1,0 +1,24 @@
+micronaut:
+  application:
+    name: pbz2
+
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/db2
+    username: postgres
+    password: password
+    driverClassName: org.postgresql.Driver
+
+flyway:
+  enabled: true
+  url: jdbc:postgresql://localhost:5432/db2
+  username: postgres
+  password: password
+  locations: classpath:db/migration
+  baseline-on-migrate: true
+  out-of-order: false
+
+logger:
+  levels:
+    ROOT: INFO           # минимальный уровень для всего приложения
+    org.flywaydb: DEBUG  # включаем подробные логи Flyway

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Subscription CRUD</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      color: #000;
+      background-color: #fff;
+      font-size: 18px;
+    }
+    .sidebar {
+      width: 200px;
+      background-color: #fff;
+      padding-top: 20px;
+      border-right: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px;
+      text-decoration: none;
+      color: #000;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+    .sidebar a:hover { background-color: #eee; }
+    .sidebar i { width: 20px; text-align: center; }
+    .main-content { flex-grow: 1; display: flex; flex-direction: column; }
+    .topbar {
+      background-color: #fff;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      gap: 20px;
+    }
+    .topbar button {
+      flex: 1;
+      padding: 12px 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-size: 18px;
+    }
+    .topbar button:hover { background: #eee; }
+    .content-container {
+      flex-grow: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    table { border-collapse: collapse; width: 100%; font-size: 18px; }
+    th, td { border: 1px solid #000; padding: 10px; text-align: left; }
+    th { background: #f9f9f9; }
+    .pagination {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 10px;
+      gap: 10px;
+      width: 100%;
+    }
+    .pagination input {
+      width: 60px;
+      padding: 6px;
+      border: 1px solid #000;
+      font-size: 18px;
+    }
+    .pagination button {
+      padding: 8px 14px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-size: 18px;
+    }
+    .pagination button:hover { background: #eee; }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 40px;
+      justify-content: center;
+      margin-top: 20px;
+      max-width: 1000px;
+    }
+    form input, form select {
+      flex: 1 1 300px;
+      min-width: 250px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #000;
+      border-radius: 4px;
+    }
+    form button {
+      flex-basis: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      background: #eee;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      border-radius: 4px;
+    }
+    form button:hover { background: #ddd; }
+  </style>
+  <script>
+    const BASE_URL = "/Subscription";
+
+    function showSection(section) {
+      document.getElementById("table-section").style.display = "none";
+      document.getElementById("create-form").style.display = "none";
+      document.getElementById("update-form").style.display = "none";
+      document.getElementById("delete-form").style.display = "none";
+      document.getElementById("search-form").style.display = "none";
+
+      if (section === "read") {
+        document.getElementById("search-form").style.display = "flex";
+      } else if(section === "create") {
+        document.getElementById("create-form").style.display = "flex";
+      } else if(section === "update") {
+        document.getElementById("update-form").style.display = "flex";
+      } else if(section === "delete") {
+        document.getElementById("delete-form").style.display = "flex";
+      }
+    }
+
+    async function searchSubscriptions(event) {
+      event.preventDefault();
+      const form = document.getElementById("search-form");
+      const formData = new FormData(form);
+      const obj = {};
+      formData.forEach((v,k)=>obj[k]=v);
+
+      const response = await fetch(`${BASE_URL}/get`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(obj)
+      });
+      const data = await response.json();
+      renderTable(data);
+    }
+
+    async function loadSubscriptionsPage(page = 1) {
+      const amountOnPage = 10;
+      const url = `${BASE_URL}/${page}?amountOnPage=${amountOnPage}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      renderTable(data);
+    }
+
+    function renderTable(data) {
+      document.getElementById("table-section").style.display = "block";
+      const tableHead = document.getElementById("table-head");
+      const tableBody = document.getElementById("table-body");
+      tableHead.innerHTML = "";
+      tableBody.innerHTML = "";
+      if (data.length > 0) {
+        const headerRow = document.createElement("tr");
+        Object.keys(data[0]).forEach(key => {
+          const th = document.createElement("th");
+          th.textContent = key;
+          headerRow.appendChild(th);
+        });
+        tableHead.appendChild(headerRow);
+
+        data.forEach(row => {
+          const tr = document.createElement("tr");
+          Object.values(row).forEach(value => {
+            const td = document.createElement("td");
+            td.textContent = (value && typeof value === 'object') ? JSON.stringify(value) : value;
+            tr.appendChild(td);
+          });
+          tableBody.appendChild(tr);
+        });
+      } else {
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 10;
+        td.textContent = "Нет данных";
+        tr.appendChild(td);
+        tableBody.appendChild(tr);
+      }
+    }
+
+    function loadPage() {
+      const page = parseInt(document.getElementById("page-number").value) || 1;
+      loadSubscriptionsPage(page);
+    }
+
+    async function submitForm(formId, endpoint) {
+      const form = document.getElementById(formId);
+      const formData = new FormData(form);
+      const params = new URLSearchParams();
+      formData.forEach((v,k)=>params.append(k, v));
+
+      const url = `${BASE_URL}/${endpoint}?${params.toString()}`;
+      await fetch(url); // GET-запрос с query-параметрами
+      alert("Операция выполнена!");
+      form.reset();
+
+      // Перезагрузка таблицы после операции
+      loadSubscriptionsPage(1);
+    }
+
+
+    window.onload = () => {
+      showSection("read");
+      loadSubscriptionsPage(1);
+    };
+  </script>
+</head>
+<body>
+<div class="sidebar">
+  <a th:href="@{/}"><i class="fa-solid fa-house"></i> Главная</a>
+  <a th:href="@{/Employees/}"><i class="fa-solid fa-users"></i> Сотрудники</a>
+  <a th:href="@{/History/}"><i class="fa-solid fa-clock-rotate-left"></i> История</a>
+  <a th:href="@{/Subscription/}"><i class="fa-solid fa-envelope-open-text"></i> Подписки</a>
+  <a th:href="@{/Delivery/}"><i class="fa-solid fa-truck"></i> Доставка</a>
+</div>
+
+<div class="main-content">
+  <div class="topbar">
+    <button onclick="showSection('create')"><i class="fa-solid fa-plus"></i> Добавить</button>
+    <button onclick="showSection('read')"><i class="fa-solid fa-eye"></i> Читать</button>
+    <button onclick="showSection('update')"><i class="fa-solid fa-pen"></i> Обновить</button>
+    <button onclick="showSection('delete')"><i class="fa-solid fa-trash"></i> Удалить</button>
+  </div>
+
+  <div class="content-container">
+    <!-- Search form -->
+    <form id="search-form" style="display:none" onsubmit="searchSubscriptions(event)">
+      <input type="text" name="startingDate" placeholder="Дата начала (YYYY-MM-DD)">
+      <input type="text" name="endingDate" placeholder="Дата окончания (YYYY-MM-DD)">
+      <input type="text" name="amountOfMonths" placeholder="Кол-во месяцев">
+      <input type="text" name="delivery" placeholder="Доставка (ID)">
+      <input type="text" name="printing" placeholder="Издание (ID)">
+      <input type="text" name="employeeId" placeholder="Сотрудник (ID)">
+      <input type="text" name="cost" placeholder="Стоимость">
+      <button type="submit">Поиск</button>
+    </form>
+
+    <!-- Table -->
+    <div id="table-section" style="display:none; width:100%">
+      <table>
+        <thead id="table-head"></thead>
+        <tbody id="table-body"></tbody>
+      </table>
+      <div class="pagination">
+        <label>Страница:
+          <input type="number" id="page-number" value="1" min="1">
+        </label>
+        <button onclick="loadPage()">Загрузить</button>
+      </div>
+    </div>
+
+    <!-- Create form -->
+    <form id="create-form" style="display:none" onsubmit="event.preventDefault(); submitForm('create-form','create')">
+      <input type="text" name="startingDate" placeholder="Дата начала (YYYY-MM-DD)">
+      <input type="text" name="endingDate" placeholder="Дата окончания (YYYY-MM-DD)">
+      <input type="text" name="amountOfMonths" placeholder="Кол-во месяцев">
+      <input type="text" name="delivery" placeholder="Доставка (ID)">
+      <input type="text" name="printing" placeholder="Издание (ID)">
+      <input type="text" name="employeeId" placeholder="Сотрудник (ID)">
+      <input type="text" name="cost" placeholder="Стоимость">
+      <button type="submit">Создать</button>
+    </form>
+
+    <!-- Update form -->
+    <form id="update-form" style="display:none" onsubmit="event.preventDefault(); submitForm('update-form','update')">
+      <input type="text" name="startingDate" placeholder="Дата начала (YYYY-MM-DD)">
+      <input type="text" name="endingDate" placeholder="Дата окончания (YYYY-MM-DD)">
+      <input type="text" name="amountOfMonths" placeholder="Кол-во месяцев">
+      <input type="text" name="delivery" placeholder="Доставка (ID)">
+      <input type="text" name="printing" placeholder="Издание (ID)">
+      <input type="text" name="employeeId" placeholder="Сотрудник (ID)">
+      <input type="text" name="cost" placeholder="Стоимость">
+      <button type="submit">Обновить</button>
+    </form>
+
+    <!-- Delete form -->
+    <form id="delete-form" style="display:none" onsubmit="event.preventDefault(); submitForm('delete-form','delete')">
+      <input type="text" name="startingDate" placeholder="Дата начала (YYYY-MM-DD)">
+      <input type="text" name="endingDate" placeholder="Дата окончания (YYYY-MM-DD)">
+      <input type="text" name="amountOfMonths" placeholder="Кол-во месяцев">
+      <input type="text" name="delivery" placeholder="Доставка (ID)">
+      <input type="text" name="printing" placeholder="Издание (ID)">
+      <input type="text" name="employeeId" placeholder="Сотрудник (ID)">
+      <input type="text" name="cost" placeholder="Стоимость">
+      <button type="submit">Удалить</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

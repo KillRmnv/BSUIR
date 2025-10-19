@@ -1,0 +1,59 @@
+nrel_cooking_method
+=>nrel_main.idtf:[cooking method](*<-lang_en;;*);[способ приготовления](*<-lang_ru;;*);
+=>nrel_first_domain:concept_dish;
+=>nrel_second_domain:concept_cooking_method;
+
+=>nrel_definitional_domain: ...
+		(* <=nrel_combination: ...
+			(* <-sc_node_tuple;;
+			  ->concept_dish;;
+			  ->concept_cooking_method;;
+			  *);;
+		*);
+
+<-rrel_key_sc-element: ...
+		(* <-definition;;
+		   <=nrel_using_constant: ...
+		   		(* <-sc_node_tuple;;
+		   		   ->concept_dish;;
+				   ->concept_ingredient_processing;;
+				   ->concept_technique;;
+				   ->concept_method;;
+				   ->concept_product;;
+				*);;
+		  =>nrel_cooking_method_idtf:[Опр. спсобоба приготовления*](*<-lang_ru;;*);
+		  <=nrel_sc_text_translation: ...
+		  			(* ->rrel_example:[Совокупность методов,техник, используемых для обработки ингредиентов с целью создания питательного блюда,продукта](*<-lang_ru;;*);;
+		  			*);;
+		  *);
+
+
+<-rrel_key_sc-element: ...
+		(* <-statement;
+		   <=nrel_using_constant: ...
+		   		(* ->concept_texture;;
+			           ->concept_taste;;
+				   ->concept_nutritional_value;;
+				*);;
+		  =>nrel_cooking_method_idtf:[Утв. спсобоба приготовления*](*<-lang_ru;;*);
+		  <=nrel_sc_text_translation: ...
+		  			(* ->rrel_example:[В зависимости от способа приготовления будут изменяться вкус,текстура,питательная ценность блюда](*<-lang_ru;;*);;
+		  			*);;
+		  *);;
+
+
+potato_pancakes =>nrel_cooking_method:frying
+		(* <-concept_cooking_method;;
+		*);
+		<-concept_potato_dish;;
+		
+relation=>nrel_inclusion:orient_relation;binary_relation;;
+
+orient_relation->nrel_cooking_method;;
+
+binary_relation=>nrel_inclusion:asymmetric_relation;antireflexive_relation;;
+
+asymmetric_relation->nrel_cooking_method;;
+
+antireflexive_relation->nrel_cooking_method;;
+

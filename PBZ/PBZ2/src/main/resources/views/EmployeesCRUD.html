@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees CRUD</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            color: #000;
+            background-color: #fff;
+            font-size: 18px;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #fff;
+            padding-top: 20px;
+            border-right: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px;
+            text-decoration: none;
+            color: #000;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .sidebar a:hover { background-color: #eee; }
+        .sidebar i { width: 20px; text-align: center; }
+        .main-content { flex-grow: 1; display: flex; flex-direction: column; }
+        .topbar {
+            background-color: #fff;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            gap: 20px;
+        }
+        .topbar button {
+            flex: 1;
+            padding: 12px 0;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 18px;
+        }
+        .topbar button:hover { background: #eee; }
+        .content-container {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* центрируем формы */
+        }
+        table { border-collapse: collapse; width: 100%; font-size: 18px; }
+        th, td { border: 1px solid #000; padding: 10px; text-align: left; }
+        th { background: #f9f9f9; }
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+            width: 100%;
+        }
+        .pagination input {
+            width: 60px;
+            padding: 6px;
+            border: 1px solid #000;
+            font-size: 18px;
+        }
+        .pagination button {
+            padding: 8px 14px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 18px;
+        }
+        .pagination button:hover { background: #eee; }
+
+        /* Стили для форм */
+        form {
+            display: flex;
+            flex-wrap: wrap; /* чтобы поля распределялись равномерно */
+            gap: 20px 40px; /* вертикальные и горизонтальные отступы */
+            justify-content: center; /* центрируем по горизонтали */
+            margin-top: 20px;
+            max-width: 1000px;
+        }
+        form input {
+            flex: 1 1 300px; /* растягиваются до ширины 300px */
+            min-width: 250px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #000;
+            border-radius: 4px;
+        }
+        form button {
+            flex-basis: 100%; /* кнопка на всю ширину формы */
+            padding: 12px;
+            font-size: 18px;
+            border: none;
+            background: #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border-radius: 4px;
+        }
+        form button:hover { background: #ddd; }
+    </style>
+    <script>
+        const BASE_URL = "http://localhost:8080/Employees";
+
+        function showSection(section) {
+            document.getElementById("table-section").style.display = "none";
+            document.getElementById("create-form").style.display = "none";
+            document.getElementById("update-form").style.display = "none";
+            document.getElementById("delete-form").style.display = "none";
+            document.getElementById("search-form").style.display = "none";
+
+            if (section === "read") {
+                document.getElementById("search-form").style.display = "flex";
+            } else if(section === "create") {
+                document.getElementById("create-form").style.display = "flex";
+            } else if(section === "update") {
+                document.getElementById("update-form").style.display = "flex";
+            } else if(section === "delete") {
+                document.getElementById("delete-form").style.display = "flex";
+            }
+        }
+        async function searchEmployees(event) {
+            event.preventDefault();
+            const form = document.getElementById("search-form");
+
+            // Берём значения полей
+            const id = form.querySelector('[name="id"]').value || -1;
+            const firstname = form.querySelector('[name="firstName"]').value || '';
+            const secondName = form.querySelector('[name="secondName"]').value || '';
+            const thirdName = form.querySelector('[name="thirdName"]').value || '';
+            const position = form.querySelector('[name="position"]').value || '';
+            const department = form.querySelector('[name="department"]').value || '';
+
+            // Загружаем первую страницу с фильтрами
+            const amountOnPage = 10;
+            const url = `${BASE_URL}/1?amountOnPage=${amountOnPage}&id=${id}&firstname=${encodeURIComponent(firstname)}&secondName=${encodeURIComponent(secondName)}&thirdName=${encodeURIComponent(thirdName)}&position=${encodeURIComponent(position)}&department=${encodeURIComponent(department)}`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+            renderTable(data);
+
+            // Обновляем номер страницы в инпуте
+            document.getElementById("page-number").value = 1;
+        }
+        async function loadEmployeesPage(page = 1) {
+            const amountOnPage = 10;
+            const form = document.getElementById("search-form");
+            const id = form.querySelector('[name="id"]').value || -1;
+            const firstname = form.querySelector('[name="firstName"]').value || '';
+            const secondName = form.querySelector('[name="secondName"]').value || '';
+            const thirdName = form.querySelector('[name="thirdName"]').value || '';
+            const position = form.querySelector('[name="position"]').value || '';
+            const department = form.querySelector('[name="department"]').value || '';
+            const url = `${BASE_URL}/${page}?amountOnPage=${amountOnPage}&id=${id}&firstname=${encodeURIComponent(firstname)}&secondName=${encodeURIComponent(secondName)}&thirdName=${encodeURIComponent(thirdName)}&position=${encodeURIComponent(position)}&department=${encodeURIComponent(department)}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            renderTable(data);
+        }
+
+        function renderTable(data) {
+            document.getElementById("table-section").style.display = "block";
+            const tableHead = document.getElementById("table-head");
+            const tableBody = document.getElementById("table-body");
+            tableHead.innerHTML = "";
+            tableBody.innerHTML = "";
+            if (data.length > 0) {
+                const headerRow = document.createElement("tr");
+                Object.keys(data[0]).forEach(key => {
+                    const th = document.createElement("th");
+                    th.textContent = key;
+                    headerRow.appendChild(th);
+                });
+                tableHead.appendChild(headerRow);
+
+                data.forEach(row => {
+                    const tr = document.createElement("tr");
+                    Object.values(row).forEach(value => {
+                        const td = document.createElement("td");
+                        td.textContent = value;
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+            } else {
+                const tr = document.createElement("tr");
+                const td = document.createElement("td");
+                td.colSpan = 10;
+                td.textContent = "Нет данных";
+                tr.appendChild(td);
+                tableBody.appendChild(tr);
+            }
+        }
+
+        function loadPage() {
+            const page = parseInt(document.getElementById("page-number").value) || 1;
+            loadEmployeesPage(page);
+        }
+
+        async function submitForm(formId, endpoint) {
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+            const params = new URLSearchParams();
+            formData.forEach((v,k)=>params.append(k, v));
+
+            const url = `${BASE_URL}/${endpoint}?${params.toString()}`;
+            await fetch(url); // GET-запрос, как требует контроллер
+            alert("Операция выполнена!");
+            form.reset();
+
+            // После операции можно перезагрузить таблицу
+            loadEmployeesPage(1);
+        }
+
+
+        window.onload = () => {
+            showSection("read");
+            loadEmployeesPage(1); // Авто-загрузка первой страницы
+        };
+
+    </script>
+</head>
+<body>
+<div class="sidebar">
+    <a th:href="@{/}"><i class="fa-solid fa-house"></i> Главная</a>
+    <a th:href="@{/Employees/}"><i class="fa-solid fa-users"></i> Сотрудники</a>
+    <a th:href="@{/History/}"><i class="fa-solid fa-clock-rotate-left"></i> История</a>
+    <a th:href="@{/Subscription/}"><i class="fa-solid fa-envelope-open-text"></i> Подписки</a>
+    <a th:href="@{/Delivery/}"><i class="fa-solid fa-truck"></i> Доставка</a> <!-- 👈 новая кнопка -->
+</div>
+
+
+<div class="main-content">
+    <div class="topbar">
+        <button onclick="showSection('create')"><i class="fa-solid fa-plus"></i> Добавить</button>
+        <button onclick="showSection('read')"><i class="fa-solid fa-eye"></i> Читать</button>
+        <button onclick="showSection('update')"><i class="fa-solid fa-pen"></i> Обновить</button>
+        <button onclick="showSection('delete')"><i class="fa-solid fa-trash"></i> Удалить</button>
+    </div>
+
+    <div class="content-container">
+        <!-- Search form for Read -->
+        <form id="search-form" style="display:none" onsubmit="searchEmployees(event)">
+            <input type="text" name="id" placeholder="ID">
+            <input type="text" name="firstName" placeholder="Имя">
+            <input type="text" name="secondName" placeholder="Фамилия">
+            <input type="text" name="thirdName" placeholder="Отчество">
+            <input type="text" name="position" placeholder="Должность">
+            <input type="text" name="department" placeholder="Отдел">
+            <button type="search">Поиск</button>
+        </form>
+
+        <!-- Table -->
+        <div id="table-section" style="display:none; width:100%">
+            <table>
+                <thead id="table-head"></thead>
+                <tbody id="table-body"></tbody>
+            </table>
+
+            <!-- Pagination / Загрузка страницы -->
+            <div class="pagination" style="justify-content: flex-end;">
+                <label>Страница:
+                    <input type="number" id="page-number" value="1" min="1" style="padding: 10px; font-size: 16px; border-radius: 4px; border: 1px solid #000; margin-right: 10px;">
+                </label>
+                <button onclick="loadPage()" style="padding: 10px 16px; font-size: 16px; border-radius: 4px; border: 1px solid #000; background-color: #eee; cursor: pointer;">
+                    Загрузить
+                </button>
+            </div>
+        </div>
+
+        <!-- Create form -->
+        <form id="create-form" style="display:none" onsubmit="event.preventDefault(); submitForm('create-form','create')">
+            <input type="text" name="firstName" placeholder="Имя">
+            <input type="text" name="secondName" placeholder="Фамилия">
+            <input type="text" name="thirdName" placeholder="Отчество">
+            <input type="text" name="position" placeholder="Должность">
+            <input type="text" name="department" placeholder="Отдел">
+            <button type="submit">Создать</button>
+        </form>
+
+        <!-- Update form -->
+        <form id="update-form" style="display:none" onsubmit="event.preventDefault(); submitForm('update-form','update')">
+            <input type="text" name="id" placeholder="ID (обязателен)">
+            <input type="text" name="firstName" placeholder="Имя">
+            <input type="text" name="secondName" placeholder="Фамилия">
+            <input type="text" name="thirdName" placeholder="Отчество">
+            <input type="text" name="position" placeholder="Должность">
+            <input type="text" name="department" placeholder="Отдел">
+            <button type="submit">Обновить</button>
+        </form>
+
+        <!-- Delete form -->
+        <form id="delete-form" style="display:none" onsubmit="event.preventDefault(); submitForm('delete-form','delete')">
+            <input type="text" name="id" placeholder="ID (обязателен)">
+            <input type="text" name="firstName" placeholder="Имя">
+            <input type="text" name="secondName" placeholder="Фамилия">
+            <input type="text" name="thirdName" placeholder="Отчество">
+            <input type="text" name="position" placeholder="Должность">
+            <input type="text" name="department" placeholder="Отдел">
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

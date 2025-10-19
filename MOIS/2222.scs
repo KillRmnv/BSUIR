@@ -1,0 +1,121 @@
+section_subject_domain_belarussian_cuisine
+	=>nrel_main_idtf:[Раздел.Предметная область белорусской кухни](*<-lang_ru;;*);
+			 [Section.Subject domain of Belarusian cuisine](*<-lang_en;;*);	
+	<-sc_node_struct; 
+	<- subject_domain;
+	=>nrel_system_idtf:[section_subject_domain_of_belarusian_cuisine];
+	<= nrel_section_decomposition: ...
+					(* <-sc_node_tuple;; 
+						-> section_subject_domain_vitebsk_region_cuisine;;
+						-> section_subject_domain_minsk_region_cuisine;;
+						-> section_subject_domain_brest_region_cuisine;;
+						-> section_subject_domain_grodno_region_cuisine;;
+						-> section_subject_domain_gomel_region_cuisine;;
+						-> section_subject_domain_mogilev_region_cuisine;;
+					*);
+	-> rrel_key_sc_element: nrel_cooking_method;
+				nrel_ingridient;
+				nrel_cooking_time;
+				nrel_dish_presentation;
+				concept_potato_dish;
+               			concept_soup;
+               			concept_meat_dish; 
+                		concept_dessert; 
+                		concept_belarussian_cusine;
+				
+	<- non_atomic_section;;
+  
+
+section_subject_domain_belarussian_cuisine=[*
+	subject_domain_belarussian_cuisine
+		=>nrel_main_idtf:[Предметная область белорусской кухни](*<-lang_ru;;*);
+				 [Subject domain of Belarusian cuisine](*<-lang_en;;*);
+		<=nrel_private_subject_domain:subject_domain_cuisine;
+		<-sc_node_struct; 
+		=>nrel_private_subject_domain:  subject_domain_vitebsk_region_cuisine;
+						subject_domain_minsk_region_cuisine;
+						subject_domain_brest_region_cuisine;
+						subject_domain_gomel_region_cuisine;
+						subject_domain_grodno_region_cuisine;
+						subject_domain_mogilev_region_cuisine;
+		-> rrel_explored_relation:nrel_cooking_method;
+					  nrel_ingridient;
+					  nrel_cooking_time;
+					  nrel_dish_presentation; 
+		<-subject_domain;
+                -> rrel_maximum_studied_object_class: concept_belarussian_cusine;
+                -> rrel_not_maximum_studied_object_class: 
+                   	concept_potato_dish;
+               		concept_soup;
+               		concept_meat_dish; 
+                	concept_dessert;;                      
+*];;
+						
+
+
+	nrel_cooking_method  <- sc_node_norole_relation; 
+                               => nrel_main_idtf:[способ приготовления*] (*<- lang_ru;;*);[cooking method](*<- lang_en;;*);;
+                               
+	nrel_ingridient <- sc_node_norole_relation; 
+              		=> nrel_main_idtf:[ингридиент*] (*<- lang_ru;;*);[ingredient*](*<- lang_en;;*);;
+                               
+	nrel_dish_presentation <- sc_node_norole_relation; 
+              		=> nrel_main_idtf:[способ подачи*] (*<- lang_ru;;*);[dish presentation*](*<- lang_en;;*);;
+                               
+	nrel_cooking_time <- sc_node_norole_relation; 
+          		=> nrel_main_idtf:[время приготовления*] (*<- lang_ru;;*);[cooking time*](*<- lang_en;;*);;
+ 
+                                                                                         
+section_subject_domain_vitebsk_region_cuisine
+                               => nrel_main_idtf:[Раздел. Предметная область кухни Витебской области] (*<- lang_ru;;*);[Section. Vitebsk Region Cuisine](*<- lang_en;;*);;   
+
+section_subject_domain_minsk_region_cuisine 
+                               => nrel_main_idtf:[Раздел. Предметная область кухни Минской области] (*<- lang_ru;;*);[Section. Minsk Region Cuisine](*<- lang_en;;*);;   
+
+section_subject_domain_brest_region_cuisine 
+                               => nrel_main_idtf:[Раздел. Предметная область кухни Брестской области] (*<- lang_ru;;*);[Section. Brest Region Cuisine](*<- lang_en;;*);;   
+
+section_subject_domain_grodno_region_cuisine 
+                               => nrel_main_idtf:[Раздел. Предметная область кухни Гродненской области] (*<- lang_ru;;*);[Section. Grodno Region Cuisine](*<- lang_en;;*);;   
+
+section_subject_domain_gomel_region_cuisine 
+                               => nrel_main_idtf:[Раздел. Предметная область кухни Гомельской области] (*<- lang_ru;;*);[Section. Gomel Region Cuisine](*<- lang_en;;*);;   
+
+section_subject_domain_mogilev_region_cuisine 
+                               => nrel_main_idtf:[Раздел. Предметная область кухни Могилевской области] (*<- lang_ru;;*);[Section. Mogilev Region Cuisine](*<- lang_en;;*);;   
+
+subject_domain_vitebsk_region_cuisine => nrel_main_idtf:[Предметная область кухни Витебской области] (*<- lang_ru;;*);[Subject domain of Vitebsk region cuisine](*<- lang_en;;*);;
+                        
+
+subject_domain_minsk_region_cuisine => nrel_main_idtf:[Предметная область кухни Минской области] (*<- lang_ru;;*);[Subject domain of Minsk region cuisine](*<- lang_en;;*);;
+                        
+
+subject_domain_brest_region_cuisine => nrel_main_idtf:[Предметная область кухни Брестской области] (*<- lang_ru;;*);[Subject domain of Brest region cuisine](*<- lang_en;;*);;
+                    
+
+subject_domain_grodno_region_cuisine => nrel_main_idtf:[Предметная область кухни Гродненской области] (*<- lang_ru;;*);[Subject domain of Grodno region cuisine](*<- lang_en;;*);;
+                     
+
+subject_domain_gomel_region_cuisine => nrel_main_idtf:[Предметная область кухни Гомельской области] (*<- lang_ru;;*);[Subject domain of Gomel region cuisine](*<- lang_en;;*);;
+                                                  
+
+subject_domain_mogilev_region_cuisine => nrel_main_idtf:[Предметная область кухни Могилевской области] (*<- lang_ru;;*);[Subject domain of Mogilev region cuisine](*<- lang_en;;*);;
+                                                      
+                               
+ 
+
+
+    concept_dish 
+    	=> nrel_main_idtf:[Блюдо] (*<- lang_ru;;*);[Dish](*<-lang_en;;*);;
+    concept_potato_dish 
+    	=> nrel_main_idtf:[Блюдо из картофеля] (*<- lang_ru;;*);[Potato dish](*<-lang_en;;*);;
+    concept_soup 
+    	=> nrel_main_idtf:[Суп] (*<- lang_ru;;*);[Soup](*<-lang_en;;*);;
+    concept_meat_dish 
+    	=> nrel_main_idtf:[Мясное блюдо] (*<- lang_ru;;*);[Meat dish](*<-lang_en;;*);;
+    concept_dessert 
+    	=> nrel_main_idtf:[Десерт] (*<- lang_ru;;*);[Dessert](*<-lang_en;;*);;
+
+subject_domain_cuisine => nrel_main_idtf:[Предметная область кухни] (*<- lang_ru;;*);[Subject domain cuisine](*<-lang_en;;*);;
+concept_belarussian_cusine
+    	=> nrel_main_idtf:[Белорусская кухня] (*<- lang_ru;;*);[Belarussin cuisine](*<-lang_en;;*);;

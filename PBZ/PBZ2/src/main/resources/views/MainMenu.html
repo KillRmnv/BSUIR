@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            color: #000;
+            background-color: #fff;
+            font-size: 18px;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #fff;
+            padding-top: 20px;
+            border-right: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px;
+            text-decoration: none;
+            color: #000;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            font-size: 18px;
+        }
+
+        .sidebar a:hover { background-color: #eee; }
+        .sidebar i { width: 20px; text-align: center; }
+
+        .main-content { flex-grow: 1; display: flex; flex-direction: column; }
+
+        .topbar {
+            background-color: #fff;
+            padding: 12px 10px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .topbar button {
+            flex: 1;
+            padding: 14px 0;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 20px; /* увеличен шрифт */
+            font-weight: bold;
+        }
+
+        .topbar button:hover { background: #eee; }
+
+        .table-container { flex-grow: 1; padding: 20px; display: flex; flex-direction: column; }
+
+        table { border-collapse: collapse; width: 100%; font-size: 18px; }
+        th, td { border: 1px solid #000; padding: 10px; text-align: left; }
+        th { background: #f9f9f9; }
+
+        .pagination { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 10px; }
+        .pagination input { width: 70px; padding: 8px; font-size: 18px; }
+        .pagination button { padding: 10px 16px; border: none; background: transparent; cursor: pointer; transition: background-color 0.2s; font-size: 18px; }
+        .pagination button:hover { background: #eee; }
+
+        /* формы */
+        form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 20px; /* общий шрифт формы */
+        }
+
+        form input[type="text"], form input[type="date"] {
+            padding: 10px 12px;
+            font-size: 20px; /* увеличен размер текста в полях */
+            border: 1px solid #000;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        form button {
+            padding: 12px 18px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            font-weight: bold;
+        }
+
+        form button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <a th:href="@{/}"><i class="fa-solid fa-house"></i> Главная</a>
+    <a th:href="@{/Employees/}"><i class="fa-solid fa-users"></i> Сотрудники</a>
+    <a th:href="@{/History/}"><i class="fa-solid fa-clock-rotate-left"></i> История</a>
+    <a th:href="@{/Subscription/}"><i class="fa-solid fa-envelope-open-text"></i> Подписки</a>
+    <a th:href="@{/Delivery/}"><i class="fa-solid fa-truck"></i> Доставка</a> <!-- 👈 новая кнопка -->
+</div>
+
+
+<div class="main-content">
+    <div class="topbar">
+        <button onclick="loadTable('employees', 1)">Сотрудники</button>
+        <button onclick="loadTable('unrecieved', 1)">Невыданные</button>
+        <button onclick="loadTable('printings', 1)">Издания за год</button>
+        <button onclick="loadTable('state', 1)">По состоянию</button>
+    </div>
+
+    <div class="table-container">
+        <!-- Фильтры -->
+        <form id="employees-form" style="display:none;" onsubmit="event.preventDefault(); loadTable('employees', 1)">
+            <input type="text" id="emp-department" placeholder="Отдел">
+            <input type="date" id="emp-date" placeholder="Дата">
+            <input type="text" id="emp-name" placeholder="Название издания">
+        </form>
+
+        <form id="state-form" style="display:none;" onsubmit="event.preventDefault(); loadTable('state', 1)">
+            <input type="text" id="state-var" placeholder="Состояние">
+            <input type="text" id="type-var" placeholder="Тип">
+        </form>
+
+        <table>
+            <thead id="table-head"></thead>
+            <tbody id="table-body"></tbody>
+        </table>
+
+        <div class="pagination">
+            <input type="hidden" id="current-table" value="employees">
+            <label>Страница: <input type="number" id="page-number" value="1" min="1"></label>
+            <button onclick="loadPage()">Загрузить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function loadTable(tableType, page = 1) {
+        const amountOnPage = 10;
+        let url = "";
+
+        // Скрываем все формы
+        document.getElementById("employees-form").style.display = "none";
+        document.getElementById("state-form").style.display = "none";
+
+        switch (tableType) {
+            case "employees":
+                document.getElementById("employees-form").style.display = "flex";
+                const dept = document.getElementById("emp-department").value || "";
+                const date = document.getElementById("emp-date").value || "";
+                const name = document.getElementById("emp-name").value || "";
+                url = `/employees_table?department=${encodeURIComponent(dept)}&Date=${encodeURIComponent(date)}&name=${encodeURIComponent(name)}&page=${page}&amountOnPage=${amountOnPage}`;
+                break;
+            case "unrecieved":
+                url = `/unrecieved_table?page=${page}&amountOnPage=${amountOnPage}`;
+                break;
+            case "printings":
+                url = `/printings_for_year_table?page=${page}&amountOnPage=${amountOnPage}`;
+                break;
+            case "state":
+                document.getElementById("state-form").style.display = "flex";
+                const stateVar = document.getElementById("state-var").value || "";
+                const typeVar = document.getElementById("type-var").value || "";
+                url = `/printings_by_state_table?state_var=${encodeURIComponent(stateVar)}&type_var=${encodeURIComponent(typeVar)}&page=${page}&amountOnPage=${amountOnPage}`;
+                break;
+        }
+
+        if (!url) return;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            const tableHead = document.getElementById("table-head");
+            const tableBody = document.getElementById("table-body");
+            tableHead.innerHTML = "";
+            tableBody.innerHTML = "";
+
+            if (data.length > 0) {
+                const headerRow = document.createElement("tr");
+                Object.keys(data[0]).forEach(key => {
+                    const th = document.createElement("th");
+                    th.textContent = key;
+                    headerRow.appendChild(th);
+                });
+                tableHead.appendChild(headerRow);
+
+                data.forEach(row => {
+                    const tr = document.createElement("tr");
+                    Object.values(row).forEach(value => {
+                        const td = document.createElement("td");
+                        td.textContent = value;
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+            } else {
+                const tr = document.createElement("tr");
+                const td = document.createElement("td");
+                td.colSpan = 10;
+                td.textContent = "Нет данных";
+                tr.appendChild(td);
+                tableBody.appendChild(tr);
+            }
+
+            document.getElementById("current-table").value = tableType;
+        } catch (e) {
+            console.error("Ошибка загрузки данных:", e);
+        }
+    }
+
+    function loadPage() {
+        const tableType = document.getElementById("current-table").value;
+        const page = parseInt(document.getElementById("page-number").value) || 1;
+        loadTable(tableType, page);
+    }
+
+    window.onload = () => loadTable("unrecieved", 1);
+</script>
+
+</body>
+</html>
