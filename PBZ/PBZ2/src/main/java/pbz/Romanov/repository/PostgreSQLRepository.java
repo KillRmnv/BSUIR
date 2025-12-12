@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Singleton
-public class PostgreSQLRepository implements DBInterface, DBMainMenuInterface {
+public class PostgreSQLRepository implements DBInterface, DBMainMenuInterface,DBReferenceData {
     private final DataSource dataSource;
 
     public PostgreSQLRepository(DataSource dataSource) {
@@ -28,6 +28,8 @@ public class PostgreSQLRepository implements DBInterface, DBMainMenuInterface {
                 return rs.getString(1);
             }
 
+        }catch (SQLException e) {
+            throw new Exception(e.getMessage());
         }
         return "";
     }
@@ -42,12 +44,11 @@ public class PostgreSQLRepository implements DBInterface, DBMainMenuInterface {
                 stmt.setObject(i + 1, entity.get(i));
             }
 
-            try (ResultSet rs = stmt.executeQuery()) {
-            } catch (SQLException e) {
-                throw new Exception(e.getMessage());
-            }
+            stmt.executeUpdate();
 
             return true;
+        }catch (SQLException e) {
+            throw new Exception(e.getMessage());
         }
 
     }
@@ -62,21 +63,24 @@ public class PostgreSQLRepository implements DBInterface, DBMainMenuInterface {
                 stmt.setObject(i + 1, template_entity.get(i));
             }
             return getMaps(stmt);
+        }catch (SQLException e) {
+            throw new Exception(e.getMessage());
         }
 
     }
 
     @Override
-    public int delete(List<Object> entity, Class clazz) throws Exception {
+    public void delete(List<Object> entity, Class clazz) throws Exception {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM ").append(get_function_name(clazz.getSimpleName(), "d"));
+        sql.append("CALL ").append(get_function_name(clazz.getSimpleName(), "d"));
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(sql.toString());
             for (int i = 0; i < entity.size(); i++) {
                 stmt.setObject(i + 1, entity.get(i));
             }
-            ResultSet rs = stmt.executeQuery();
-            return rs.getInt(1);
+            stmt.executeUpdate();
+        }catch (SQLException e) {
+            throw new Exception(e.getMessage());
         }
 
     }
@@ -90,23 +94,17 @@ public class PostgreSQLRepository implements DBInterface, DBMainMenuInterface {
             for (int i = 0; i < entity.size(); i++) {
                 stmt.setObject(i + 1, entity.get(i));
             }
-            try (ResultSet rs = stmt.executeQuery()) {
-            } catch (SQLException e) {
+            stmt.executeUpdate();
+
+        }catch (SQLException e) {
                 throw new Exception(e.getMessage());
             }
-
-        }
         return 0;
     }
 
     @Override
     public List<Map<String, Object>> findPrintingsByStateAndType(String state_var, String type_var) throws Exception {
-        if(state_var.isEmpty()){
-            state_var="Выписано";
-        }
-        if(type_var.isEmpty()){
-            type_var="Все";
-        }
+
         String sql = "SELECT * FROM find_printings_by_state_and_type(?,?)";
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -115,14 +113,25 @@ public class PostgreSQLRepository implements DBInterface, DBMainMenuInterface {
 
             stmt.setString(2, type_var);
             return getMaps(stmt);
-        }
+        }catch (SQLException e) {
+                throw new Exception(e.getMessage());
+            }
 
     }
 
     @Override
-    public List<Map<String, Object>> printingsForYear() throws Exception {
-        String sql = "SELECT * FROM printings_for_year()";
-        return getMaps(sql);
+    public List<Map<String, Object>> printingsForYear(int year) throws Exception {
+        String sql = "SELECT * FROM printings_for_year(?)";
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, year);
+
+
+            return getMaps(stmt);
+        } catch (SQLException e) {
+            throw new Exception(e.getMessage());
+        }
 
     }
 
@@ -135,22 +144,24 @@ public class PostgreSQLRepository implements DBInterface, DBMainMenuInterface {
 
     @Override
     public List<Map<String, Object>> unrecievedPrintingsForTwoMonths() throws Exception {
-        String sql = "SELECT * FROM unrecieved_printings_for_two_months()";
+        String sql = "SELECT * FROM amount_of_unrecieved_printings_for_two_months()";
         return getMaps(sql);
     }
 
     @Override
-    public List<Map<String, Object>> employeesByMonthAndDepartment(String department, String Date, String name) throws Exception {
+    public List<Map<String, Object>> employeesByMonthAndDepartment(int department, String Date, int name) throws Exception {
         String sql = "SELECT * FROM employees_by_month_and_department(?,?::date,?)";
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, department);
+            stmt.setInt(1, department);
 
             stmt.setString(2, Date);
-            stmt.setString(3, name);
+            stmt.setInt(3, name);
             return getMaps(stmt);
-        }
+        } catch (SQLException e) {
+                throw new Exception(e.getMessage());
+            }
 
     }
 
@@ -169,4 +180,18 @@ public class PostgreSQLRepository implements DBInterface, DBMainMenuInterface {
         }
         return rows;
     }
+
+    @Override
+    public List<Map<String, Object>> findAll(String tableName) throws Exception {
+        String sql = "SELECT * FROM " + tableName;
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            return getMaps(stmt);
+        } catch (SQLException e) {
+            throw new Exception("Ошибка при загрузке справочной таблицы '" + tableName + "': " + e.getMessage(), e);
+        }
+    }
+
+
 }

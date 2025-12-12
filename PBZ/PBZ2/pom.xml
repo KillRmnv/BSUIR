@@ -120,15 +120,10 @@
                         <location>classpath:db/migration</location>
                     </locations>
                     <validateMigrationNaming>true</validateMigrationNaming>
+                    <cleanDisabled>false</cleanDisabled> <!-- <- разрешаем clean -->
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.flywaydb</groupId>
-                        <artifactId>flyway-database-postgresql</artifactId>
-                        <version>11.14.0</version>
-                    </dependency>
-                </dependencies>
             </plugin>
+
             <plugin>
                 <groupId>io.micronaut.maven</groupId>
                 <artifactId>micronaut-maven-plugin</artifactId>

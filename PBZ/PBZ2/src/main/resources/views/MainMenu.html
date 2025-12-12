@@ -5,106 +5,26 @@
     <title>Main Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            height: 100vh;
-            color: #000;
-            background-color: #fff;
-            font-size: 18px;
-        }
-
-        .sidebar {
-            width: 200px;
-            background-color: #fff;
-            padding-top: 20px;
-            border-right: 1px solid #ccc;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px;
-            text-decoration: none;
-            color: #000;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-            font-size: 18px;
-        }
-
-        .sidebar a:hover { background-color: #eee; }
-        .sidebar i { width: 20px; text-align: center; }
-
+        /* (стили те же, что у тебя) */
+        body { margin: 0; font-family: Arial, sans-serif; display: flex; height: 100vh; color: #000; background-color: #fff; font-size: 18px; }
+        .sidebar { width: 200px; background-color: #fff; padding-top: 20px; border-right: 1px solid #ccc; display: flex; flex-direction: column; gap: 15px; }
+        .sidebar a { display: flex; align-items: center; gap: 10px; padding: 14px; text-decoration: none; color: #000; border-radius: 4px; transition: background-color 0.2s; font-size: 18px; }
+        .sidebar a:hover { background-color: #eee; } .sidebar i { width: 20px; text-align: center; }
         .main-content { flex-grow: 1; display: flex; flex-direction: column; }
-
-        .topbar {
-            background-color: #fff;
-            padding: 12px 10px;
-            border-bottom: 1px solid #ccc;
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .topbar button {
-            flex: 1;
-            padding: 14px 0;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            font-size: 20px; /* увеличен шрифт */
-            font-weight: bold;
-        }
-
+        .topbar { background-color: #fff; padding: 12px 10px; border-bottom: 1px solid #ccc; display: flex; justify-content: space-between; gap: 20px; }
+        .topbar button { flex: 1; padding: 14px 0; border: none; background: transparent; cursor: pointer; transition: background-color 0.2s; font-size: 20px; font-weight: bold; }
         .topbar button:hover { background: #eee; }
-
         .table-container { flex-grow: 1; padding: 20px; display: flex; flex-direction: column; }
-
         table { border-collapse: collapse; width: 100%; font-size: 18px; }
-        th, td { border: 1px solid #000; padding: 10px; text-align: left; }
-        th { background: #f9f9f9; }
-
+        th, td { border: 1px solid #000; padding: 10px; text-align: left; } th { background: #f9f9f9; }
         .pagination { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 10px; }
         .pagination input { width: 70px; padding: 8px; font-size: 18px; }
         .pagination button { padding: 10px 16px; border: none; background: transparent; cursor: pointer; transition: background-color 0.2s; font-size: 18px; }
         .pagination button:hover { background: #eee; }
-
-        /* формы */
-        form {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 10px;
-            font-size: 20px; /* общий шрифт формы */
-        }
-
-        form input[type="text"], form input[type="date"] {
-            padding: 10px 12px;
-            font-size: 20px; /* увеличен размер текста в полях */
-            border: 1px solid #000;
-            border-radius: 4px;
-            width: 200px;
-        }
-
-        form button {
-            padding: 12px 18px;
-            font-size: 20px;
-            border: none;
-            cursor: pointer;
-            background-color: #f0f0f0;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-            font-weight: bold;
-        }
-
-        form button:hover {
-            background-color: #ddd;
-        }
+        form { display: flex; gap: 12px; margin-bottom: 10px; font-size: 20px; }
+        form input[type="text"], form input[type="date"], form input[type="number"], form select { padding: 10px 12px; font-size: 20px; border: 1px solid #000; border-radius: 4px; width: 200px; }
+        form button { padding: 12px 18px; font-size: 20px; border: none; cursor: pointer; background-color: #f0f0f0; border-radius: 4px; transition: background-color 0.2s; font-weight: bold; }
+        form button:hover { background-color: #ddd; }
     </style>
 </head>
 <body>
@@ -114,9 +34,11 @@
     <a th:href="@{/Employees/}"><i class="fa-solid fa-users"></i> Сотрудники</a>
     <a th:href="@{/History/}"><i class="fa-solid fa-clock-rotate-left"></i> История</a>
     <a th:href="@{/Subscription/}"><i class="fa-solid fa-envelope-open-text"></i> Подписки</a>
-    <a th:href="@{/Delivery/}"><i class="fa-solid fa-truck"></i> Доставка</a> <!-- 👈 новая кнопка -->
+    <a th:href="@{/Delivery/}"><i class="fa-solid fa-truck"></i> Доставка</a>
+    <a th:href="@{/Printing/}"><i class="fa-solid fa-newspaper"></i> Печатные издания</a>
+    <a th:href="@{/Circulation/}"><i class="fa-solid fa-print"></i> Тиражи</a>
+    <a th:href="@{/Departments/}"><i class="fa-solid fa-building"></i> Подразделения</a>
 </div>
-
 
 <div class="main-content">
     <div class="topbar">
@@ -127,16 +49,32 @@
     </div>
 
     <div class="table-container">
-        <!-- Фильтры -->
+        <!-- форма для сотрудников -->
         <form id="employees-form" style="display:none;" onsubmit="event.preventDefault(); loadTable('employees', 1)">
-            <input type="text" id="emp-department" placeholder="Отдел">
-            <input type="date" id="emp-date" placeholder="Дата">
-            <input type="text" id="emp-name" placeholder="Название издания">
+            <select id="emp-department" name="department">
+                <!-- используем реальные ключи department_id / department_name -->
+                <option th:each="ref : ${references}"
+                        th:value="${ref.department_id}"
+                        th:text="${ref.department_name}"></option>
+            </select>
+
+            <input type="date" id="emp-date" name="Date" placeholder="Дата">
+            <!-- поле index оставил как number (код издания) -->
+            <input type="number" id="emp-index" name="index" placeholder="Код издания" min="0">
+            <button type="submit">Показать</button>
         </form>
 
+        <!-- форма для печатных изданий за год -->
+        <form id="printings-form" style="display:none;" onsubmit="event.preventDefault(); loadTable('printings', 1)">
+            <input type="number" id="year-input" placeholder="Год" min="1900" max="2100">
+            <button type="submit">Показать</button>
+        </form>
+
+        <!-- форма для поиска по состоянию -->
         <form id="state-form" style="display:none;" onsubmit="event.preventDefault(); loadTable('state', 1)">
             <input type="text" id="state-var" placeholder="Состояние">
             <input type="text" id="type-var" placeholder="Тип">
+            <button type="submit">Показать</button>
         </form>
 
         <table>
@@ -157,24 +95,31 @@
         const amountOnPage = 10;
         let url = "";
 
-        // Скрываем все формы
+        // скрываем формы
         document.getElementById("employees-form").style.display = "none";
         document.getElementById("state-form").style.display = "none";
+        document.getElementById("printings-form").style.display = "none";
 
         switch (tableType) {
             case "employees":
                 document.getElementById("employees-form").style.display = "flex";
-                const dept = document.getElementById("emp-department").value || "";
+                // получаем значение отдела (число) — если пусто, отправляем 0
+                const dept = document.getElementById("emp-department").value || 0;
                 const date = document.getElementById("emp-date").value || "";
-                const name = document.getElementById("emp-name").value || "";
-                url = `/employees_table?department=${encodeURIComponent(dept)}&Date=${encodeURIComponent(date)}&name=${encodeURIComponent(name)}&page=${page}&amountOnPage=${amountOnPage}`;
+                const index = document.getElementById("emp-index").value || 0;
+                url = `/employees_table?department=${encodeURIComponent(dept)}&Date=${encodeURIComponent(date)}&index=${encodeURIComponent(index)}&page=${page}&amountOnPage=${amountOnPage}`;
                 break;
+
             case "unrecieved":
                 url = `/unrecieved_table?page=${page}&amountOnPage=${amountOnPage}`;
                 break;
+
             case "printings":
-                url = `/printings_for_year_table?page=${page}&amountOnPage=${amountOnPage}`;
+                document.getElementById("printings-form").style.display = "flex";
+                const year = document.getElementById("year-input").value || new Date().getFullYear();
+                url = `/printings_for_year_table?page=${page}&amountOnPage=${amountOnPage}&year=${encodeURIComponent(year)}`;
                 break;
+
             case "state":
                 document.getElementById("state-form").style.display = "flex";
                 const stateVar = document.getElementById("state-var").value || "";
@@ -194,7 +139,7 @@
             tableHead.innerHTML = "";
             tableBody.innerHTML = "";
 
-            if (data.length > 0) {
+            if (Array.isArray(data) && data.length > 0) {
                 const headerRow = document.createElement("tr");
                 Object.keys(data[0]).forEach(key => {
                     const th = document.createElement("th");
@@ -207,7 +152,7 @@
                     const tr = document.createElement("tr");
                     Object.values(row).forEach(value => {
                         const td = document.createElement("td");
-                        td.textContent = value;
+                        td.textContent = value === null ? '' : value;
                         tr.appendChild(td);
                     });
                     tableBody.appendChild(tr);

@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import pbz.Romanov.entities.Delivery;
+import pbz.Romanov.entities.search.DeliverySearch;
 import pbz.Romanov.repository.DBInterface;
 
 import java.util.ArrayList;
@@ -16,42 +17,52 @@ public class DeliveryService {
     @Named("PostgreSQLRepository")
     private DBInterface dbInterface;
 
-    public List<Delivery> getDeliveries(Delivery delivery) throws Exception {
+    public List<Delivery> getDeliveries(DeliverySearch delivery) throws Exception {
         List<Object> params = setUpForDBOperation(delivery);
         List<Map<String, Object>> result = dbInterface.find(params, Delivery.class);
-        List<Delivery> deliverys = new ArrayList<>();
+        List<Delivery> deliveries = new ArrayList<>();
         for (Map<String, Object> row : result) {
-            deliverys.add(new Delivery((Integer) row.get("delivery_id"), (String) row.get("Тип"),
-                     row.get("Дата").toString()));
+            deliveries.add(new Delivery((Integer) row.get("delivery_id"), (int) row.get("type_id"),
+                    row.get("address").toString(), (int) row.get("hist_id"),  row.get("expected_date").toString()));
         }
-        return deliverys;
+        return deliveries;
     }
 
 
     public void insertDelivery(Delivery delivery) throws Exception {
         List<Object> params = new ArrayList<>();
-        params.add(delivery.getDate());
         params.add(delivery.getType());
+        params.add(delivery.getAddress());
+        params.add(delivery.getHistId());
+        params.add(delivery.getExpectedDate());
 
         dbInterface.save(params, Delivery.class);
     }
 
-    private List<Object> setUpForDBOperation(Delivery delivery) {
-        List<Object> params = new ArrayList<>();
-        params.add(delivery.getDate());
-        params.add(delivery.getId());
-        params.add(delivery.getType());
+    private List<Object> setUpForDBOperation(DeliverySearch delivery) {
 
+        return form(delivery.getId(), delivery.getType(), delivery.getAddress(), delivery.getHistId(), delivery.getExpectedDate());
+    }
+
+    private List<Object> form(int id, int type, String address, int hist, String date) {
+        List<Object> params = new ArrayList<>();
+        params.add(id);
+        params.add(type);
+        params.add(address);
+        params.add(hist);
+        params.add(date);
         return params;
     }
 
     public void updateDelivery(Delivery delivery) throws Exception {
-        List<Object> params = setUpForDBOperation(delivery);
-        dbInterface.update(params, Delivery.class);
+
+        dbInterface.update(form(delivery.getId(), delivery.getType(), delivery.getAddress(), delivery.getHistId(), delivery.getExpectedDate()),
+        Delivery.class);
     }
 
-    public int deleteDelivery(Delivery delivery) throws Exception {
+    public int deleteDelivery(DeliverySearch delivery) throws Exception {
         List<Object> params = setUpForDBOperation(delivery);
-        return dbInterface.delete(params, Delivery.class);
+         dbInterface.delete(params, Delivery.class);
+         return 0;
     }
 }

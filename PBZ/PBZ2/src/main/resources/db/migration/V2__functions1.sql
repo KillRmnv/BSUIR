@@ -1,0 +1,1083 @@
+
+drop function if exists find_printings_by_state(varchar);
+-- Функция проверки состояния(получено или выдано)
+drop function if exists find_printings_by_state(varchar);
+
+create or replace function find_printings_by_state(state_per varchar(64))
+    returns table
+            (
+                employee_id     integer,
+                subscription_id integer,
+                num_pub         integer,
+                state_name      varchar(64)
+            )
+    language sql
+as
+$$
+select h.subscription_id, s.employee_id, h.num_pub, hs.state_name
+from History h
+         join Subs s on h.subscription_id = s.id
+         join HistoryStates hs on h.state = hs.state_id
+where (state_per = hs.state_name)
+   or (state_per = '');
+$$;
+
+-- Функция для выведения сведений о выписанных и полученных номерах различных журналов и  газет.
+-- Принимает два параметра-состояние(получено или выдано) и тип(газета, или журнал, или все сразу)
+
+drop function if exists find_printings_by_state_and_type(varchar, varchar);
+
+create or replace function find_printings_by_state_and_type(
+    state_per varchar(64),
+    type_per varchar(64)
+)
+    returns table
+            (
+                employee_id integer,
+                num_pub     integer,
+                state_name  varchar(64),
+                name        varchar(64),
+                type_p      varchar(64)
+            )
+    language sql
+as
+$$
+select fs.employee_id,
+       fs.num_pub,
+       fs.state_name,
+       p.name,
+       pt.type_name
+from find_printings_by_state(state_per) fs
+         join Subs s on s.id = fs.subscription_id
+         join Printings p on s.index_printing = p.index
+         join PublicationTypes pt on pt.type_id = p.type_id
+where (type_per = pt.type_name)
+   or (type_per = '');
+$$;
+
+-- Функция чтения из таблицы подписок
+create or replace function read_subscription(
+    id_var integer,
+    index_printing_var integer,
+    emp_id integer,
+    starting_date date,
+    ending_date date,
+    period_time integer,
+    cost_var integer
+)
+    returns table
+            (
+                id             integer,
+                index_printing integer,
+                employee_id    integer,
+                date_beg       DATE,
+                date_end       DATE,
+                period         integer,
+                cost           integer
+            )
+    language sql
+as
+$$
+select id, index_printing, employee_id, date_beg, date_end, period, cost
+from Subs
+where (index_printing_var <1 or index_printing_var = index_printing)
+  and (emp_id <1 or emp_id = employee_id)
+  and (starting_date is null or date_beg = starting_date)
+  and (ending_date is null or date_end = ending_date)
+  and (period_time <1 or period_time = period)
+  and (cost_var <1 or cost_var = cost)
+  and (id_var = id or id_var <1);
+
+$$;
+
+-- Процедура обновления записи в таблице с подписками
+create or replace procedure update_subscription(
+    id_var integer,
+    index_printing_var integer,
+    emp_id integer,
+    starting_date DATE,
+    period_time integer,
+    cost_var integer
+)
+    language sql
+as
+$$
+update Subs
+set index_printing = COALESCE(index_printing_var, index_printing),
+    date_beg       = COALESCE(starting_date, date_beg),
+    period         = COALESCE(period_time, period),
+    cost           = COALESCE(cost_var, cost),
+    employee_id    = COALESCE(emp_id, employee_id)
+where id = id_var;
+$$;
+
+-- Процедура вставки записи в таблице с подписками
+create or replace procedure insert_subsription(
+    index_printing_var integer,
+    emp_id integer,
+    starting_date DATE,
+    period_time integer,
+    cost_var integer
+)
+    language sql
+as
+$$
+insert into Subs(index_printing, employee_id, date_beg, period,
+                 cost)
+values (index_printing_var, emp_id, starting_date, period_time, cost_var);
+$$;
+
+-- Функция удаления записи в таблице с подписками
+drop procedure if exists delete_subscription(
+    integer,
+    integer,
+    date,
+    date,
+    integer,
+    integer);
+create or replace procedure delete_subscription(
+    index_printing_var integer,
+    emp_id integer,
+    starting_date date,
+    ending_date date,
+    period_time integer,
+    cost_var integer
+)
+    language sql
+as
+$$
+
+delete from Subs
+where (index_printing_var <1 or index_printing_var = index_printing)
+  and (emp_id <1 or emp_id = employee_id)
+  and (starting_date is null or date_beg = starting_date)
+  and (ending_date is null or date_end = ending_date)
+  and (period_time <1 or period_time = period)
+  and (cost_var <1 or cost_var = cost)
+    ;
+$$;
+
+-- ФУНКЦИЯ: чтение записей из таблицы History
+DROP FUNCTION read_history(integer,date,integer,integer,integer);
+create or replace function read_history(
+    id_var integer,
+    date_var date,
+    subscription_id_var integer,
+    num_of_publication integer,
+    state_var integer
+
+)
+    returns table
+            (
+                id              integer,
+                date_hist       date,
+                subscription_id integer,
+                num_pub         integer,
+                state_id        integer,
+                state_name      varchar
+            )
+    language sql
+as
+$$
+select h.id,
+       h.date_hist,
+       h.subscription_id,
+       h.num_pub,
+       hs.state_id,
+       hs.state_name
+from History h
+         join HistoryStates hs on h.state = hs.state_id
+where (id_var <1 or h.id = id_var)
+  and (subscription_id_var <1 or h.subscription_id = subscription_id_var)
+  and (num_of_publication <1 or h.num_pub = num_of_publication)
+  and (state_var <1 or h.state = state_var)
+  and (date_var is null or h.date_hist = date_var);
+$$;
+
+-- ПРОЦЕДУРА: добавление записи в таблицу History
+
+create or replace procedure insert_history(
+    date_var date,
+    subscription_id_var integer,
+    num_of_publication integer,
+    state_var integer
+)
+    language sql
+as
+$$
+insert into History (date_hist, subscription_id, num_pub, state)
+values (date_var, subscription_id_var, num_of_publication, state_var);
+$$;
+
+-- ПРОЦЕДУРА: обновление записи в таблице History
+
+create or replace procedure update_history(
+    hist_id integer,
+    date_var date,
+    subscription_id_var integer,
+    num_of_publication integer,
+    state_var integer
+)
+    language sql
+as
+$$
+update History
+set date_hist       = coalesce(date_var, date_hist),
+    subscription_id = coalesce(subscription_id_var, subscription_id),
+    num_pub         = coalesce(num_of_publication, num_pub),
+    state           = coalesce(state_var, state)
+where id = hist_id;
+$$;
+
+-- ФУНКЦИЯ: удаление записей из таблицы History
+
+drop procedure if exists delete_history(date, integer, integer, integer);
+
+create or replace procedure delete_history(
+    date_var date,
+    subscription_id_var integer,
+    num_of_publication integer,
+    state_var integer
+)
+    language sql
+as
+$$
+delete from History
+where (subscription_id_var <1 or subscription_id = subscription_id_var)
+  and (num_of_publication <1 or num_pub = num_of_publication)
+  and (state_var <1 or state = state_var)
+  and (date_var is null or date_hist = date_var)
+    ;
+$$;
+
+-- Функция чтения из таблицы сотрудников
+
+
+CREATE OR REPLACE FUNCTION read_employee(
+    p_emp_id INTEGER,
+    p_second_name VARCHAR(64),
+    p_first_name VARCHAR(64),
+    p_third_name VARCHAR(64),
+    p_position VARCHAR(64),
+    p_department_id INTEGER
+)
+    RETURNS TABLE
+            (
+                employee_id     INTEGER,
+                second_name     VARCHAR(64),
+                first_name      VARCHAR(64),
+                third_name      VARCHAR(64),
+                employee_position        VARCHAR(64),
+                department_id   INTEGER,
+                department_name VARCHAR(64)
+            )
+    LANGUAGE sql
+AS
+$$
+SELECT e.employee_id,
+       e.second_name,
+       e.first_name,
+       e.third_name,
+       e.position,
+       e.department_id,
+       d.department_name
+FROM Employees e
+         LEFT JOIN Departments d ON e.department_id = d.department_id
+WHERE (p_emp_id <1 OR e.employee_id = p_emp_id)
+  AND (p_second_name='' OR e.second_name ILIKE p_second_name)
+  AND (p_first_name ='' OR e.first_name ILIKE p_first_name)
+  AND (p_third_name='' OR e.third_name ILIKE p_third_name)
+  AND (p_position ='' OR e.position ILIKE p_position)
+  AND (p_department_id <1 OR e.department_id = p_department_id);
+$$;
+
+drop procedure if exists update_employee(emp_id integer,
+                                         varchar(64),
+                                         varchar(64),
+                                         varchar(64),
+                                         varchar(64),
+                                         varchar(64));
+-- Процедура обновления записи в таблице с сотрудниками
+
+-- 2. ОБНОВЛЕНИЕ СОТРУДНИКА (update_employee)
+
+CREATE OR REPLACE PROCEDURE update_employee(
+    p_emp_id INTEGER,
+    p_second_name VARCHAR(64),
+    p_first_name VARCHAR(64),
+    p_third_name VARCHAR(64),
+    p_position VARCHAR(64),
+    p_department_id INTEGER
+)
+    LANGUAGE sql
+AS
+$$
+UPDATE Employees
+SET second_name   = COALESCE(p_second_name, second_name),
+    first_name    = COALESCE(p_first_name, first_name),
+    third_name    = COALESCE(p_third_name, third_name),
+    position      = COALESCE(p_position, position),
+    department_id = COALESCE(p_department_id, department_id)
+WHERE employee_id = p_emp_id;
+$$;
+-- Процедура добавления записи в таблице с сотрудниками
+drop procedure if exists insert_employee(
+    varchar(64),
+    varchar(64),
+    varchar(64),
+    varchar(64),
+    integer);
+
+-- 3. ДОБАВЛЕНИЕ СОТРУДНИКА (insert_employee)
+
+CREATE OR REPLACE PROCEDURE insert_employee(
+    p_second_name VARCHAR(64),
+    p_first_name VARCHAR(64),
+    p_third_name VARCHAR(64),
+    p_position VARCHAR(64),
+    p_department_id INTEGER
+)
+    LANGUAGE sql
+AS
+$$
+INSERT INTO Employees (second_name, first_name, third_name, position, department_id)
+VALUES (p_second_name, p_first_name, p_third_name, p_position, p_department_id);
+$$;
+
+-- 4. УДАЛЕНИЕ СОТРУДНИКА (delete_employee)
+DROP PROCEDURE delete_employee(
+    INTEGER,
+    VARCHAR(64),
+    VARCHAR(64),
+    VARCHAR(64),
+    VARCHAR(64),
+    INTEGER
+);
+CREATE OR REPLACE PROCEDURE delete_employee(
+    p_emp_id INTEGER,
+    p_second_name VARCHAR(64),
+    p_first_name VARCHAR(64),
+    p_third_name VARCHAR(64),
+    p_position VARCHAR(64),
+    p_department_id INTEGER
+)
+    LANGUAGE sql
+AS
+$$
+
+DELETE FROM Employees
+WHERE
+    (p_emp_id <1 OR employee_id = p_emp_id)
+  AND (p_second_name ='' OR second_name ILIKE p_second_name)
+  AND (p_first_name ='' OR first_name ILIKE p_first_name)
+  AND (p_third_name ='' OR third_name ILIKE p_third_name)
+  AND (p_position ='' OR position ILIKE p_position)
+  AND (p_department_id <1 OR department_id = p_department_id)
+    ;
+$$;
+
+
+-- 1. ЧТЕНИЕ ДОСТАВКИ (read_delivery)
+
+CREATE OR REPLACE FUNCTION read_delivery(
+    p_delivery_id INTEGER,
+    p_type_id INTEGER,
+    p_address VARCHAR(128),
+    p_hist_id INTEGER,
+    p_expected_date DATE
+)
+    RETURNS TABLE
+            (
+                delivery_id   INTEGER,
+                type_id       INTEGER,
+                type_name     VARCHAR(128),
+                address       VARCHAR(128),
+                hist_id       INTEGER,
+                expected_date DATE
+            )
+    LANGUAGE sql
+AS
+$$
+SELECT d.delivery_id,
+       dt.id     AS type_id,
+       dt.type_d AS type_name,
+       d.address,
+       d.hist_id,
+       d.expected_date
+FROM delivery d
+         JOIN DeliveryType dt ON d.type_d = dt.id
+
+WHERE (p_delivery_id<1 OR d.delivery_id = p_delivery_id)
+  AND (p_type_id<1 OR d.type_d = p_type_id)
+  AND (p_address='' OR d.address ILIKE '%' || p_address || '%')
+  AND (p_hist_id<1 OR d.hist_id = p_hist_id)
+  AND (p_expected_date IS NULL OR d.expected_date = p_expected_date);
+$$;
+
+
+-- 2. ДОБАВЛЕНИЕ ДОСТАВКИ (insert_delivery)
+
+CREATE OR REPLACE PROCEDURE insert_delivery(
+    p_type_id INTEGER,
+    p_address VARCHAR(128),
+    p_hist_id INTEGER,
+    p_expected_date DATE
+)
+    LANGUAGE sql
+AS
+$$
+INSERT INTO delivery (type_d, address, hist_id, expected_date)
+VALUES (p_type_id, p_address, p_hist_id, p_expected_date);
+$$;
+
+-- ПРОЦЕДУРА: обновление записи в таблице delivery
+create or replace procedure update_delivery(
+    del_id integer,
+    type_var integer,
+    address_var varchar(64),
+    hist_id_var integer,
+    expected_date_var date
+)
+    language sql
+as
+$$
+update delivery
+set type_d        = coalesce(type_var, type_d),
+    address       = coalesce(address_var, address),
+    hist_id       = coalesce(hist_id_var, hist_id),
+    expected_date = coalesce(expected_date_var, expected_date)
+where delivery_id = del_id;
+$$;
+
+
+-- 4. УДАЛЕНИЕ ДОСТАВКИ (delete_delivery)
+DROP PROCEDURE delete_delivery(
+    INTEGER,
+    INTEGER,
+    VARCHAR(128),
+    INTEGER,
+    DATE
+);
+CREATE OR REPLACE PROCEDURE delete_delivery(
+    p_delivery_id INTEGER,
+    p_type_id INTEGER,
+    p_address VARCHAR(128),
+    p_hist_id INTEGER,
+    p_expected_date DATE
+)
+    LANGUAGE sql
+AS
+$$
+DELETE FROM delivery
+WHERE
+    (p_delivery_id <1 OR delivery_id = p_delivery_id)
+  AND (p_type_id <1 OR type_d = p_type_id)
+  AND (p_address ='' OR address ILIKE '%' || p_address || '%')
+  AND (p_hist_id<1 OR hist_id = p_hist_id)
+  AND (p_expected_date IS NULL OR expected_date = p_expected_date)
+    ;
+$$;
+
+drop function if exists read_circulation(integer, integer, integer);
+
+create or replace function read_circulation(
+    pub_id_var integer,
+    amount_var integer,
+    num_of_pub_var integer
+)
+    returns table
+            (
+                pub_id           integer,
+                amount           integer,
+                num_of_pub       integer,
+                allocated_amount integer
+            )
+    language sql
+as
+$$
+select pub_id, amount, num_of_pub, allocated_amount
+from Circulation
+where (pub_id_var <1 or pub_id = pub_id_var)
+  and (amount_var <1 or amount = amount_var)
+  and (num_of_pub_var <1 or num_of_pub = num_of_pub_var);
+$$;
+
+drop procedure if exists insert_circulation(integer, integer, integer, integer);
+
+create or replace procedure insert_circulation(
+    pub_id_var integer,
+    amount_var integer,
+    num_of_pub_var integer,
+    allocated_amount_var integer
+)
+    language sql
+as
+$$
+insert into Circulation(pub_id, amount, num_of_pub, allocated_amount)
+values (pub_id_var, amount_var, num_of_pub_var, coalesce(allocated_amount_var, 0));
+$$;
+
+
+drop procedure if exists update_circulation(integer, integer, integer, integer);
+
+create or replace procedure update_circulation(
+    pub_id_var integer,
+    num_of_pub_var integer,
+    new_amount integer
+)
+    language sql
+as
+$$
+update Circulation
+set amount = coalesce(new_amount, amount)
+where pub_id = pub_id_var
+  and num_of_pub = num_of_pub_var
+  and allocated_amount <= coalesce(new_amount, amount);
+$$;
+
+drop procedure if exists delete_circulation(integer, integer);
+
+create or replace procedure delete_circulation(
+    pub_id_var integer,
+    num_of_pub_var integer
+)
+    language sql
+as
+$$
+delete from Circulation
+where (pub_id_var <1 or pub_id = pub_id_var)
+  and (num_of_pub_var <1 or num_of_pub = num_of_pub_var)
+    ;
+$$;
+
+drop function if exists read_printings(integer, varchar, integer, varchar);
+
+--  ЧТЕНИЕ ИЗДАНИЙ
+
+CREATE OR REPLACE FUNCTION read_printings(
+    p_index INTEGER,
+    p_name VARCHAR(64),
+    p_freq_id INTEGER,
+    p_type_id INTEGER
+)
+    RETURNS TABLE
+            (
+                index     INTEGER,
+                name      VARCHAR(64),
+                freq_id   INTEGER,
+                freq_name VARCHAR(30),
+                type_id   INTEGER,
+                type_name VARCHAR(64)
+            )
+    LANGUAGE sql
+AS
+$$
+SELECT p.index,
+       p.name,
+       f.freq_id,
+       f.freq_name,
+       pt.type_id,
+       pt.type_name
+FROM Printings p
+         JOIN Frequencies f ON p.freq_id = f.freq_id
+         JOIN PublicationTypes pt ON p.type_id = pt.type_id
+WHERE (p_index <1 OR p.index = p_index)
+  AND (p_name='' OR p.name ILIKE '%' || p_name || '%')
+  AND (p_freq_id <1 OR p.freq_id = p_freq_id)
+  AND (p_type_id <1 OR p.type_id = p_type_id);
+$$;
+
+drop procedure if exists insert_printings(varchar, integer, varchar);
+
+
+-- 2. ДОБАВЛЕНИЕ ИЗДАНИЯ (insert_printings)
+
+CREATE OR REPLACE PROCEDURE insert_printings(
+    p_name VARCHAR(64),
+    p_index INTEGER,
+    p_freq_id INTEGER,
+    p_type_id INTEGER
+)
+    LANGUAGE sql
+AS
+$$
+INSERT INTO Printings (name, index, freq_id, type_id)
+VALUES (p_name, p_index, p_freq_id, p_type_id);
+$$;
+
+drop procedure if exists update_printings(integer, varchar, varchar, integer);
+
+CREATE OR REPLACE PROCEDURE update_printings(
+    p_index INTEGER,
+    p_name VARCHAR(64),
+    p_freq_id INTEGER,
+    p_type_id INTEGER
+)
+    language sql
+as
+$$
+update Printings
+set name    = coalesce(p_name, name),
+    type_id  = coalesce(p_type_id, type_id),
+    freq_id = coalesce(p_freq_id, freq_id)
+where index = p_index;
+$$;
+
+drop procedure if exists delete_printings( INTEGER,
+                                           VARCHAR(64),
+                                           INTEGER,
+                                           INTEGER);
+
+
+-- 4. УДАЛЕНИЕ ИЗДАНИЯ (delete_printings)
+
+CREATE OR REPLACE PROCEDURE delete_printings(
+    p_index INTEGER,
+    p_name VARCHAR(64),
+    p_freq_id INTEGER,
+    p_type_id INTEGER
+)
+    LANGUAGE sql
+AS
+$$
+DELETE FROM Printings
+WHERE
+    (p_index <1 OR index = p_index)
+  AND (p_name ='' OR name ILIKE '%' || p_name || '%')
+  AND (p_freq_id <1 OR freq_id = p_freq_id)
+  AND (p_type_id <1 OR type_id = p_type_id)
+    ;
+$$;
+
+
+drop function if exists read_departments(integer, varchar);
+
+create or replace function read_departments(
+    p_department_id integer,
+    p_department_name varchar
+)
+    returns table
+            (
+                department_id   integer,
+                department_name varchar
+            )
+    language sql
+as
+$$
+select department_id, department_name
+from Departments
+where (p_department_id <1 or department_id = p_department_id)
+  and (p_department_name ='' or department_name ilike '%' || p_department_name || '%');
+$$;
+
+drop procedure if exists insert_department(varchar);
+
+create or replace procedure insert_department(
+    p_department_name varchar
+)
+    language sql
+as
+$$
+insert into Departments(department_name)
+values (p_department_name);
+$$;
+
+drop procedure if exists update_department(integer, varchar);
+
+create or replace procedure update_department(
+    p_department_id integer,
+    p_department_name varchar
+)
+    language sql
+as
+$$
+update Departments
+set department_name = coalesce(p_department_name, department_name)
+where department_id = p_department_id;
+$$;
+
+drop procedure if exists delete_department(integer);
+
+create or replace procedure delete_department(
+    p_department_id integer
+)
+    language sql
+as
+$$
+delete from Departments
+where department_id = p_department_id
+    ;
+$$;
+
+
+-- Функция просмотра списка всех изданий, выписанных на заданный год – сначала журналы,
+-- затем газеты, стоимость каждого издания на период подписки, период подписки.
+
+create or replace function printings_for_year(year_var integer)
+    returns table
+            (
+                name                 varchar(64),
+                index                integer,
+                period_of_publishing varchar(64),
+                type_p               varchar(64),
+                date_beg             date,
+                period_of_sub        varchar(64),
+                cost_for_period      integer
+            )
+    language sql
+as
+$$
+select p.name,
+       p.index,
+       f.freq_name  as period_of_publishing,
+       pt.type_name,
+       s.date_beg,
+       sf.freq_name as period_of_sub,
+       case
+           when sf.freq_name = 'год' then
+               s.cost * 12
+           else
+               s.cost * 6
+           end      as overall_cost
+from Printings p
+         join Subs s on s.index_printing = p.index
+         join SubsPeriods sf on sf.freq_id = s.period
+         join Frequencies f on f.freq_id = p.freq_id
+         join PublicationTypes pt on pt.type_id = p.type_id
+where extract(year from s.date_beg) = year_var
+order by pt.type_name desc,
+         p.name;
+$$;
+
+
+-- функция просмотра списка изданий, которые не были получены в течение предыдущих двух  месяцев –
+-- дата формирования отчета, список изданий – название,
+-- периодичность, количество неполученных номеров
+drop function if exists amount_of_unrecieved_printings_for_two_months();
+create or replace function amount_of_unrecieved_printings_for_two_months()
+    returns table
+            (
+                name                 varchar(64),
+                type_p               varchar(64),
+                period_of_publishing varchar(64),
+                amount_of_unrecieved integer
+            )
+    language sql
+as
+$$
+with unreceived_subs as (
+    select
+        p.index,
+        p.name,
+        count(distinct h.id) as amount_of_unrecieved,
+        f.freq_name as freq,
+        p.type_id
+    from History h
+             join HistoryStates hs on h.state = hs.state_id
+             join Subs s on h.subscription_id = s.id
+             join Printings p on s.index_printing = p.index
+             join Frequencies f on f.freq_id = p.freq_id
+    where hs.state_name != 'Получено'
+      and h.date_hist >= (current_date - interval '2 months')
+    group by p.index, p.name, f.freq_name, p.type_id
+)
+select
+    u.name,
+    pt.type_name as type_p,
+    u.freq as period_of_publishing,
+    u.amount_of_unrecieved
+from unreceived_subs u
+         join PublicationTypes pt on pt.type_id = u.type_id
+group by u.name, pt.type_name, u.freq, u.amount_of_unrecieved
+order by pt.type_name, u.name;
+$$;
+
+
+-- Функция просмотра ФИО сотрудника подразделения, оформившего получение заданного  издания на заданный месяц.
+
+create or replace function employees_by_month_and_department(
+    department_var integer,
+    month_year date,
+    index_pub integer
+)
+    returns table
+            (
+                emp_id     integer,
+                full_name  varchar(64),
+                employee_position   varchar(64),
+                department varchar(64)
+            )
+    language sql
+as
+$$
+select t1.employee_id,
+       concat(t1.second_name, ' ', t1.first_name, ' ', t1.third_name) as full_name,
+       t1.position,
+       t4.department_name
+from Employees t1
+         join Subs t2 on t1.employee_id = t2.employee_id
+         join Printings t3 on t2.index_printing = t3.index
+         join Departments t4 on t1.department_id = t4.department_id
+where date_trunc('month', month_year)
+    between date_trunc('month', t2.date_beg)
+    and date_trunc('month', t2.date_end)
+  and t1.department_id = department_var
+  and t3.index = index_pub;
+$$;
+
+
+
+-- Функция проверки дат начала и конца подписки
+create or replace function check_subscription_dates()
+    returns trigger
+    language plpgsql
+as
+$$
+begin
+    if new.date_end < new.date_beg then
+        raise exception 'Дата окончания (%) не может быть раньше даты начала (%)', new.date_end, new.date_beg;
+    end if;
+    return new;
+end;
+$$;
+
+
+
+-- Триггер на проверку дат подписки
+create or replace trigger trg_check_dates
+    before insert or update
+    on Subs
+    for each row
+execute function check_subscription_dates();
+
+-- Перед вставкой в Circulation: посчитать allocated_amount (кол-во активных подписок на это издание)
+create or replace function trg_circulation_before_insert_set_allocated()
+    returns trigger
+    language plpgsql
+as
+$$
+begin
+    new.allocated_amount := (select count(*)
+                             from Subs s
+                             where s.index_printing = new.pub_id
+                               and (s.date_end is null or s.date_end >= current_date));
+
+    if new.allocated_amount > new.amount then
+        new.allocated_amount := new.amount;
+    end if;
+
+    return new;
+end;
+$$;
+
+drop trigger if exists cir_before_insert_alloc on public.Circulation;
+create trigger cir_before_insert_alloc
+    before insert
+    on public.Circulation
+    for each row
+execute function trg_circulation_before_insert_set_allocated();
+
+
+-- После вставки в Circulation: создаём записи в History и Delivery
+-- но не больше, чем amount экземпляров
+DROP TRIGGER IF EXISTS cir_after_insert_hist_deliv ON public.Circulation;
+DROP FUNCTION IF EXISTS trg_circulation_after_insert_create_history_delivery();
+
+CREATE OR REPLACE FUNCTION trg_circulation_after_insert_create_history_delivery()
+    RETURNS TRIGGER
+    LANGUAGE plpgsql
+AS $$
+DECLARE
+    rec               RECORD;
+    v_state_id        INTEGER;
+    v_hist_id         INTEGER;
+    v_addr            VARCHAR;
+    v_type_d          INTEGER;
+    v_limit           INTEGER := NEW.amount;
+    v_count           INTEGER := 0;
+    v_org_addr        VARCHAR;
+    v_org_type_d      INTEGER;
+BEGIN
+    SELECT state_id INTO v_state_id
+    FROM HistoryStates
+    WHERE state_name = 'Выписано'
+    LIMIT 1;
+
+    IF v_state_id <1 THEN
+        RAISE EXCEPTION 'Не найдено состояние "Выписано" в HistoryStates';
+    END IF;
+
+    SELECT base_address_for_delivery, type_of_delivery
+    INTO v_org_addr, v_org_type_d
+    FROM Organization
+    ORDER BY id DESC
+    LIMIT 1;
+
+    FOR rec IN
+        SELECT s.id AS sub_id, s.employee_id
+        FROM Subs s
+        WHERE s.index_printing = NEW.pub_id
+          AND (s.date_end IS NULL OR s.date_end >= CURRENT_DATE)
+          AND (s.date_beg <= CURRENT_DATE)
+        ORDER BY s.id
+        LOOP
+            EXIT WHEN v_count >= v_limit;
+
+            INSERT INTO public.History (date_hist, subscription_id, num_pub, state)
+            VALUES (CURRENT_DATE, rec.sub_id, NEW.num_of_pub, v_state_id)
+            RETURNING id INTO v_hist_id;
+
+            SELECT d.address, d.type_d
+            INTO v_addr, v_type_d
+            FROM delivery d
+                     JOIN History h ON d.hist_id = h.id
+            WHERE h.subscription_id = rec.sub_id
+            ORDER BY h.date_hist DESC, h.id DESC
+            LIMIT 1;
+
+            IF v_addr IS NULL THEN
+                v_addr := v_org_addr;
+                v_type_d := v_org_type_d;
+            END IF;
+
+            IF v_addr IS NULL THEN
+                v_addr := 'Адрес не указан';
+            END IF;
+            IF v_type_d IS NULL THEN
+                v_type_d := (SELECT id FROM DeliveryType WHERE type_d = 'почтальон' LIMIT 1);
+            END IF;
+
+            INSERT INTO public.delivery (type_d, address, hist_id, expected_date)
+            VALUES (v_type_d, v_addr, v_hist_id, CURRENT_DATE + INTERVAL '7 days');
+
+            v_count := v_count + 1;
+        END LOOP;
+
+    RETURN NULL;
+END;
+$$;
+
+-- Создаём триггер
+CREATE TRIGGER cir_after_insert_hist_deliv
+    AFTER INSERT ON public.Circulation
+    FOR EACH ROW
+EXECUTE FUNCTION trg_circulation_after_insert_create_history_delivery();
+
+
+-- Триггер-функция: при добавлении подписки создаёт историю и доставку
+create or replace function trg_subs_after_insert_create_history_delivery()
+    returns trigger
+    language plpgsql
+as
+$$
+declare
+    v_circ     record;
+    v_state_id integer;
+    v_hist_id  integer;
+    v_addr     varchar;
+    v_type_d   integer;
+begin
+    -- Найти состояние "Выписано"
+    select state_id
+    into v_state_id
+    from public.HistoryStates
+    where state_name = 'Выписано'
+    limit 1;
+
+    if v_state_id <1 then
+        raise exception 'Не найдена запись в HistoryStates с state_name = "Выписано"';
+    end if;
+
+    select *
+    into v_circ
+    from public.Circulation
+    where pub_id = new.index_printing
+      and allocated_amount < amount
+    order by num_of_pub desc
+    limit 1;
+
+    if found then
+        select base_address_for_delivery, type_of_delivery
+        into v_addr, v_type_d
+        from public.Organization
+        order by id desc
+        limit 1;
+
+        insert into public.History (date_hist, subscription_id, num_pub, state)
+        values (current_date, new.id, v_circ.num_of_pub, v_state_id)
+        returning id into v_hist_id;
+
+        insert into public.delivery (type_d, address, hist_id, expected_date)
+        values (v_type_d, v_addr, v_hist_id, current_date + interval '7 days');
+
+        update public.Circulation
+        set allocated_amount = allocated_amount + 1
+        where pub_id = v_circ.pub_id
+          and num_of_pub = v_circ.num_of_pub;
+    end if;
+
+    return null;
+end;
+$$;
+
+-- Создание триггера
+drop trigger if exists subs_after_insert_hist_deliv on public.Subs;
+create trigger subs_after_insert_hist_deliv
+    after insert
+    on public.Subs
+    for each row
+execute function trg_subs_after_insert_create_history_delivery();
+
+-- Функция для триггера
+drop function if exists trg_update_date_on_state_change cascade;
+create or replace function trg_update_date_on_state_change()
+    returns trigger
+    language plpgsql
+as
+$$
+declare
+    state_written  integer;
+    state_received integer;
+begin
+    select state_id into state_written from public.HistoryStates where state_name = 'Выписано';
+    select state_id into state_received from public.HistoryStates where state_name = 'Получено';
+
+    if old.state = state_written and new.state = state_received then
+        new.date_hist := current_date;
+    end if;
+
+    return new;
+end;
+$$;
+
+-- Триггер на обновление статуса в истории
+drop trigger if exists history_state_change_trigger on public.History;
+create trigger history_state_change_trigger
+    before update of state
+    on public.History
+    for each row
+execute function trg_update_date_on_state_change();
+
+
+create or replace function calculate_ending_date()
+    returns trigger
+    language plpgsql
+as
+$$
+begin
+    if (select freq_name from SubsPeriods where new.period = freq_id) = 'полгода' then
+        new.date_end = new.date_beg + interval '6 months';
+    else
+        new.date_end = new.date_beg + interval '1 year';
+    end if;
+    return new;
+end;
+$$;
+-- Триггер для автоматического расчёта даты окончания подписки
+create or replace trigger set_ending_date
+    before insert or update
+    on Subs
+    for each row
+execute function calculate_ending_date();
+
+

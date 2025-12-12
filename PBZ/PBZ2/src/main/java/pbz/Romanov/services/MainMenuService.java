@@ -29,12 +29,12 @@ public class MainMenuService {
 
     }
 
-    public List<Map<String, Object>> printingsForYear(int page, int amountOnPage) throws Exception {
-        var buff=dbInterface.printingsForYear();
+    public List<Map<String, Object>> printingsForYear(int page, int amountOnPage,int year) throws Exception {
+        var buff=dbInterface.printingsForYear(year);
         if((page - 1) * amountOnPage + amountOnPage<= buff.size()){
-            return dbInterface.printingsForYear().subList((page - 1) * amountOnPage, (page - 1) * amountOnPage + amountOnPage);
+            return dbInterface.printingsForYear(year).subList((page - 1) * amountOnPage, (page - 1) * amountOnPage + amountOnPage);
         }else{
-            return dbInterface.printingsForYear().subList((page - 1) * amountOnPage, buff.size());
+            return dbInterface.printingsForYear(year).subList((page - 1) * amountOnPage, buff.size());
         }
 
     }
@@ -49,8 +49,8 @@ public class MainMenuService {
 
     }
 
-    public List<Map<String, Object>> employeesByMonthAndDepartment(String department, String Date, String name,int page, int amountOnPage) throws Exception {
-        if(department.isEmpty() || Date.isEmpty() || name.isEmpty()){
+    public List<Map<String, Object>> employeesByMonthAndDepartment(int department, String Date, int name,int page, int amountOnPage) throws Exception {
+        if(Date.isEmpty()){
             throw new Exception("Empty or invalid parameters");
         }
         var buff=dbInterface.employeesByMonthAndDepartment(department, Date, name);

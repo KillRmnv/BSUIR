@@ -6,37 +6,35 @@ import java.util.List;
 
 @Data
 public class Employee {
-    private int id = -1;
-    private String firstName;
-    private String secondName;
-    private String thirdName;
-    private String position;
-    private String department;
-    private List<Subscription> subs;
+    protected Integer id;
+    protected String firstName;
+    protected String secondName;
+    protected String thirdName;
+    protected String position;
+    protected Integer department;
 
-    public void setID(int id) {
+    public void setID(Integer id) {
         if (id > 0) {
             this.id = id;
         } else throw new IllegalArgumentException("ID must be greater than 0");
     }
+    public void setDepartment(Integer department) {
+        if (department > 0) {
+            this.department = department;
 
-
-    public Employee(int id, String name, String secondName, String thirdName, String position, String department, List<Subscription> subs) {
-        this.id = id;
+        }else throw new IllegalArgumentException("Department must be greater than 0");
+    }
+    public Employee(Integer id, String name, String secondName, String thirdName, String position, Integer department) {
+        setID(id);
         this.firstName = name;
         this.secondName = secondName;
         this.thirdName = thirdName;
         this.position = position;
         this.department = department;
-        this.subs = subs;
-        for (Subscription sub : subs) {
-            sub.setEmployeeId(id);
-        }
-
     }
 
-    public Employee(int id) {
-        this.id = id;
+    public Employee(Integer id) {
+        setID(id);
     }
     public  Employee(){
 

@@ -3,9 +3,9 @@ package pbz.Romanov.controllers;
 import io.micronaut.http.annotation.*;
 import io.micronaut.views.View;
 import jakarta.inject.Inject;
-import pbz.Romanov.entities.Delivery;
-import pbz.Romanov.entities.Printing;
 import pbz.Romanov.entities.Subscription;
+import pbz.Romanov.entities.search.SubscriptionSearch;
+import pbz.Romanov.services.ReferenceDataService;
 import pbz.Romanov.services.SubscriptionService;
 
 import java.util.HashMap;
@@ -14,129 +14,94 @@ import java.util.Map;
 
 @Controller("/Subscription")
 public class SubscriptionCRUDController {
+
     @Inject
     private final SubscriptionService subscriptionService;
 
-
-    public SubscriptionCRUDController(SubscriptionService subscriptionService) {
+    public SubscriptionCRUDController(SubscriptionService subscriptionService, ReferenceDataService referenceDataService) {
         this.subscriptionService = subscriptionService;
+        this.referenceDataService = referenceDataService;
     }
-
+    @Inject
+    private final ReferenceDataService referenceDataService;
     @Get("/")
     @View("SubscriptionCRUD")
-    public Map<String, Object> subscriptionMenu() {
-        return new HashMap<>();
+    public Map<String, Object> subscriptionMenu() throws Exception {
+        Map<String, Object> model = new HashMap<>();
+        model.put("reference",referenceDataService.getReferenceTable("SubsPeriods"));
+        return model;
     }
 
-    @Get("/{page}")
+    @Post("/search/{page}")
     public List<Subscription> getSubscriptionsNextPage(
             @PathVariable int page,
             @QueryValue int amountOnPage,
-            @QueryValue(value = "startingDate", defaultValue = "") String startingDate,
-            @QueryValue(value = "endingDate", defaultValue = "") String endingDate,
-            @QueryValue(value = "amountOfMonths", defaultValue = "-1") int amountOfMonths,
-            @QueryValue(value = "deliveryId", defaultValue = "-1") int deliveryId,
-            @QueryValue(value = "printingIndex", defaultValue = "-1") int printingIndex,
-            @QueryValue(value = "employeeId", defaultValue = "-1") int employeeId,
-            @QueryValue(value = "cost", defaultValue = "-1") int cost
+            @Body SubscriptionSearch filter
     ) throws Exception {
-
-        Subscription filter = new Subscription();
-        if (!startingDate.equals(""))
-            filter.setStartingDate(startingDate);
-        if (!endingDate.equals(""))
-            filter.setEndingDate(endingDate);
-        filter.setAmountOfMonths(amountOfMonths);
-        filter.setDelivery(new Delivery(deliveryId));
-        Printing printing = new Printing();
-        if (printingIndex != -1) {
-            printing.setIndex(printingIndex);
-        }
-        filter.setPrinting(printing);
-        filter.setEmployeeId(employeeId);
-        filter.setCost(cost);
-
+        if(filter.getStartingDate()!=null &&filter.getStartingDate().isEmpty())
+            filter.setStartingDate(null);
+        if(filter.getEndingDate()!=null && filter.getEndingDate().isEmpty())
+            filter.setEndingDate(null);
+        filter.setId(-1);
         List<Subscription> allSubscriptions = subscriptionService.getSubscriptions(filter);
-
         int fromIndex = (page - 1) * amountOnPage;
         int toIndex = Math.min(fromIndex + amountOnPage, allSubscriptions.size());
         if (fromIndex >= allSubscriptions.size()) return List.of();
         return allSubscriptions.subList(fromIndex, toIndex);
     }
 
-
-    @Get("/create")
-    public void createSubscription(@QueryValue(value = "startingDate", defaultValue = "") String startingDate,
-            @QueryValue(value = "endingDate", defaultValue = "") String endingDate,
-            @QueryValue(value = "amountOfMonths", defaultValue = "-1") int amountOfMonths,
-            @QueryValue(value = "deliveryId", defaultValue = "-1") int deliveryId,
-            @QueryValue(value = "printingIndex", defaultValue = "-1") int printingIndex,
-            @QueryValue(value = "employeeId", defaultValue = "-1") int employeeId,
-            @QueryValue(value = "cost", defaultValue = "-1") int cost) throws Exception {
-        Subscription filter = new Subscription();
-        if (!startingDate.equals(""))
-            filter.setStartingDate(startingDate);
-        if (!endingDate.equals(""))
-            filter.setEndingDate(endingDate);
-        filter.setAmountOfMonths(amountOfMonths);
-        filter.setDelivery(new Delivery(deliveryId));
-        Printing printing = new Printing();
-        if (printingIndex != -1) {
-            printing.setIndex(printingIndex);
-        }
-        filter.setPrinting(printing);
-        filter.setEmployeeId(employeeId);
-        filter.setCost(cost);
-        subscriptionService.insertSubscription(filter);
+    @Post("/create")
+    public void createSubscription(@Body Subscription subscription) throws Exception {
+        subscriptionService.insertSubscription(subscription);
     }
 
-    @Get("/update")
-    public void updateSubscription(@QueryValue(value = "startingDate", defaultValue = "") String startingDate,
-            @QueryValue(value = "endingDate", defaultValue = "") String endingDate,
-            @QueryValue(value = "amountOfMonths", defaultValue = "-1") int amountOfMonths,
-            @QueryValue(value = "deliveryId", defaultValue = "-1") int deliveryId,
-            @QueryValue(value = "printingIndex", defaultValue = "-1") int printingIndex,
-            @QueryValue(value = "employeeId", defaultValue = "-1") int employeeId,
-            @QueryValue(value = "cost", defaultValue = "-1") int cost) throws Exception {
-        Subscription filter = new Subscription();
-        if (!startingDate.equals(""))
-            filter.setStartingDate(startingDate);
-        if (!endingDate.equals(""))
-            filter.setEndingDate(endingDate);
-        filter.setAmountOfMonths(amountOfMonths);
-        filter.setDelivery(new Delivery(deliveryId));
-        Printing printing = new Printing();
-        if (printingIndex != -1) {
-            printing.setIndex(printingIndex);
+    @Put("/update")
+    public void updateSubscription(@Body SubscriptionSearch subscription) throws Exception {
+        // 1. Обработка строковых полей (остаётся как было)
+        if(subscription.getStartingDate() == null || subscription.getStartingDate().isEmpty())
+            subscription.setStartingDate(null);
+        if(subscription.getEndingDate() == null || subscription.getEndingDate().isEmpty())
+            subscription.setEndingDate(null);
+
+        // 2. Обработка Integer полей: установить null, если < 1
+        // Используем геттеры и сеттеры, как и требуется
+
+        // Id
+        if (subscription.getId() != null && subscription.getId() < 1) {
+            subscription.setId(null); // Устанавливаем null
         }
-        filter.setPrinting(printing);
-        filter.setEmployeeId(employeeId);
-        filter.setCost(cost);
-        subscriptionService.updateSubscription(filter);
+
+        // Period
+        if (subscription.getPeriod() != null && subscription.getPeriod() < 1) {
+            subscription.setPeriod(null); // Устанавливаем null
+        }
+
+        // EmployeeId
+        if (subscription.getEmployeeId() != null && subscription.getEmployeeId() < 1) {
+            subscription.setEmployeeId(null); // Устанавливаем null
+        }
+
+        // Cost
+        if (subscription.getCost() != null && subscription.getCost() < 1) {
+            subscription.setCost(null); // Устанавливаем null
+        }
+
+        // После обработки, если Id всё ещё null, можно бросить исключение,
+        // если Id является обязательным полем для обновления.
+        // Если Id < 1, он уже был обнулен, поэтому проверка меняется:
+        if (subscription.getId() == null) {
+            throw new Exception("Id is required for update operation");
+        }
+
+        subscriptionService.updateSubscription(subscription);
     }
 
-    @Get("/delete")
-    public void deleteSubscription(@QueryValue(value = "startingDate", defaultValue = "") String startingDate,
-            @QueryValue(value = "endingDate", defaultValue = "") String endingDate,
-            @QueryValue(value = "amountOfMonths", defaultValue = "-1") int amountOfMonths,
-            @QueryValue(value = "deliveryId", defaultValue = "-1") int deliveryId,
-            @QueryValue(value = "printingIndex", defaultValue = "-1") int printingIndex,
-            @QueryValue(value = "employeeId", defaultValue = "-1") int employeeId,
-            @QueryValue(value = "cost", defaultValue = "-1") int cost) throws Exception {
-        Subscription filter = new Subscription();
-        if (!startingDate.equals(""))
-            filter.setStartingDate(startingDate);
-        if (!endingDate.equals(""))
-            filter.setEndingDate(endingDate);
-        filter.setAmountOfMonths(amountOfMonths);
-        filter.setDelivery(new Delivery(deliveryId));
-        Printing printing = new Printing();
-        if (printingIndex != -1) {
-            printing.setIndex(printingIndex);
-        }
-        filter.setPrinting(printing);
-        filter.setEmployeeId(employeeId);
-        filter.setCost(cost);
+    @Post("/delete")
+    public void deleteSubscription(@Body SubscriptionSearch filter) throws Exception {
+        if(filter.getStartingDate().isEmpty())
+            filter.setStartingDate(null);
+        if(filter.getEndingDate().isEmpty())
+            filter.setEndingDate(null);
         subscriptionService.deleteSubscription(filter);
     }
 }

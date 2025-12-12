@@ -2,214 +2,162 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Delivery CRUD</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Доставка — CRUD</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            height: 100vh;
-            color: #000;
-            background-color: #fff;
-            font-size: 18px;
-        }
-        .sidebar {
-            width: 200px;
-            background-color: #fff;
-            padding-top: 20px;
-            border-right: 1px solid #ccc;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px;
-            text-decoration: none;
-            color: #000;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-        }
+        body { margin: 0; font-family: Arial, sans-serif; display: flex; height: 100vh; color: #000; background-color: #fff; font-size: 18px; }
+        .sidebar { width: 220px; background-color: #fff; padding-top: 20px; border-right: 1px solid #ccc; display: flex; flex-direction: column; gap: 15px; }
+        .sidebar a { display: flex; align-items: center; gap: 10px; padding: 14px; text-decoration: none; color: #000; border-radius: 4px; transition: background-color 0.2s; }
         .sidebar a:hover { background-color: #eee; }
         .sidebar i { width: 20px; text-align: center; }
         .main-content { flex-grow: 1; display: flex; flex-direction: column; }
-        .topbar {
-            background-color: #fff;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            display: flex;
-            gap: 20px;
-        }
-        .topbar button {
-            flex: 1;
-            padding: 12px 0;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            font-size: 18px;
-        }
+        .topbar { background-color: #fff; padding: 10px; border-bottom: 1px solid #ccc; display: flex; gap: 20px; }
+        .topbar button { flex: 1; padding: 12px 0; border: none; background: transparent; cursor: pointer; transition: background-color 0.2s; font-size: 18px; }
         .topbar button:hover { background: #eee; }
-        .content-container {
-            flex-grow: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        table { border-collapse: collapse; width: 100%; font-size: 18px; }
+        .content-container { flex-grow: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        table { border-collapse: collapse; width: 100%; font-size: 18px; margin-top: 20px; }
         th, td { border: 1px solid #000; padding: 10px; text-align: left; }
         th { background: #f9f9f9; }
-        .pagination {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-top: 10px;
-            gap: 10px;
-            width: 100%;
-        }
-        .pagination input {
-            width: 60px;
-            padding: 6px;
-            border: 1px solid #000;
-            font-size: 18px;
-        }
-        .pagination button {
-            padding: 8px 14px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            font-size: 18px;
-        }
+        .pagination { display: flex; justify-content: flex-end; align-items: center; margin-top: 10px; gap: 10px; width: 100%; }
+        .pagination input { width: 60px; padding: 6px; border: 1px solid #000; font-size: 18px; }
+        .pagination button { padding: 8px 14px; border: none; background: transparent; cursor: pointer; transition: background-color 0.2s; font-size: 18px; }
         .pagination button:hover { background: #eee; }
-
-        form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px 40px;
-            justify-content: center;
-            margin-top: 20px;
-            max-width: 1000px;
-        }
-        form input {
-            flex: 1 1 300px;
-            min-width: 250px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #000;
-            border-radius: 4px;
-        }
-        form button {
-            flex-basis: 100%;
-            padding: 12px;
-            font-size: 18px;
-            border: none;
-            background: #eee;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            border-radius: 4px;
-        }
+        form { display: flex; flex-wrap: wrap; gap: 20px 40px; justify-content: center; margin-top: 20px; max-width: 1000px; width: 100%; }
+        form input, form select { flex: 1 1 300px; min-width: 250px; padding: 10px; font-size: 16px; border: 1px solid #000; border-radius: 4px; }
+        form button { flex-basis: 100%; padding: 12px; font-size: 18px; border: none; background: #eee; cursor: pointer; transition: background-color 0.2s; border-radius: 4px; }
         form button:hover { background: #ddd; }
     </style>
     <script>
         const BASE_URL = "/Delivery";
 
         function showSection(section) {
-            document.getElementById("table-section").style.display = "none";
-            document.getElementById("create-form").style.display = "none";
-            document.getElementById("update-form").style.display = "none";
-            document.getElementById("delete-form").style.display = "none";
-            document.getElementById("search-form").style.display = "none";
-
+            const sections = ["search-form", "create-form", "update-form", "delete-form", "table-section"];
+            sections.forEach(s => document.getElementById(s).style.display = "none");
             if (section === "read") {
                 document.getElementById("search-form").style.display = "flex";
-            } else if(section === "create") {
-                document.getElementById("create-form").style.display = "flex";
-            } else if(section === "update") {
-                document.getElementById("update-form").style.display = "flex";
-            } else if(section === "delete") {
-                document.getElementById("delete-form").style.display = "flex";
-            }
+                loadDeliveryPage(1);
+            } else if (section === "create") document.getElementById("create-form").style.display = "flex";
+            else if (section === "update") document.getElementById("update-form").style.display = "flex";
+            else if (section === "delete") document.getElementById("delete-form").style.display = "flex";
+        }
+
+        function serializeForm(formId, includeDefaults = true) {
+            const form = document.getElementById(formId);
+            const data = {};
+            form.querySelectorAll("input, select").forEach(input => {
+                let value = input.value;
+                const name = input.name;
+
+                // 1. Если поле НЕ пустое: преобразуем к типу и добавляем.
+                if (value !== "" && value != null) {
+                    if (input.type === "number" || input.tagName === "SELECT") {
+                        data[name] = Number(value);
+                    } else {
+                        data[name] = value;
+                    }
+                    return;
+                }
+
+                // 2. Если поле ПУСТОЕ
+                if (includeDefaults) {
+                    // Для Search, Update, Delete: применяем дефолты
+                    if (input.type === "number" || input.tagName === "SELECT") {
+                        data[name] = -1; // -1 для числовых ID и SELECT
+                    } else if (input.type === "date") {
+                        data[name] = null; // null для дат
+                    } else {
+                        data[name] = ""; // "" для текстовых строк (address)
+                    }
+                } else {
+                    // Для Create: пропускаем пустые поля (не добавляем в data)
+                    return;
+                }
+            });
+            console.log("Serialized", formId, data);
+            return data;
         }
 
         async function searchDelivery(event) {
             event.preventDefault();
-            const form = document.getElementById("search-form");
-            const formData = new FormData(form);
-            const params = new URLSearchParams();
-            formData.forEach((v,k)=>params.append(k,v));
+            const data = serializeForm("search-form", true);
+            loadDeliveryPage(1, data);
+        }
 
-            const page = 1;
+        async function loadDeliveryPage(page = 1, formData = null) {
+            const data = formData || serializeForm("search-form", true);
             const amountOnPage = 10;
-            const url = `${BASE_URL}/${page}?amountOnPage=${amountOnPage}&${params.toString()}`;
-
-            const response = await fetch(url); // GET
-            const data = await response.json();
-            renderTable(data);
+            const url = `${BASE_URL}/search/${page}?amountOnPage=${amountOnPage}`;
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                renderTable(result);
+                document.getElementById("table-section").style.display = "block";
+                document.getElementById("page-number").value = page;
+            } catch (e) {
+                alert("Ошибка сети: " + e.message);
+            }
         }
 
         async function submitForm(formId, endpoint) {
-            const form = document.getElementById(formId);
-            const formData = new FormData(form);
-            const params = new URLSearchParams();
-            formData.forEach((v,k)=>params.append(k,v));
+            const includeDefaults = formId !== "create-form";
+            const data = serializeForm(formId, includeDefaults);
+            const url = `${BASE_URL}/${endpoint}`;
+            let method = "POST";
+            if (endpoint === "update") method = "PUT";
+            else if (endpoint === "delete") method = "DELETE";
 
-            const url = `${BASE_URL}/${endpoint}?${params.toString()}`;
-            await fetch(url); // GET
-            alert("Операция выполнена!");
-            form.reset();
-        }
-
-
-        async function loadDeliveryPage(page = 1) {
-            const amountOnPage = 10;
-            const url = `${BASE_URL}/${page}?amountOnPage=${amountOnPage}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            renderTable(data);
+            try {
+                const response = await fetch(url, {
+                    method,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    alert("Операция выполнена успешно!");
+                    document.getElementById(formId).reset();
+                    showSection("read");
+                    loadDeliveryPage(1);
+                } else {
+                    const error = await response.text();
+                    alert("Ошибка: " + (error || response.status));
+                }
+            } catch (e) {
+                alert("Ошибка сети: " + e.message);
+            }
         }
 
         function renderTable(data) {
-            document.getElementById("table-section").style.display = "block";
-            const tableHead = document.getElementById("table-head");
-            const tableBody = document.getElementById("table-body");
-            tableHead.innerHTML = "";
-            tableBody.innerHTML = "";
-            if (data.length > 0) {
-                const headerRow = document.createElement("tr");
-                Object.keys(data[0]).forEach(key => {
-                    const th = document.createElement("th");
-                    th.textContent = key;
-                    headerRow.appendChild(th);
-                });
-                tableHead.appendChild(headerRow);
-
-                data.forEach(row => {
-                    const tr = document.createElement("tr");
-                    Object.values(row).forEach(value => {
-                        const td = document.createElement("td");
-                        td.textContent = (value && typeof value === 'object') ? JSON.stringify(value) : value;
-                        tr.appendChild(td);
-                    });
-                    tableBody.appendChild(tr);
-                });
-            } else {
+            const head = document.getElementById("table-head"), body = document.getElementById("table-body");
+            head.innerHTML = ""; body.innerHTML = "";
+            if (data.length === 0) {
                 const tr = document.createElement("tr");
                 const td = document.createElement("td");
-                td.colSpan = 10;
-                td.textContent = "Нет данных";
-                tr.appendChild(td);
-                tableBody.appendChild(tr);
+                td.colSpan = 5; td.textContent = "Нет данных"; td.style.textAlign = "center";
+                tr.appendChild(td); body.appendChild(tr);
+                return;
             }
+            const headerRow = document.createElement("tr");
+            ["ID", "Тип доставки", "Адрес", "ID истории", "Ожидаемая дата"].forEach(txt => {
+                const th = document.createElement("th"); th.textContent = txt; headerRow.appendChild(th);
+            });
+            head.appendChild(headerRow);
+            data.forEach(r => {
+                const tr = document.createElement("tr");
+                [r.id, r.type ?? "-", r.address ?? "-", r.histId ?? "-", r.expectedDate ?? "-"].forEach(v => {
+                    const td = document.createElement("td"); td.textContent = v; tr.appendChild(td);
+                });
+                body.appendChild(tr);
+            });
         }
 
         function loadPage() {
             const page = parseInt(document.getElementById("page-number").value) || 1;
-            loadDeliveryPage(page);
+            if (page > 0) loadDeliveryPage(page);
         }
 
         window.onload = () => {
@@ -225,6 +173,9 @@
     <a th:href="@{/History/}"><i class="fa-solid fa-clock-rotate-left"></i> История</a>
     <a th:href="@{/Subscription/}"><i class="fa-solid fa-envelope-open-text"></i> Подписки</a>
     <a th:href="@{/Delivery/}"><i class="fa-solid fa-truck"></i> Доставка</a>
+    <a th:href="@{/Printing/}"><i class="fa-solid fa-newspaper"></i> Печатные издания</a>
+    <a th:href="@{/Circulation/}"><i class="fa-solid fa-print"></i> Тиражи</a>
+    <a th:href="@{/Departments/}"><i class="fa-solid fa-building"></i> Подразделения</a>
 </div>
 
 <div class="main-content">
@@ -236,48 +187,61 @@
     </div>
 
     <div class="content-container">
-        <!-- Search form -->
         <form id="search-form" style="display:none" onsubmit="searchDelivery(event)">
-            <input type="text" name="id" placeholder="ID">
-            <input type="text" name="type" placeholder="Тип">
-            <input type="text" name="date" placeholder="Дата (YYYY-MM-DD)">
+            <input type="number" name="id" placeholder="ID" min="-1">
+            <select name="type">
+                <option value="">Тип доставки (любой)</option>
+                <option th:each="ref : ${references}" th:value="${ref.id}" th:text="${ref.type_d}"></option>
+            </select>
+            <input type="text" name="address" placeholder="Адрес">
+            <input type="number" name="histId" placeholder="ID истории" min="-1">
+            <input type="date" name="expectedDate" placeholder="Ожидаемая дата">
             <button type="submit">Поиск</button>
         </form>
 
-        <!-- Table -->
         <div id="table-section" style="display:none; width:100%">
             <table>
                 <thead id="table-head"></thead>
                 <tbody id="table-body"></tbody>
             </table>
             <div class="pagination">
-                <label>Страница:
-                    <input type="number" id="page-number" value="1" min="1">
-                </label>
+                <label>Страница: <input type="number" id="page-number" value="1" min="1"></label>
                 <button onclick="loadPage()">Загрузить</button>
             </div>
         </div>
 
-        <!-- Create form -->
         <form id="create-form" style="display:none" onsubmit="event.preventDefault(); submitForm('create-form','create')">
-            <input type="text" name="type" placeholder="Тип">
-            <input type="text" name="date" placeholder="Дата (YYYY-MM-DD)">
+            <select name="type" required>
+                <option value="">Выберите тип...</option>
+                <option th:each="ref : ${references}" th:value="${ref.id}" th:text="${ref.type_d}"></option>
+            </select>
+            <input type="text" name="address" placeholder="Адрес" required>
+            <input type="number" name="histId" placeholder="ID истории" min="1" required>
+            <input type="date" name="expectedDate" required>
             <button type="submit">Создать</button>
         </form>
 
-        <!-- Update form -->
         <form id="update-form" style="display:none" onsubmit="event.preventDefault(); submitForm('update-form','update')">
-            <input type="text" name="id" placeholder="ID (обязателен)">
-            <input type="text" name="type" placeholder="Тип">
-            <input type="text" name="date" placeholder="Дата (YYYY-MM-DD)">
+            <input type="number" name="id" placeholder="ID (обязателен)" min="1" required>
+            <select name="type">
+                <option value="">Не менять</option>
+                <option th:each="ref : ${references}" th:value="${ref.id}" th:text="${ref.type_d}"></option>
+            </select>
+            <input type="text" name="address" placeholder="Новый адрес">
+            <input type="number" name="histId" placeholder="Новый ID истории" min="-1">
+            <input type="date" name="expectedDate" placeholder="Новая дата">
             <button type="submit">Обновить</button>
         </form>
 
-        <!-- Delete form -->
         <form id="delete-form" style="display:none" onsubmit="event.preventDefault(); submitForm('delete-form','delete')">
-            <input type="text" name="id" placeholder="ID (обязателен)">
-            <input type="text" name="type" placeholder="Тип">
-            <input type="text" name="date" placeholder="Дата (YYYY-MM-DD)">
+            <input type="number" name="id" placeholder="ID">
+            <select name="type">
+                <option value="">Любой тип</option>
+                <option th:each="ref : ${references}" th:value="${ref.id}" th:text="${ref.type_d}"></option>
+            </select>
+            <input type="text" name="address" placeholder="Адрес">
+            <input type="number" name="histId" placeholder="ID истории" min="-1">
+            <input type="date" name="expectedDate" placeholder="Ожидаемая дата">
             <button type="submit">Удалить</button>
         </form>
     </div>

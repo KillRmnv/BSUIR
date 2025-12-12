@@ -3,33 +3,42 @@ package pbz.Romanov.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.*;
+
 @NoArgsConstructor
 @Data
 public class Printing {
-    private String type;
-    private int index = -1;
-    private int period = -1;
-    private String name;
+    protected Integer type;
+    protected Integer index ;
+    protected Integer period ;
+    protected String name;
 
-    public void setPeriod(int period) {
+    public void setPeriod(Integer period) {
         if (period > 0) {
             this.period = period;
         } else throw new IllegalArgumentException("Period must be greater than 0");
     }
 
-    public void setIndex(int index) {
+    public void setIndex(Integer index) {
         if (index > 0) {
             this.index = index;
         } else throw new IllegalArgumentException("Index must be greater than 0");
     }
-    public Printing(int id) {
+    public Printing(Integer id) {
         this.index = id;
     }
-    public Printing(String type, int index, int period, String name) {
+    public Printing(Integer type, Integer index, Integer period, String name) {
         this.type = type;
         this.index = index;
         this.period = period;
         this.name = name;
     }
-
+    public void  setType(Integer type) {
+        Set<String> allowedTypes = new HashSet<String>(Set.of("Выписано", "Получено", "Отсутствует"));
+        if(allowedTypes.contains(type)) {
+            this.type = type;
+        }else{
+            throw new IllegalArgumentException("not allowed type");
+        }
+    }
 }

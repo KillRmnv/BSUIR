@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import pbz.Romanov.entities.Subscription;
+import pbz.Romanov.entities.search.SubscriptionSearch;
 import pbz.Romanov.repository.DBInterface;
 
 import java.util.ArrayList;
@@ -20,49 +21,60 @@ public class SubscriptionService {
         this.dbInterface = dbInterface;
     }
 
-    public List<Subscription> getSubscriptions(Subscription subscription) throws Exception {
+    public List<Subscription> getSubscriptions(SubscriptionSearch subscription) throws Exception {
         List<Object> params = setUpForDBOperation(subscription);
+        params.addFirst(Integer.valueOf(-1));
         List<Map<String, Object>> result = dbInterface.find(params, Subscription.class);
+
         List<Subscription> subscriptions = new ArrayList<>();
         for (Map<String, Object> row : result) {
-            subscriptions.add(new Subscription(
-                    (Integer) row.get("Индекс издания"),
-                    (Integer) row.get("employee_id"),
-                     row.get("Дата начала").toString(),
-                     row.get("Дата окончания").toString(),
-                    (Integer) row.get("Доставка"),
-                    (Integer) row.get("Период"),
-                    (Integer) row.get("Стоимость")));
+            subscriptions.add(new Subscription((Integer) row.get("id"), (Integer) row.get("index_printing"),
+                    (Integer) row.get("employee_id"), row.get("date_beg").toString(),
+                    row.get("date_end").toString(), (Integer) row.get("period"), (Integer) row.get("cost")));
         }
         return subscriptions;
     }
 
-
     public void insertSubscription(Subscription subscription) throws Exception {
-        List<Object> params = setUpForDBOperation(subscription);
-        dbInterface.save(params, Subscription.class);
-    }
 
-    private List<Object> setUpForDBOperation(Subscription subscription) {
         List<Object> params = new ArrayList<>();
         params.add(subscription.getPrinting().getIndex());
         params.add(subscription.getEmployeeId());
         params.add(subscription.getStartingDate());
-        params.add(subscription.getEndingDate());
-        params.add(subscription.getDelivery().getId());
-        params.add(subscription.getAmountOfMonths());
+        params.add(subscription.getPeriod());
         params.add(subscription.getCost());
-        return params;
+        dbInterface.save(params , Subscription.class);
+    }
+
+    private List<Object> setUpForDBOperation(SubscriptionSearch subscription) {
+        return form(subscription.getPrinting().getIndex(), subscription.getEmployeeId(),
+                subscription.getStartingDate(), subscription.getEndingDate(), subscription.getPeriod(),
+                subscription.getCost());
     }
 
     public void updateSubscription(Subscription subscription) throws Exception {
-        List<Object> params = setUpForDBOperation(subscription);
+        List<Object> params = form(subscription.getPrinting().getIndex(), subscription.getEmployeeId(),
+                subscription.getStartingDate(), subscription.getEndingDate(), subscription.getPeriod(), subscription.getCost());
+        params.addFirst(subscription.getId());
+        params.remove(3);
         dbInterface.update(params, Subscription.class);
     }
 
-    public int deleteSubscription(Subscription subscription) throws Exception {
+    private List<Object> form(Integer index, Integer employeeId, String startingDate, String endingDate, Integer period, Integer cost) {
+        List<Object> params = new ArrayList<>();
+        params.add(index);
+        params.add(employeeId);
+        params.add(startingDate);
+        params.add(endingDate);
+        params.add(period);
+        params.add(cost);
+        return params;
+    }
+
+    public int deleteSubscription(SubscriptionSearch subscription) throws Exception {
         List<Object> params = setUpForDBOperation(subscription);
-        return dbInterface.delete(params, Subscription.class);
+         dbInterface.delete(params, Subscription.class);
+         return 0;
     }
 
 

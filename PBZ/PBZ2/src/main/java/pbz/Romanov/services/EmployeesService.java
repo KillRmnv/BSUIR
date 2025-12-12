@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import pbz.Romanov.entities.Employee;
+import pbz.Romanov.entities.search.EmployeeSearch;
 import pbz.Romanov.repository.DBInterface;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ public class EmployeesService {
         this.dbInterface = dbInterface;
     }
 
-    public List<Employee> getEmployees(Employee employee) throws Exception {
+    public List<Employee> getEmployees(EmployeeSearch employee) throws Exception {
         List<Object> params = setUpForDBOperation(employee);
         List<Map<String, Object>> result = dbInterface.find(params, Employee.class);
         List<Employee> employees = new ArrayList<>();
         for (Map<String, Object> row : result) {
-            employees.add(new Employee((Integer) row.get("employee_id"), (String) row.get("Фамилия"),
-                    (String) row.get("Имя"), (String) row.get("Отчество"), (String) row.get("Должность"),
-                    (String) row.get("Подразделение"), List.of()));
+            employees.add(new Employee((Integer) row.get("employee_id"), (String) row.get("first_name"),
+                    (String) row.get("second_name"), (String) row.get("third_name"), (String) row.get("employee_position"),
+                    (int) row.get("department_id")));
         }
         return employees;
     }
@@ -43,25 +44,49 @@ public class EmployeesService {
         dbInterface.save(params, Employee.class);
     }
 
-    private List<Object> setUpForDBOperation(Employee employee) {
+    private List<Object> setUpForDBOperation(EmployeeSearch employee) {
+        return form(employee.getId(), employee.getSecondName(), employee.getFirstName(), employee.getThirdName(), employee.getPosition(), employee.getDepartment());
+    }
+
+    private List<Object> form(int id, String secondName, String firstName, String thirdName, String position, int department) {
         List<Object> params = new ArrayList<>();
-        params.add(employee.getId());
-        params.add(employee.getSecondName());
-        params.add(employee.getFirstName());
-        params.add(employee.getThirdName());
-        params.add(employee.getPosition());
-        params.add(employee.getDepartment());
+        params.add(id);
+        params.add(secondName);
+        params.add(firstName);
+        params.add(thirdName);
+        params.add(position);
+        params.add(department);
         return params;
     }
 
-    public void updateEmployee(Employee employee) throws Exception {
-        List<Object> params = setUpForDBOperation(employee);
+    public void updateEmployee(EmployeeSearch employee) throws Exception {
+        List<Object> params = new ArrayList<>();
+        params.add(employee.getId());
+        if (employee.getSecondName().isEmpty())
+            params.add(null);
+        else
+            params.add(employee.getSecondName());
+        if (employee.getFirstName().isEmpty())
+            params.add(null);
+        else
+            params.add(employee.getFirstName());
+        if (employee.getThirdName().isEmpty())
+            params.add(null);
+        else
+            params.add(employee.getThirdName());
+        if (employee.getPosition().isEmpty())
+            params.add(null);
+        else
+            params.add(employee.getPosition());
+
+        params.add(employee.getDepartment());
         dbInterface.update(params, Employee.class);
     }
 
-    public int deleteEmployee(Employee employee) throws Exception {
+    public int deleteEmployee(EmployeeSearch employee) throws Exception {
         List<Object> params = setUpForDBOperation(employee);
-        return dbInterface.delete(params, Employee.class);
+         dbInterface.delete(params, Employee.class);
+         return 0;
     }
 
 }

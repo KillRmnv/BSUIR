@@ -4,8 +4,9 @@ import io.micronaut.http.annotation.*;
 import io.micronaut.views.View;
 import jakarta.inject.Inject;
 import pbz.Romanov.entities.Delivery;
+import pbz.Romanov.entities.search.DeliverySearch;
 import pbz.Romanov.services.DeliveryService;
-
+import pbz.Romanov.services.ReferenceDataService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,34 +14,30 @@ import java.util.Map;
 
 @Controller("/Delivery")
 public class DeliveryCRUDController {
+
     @Inject
     private final DeliveryService deliveryService;
-
-
-    public DeliveryCRUDController(DeliveryService deliveryService) {
+    @Inject
+    private  final ReferenceDataService referenceDataService;
+    public DeliveryCRUDController(DeliveryService deliveryService, ReferenceDataService referenceDataService) {
         this.deliveryService = deliveryService;
+        this.referenceDataService = referenceDataService;
     }
-
 
     @Get("/")
     @View("DeliverysCRUD")
-    public Map<String, Object> deliverysCRUDMenu() {
-        return new HashMap<>();
+    public Map<String, Object> deliverysCRUDMenu() throws Exception {
+        Map<String, Object> model = new HashMap<>();
+        model.put("references",referenceDataService.getReferenceTable("DeliveryType"));
+        return model;
     }
 
-    @Get("/{page}")
+    @Post("/search/{page}")
     public List<Delivery> getDeliveriesNextPage(
             @PathVariable int page,
             @QueryValue int amountOnPage,
-            @QueryValue(value = "id", defaultValue = "-1") int id,
-            @QueryValue(value = "type", defaultValue = "") String type,
-            @QueryValue(value = "date", defaultValue = "") String date
+            @Body DeliverySearch filter
     ) throws Exception {
-
-        Delivery filter = new Delivery();
-        if (id != -1) filter.setId(id);
-        filter.setType(type);
-        if (!date.equals("")) filter.setDate(date);
 
         List<Delivery> allDeliveries = deliveryService.getDeliveries(filter);
 
@@ -49,38 +46,43 @@ public class DeliveryCRUDController {
         if (fromIndex >= allDeliveries.size()) return List.of();
         return allDeliveries.subList(fromIndex, toIndex);
     }
+    @Post("/create")
+    public void createDelivery(@Body Delivery delivery) throws Exception {
+        deliveryService.insertDelivery(delivery);
+    }
+    @Put("/update")
+    public void updateDelivery(@Body DeliverySearch delivery) throws Exception {
+        if (delivery.getAddress() == null || delivery.getAddress().isEmpty()) {
+            delivery.setAddress(null);
+        }
+        if (delivery.getExpectedDate() == null || delivery.getExpectedDate().isEmpty()) {
+            delivery.setExpectedDate(null);
+        }
 
+        // ID
+        if (delivery.getId() != null && delivery.getId() < 1) {
+            delivery.setId(null);
+        }
 
-    @Get("/create")
-    public void createDelivery(
-    @QueryValue(value = "type", defaultValue = "") String type,
-    @QueryValue(value = "date", defaultValue = "") String date) throws Exception {
-        Delivery filter = new Delivery();
+        // Type
+        if (delivery.getType() != null && delivery.getType() < 1) {
+            delivery.setType(null);
+        }
 
-        filter.setType(type);
-        if (!date.equals("")) filter.setDate(date);
-        deliveryService.insertDelivery(filter);
+        // State (соответствует полю histId в классе Delivery)
+        if (delivery.getHistId() != null && delivery.getHistId() < 1) {
+            delivery.setState(null);
+        }
+
+        if (delivery.getId() == null) {
+            throw new Exception("ID is required for update operation");
+        }
+
+        deliveryService.updateDelivery(delivery);
     }
 
-    @Get("/update")
-    public void updateDelivery( @QueryValue(value = "id", defaultValue = "-1") int id,
-                                @QueryValue(value = "type", defaultValue = "") String type,
-                                @QueryValue(value = "date", defaultValue = "") String date) throws Exception {
-        Delivery filter = new Delivery();
-        if (id != -1) filter.setId(id);
-        filter.setType(type);
-        if (!date.equals("")) filter.setDate(date);
-        deliveryService.updateDelivery(filter);
-    }
-
-    @Get("/delete")
-    public void deleteDelivery(@QueryValue(value = "id", defaultValue = "-1") int id,
-                               @QueryValue(value = "type", defaultValue = "") String type,
-                               @QueryValue(value = "date", defaultValue = "") String date) throws Exception {
-        Delivery filter = new Delivery();
-        if (id != -1) filter.setId(id);
-        filter.setType(type);
-        if (!date.equals("")) filter.setDate(date);
+    @Post("/delete")
+    public void deleteDelivery(@Body DeliverySearch filter) throws Exception {
         deliveryService.deleteDelivery(filter);
     }
 }

@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # === Загрузка изображения ===
-image = cv2.imread('/home/kirillromanoff/University/OIIS/4/1.png')  # замените на свой путь
+image = cv2.imread('/home/kirillromanoff/University/BSUIR/OIIS/4/1.png')  # замените на свой путь
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 # === 1. Сегментация по границам (Edge-based segmentation) ===

@@ -1,8 +1,8 @@
 from PIL import Image
 
 # Укажите пути к файлам (замените на свои)
-left_path = '/home/kirillromanoff/University/OIIS/5/l1.png'  # Путь к левому изображению
-right_path = '/home/kirillromanoff/University/OIIS/5/l2.png'  # Путь к правому изображению
+left_path = '/home/kirillromanoff/University/BSUIR/OIIS/5/l.jpg'  # Путь к левому изображению
+right_path = '/home/kirillromanoff/University/BSUIR/OIIS/5/r.jpg'  # Путь к правому изображению
 
 # Загрузка изображений
 left = Image.open(left_path)

@@ -9,7 +9,7 @@ public interface DBInterface {
 
     List<Map<String, Object>> find(List<Object> template_entity, Class clazz) throws Exception;
 
-    int delete(List<Object> entity, Class clazz) throws Exception;
+    void delete(List<Object> entity, Class clazz) throws Exception;
 
     int update(List<Object> entity, Class clazz) throws Exception;
 

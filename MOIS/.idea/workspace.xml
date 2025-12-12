@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="eb05075d-fe2d-4e07-afb6-023cfa53810b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/CirculationCRUDController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/DepartmentsCRUDController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/PrintingCRUDController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Circulation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/DeliveryType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Department.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Frequency.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/HistoryState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Organization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/PublicationType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/SubscriptionFrequency.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/search/CirculationSearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/search/DeliverySearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/search/DepartmentSearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/search/EmployeeSearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/search/HistoryRecordSearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/search/PrintingSearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/search/SubscriptionSearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/repository/DBReferenceData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/CirculationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/DepartmentsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/PrintingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/ReferenceDataService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/db/migration/V2__functions1.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/db/migration/V3__example1.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/CirculationCRUD.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/DepartmentsCRUD.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/PrintingCRUD.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../OIIS/4/4.py" beforeDir="false" afterPath="$PROJECT_DIR$/../OIIS/4/4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../OIIS/5/5.py" beforeDir="false" afterPath="$PROJECT_DIR$/../OIIS/5/5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../OIIS/5/Examples-of-stereo-pairs-of-images-left-and-right-compressed-with-dense-disparity-map.ppm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../OIIS/5/Pair-of-stereo-images-from-left-and-right-camera.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../OIIS/6/6.py" beforeDir="false" afterPath="$PROJECT_DIR$/../OIIS/6/6.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/DeliveryCRUDController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/DeliveryCRUDController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/EmployeesCRUDController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/EmployeesCRUDController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/HistoryCRUDController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/HistoryCRUDController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/SubscriptionCRUDController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/controllers/SubscriptionCRUDController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Delivery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/HistoryRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/HistoryRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Printing.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Printing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Subscription.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/entities/Subscription.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/repository/DBInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/repository/DBInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/repository/DBMainMenuInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/repository/DBMainMenuInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/repository/PostgreSQLRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/repository/PostgreSQLRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/DeliveryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/DeliveryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/EmployeesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/EmployeesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/HistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/HistoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/MainMenuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/MainMenuService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/SubscriptionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/java/pbz/Romanov/services/SubscriptionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/db/migration/V1__creation1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/db/migration/V1__creation1.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/db/migration/V2__example1.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/db/migration/V3__functions1.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/db/migration/V4__functionsNames1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/db/migration/V4__functionsNames1.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/er chen.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/er chen.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/erMartin.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/erMartin.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/DeliverysCRUD.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/DeliverysCRUD.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/EmployeesCRUD.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/EmployeesCRUD.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/HistoryCRUD.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/HistoryCRUD.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/MainMenu.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/MainMenu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/SubscriptionCRUD.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PBZ/PBZ2/src/main/resources/views/SubscriptionCRUD.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="36SfqfCqiEkqcuwBIS7HKkapa2k" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/kirillromanoff/University/BSUIR/OMIS",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eb05075d-fe2d-4e07-afb6-023cfa53810b" name="Changes" comment="" />
+      <created>1765005085740</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765005085740</updated>
+      <workItem from="1765005086919" duration="8000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

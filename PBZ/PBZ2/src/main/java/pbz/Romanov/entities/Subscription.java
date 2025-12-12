@@ -5,45 +5,89 @@ import lombok.NoArgsConstructor;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 @NoArgsConstructor
 @Data
 public class Subscription {
-    private String startingDate=null;
-    private String endingDate=null;
-    private int amountOfMonths;
-    private Delivery delivery;
-    private Printing printing;
-    private int employeeId;
-    private int cost;
+    protected Integer id;
+    protected String startingDate = null;
+    protected String endingDate = null;
+    protected Integer period;
+    protected Printing printing;
+    protected Integer employeeId;
+    protected Integer cost;
 
-    private boolean dateCheck(String date) {
-        Pattern date_check = Pattern.compile("\\d{4}-((1[0-2])|(0?[1-9]))-((3[0-1])|([0-2]?\\d))$");
-        Matcher matcher = date_check.matcher(date);
-        if (matcher.matches()) {
-            return true;
-        } else throw new IllegalArgumentException("Invalid date format(YYYY-MM-DD)");
-    }
+    private static final Pattern DATE_PATTERN = Pattern.compile(
+            "\\d{4}-((1[0-2])|(0?[1-9]))-((3[0-1])|([0-2]?\\d))$"
+    );
 
-    public void setStartingDate(String date) {
-        if (dateCheck(date)) {
-            this.startingDate = date;
+    private boolean isValidDate(String date) {
+        if (date == null) return true;
+        Matcher matcher = DATE_PATTERN.matcher(date);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("Invalid date format: '" + date + "'. Expected: YYYY-MM-DD");
         }
+        return true;
     }
 
-    public void setEndingDate(String date) {
-        if (dateCheck(date)) {
-            this.endingDate = date;
+
+
+    public void setId(Integer id) {
+        if (id < 0) {
+            throw new IllegalArgumentException("Subscription ID cannot be negative: " + id);
         }
+        this.id = id;
     }
 
-    public Subscription(int index, int employeeId, String startingDate, String endingDate, int delivery, int period, int cost) {
-        this.employeeId = employeeId;
+    public void setStartingDate(String startingDate) {
+        isValidDate(startingDate);
         this.startingDate = startingDate;
+    }
+
+    public void setEndingDate(String endingDate) {
+        isValidDate(endingDate);
         this.endingDate = endingDate;
-        this.delivery = new Delivery(delivery);
+    }
+
+    public void setPeriod(Integer period) {
+        if (period <= 0) {
+            throw new IllegalArgumentException("Period must be positive: " + period);
+        }
+        this.period = period;
+    }
+
+    public void setPrinting(Printing printing) {
+        if (printing == null) {
+            throw new IllegalArgumentException("Printing cannot be null");
+        }
+        if (printing.getIndex() <= 0) {
+            throw new IllegalArgumentException("Printing index must be positive: " + printing.getIndex());
+        }
+        this.printing = printing;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        if (employeeId <= 0) {
+            throw new IllegalArgumentException("Employee ID must be positive: " + employeeId);
+        }
+        this.employeeId = employeeId;
+    }
+
+    public void setCost(Integer cost) {
+        if (cost <= 0) {
+            throw new IllegalArgumentException("Cost must be positive: " + cost);
+        }
         this.cost = cost;
-        this.amountOfMonths = period;
-        this.printing = new Printing(index);
+    }
+
+    public Subscription(Integer id, Integer index, Integer employeeId, String startingDate, String endingDate, Integer period, Integer cost) {
+        setId(id);
+        setEmployeeId(employeeId);
+        setStartingDate(startingDate);
+        setEndingDate(endingDate);
+        setPeriod(period);
+        setCost(cost);
+        this.printing = new Printing();
         this.printing.setIndex(index);
     }
 
