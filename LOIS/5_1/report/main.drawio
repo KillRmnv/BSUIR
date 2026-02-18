@@ -1,0 +1,39 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="Страница — 1" id="GzQPzGyI9lMTQSLOy5_a">
+    <mxGraphModel dx="1501" dy="2062" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Y0KTqvNhSWxuQSnqAYTL-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Y0KTqvNhSWxuQSnqAYTL-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="492" y="40" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y0KTqvNhSWxuQSnqAYTL-1" value="begin" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="454" y="-30" width="76" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Y0KTqvNhSWxuQSnqAYTL-21" value="end" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="457" y="440" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="D9BJAWkISvg_vL17SH32-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="D9BJAWkISvg_vL17SH32-2" target="D9BJAWkISvg_vL17SH32-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D9BJAWkISvg_vL17SH32-2" value="&lt;div&gt;&amp;nbsp; &amp;nbsp; files = [&quot;test1.txt&quot;, &quot;test2.txt&quot;, &quot;test3.txt&quot;,&quot;test4.txt&quot;]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="432" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="D9BJAWkISvg_vL17SH32-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="D9BJAWkISvg_vL17SH32-3" target="D9BJAWkISvg_vL17SH32-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D9BJAWkISvg_vL17SH32-3" value="&lt;div&gt;&amp;nbsp; &amp;nbsp; processor = FuzzyKBProcessor&lt;/div&gt;&lt;div&gt;(files)&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="423" y="170" width="138" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="D9BJAWkISvg_vL17SH32-5" value="&amp;nbsp; &amp;nbsp; processor.&lt;div&gt;process_files()&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="432" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="D9BJAWkISvg_vL17SH32-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="D9BJAWkISvg_vL17SH32-5" target="Y0KTqvNhSWxuQSnqAYTL-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

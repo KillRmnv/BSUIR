@@ -1,0 +1,39 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="read_file function detailed flow" id="flowchart">
+    <mxGraphModel dx="946" dy="584" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="5UwNYyx0zUJ7UWEDHPET-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="5UwNYyx0zUJ7UWEDHPET-1" target="5UwNYyx0zUJ7UWEDHPET-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5UwNYyx0zUJ7UWEDHPET-1" value="begin" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="1" vertex="1">
+          <mxGeometry x="360" y="60" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5UwNYyx0zUJ7UWEDHPET-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="5UwNYyx0zUJ7UWEDHPET-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="405" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5UwNYyx0zUJ7UWEDHPET-2" value="file = open(file_name, &#39;r&#39;)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="337.5" y="120" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Z0OCUSdIEBxG4pB81z6j-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Z0OCUSdIEBxG4pB81z6j-1" target="Z0OCUSdIEBxG4pB81z6j-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Z0OCUSdIEBxG4pB81z6j-1" value="&lt;div&gt;content= file.read()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; file.close()&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="345" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Z0OCUSdIEBxG4pB81z6j-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Z0OCUSdIEBxG4pB81z6j-2" target="Z0OCUSdIEBxG4pB81z6j-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Z0OCUSdIEBxG4pB81z6j-2" value="&amp;nbsp; &amp;nbsp; return res" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="345" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Z0OCUSdIEBxG4pB81z6j-5" value="end" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" parent="1" vertex="1">
+          <mxGeometry x="360" y="400" width="90" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

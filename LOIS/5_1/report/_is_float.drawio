@@ -1,0 +1,50 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="Страница — 1" id="ylpvwVDCvHWofWXgKxM8">
+    <mxGraphModel dx="1426" dy="848" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#000000;labelBackgroundColor=default;" edge="1" parent="1" source="jrf1kcSF8iDWuUeRW6gv-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-2" value="begin" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fontFamily=Helvetica;fontColor=#000000;labelBackgroundColor=default;" vertex="1" parent="1">
+          <mxGeometry x="310" y="90" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Helvetica;fontColor=#000000;labelBackgroundColor=default;" edge="1" parent="1" source="jrf1kcSF8iDWuUeRW6gv-17" target="jrf1kcSF8iDWuUeRW6gv-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="jrf1kcSF8iDWuUeRW6gv-17" target="jrf1kcSF8iDWuUeRW6gv-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-17" value="not value" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;labelBackgroundColor=default;" vertex="1" parent="1">
+          <mxGeometry x="310" y="160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="jrf1kcSF8iDWuUeRW6gv-18" target="jrf1kcSF8iDWuUeRW6gv-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-18" value="return False" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;labelBackgroundColor=default;" vertex="1" parent="1">
+          <mxGeometry x="410" y="260" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="jrf1kcSF8iDWuUeRW6gv-20" target="jrf1kcSF8iDWuUeRW6gv-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-20" value="&lt;div style=&quot;line-height: 20px; white-space: pre;&quot;&gt;&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(237, 237, 237));&quot;&gt;&lt;font&gt;digits = value.&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 20px; white-space: pre;&quot;&gt;&lt;font&gt;replace(&#39;.&#39;, &#39;&#39;, 1)&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;labelBackgroundColor=default;" vertex="1" parent="1">
+          <mxGeometry x="180" y="240" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="jrf1kcSF8iDWuUeRW6gv-22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-22" value="return digits.isdigit() or (digits.startswith(&#39;-&#39;) and digits[1:].replace(&#39;.&#39;, &#39;&#39;, 1).isdigit())" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="155" y="350" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="jrf1kcSF8iDWuUeRW6gv-24" value="end" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fontFamily=Helvetica;fontColor=#000000;labelBackgroundColor=default;" vertex="1" parent="1">
+          <mxGeometry x="410" y="490" width="80" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

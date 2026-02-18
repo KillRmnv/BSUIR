@@ -1,0 +1,396 @@
+Словарь словосочетаний
+==================================================
+
+academic (ADJ)
+  - academic document (частота: 1)
+
+accurate (ADJ)
+  - accurate result (частота: 1)
+
+analyze (VERB)
+  - analyze result (частота: 1)
+
+answer (VERB)
+  - answer question (частота: 1)
+
+atmosphere (NOUN)
+  - create atmosphere (частота: 1)
+  - peaceful atmosphere (частота: 1)
+
+beautiful (ADJ)
+  - beautiful sunlight (частота: 1)
+
+believe (VERB)
+  - people believe (частота: 1)
+
+book (NOUN)
+  - read book (частота: 1)
+  - interesting book (частота: 1)
+  - book in (частота: 1)
+
+bright (ADJ)
+  - bright light (частота: 1)
+
+building (NOUN)
+  - contain building (частота: 1)
+  - modern building (частота: 1)
+
+busy (ADJ)
+  - busy street (частота: 1)
+
+center (NOUN)
+  - city center (частота: 1)
+  - center contain (частота: 1)
+
+city (NOUN)
+  - city center (частота: 1)
+
+coffee (NOUN)
+  - drink coffee (частота: 1)
+  - hot coffee (частота: 1)
+
+collect (VERB)
+  - researcher collect (частота: 1)
+  - collect datum (частота: 1)
+
+communication (NOUN)
+  - good communication (частота: 1)
+  - communication between (частота: 1)
+  - communication increase (частота: 1)
+
+complex (ADJ)
+  - complex idea (частота: 1)
+
+computer (NOUN)
+  - small computer (частота: 1)
+  - computer on (частота: 1)
+  - computer store (частота: 1)
+
+concept (NOUN)
+  - explain concept (частота: 1)
+  - difficult concept (частота: 1)
+
+constant (ADJ)
+  - constant practice (частота: 1)
+
+contain (VERB)
+  - center contain (частота: 1)
+  - contain building (частота: 1)
+
+create (VERB)
+  - create atmosphere (частота: 1)
+
+creative (ADJ)
+  - creative designer (частота: 1)
+
+critical (ADJ)
+  - critical thinking (частота: 1)
+
+crowded (ADJ)
+  - crowded room (частота: 1)
+
+curious (ADJ)
+  - curious girl (частота: 1)
+
+datum (NOUN)
+  - collect datum (частота: 1)
+
+designer (NOUN)
+  - creative designer (частота: 1)
+  - designer develop (частота: 1)
+
+desk (NOUN)
+
+detailed (ADJ)
+  - detailed report (частота: 1)
+
+develop (VERB)
+  - designer develop (частота: 1)
+  - develop solution (частота: 1)
+
+difficult (ADJ)
+  - difficult concept (частота: 1)
+
+discuss (VERB)
+  - discuss idea (частота: 1)
+
+document (NOUN)
+  - store document (частота: 1)
+  - important document (частота: 1)
+  - academic document (частота: 1)
+
+drink (VERB)
+  - worker drink (частота: 1)
+  - drink coffee (частота: 1)
+
+efficiency (NOUN)
+  - increase efficiency (частота: 1)
+  - overall efficiency (частота: 1)
+  - project efficiency (частота: 1)
+
+evening (NOUN)
+  - evening meeting (частота: 1)
+
+experienced (ADJ)
+  - experienced teacher (частота: 1)
+
+explain (VERB)
+  - teacher explain (частота: 1)
+  - explain concept (частота: 1)
+
+extract (VERB)
+  - extract information (частота: 1)
+
+fill (VERB)
+  - sunlight fill (частота: 1)
+  - fill room (частота: 2)
+  - light fill (частота: 1)
+  - fill during (частота: 1)
+
+generate (VERB)
+  - generate result (частота: 1)
+
+girl (NOUN)
+  - curious girl (частота: 1)
+  - girl look (частота: 1)
+
+good (ADJ)
+  - good communication (частота: 1)
+
+historical (ADJ)
+  - historical monument (частота: 1)
+
+hot (ADJ)
+  - hot coffee (частота: 1)
+
+idea (NOUN)
+  - discuss idea (частота: 1)
+  - complex idea (частота: 1)
+
+important (ADJ)
+  - important document (частота: 1)
+
+improve (VERB)
+  - reading improve (частота: 1)
+  - improve thinking (частота: 1)
+
+increase (VERB)
+  - communication increase (частота: 1)
+  - increase efficiency (частота: 1)
+
+information (NOUN)
+  - extract information (частота: 1)
+  - useful information (частота: 1)
+
+innovative (ADJ)
+  - innovative solution (частота: 1)
+
+intelligent (ADJ)
+  - intelligent system (частота: 1)
+
+interesting (ADJ)
+  - interesting book (частота: 1)
+
+language (NOUN)
+  - language skill (частота: 1)
+
+large (ADJ)
+  - large room (частота: 1)
+
+learn (VERB)
+  - learn method (частота: 1)
+
+library (NOUN)
+  - quiet library (частота: 1)
+
+light (NOUN)
+  - bright light (частота: 1)
+  - light fill (частота: 1)
+
+look (VERB)
+  - girl look (частота: 1)
+  - look at (частота: 1)
+
+loud (ADJ)
+  - loud music (частота: 1)
+
+map (NOUN)
+  - old map (частота: 1)
+  - map on (частота: 1)
+
+meeting (NOUN)
+  - evening meeting (частота: 1)
+
+member (NOUN)
+  - team member (частота: 1)
+
+method (NOUN)
+  - learn method (частота: 1)
+  - new method (частота: 1)
+
+modern (ADJ)
+  - modern building (частота: 1)
+
+monument (NOUN)
+  - historical monument (частота: 1)
+
+morning (NOUN)
+  - morning newspaper (частота: 1)
+
+music (NOUN)
+  - loud music (частота: 1)
+
+new (ADJ)
+  - new method (частота: 1)
+
+newspaper (NOUN)
+  - read newspaper (частота: 1)
+  - morning newspaper (частота: 1)
+
+note (NOUN)
+  - write note (частота: 1)
+
+old (ADJ)
+  - old map (частота: 1)
+
+overall (ADJ)
+  - overall efficiency (частота: 1)
+
+patience (NOUN)
+
+peaceful (ADJ)
+  - peaceful atmosphere (частота: 1)
+
+people (NOUN)
+  - people believe (частота: 1)
+
+practice (NOUN)
+  - constant practice (частота: 1)
+
+problem (NOUN)
+  - real problem (частота: 1)
+
+process (VERB)
+  - system process (частота: 1)
+  - process text (частота: 1)
+
+project (NOUN)
+  - project efficiency (частота: 1)
+
+publish (VERB)
+  - publish report (частота: 1)
+
+question (NOUN)
+  - answer question (частота: 1)
+
+quiet (ADJ)
+  - quiet library (частота: 1)
+
+read (VERB)
+  - student read (частота: 1)
+  - read book (частота: 1)
+  - read newspaper (частота: 1)
+
+reading (NOUN)
+  - reading room (частота: 1)
+  - regular reading (частота: 1)
+  - reading improve (частота: 1)
+
+real (ADJ)
+  - real problem (частота: 1)
+
+regular (ADJ)
+  - regular reading (частота: 1)
+
+report (NOUN)
+  - publish report (частота: 1)
+  - detailed report (частота: 1)
+
+require (VERB)
+  - require time (частота: 1)
+
+researcher (NOUN)
+  - researcher collect (частота: 1)
+
+result (NOUN)
+  - analyze result (частота: 1)
+  - generate result (частота: 1)
+  - accurate result (частота: 1)
+
+room (NOUN)
+  - fill room (частота: 2)
+  - large room (частота: 1)
+  - reading room (частота: 1)
+  - crowded room (частота: 1)
+
+skill (NOUN)
+  - language skill (частота: 1)
+
+small (ADJ)
+  - small computer (частота: 1)
+
+solution (NOUN)
+  - develop solution (частота: 1)
+  - innovative solution (частота: 1)
+  - solution for (частота: 1)
+
+store (VERB)
+  - computer store (частота: 1)
+  - store document (частота: 1)
+
+street (NOUN)
+  - busy street (частота: 1)
+
+student (NOUN)
+  - young student (частота: 1)
+  - student read (частота: 1)
+  - student write (частота: 1)
+
+sunlight (NOUN)
+  - beautiful sunlight (частота: 1)
+  - sunlight fill (частота: 1)
+
+system (NOUN)
+  - intelligent system (частота: 1)
+  - system process (частота: 1)
+
+table (NOUN)
+  - wooden table (частота: 1)
+
+teacher (NOUN)
+  - experienced teacher (частота: 1)
+  - teacher explain (частота: 1)
+
+team (NOUN)
+  - team member (частота: 1)
+
+text (NOUN)
+  - process text (частота: 1)
+
+thinking (NOUN)
+  - improve thinking (частота: 1)
+  - critical thinking (частота: 1)
+
+time (NOUN)
+  - require time (частота: 1)
+
+tired (ADJ)
+  - tired worker (частота: 1)
+
+useful (ADJ)
+  - useful information (частота: 1)
+
+wooden (ADJ)
+  - wooden table (частота: 1)
+
+worker (NOUN)
+  - tired worker (частота: 1)
+  - worker drink (частота: 1)
+
+write (VERB)
+  - student write (частота: 1)
+  - write note (частота: 1)
+
+young (ADJ)
+  - young student (частота: 1)
+

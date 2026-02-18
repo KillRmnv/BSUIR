@@ -1,0 +1,87 @@
+PREFIX ts: <http://www.technical-sciences.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?discipline ?name ?complexity ?foundationYear
+WHERE {
+  ?discipline rdf:type ts:TheoreticalDiscipline .
+  ?discipline ts:hasName ?name .
+  ?discipline ts:mathematicalComplexity ?complexity .
+  ?discipline ts:foundationYear ?foundationYear .
+}
+ORDER BY DESC(?foundationYear)
+
+//-------------------------------------------------------------------------
+
+PREFIX ts: <http://www.technical-sciences.org/ontology#>
+
+SELECT ?discipline ?name ?relevance ?application
+WHERE {
+  ?discipline rdf:type ts:AppliedDiscipline .
+  ?discipline ts:hasName ?name .
+  ?discipline ts:industryRelevance ?relevance .
+  ?discipline ts:practicalApplication ?application .
+  FILTER (?relevance = "High" || ?relevance = "Critical")
+}
+ORDER BY ?relevance
+
+//-------------------------------------------------------------------------
+
+PREFIX ts: <http://www.technical-sciences.org/ontology#>
+
+SELECT ?material ?materialName ?method ?methodName ?accuracy
+WHERE {
+  ?material rdf:type ts:MaterialObject .
+  ?material ts:hasName ?materialName .
+  ?material ts:usesMethod ?method .
+  ?method ts:hasName ?methodName .
+  ?method ts:methodAccuracy ?accuracy .
+}
+ORDER BY ?materialName
+
+//-------------------------------------------------------------------------
+
+
+
+PREFIX ts: <http://www.technical-sciences.org/ontology#>
+
+SELECT ?era ?eraName ?startYear ?endYear (COUNT(?discipline) AS ?disciplineCount)
+WHERE {
+  ?era rdf:type ts:TechnologicalEra .
+  ?era ts:hasName ?eraName .
+  ?era ts:startYear ?startYear .
+  ?era ts:endYear ?endYear .
+  OPTIONAL {
+    ?discipline ts:belongsToEra ?era .
+  }
+}
+GROUP BY ?era ?eraName ?startYear ?endYear
+ORDER BY ?startYear
+
+
+
+//-------------------------------------------------------------------------
+
+PREFIX ts: <http://www.technical-sciences.org/ontology#>
+
+SELECT ?system ?systemName ?complexity ?integration ?device ?deviceName ?power
+WHERE {
+  ?system rdf:type ts:SystemObject .
+  ?system ts:hasName ?systemName .
+  ?system ts:systemComplexity ?complexity .
+  ?system ts:integrationLevel ?integration .
+  
+  OPTIONAL {
+    ?device ts:partOfSystem ?system .
+    ?device rdf:type ts:TechnicalDevice .
+    ?device ts:hasName ?deviceName .
+    ?device ts:powerConsumption ?power .
+  }
+  
+  FILTER (
+    ?complexity = "Ultra-high" || 
+    ?complexity = "High" || 
+    ?integration = "Global" ||
+    ?integration = "Multi-system"
+  )
+}
+ORDER BY ?systemName

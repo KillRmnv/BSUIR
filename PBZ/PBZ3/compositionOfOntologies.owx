@@ -1,0 +1,2062 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.technical-sciences.org/ontology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.technical-sciences.org/ontology">
+    <Prefix name="" IRI="http://www.technical-sciences.org/ontology#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Import>http://edamontology.org</Import>
+    <Import>https://w3id.org/skgo/modsci/1.0</Import>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal>Ontology covering the domain of Technical Sciences including theoretical disciplines, applied disciplines, industry sectors, research objects, methods, and historical technological paradigms.</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <Literal>Technical Sciences Ontology</Literal>
+    </Annotation>
+    <Declaration>
+        <Class IRI="#AppliedDiscipline"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#IndustrySector"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MaterialObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ModelingApproach"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ProcessObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ResearchMethod"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ResearchObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SystemObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TechnicalDevice"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TechnicalDiscipline"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TechnologicalEra"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TheoreticalDiscipline"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#belongsToEra"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasApplicationArea"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#partOfSystem"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#studies"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#usesMethod"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#automationLevel"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#economicImpact"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#endYear"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#foundationYear"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasDescription"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasName"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#industryRelevance"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#integrationLevel"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#materialType"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#mathematicalComplexity"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#methodAccuracy"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#modelFidelity"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#operatingTemperature"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#powerConsumption"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#practicalApplication"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#processDuration"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#realTimeCapability"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#resourceIntensity"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#scaleLevel"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#startYear"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#systemComplexity"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#workforceSize"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ActuatorSystem"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#AdditiveManufacturing"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#AnalyticalMethod"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Biotechnology"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#CNCMachine"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#CompositeMaterials"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ComputationalMethod"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ControlTheory"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#DataProcessing"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#DigitalRevolution"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#DigitalTwin"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#EcologicalSystem"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ElectrotechnicalEra"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#EnergySector"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ExperimentalMethod"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#HumanMachineSystem"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ICTSector"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#IndustrialRevolution"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#IndustrialRobot"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MachineBuilding"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MachineEngineering"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MaterialProcessing"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MathematicalAnalysis"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MathematicalModel"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MetrologyMethod"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ModernFrontier"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Nanomaterials"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#PhysicalModel"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Polymers"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#PreIndustrialEra"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#ProbabilisticModel"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#QualityControl"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#RadioEngineering"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#SafetySystem"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#SensorArray"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#SoftwareEngineering"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#SteelAlloys"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TechnicalMechanics"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Technosphere"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Thermodynamics"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#TransportInfrastructure"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#AppliedDiscipline"/>
+        <Class IRI="#TechnicalDiscipline"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MaterialObject"/>
+        <Class IRI="#ResearchObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ModelingApproach"/>
+        <Class IRI="#ResearchMethod"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ProcessObject"/>
+        <Class IRI="#ResearchObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SystemObject"/>
+        <Class IRI="#ResearchObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TechnicalDevice"/>
+        <Class IRI="#MaterialObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TheoreticalDiscipline"/>
+        <Class IRI="#TechnicalDiscipline"/>
+    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="#TechnicalDevice"/>
+        <NamedIndividual IRI="#ActuatorSystem"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ProcessObject"/>
+        <NamedIndividual IRI="#AdditiveManufacturing"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ResearchMethod"/>
+        <NamedIndividual IRI="#AnalyticalMethod"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#AppliedDiscipline"/>
+        <NamedIndividual IRI="#Biotechnology"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TechnicalDevice"/>
+        <NamedIndividual IRI="#CNCMachine"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MaterialObject"/>
+        <NamedIndividual IRI="#CompositeMaterials"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ResearchMethod"/>
+        <NamedIndividual IRI="#ComputationalMethod"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TheoreticalDiscipline"/>
+        <NamedIndividual IRI="#ControlTheory"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ProcessObject"/>
+        <NamedIndividual IRI="#DataProcessing"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TechnologicalEra"/>
+        <NamedIndividual IRI="#DigitalRevolution"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ModelingApproach"/>
+        <NamedIndividual IRI="#DigitalTwin"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#SystemObject"/>
+        <NamedIndividual IRI="#EcologicalSystem"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TechnologicalEra"/>
+        <NamedIndividual IRI="#ElectrotechnicalEra"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#IndustrySector"/>
+        <NamedIndividual IRI="#EnergySector"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ResearchMethod"/>
+        <NamedIndividual IRI="#ExperimentalMethod"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#SystemObject"/>
+        <NamedIndividual IRI="#HumanMachineSystem"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#IndustrySector"/>
+        <NamedIndividual IRI="#ICTSector"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TechnologicalEra"/>
+        <NamedIndividual IRI="#IndustrialRevolution"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TechnicalDevice"/>
+        <NamedIndividual IRI="#IndustrialRobot"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#IndustrySector"/>
+        <NamedIndividual IRI="#MachineBuilding"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#AppliedDiscipline"/>
+        <NamedIndividual IRI="#MachineEngineering"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ProcessObject"/>
+        <NamedIndividual IRI="#MaterialProcessing"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TheoreticalDiscipline"/>
+        <NamedIndividual IRI="#MathematicalAnalysis"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ModelingApproach"/>
+        <NamedIndividual IRI="#MathematicalModel"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ResearchMethod"/>
+        <NamedIndividual IRI="#MetrologyMethod"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TechnologicalEra"/>
+        <NamedIndividual IRI="#ModernFrontier"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MaterialObject"/>
+        <NamedIndividual IRI="#Nanomaterials"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ModelingApproach"/>
+        <NamedIndividual IRI="#PhysicalModel"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MaterialObject"/>
+        <NamedIndividual IRI="#Polymers"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TechnologicalEra"/>
+        <NamedIndividual IRI="#PreIndustrialEra"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ModelingApproach"/>
+        <NamedIndividual IRI="#ProbabilisticModel"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ProcessObject"/>
+        <NamedIndividual IRI="#QualityControl"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#AppliedDiscipline"/>
+        <NamedIndividual IRI="#RadioEngineering"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#SystemObject"/>
+        <NamedIndividual IRI="#SafetySystem"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TechnicalDevice"/>
+        <NamedIndividual IRI="#SensorArray"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#AppliedDiscipline"/>
+        <NamedIndividual IRI="#SoftwareEngineering"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#MaterialObject"/>
+        <NamedIndividual IRI="#SteelAlloys"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TheoreticalDiscipline"/>
+        <NamedIndividual IRI="#TechnicalMechanics"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#SystemObject"/>
+        <NamedIndividual IRI="#Technosphere"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#TheoreticalDiscipline"/>
+        <NamedIndividual IRI="#Thermodynamics"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#IndustrySector"/>
+        <NamedIndividual IRI="#TransportInfrastructure"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#partOfSystem"/>
+        <NamedIndividual IRI="#CNCMachine"/>
+        <NamedIndividual IRI="#Technosphere"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#belongsToEra"/>
+        <NamedIndividual IRI="#ControlTheory"/>
+        <NamedIndividual IRI="#ElectrotechnicalEra"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#usesMethod"/>
+        <NamedIndividual IRI="#DigitalTwin"/>
+        <NamedIndividual IRI="#ComputationalMethod"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#partOfSystem"/>
+        <NamedIndividual IRI="#IndustrialRobot"/>
+        <NamedIndividual IRI="#HumanMachineSystem"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#studies"/>
+        <NamedIndividual IRI="#MachineEngineering"/>
+        <NamedIndividual IRI="#SteelAlloys"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#belongsToEra"/>
+        <NamedIndividual IRI="#MathematicalAnalysis"/>
+        <NamedIndividual IRI="#PreIndustrialEra"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasApplicationArea"/>
+        <NamedIndividual IRI="#MathematicalAnalysis"/>
+        <NamedIndividual IRI="#MachineBuilding"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#usesMethod"/>
+        <NamedIndividual IRI="#Nanomaterials"/>
+        <NamedIndividual IRI="#ExperimentalMethod"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#belongsToEra"/>
+        <NamedIndividual IRI="#SoftwareEngineering"/>
+        <NamedIndividual IRI="#DigitalRevolution"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#studies"/>
+        <NamedIndividual IRI="#SoftwareEngineering"/>
+        <NamedIndividual IRI="#DataProcessing"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#belongsToEra"/>
+        <NamedIndividual IRI="#Thermodynamics"/>
+        <NamedIndividual IRI="#IndustrialRevolution"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasApplicationArea"/>
+        <NamedIndividual IRI="#Thermodynamics"/>
+        <NamedIndividual IRI="#EnergySector"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#ActuatorSystem"/>
+        <Literal>Executive mechanisms for motion control</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#ActuatorSystem"/>
+        <Literal>Actuator System</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#operatingTemperature"/>
+        <NamedIndividual IRI="#ActuatorSystem"/>
+        <Literal>-20 to 60°C</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#powerConsumption"/>
+        <NamedIndividual IRI="#ActuatorSystem"/>
+        <Literal>0.5-100 kW</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#automationLevel"/>
+        <NamedIndividual IRI="#AdditiveManufacturing"/>
+        <Literal>High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#AdditiveManufacturing"/>
+        <Literal>3D printing and layer-by-layer construction</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#AdditiveManufacturing"/>
+        <Literal>Additive Manufacturing</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#processDuration"/>
+        <NamedIndividual IRI="#AdditiveManufacturing"/>
+        <Literal>Hours to days</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#AnalyticalMethod"/>
+        <Literal>Differential and integral equations for process description</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#AnalyticalMethod"/>
+        <Literal>Analytical Methods</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#methodAccuracy"/>
+        <NamedIndividual IRI="#AnalyticalMethod"/>
+        <Literal>Exact</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#resourceIntensity"/>
+        <NamedIndividual IRI="#AnalyticalMethod"/>
+        <Literal>Low</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#Biotechnology"/>
+        <Literal>Application of biological systems in engineering</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#Biotechnology"/>
+        <Literal>Biotechnology and Bioengineering</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#industryRelevance"/>
+        <NamedIndividual IRI="#Biotechnology"/>
+        <Literal>High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#practicalApplication"/>
+        <NamedIndividual IRI="#Biotechnology"/>
+        <Literal>Pharmaceuticals and agricultural production</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#CNCMachine"/>
+        <Literal>Computer numerical control machine for precision manufacturing</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#CNCMachine"/>
+        <Literal>CNC Machine Tool</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#operatingTemperature"/>
+        <NamedIndividual IRI="#CNCMachine"/>
+        <Literal>15-35°C</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#powerConsumption"/>
+        <NamedIndividual IRI="#CNCMachine"/>
+        <Literal>5-50 kW</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#CompositeMaterials"/>
+        <Literal>Multi-phase materials with enhanced properties</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#CompositeMaterials"/>
+        <Literal>Composite Materials</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#materialType"/>
+        <NamedIndividual IRI="#CompositeMaterials"/>
+        <Literal>Hybrid</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#scaleLevel"/>
+        <NamedIndividual IRI="#CompositeMaterials"/>
+        <Literal>Multi-scale</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#ComputationalMethod"/>
+        <Literal>Numerical modeling and computer simulation</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#ComputationalMethod"/>
+        <Literal>Computational Methods</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#methodAccuracy"/>
+        <NamedIndividual IRI="#ComputationalMethod"/>
+        <Literal>Medium to High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#resourceIntensity"/>
+        <NamedIndividual IRI="#ComputationalMethod"/>
+        <Literal>Medium</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#foundationYear"/>
+        <NamedIndividual IRI="#ControlTheory"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1868</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#ControlTheory"/>
+        <Literal>Mathematical theory of automatic control systems</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#ControlTheory"/>
+        <Literal>Control Theory</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mathematicalComplexity"/>
+        <NamedIndividual IRI="#ControlTheory"/>
+        <Literal>Very High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#automationLevel"/>
+        <NamedIndividual IRI="#DataProcessing"/>
+        <Literal>Fully Automated</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#DataProcessing"/>
+        <Literal>Collection, transmission and processing of data</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#DataProcessing"/>
+        <Literal>Information Processing</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#processDuration"/>
+        <NamedIndividual IRI="#DataProcessing"/>
+        <Literal>Real-time to batch</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#endYear"/>
+        <NamedIndividual IRI="#DigitalRevolution"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2020</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#DigitalRevolution"/>
+        <Literal>Microelectronics and information technology (1980-2010s)</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#DigitalRevolution"/>
+        <Literal>Digital Revolution</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#startYear"/>
+        <NamedIndividual IRI="#DigitalRevolution"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1980</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#DigitalTwin"/>
+        <Literal>Complex virtual models synchronized with real objects in real-time</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#DigitalTwin"/>
+        <Literal>Digital Twin</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#modelFidelity"/>
+        <NamedIndividual IRI="#DigitalTwin"/>
+        <Literal>Very High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#realTimeCapability"/>
+        <NamedIndividual IRI="#DigitalTwin"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#EcologicalSystem"/>
+        <Literal>Resource efficiency and closed production cycles</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#EcologicalSystem"/>
+        <Literal>Ecology of Technosphere</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#integrationLevel"/>
+        <NamedIndividual IRI="#EcologicalSystem"/>
+        <Literal>Multi-system</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#systemComplexity"/>
+        <NamedIndividual IRI="#EcologicalSystem"/>
+        <Literal>High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#endYear"/>
+        <NamedIndividual IRI="#ElectrotechnicalEra"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1950</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#ElectrotechnicalEra"/>
+        <Literal>Electrification and telecommunications (late 19th - mid 20th century)</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#ElectrotechnicalEra"/>
+        <Literal>Electrotechnical Era</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#startYear"/>
+        <NamedIndividual IRI="#ElectrotechnicalEra"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1870</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#economicImpact"/>
+        <NamedIndividual IRI="#EnergySector"/>
+        <Literal>Global Critical Infrastructure</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#EnergySector"/>
+        <Literal>Power generation and resource extraction industries</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#EnergySector"/>
+        <Literal>Energy and Resource Sector</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#workforceSize"/>
+        <NamedIndividual IRI="#EnergySector"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">25000000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#ExperimentalMethod"/>
+        <Literal>Natural tests, field studies and stand modeling</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#ExperimentalMethod"/>
+        <Literal>Experimental Research</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#methodAccuracy"/>
+        <NamedIndividual IRI="#ExperimentalMethod"/>
+        <Literal>High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#resourceIntensity"/>
+        <NamedIndividual IRI="#ExperimentalMethod"/>
+        <Literal>Very High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#HumanMachineSystem"/>
+        <Literal>Ergonomics and engineering psychology systems</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#HumanMachineSystem"/>
+        <Literal>Human-Machine Systems</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#integrationLevel"/>
+        <NamedIndividual IRI="#HumanMachineSystem"/>
+        <Literal>Local</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#systemComplexity"/>
+        <NamedIndividual IRI="#HumanMachineSystem"/>
+        <Literal>Medium</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#economicImpact"/>
+        <NamedIndividual IRI="#ICTSector"/>
+        <Literal>Fastest Growing Sector</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#ICTSector"/>
+        <Literal>Digital technologies and telecommunications</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#ICTSector"/>
+        <Literal>Information and Communication Technology</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#workforceSize"/>
+        <NamedIndividual IRI="#ICTSector"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">55000000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#endYear"/>
+        <NamedIndividual IRI="#IndustrialRevolution"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1840</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#IndustrialRevolution"/>
+        <Literal>Steam power and machine building (18th-19th centuries)</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#IndustrialRevolution"/>
+        <Literal>Industrial Revolution</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#startYear"/>
+        <NamedIndividual IRI="#IndustrialRevolution"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1760</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#IndustrialRobot"/>
+        <Literal>Automated manipulator for manufacturing operations</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#IndustrialRobot"/>
+        <Literal>Industrial Robot</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#operatingTemperature"/>
+        <NamedIndividual IRI="#IndustrialRobot"/>
+        <Literal>0-45°C</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#powerConsumption"/>
+        <NamedIndividual IRI="#IndustrialRobot"/>
+        <Literal>1-10 kW</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#economicImpact"/>
+        <NamedIndividual IRI="#MachineBuilding"/>
+        <Literal>Major Industrial Base</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#MachineBuilding"/>
+        <Literal>Manufacturing of machinery and equipment</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#MachineBuilding"/>
+        <Literal>Machine Building Industry</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#workforceSize"/>
+        <NamedIndividual IRI="#MachineBuilding"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">40000000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#MachineEngineering"/>
+        <Literal>Technology of machine building and manufacturing</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#MachineEngineering"/>
+        <Literal>Machine Engineering Technology</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#industryRelevance"/>
+        <NamedIndividual IRI="#MachineEngineering"/>
+        <Literal>Critical</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#practicalApplication"/>
+        <NamedIndividual IRI="#MachineEngineering"/>
+        <Literal>Manufacturing of mechanical components</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#automationLevel"/>
+        <NamedIndividual IRI="#MaterialProcessing"/>
+        <Literal>High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#MaterialProcessing"/>
+        <Literal>Technological processes for material treatment</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#MaterialProcessing"/>
+        <Literal>Material Processing</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#processDuration"/>
+        <NamedIndividual IRI="#MaterialProcessing"/>
+        <Literal>Variable from minutes to hours</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#foundationYear"/>
+        <NamedIndividual IRI="#MathematicalAnalysis"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1687</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#MathematicalAnalysis"/>
+        <Literal>Foundation of mathematical methods for engineering calculations</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#MathematicalAnalysis"/>
+        <Literal>Mathematical Analysis</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mathematicalComplexity"/>
+        <NamedIndividual IRI="#MathematicalAnalysis"/>
+        <Literal>Very High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#MathematicalModel"/>
+        <Literal>Analytical descriptions of physical properties and processes</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#MathematicalModel"/>
+        <Literal>Mathematical Modeling</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#modelFidelity"/>
+        <NamedIndividual IRI="#MathematicalModel"/>
+        <Literal>High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#realTimeCapability"/>
+        <NamedIndividual IRI="#MathematicalModel"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#MetrologyMethod"/>
+        <Literal>Measurement, standards and certification</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#MetrologyMethod"/>
+        <Literal>Metrology and Standardization</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#methodAccuracy"/>
+        <NamedIndividual IRI="#MetrologyMethod"/>
+        <Literal>Very High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#resourceIntensity"/>
+        <NamedIndividual IRI="#MetrologyMethod"/>
+        <Literal>Medium</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#endYear"/>
+        <NamedIndividual IRI="#ModernFrontier"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2100</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#ModernFrontier"/>
+        <Literal>AI, quantum technologies and ecological engineering (2020s-present)</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#ModernFrontier"/>
+        <Literal>Modern Frontier</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#startYear"/>
+        <NamedIndividual IRI="#ModernFrontier"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2020</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#Nanomaterials"/>
+        <Literal>Materials with nanoscale structures</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#Nanomaterials"/>
+        <Literal>Nanomaterials</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#materialType"/>
+        <NamedIndividual IRI="#Nanomaterials"/>
+        <Literal>Nano-structured</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#scaleLevel"/>
+        <NamedIndividual IRI="#Nanomaterials"/>
+        <Literal>Nano</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#PhysicalModel"/>
+        <Literal>Scaled copies for aerodynamic, hydrodynamic and seismic testing</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#PhysicalModel"/>
+        <Literal>Physical Modeling</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#modelFidelity"/>
+        <NamedIndividual IRI="#PhysicalModel"/>
+        <Literal>Medium</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#realTimeCapability"/>
+        <NamedIndividual IRI="#PhysicalModel"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#Polymers"/>
+        <Literal>Synthetic and natural polymer materials</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#Polymers"/>
+        <Literal>Polymers and Plastics</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#materialType"/>
+        <NamedIndividual IRI="#Polymers"/>
+        <Literal>Organic</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#scaleLevel"/>
+        <NamedIndividual IRI="#Polymers"/>
+        <Literal>Molecular</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#endYear"/>
+        <NamedIndividual IRI="#PreIndustrialEra"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1760</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#PreIndustrialEra"/>
+        <Literal>Mechanics of simple mechanisms before 18th century</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#PreIndustrialEra"/>
+        <Literal>Pre-Industrial Era</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#startYear"/>
+        <NamedIndividual IRI="#PreIndustrialEra"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">-3000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#ProbabilisticModel"/>
+        <Literal>Statistical methods, Monte Carlo, reliability analysis</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#ProbabilisticModel"/>
+        <Literal>Probabilistic Modeling</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#modelFidelity"/>
+        <NamedIndividual IRI="#ProbabilisticModel"/>
+        <Literal>Statistical</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#realTimeCapability"/>
+        <NamedIndividual IRI="#ProbabilisticModel"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#automationLevel"/>
+        <NamedIndividual IRI="#QualityControl"/>
+        <Literal>Semi-automated</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#QualityControl"/>
+        <Literal>Processes for ensuring product quality (TQM, Six Sigma)</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#QualityControl"/>
+        <Literal>Quality Control Systems</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#processDuration"/>
+        <NamedIndividual IRI="#QualityControl"/>
+        <Literal>Continuous</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#RadioEngineering"/>
+        <Literal>Engineering of radio systems and electronic devices</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#RadioEngineering"/>
+        <Literal>Radio Engineering and Electronics</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#industryRelevance"/>
+        <NamedIndividual IRI="#RadioEngineering"/>
+        <Literal>High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#practicalApplication"/>
+        <NamedIndividual IRI="#RadioEngineering"/>
+        <Literal>Communication systems and signal processing</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#SafetySystem"/>
+        <Literal>Risk management and emergency protection systems</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#SafetySystem"/>
+        <Literal>Technosphere Safety</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#integrationLevel"/>
+        <NamedIndividual IRI="#SafetySystem"/>
+        <Literal>National</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#systemComplexity"/>
+        <NamedIndividual IRI="#SafetySystem"/>
+        <Literal>High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#SensorArray"/>
+        <Literal>Network of sensors for data collection</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#SensorArray"/>
+        <Literal>Sensor Array</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#operatingTemperature"/>
+        <NamedIndividual IRI="#SensorArray"/>
+        <Literal>-40 to 85°C</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#powerConsumption"/>
+        <NamedIndividual IRI="#SensorArray"/>
+        <Literal>0.1-5 W per sensor</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#SoftwareEngineering"/>
+        <Literal>Development of software systems and artificial intelligence</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#SoftwareEngineering"/>
+        <Literal>Software Engineering and AI</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#industryRelevance"/>
+        <NamedIndividual IRI="#SoftwareEngineering"/>
+        <Literal>Critical</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#practicalApplication"/>
+        <NamedIndividual IRI="#SoftwareEngineering"/>
+        <Literal>Information systems and automation</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#SteelAlloys"/>
+        <Literal>Metallic materials for construction and manufacturing</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#SteelAlloys"/>
+        <Literal>Steel and Alloys</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#materialType"/>
+        <NamedIndividual IRI="#SteelAlloys"/>
+        <Literal>Metallic</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#scaleLevel"/>
+        <NamedIndividual IRI="#SteelAlloys"/>
+        <Literal>Macro</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#foundationYear"/>
+        <NamedIndividual IRI="#TechnicalMechanics"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1687</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#TechnicalMechanics"/>
+        <Literal>Study of forces and motion in mechanical systems</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#TechnicalMechanics"/>
+        <Literal>Technical Mechanics</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mathematicalComplexity"/>
+        <NamedIndividual IRI="#TechnicalMechanics"/>
+        <Literal>High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#Technosphere"/>
+        <Literal>Natural-technical complexes and infrastructure systems</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#Technosphere"/>
+        <Literal>Technosphere</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#integrationLevel"/>
+        <NamedIndividual IRI="#Technosphere"/>
+        <Literal>Global</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#systemComplexity"/>
+        <NamedIndividual IRI="#Technosphere"/>
+        <Literal>Ultra-high</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#foundationYear"/>
+        <NamedIndividual IRI="#Thermodynamics"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1824</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#Thermodynamics"/>
+        <Literal>Study of heat transfer and energy conversion</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#Thermodynamics"/>
+        <Literal>Technical Thermodynamics</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mathematicalComplexity"/>
+        <NamedIndividual IRI="#Thermodynamics"/>
+        <Literal>High</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#economicImpact"/>
+        <NamedIndividual IRI="#TransportInfrastructure"/>
+        <Literal>Essential for Global Trade</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDescription"/>
+        <NamedIndividual IRI="#TransportInfrastructure"/>
+        <Literal>Transportation systems and logistics infrastructure</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasName"/>
+        <NamedIndividual IRI="#TransportInfrastructure"/>
+        <Literal>Transport and Infrastructure</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#workforceSize"/>
+        <NamedIndividual IRI="#TransportInfrastructure"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">88000000</Literal>
+    </DataPropertyAssertion>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#belongsToEra"/>
+        <Class IRI="#TechnicalDiscipline"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasApplicationArea"/>
+        <Class IRI="#TheoreticalDiscipline"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#partOfSystem"/>
+        <Class IRI="#MaterialObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#studies"/>
+        <Class IRI="#AppliedDiscipline"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#usesMethod"/>
+        <Class IRI="#ResearchObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#belongsToEra"/>
+        <Class IRI="#TechnologicalEra"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasApplicationArea"/>
+        <Class IRI="#IndustrySector"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#partOfSystem"/>
+        <Class IRI="#SystemObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#studies"/>
+        <Class IRI="#ResearchObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#usesMethod"/>
+        <Class IRI="#ResearchMethod"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty IRI="#automationLevel"/>
+        <Class IRI="#ProcessObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#economicImpact"/>
+        <Class IRI="#IndustrySector"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#endYear"/>
+        <Class IRI="#TechnologicalEra"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#foundationYear"/>
+        <Class IRI="#TheoreticalDiscipline"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasDescription"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasName"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#industryRelevance"/>
+        <Class IRI="#AppliedDiscipline"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#integrationLevel"/>
+        <Class IRI="#SystemObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#materialType"/>
+        <Class IRI="#MaterialObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#mathematicalComplexity"/>
+        <Class IRI="#TheoreticalDiscipline"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#methodAccuracy"/>
+        <Class IRI="#ResearchMethod"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#modelFidelity"/>
+        <Class IRI="#ModelingApproach"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#operatingTemperature"/>
+        <Class IRI="#TechnicalDevice"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#powerConsumption"/>
+        <Class IRI="#TechnicalDevice"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#practicalApplication"/>
+        <Class IRI="#AppliedDiscipline"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#processDuration"/>
+        <Class IRI="#ProcessObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#realTimeCapability"/>
+        <Class IRI="#ModelingApproach"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#resourceIntensity"/>
+        <Class IRI="#ResearchMethod"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#scaleLevel"/>
+        <Class IRI="#MaterialObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#startYear"/>
+        <Class IRI="#TechnologicalEra"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#systemComplexity"/>
+        <Class IRI="#SystemObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#workforceSize"/>
+        <Class IRI="#IndustrySector"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#automationLevel"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#economicImpact"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#endYear"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#foundationYear"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasDescription"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasName"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#industryRelevance"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#integrationLevel"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#materialType"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#mathematicalComplexity"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#methodAccuracy"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#modelFidelity"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#operatingTemperature"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#powerConsumption"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#practicalApplication"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#processDuration"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#realTimeCapability"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#resourceIntensity"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#scaleLevel"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#startYear"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#systemComplexity"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#workforceSize"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#AppliedDiscipline</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485018"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#AppliedDiscipline</IRI>
+        <Literal>Practical implementation disciplines</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AppliedDiscipline</IRI>
+        <Literal>Applied Discipline</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#IndustrySector</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485027"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#IndustrySector</IRI>
+        <Literal>Industrial application domains and sectors</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#IndustrySector</IRI>
+        <Literal>Industry Sector</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#MaterialObject</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485024"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#MaterialObject</IRI>
+        <Literal>Physical material objects at micro and macro levels</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MaterialObject</IRI>
+        <Literal>Material Object</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#ModelingApproach</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485019"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#ModelingApproach</IRI>
+        <Literal>Modeling and simulation approaches</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ModelingApproach</IRI>
+        <Literal>Modeling Approach</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#ProcessObject</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485021"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#ProcessObject</IRI>
+        <Literal>Algorithmic and procedural objects</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ProcessObject</IRI>
+        <Literal>Process Object</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#ResearchMethod</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485026"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#ResearchMethod</IRI>
+        <Literal>Methods and tools for technical research</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ResearchMethod</IRI>
+        <Literal>Research Method</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#ResearchObject</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485017"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#ResearchObject</IRI>
+        <Literal>Objects of study in technical sciences</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ResearchObject</IRI>
+        <Literal>Research Object</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#SystemObject</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485020"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#SystemObject</IRI>
+        <Literal>Complex system-level objects at mega level</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SystemObject</IRI>
+        <Literal>System Object</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#TechnicalDevice</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485028"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#TechnicalDevice</IRI>
+        <Literal>Technical devices and equipment</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TechnicalDevice</IRI>
+        <Literal>Technical Device</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#TechnicalDiscipline</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485023"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#TechnicalDiscipline</IRI>
+        <Literal>Base class for all technical and engineering disciplines</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TechnicalDiscipline</IRI>
+        <Literal>Technical Discipline</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#TechnologicalEra</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485022"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#TechnologicalEra</IRI>
+        <Literal>Historical technological paradigms and evolutionary waves</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TechnologicalEra</IRI>
+        <Literal>Technological Era</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
+        <IRI>#TheoreticalDiscipline</IRI>
+        <AnonymousIndividual nodeID="_:genid2147485025"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#TheoreticalDiscipline</IRI>
+        <Literal>Fundamental theoretical disciplines forming the basis of technical sciences</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TheoreticalDiscipline</IRI>
+        <Literal>Theoretical Discipline</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#automationLevel</IRI>
+        <Literal>automation level</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#belongsToEra</IRI>
+        <Literal>belongs to era</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#economicImpact</IRI>
+        <Literal>economic impact</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#endYear</IRI>
+        <Literal>end year</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#foundationYear</IRI>
+        <Literal>foundation year</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#hasApplicationArea</IRI>
+        <Literal>has application area</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#hasDescription</IRI>
+        <Literal>has description</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#hasName</IRI>
+        <Literal>has name</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#industryRelevance</IRI>
+        <Literal>industry relevance</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#integrationLevel</IRI>
+        <Literal>integration level</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#materialType</IRI>
+        <Literal>material type</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#mathematicalComplexity</IRI>
+        <Literal>mathematical complexity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#methodAccuracy</IRI>
+        <Literal>method accuracy</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#modelFidelity</IRI>
+        <Literal>model fidelity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#operatingTemperature</IRI>
+        <Literal>operating temperature</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#partOfSystem</IRI>
+        <Literal>part of system</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#powerConsumption</IRI>
+        <Literal>power consumption</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#practicalApplication</IRI>
+        <Literal>practical application</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#processDuration</IRI>
+        <Literal>process duration</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#realTimeCapability</IRI>
+        <Literal>real time capability</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#resourceIntensity</IRI>
+        <Literal>resource intensity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#scaleLevel</IRI>
+        <Literal>scale level</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#startYear</IRI>
+        <Literal>start year</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#studies</IRI>
+        <Literal>studies</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#systemComplexity</IRI>
+        <Literal>system complexity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#usesMethod</IRI>
+        <Literal>uses method</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#workforceSize</IRI>
+        <Literal>workforce size</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485017"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">246.69874056989767</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485017"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">33.754700670742736</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485017"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485018"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">227.66731260676127</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485018"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">300.8834432242315</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485018"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485019"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">85.22017639021946</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485019"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">295.8651634416322</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485019"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485020"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">112.17008939682295</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485020"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">231.06053952521293</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485020"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485021"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">268.77013591864323</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485021"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">162.2819350807059</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485021"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485022"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">289.14454241864456</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485022"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">241.30855698814096</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485022"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485023"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">53.7369695307652</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485023"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">239.5367031057396</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485023"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485024"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">39.867033145860404</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485024"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">13.615880632128489</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485024"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485025"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">73.9771544560764</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485025"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">124.80863048348573</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485025"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485026"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">37.55846877379165</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485026"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">127.92293553366704</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485026"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485027"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">114.46823020241645</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485027"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">234.51205920756473</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485027"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147485028"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">109.39340293570532</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147485028"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">291.1698143561794</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147485028"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

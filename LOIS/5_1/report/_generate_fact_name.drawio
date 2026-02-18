@@ -1,0 +1,52 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="Страница — 1" id="yCjHU0hXXf-3L9a7qLC-">
+    <mxGraphModel dx="1426" dy="848" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dICojIigfTyVx3TRPvtj-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dICojIigfTyVx3TRPvtj-1" target="dICojIigfTyVx3TRPvtj-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-1" value="begin" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry x="340" y="100" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dICojIigfTyVx3TRPvtj-3" target="dICojIigfTyVx3TRPvtj-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dICojIigfTyVx3TRPvtj-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="360" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="240" y="215" />
+              <mxPoint x="240" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-3" value="&#39;=&#39; in match_name" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="315" y="170" width="130" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dICojIigfTyVx3TRPvtj-5" target="dICojIigfTyVx3TRPvtj-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-5" value="&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; match_name, _ = match_name.split(&#39;=&#39;)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dICojIigfTyVx3TRPvtj-7" target="dICojIigfTyVx3TRPvtj-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-7" value="&amp;nbsp; &amp;nbsp; return rf&quot;I{infer_counter}={match_name}/~\{{{from_name}~&amp;gt;{to_name}\}}&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="292.5" y="390" width="175" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-11" value="Да" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="460" y="188" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-12" value="Нет" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="260" y="188" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dICojIigfTyVx3TRPvtj-13" value="end" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry x="337.5" y="510" width="85" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
