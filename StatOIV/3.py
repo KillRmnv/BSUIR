@@ -5,10 +5,9 @@ import seaborn as sns
 import kagglehub
 import os
 
-from sklearn.impute import KNNImputer, SimpleImputer
+from sklearn.impute import KNNImputer
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import StratifiedKFold, cross_val_predict
-from sklearn.pipeline import make_pipeline
 
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -27,7 +26,7 @@ from sklearn.metrics import (
 from sklearn.preprocessing import label_binarize
 
 pd.set_option("display.max_columns", None)
-plt.style.use('seaborn-v0_8')
+plt.style.use('seaborn') 
 plt.rcParams['figure.figsize'] = (10, 6)
 
 def get_season(month):
@@ -57,7 +56,7 @@ def plot_distribution(names):
     fig, axes = plt.subplots(1, 4, figsize=(12, 6))
 
     for name  in names:
-        sns.histplot(df[name], bins=50, ax=axes[i], color='teal', kde=True)
+        sns.histplot(df[name].to_numpy(), bins=50, ax=axes[i], color='teal', kde=False)
         axes[i].set_title(f"{name} до обработки выбросов")
         i+=1
     plt.tight_layout()

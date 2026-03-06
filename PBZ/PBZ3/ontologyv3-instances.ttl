@@ -1,0 +1,171 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+
+@prefix ts: <http://www.technical-sciences.org/ontology#> .
+
+
+@prefix edam: <http://edamontology.org/> .
+@prefix modsci: <http://www.modsci.org/ontology#> .
+
+
+ts:MachineLearningTheory a ts:TheoreticalDiscipline ;
+    rdfs:label "Machine Learning Theory"@en ;
+    ts:hasName "Machine Learning Theory" ;
+    ts:mathematicalComplexity "High" ;
+    ts:foundationYear "2006"^^xsd:gYear ;
+    ts:hasTopic ts:PatternRecognitionTopic ;
+    ts:belongsToEra ts:DigitalEra .
+
+ts:QuantumMechanicsTheory a ts:TheoreticalDiscipline ;
+    rdfs:label "Quantum Mechanics"@en ;
+    ts:hasName "Quantum Mechanics" ;
+    ts:mathematicalComplexity "Ultra-high" ;
+    ts:foundationYear "1925"^^xsd:gYear ;
+    ts:hasTopic ts:QuantumPhenomenaTopic ;
+    ts:belongsToEra ts:ModernPhysicsEra .
+
+ts:BioinformaticsApplied a ts:AppliedDiscipline ;
+    rdfs:label "Bioinformatics"@en ;
+    ts:hasName "Bioinformatics" ;
+    ts:industryRelevance "Critical" ;
+    ts:practicalApplication "Genomic data analysis, drug discovery" ;
+    ts:belongsToIndustrialArea ts:BiotechIndustry ;
+    ts:usesMethod ts:SequenceAlignmentMethod .
+
+ts:RoboticsApplied a ts:AppliedDiscipline ;
+    rdfs:label "Robotics"@en ;
+    ts:hasName "Robotics" ;
+    ts:industryRelevance "High" ;
+    ts:practicalApplication "Manufacturing automation, service robots" ;
+    ts:belongsToIndustrialArea ts:ManufacturingIndustry .
+
+
+ts:BiotechIndustry a ts:IndustrialArea ;
+    rdfs:label "Biotechnology Industry"@en ;
+    ts:hasName "Biotechnology" ;
+    ts:industryGrowthRate "12.5"^^xsd:decimal .
+
+ts:ManufacturingIndustry a ts:IndustrialArea ;
+    rdfs:label "Manufacturing Industry"@en ;
+    ts:hasName "Manufacturing" ;
+    ts:industryGrowthRate "4.2"^^xsd:decimal .
+
+
+
+ts:SequenceAlignmentMethod a ts:ResearchMethod ;
+    rdfs:label "Sequence Alignment"@en ;
+    ts:hasName "Sequence Alignment" ;
+    ts:methodType "Computational" ;
+    ts:methodAccuracy "95.8"^^xsd:decimal ;
+    ts:appliesToResearchObject ts:GenomeData ;
+    owl:sameAs edam:operation_2921 .
+
+ts:DeepLearningMethod a ts:ResearchMethod ;
+    rdfs:label "Deep Learning"@en ;
+    ts:hasName "Deep Learning" ;
+    ts:methodType "Statistical" ;
+    ts:methodAccuracy "98.2"^^xsd:decimal ;
+    ts:appliesToResearchObject ts:ImageData ;
+    owl:sameAs edam:operation_3421 ;
+    ts:usesTool ts:NeuralNetworkTool .
+
+ts:SpectroscopyMethod a ts:ScientificMethod ;
+    rdfs:label "Spectroscopy"@en ;
+    ts:hasName "Spectroscopy" ;
+    ts:methodType "Experimental" ;
+    ts:appliesToResearchObject ts:MaterialSample .
+
+
+ts:GenomeData a ts:ResearchObject ;
+    rdfs:label "Genome Data"@en ;
+    ts:hasName "Genome Data" ;
+    ts:objectType "Digital" ;
+    ts:relatedPhenomenon ts:GeneExpressionPhenomenon .
+
+ts:ImageData a ts:ResearchObject ;
+    rdfs:label "Image Data"@en ;
+    ts:hasName "Image Data" ;
+    ts:objectType "Digital" .
+
+ts:MaterialSample a ts:MaterialObject ;
+    rdfs:label "Material Sample"@en ;
+    ts:hasName "Material Sample" ;
+    ts:objectType "Physical" ;
+    ts:usesMethod ts:SpectroscopyMethod .
+
+ts:GeneExpressionPhenomenon a ts:NaturalPhenomenon ;
+    rdfs:label "Gene Expression"@en ;
+    ts:hasName "Gene Expression" ;
+    ts:phenomenonDomain "Biology" .
+
+ts:QuantumEntanglementPhenomenon a ts:NaturalPhenomenon ;
+    rdfs:label "Quantum Entanglement"@en ;
+    ts:hasName "Quantum Entanglement" ;
+    ts:phenomenonDomain "Physics" ;
+    skos:related modsci:QuantumPhenomena .
+
+
+ts:PatternRecognitionTopic a ts:Topic ;
+    rdfs:label "Pattern Recognition"@en ;
+    ts:hasName "Pattern Recognition" ;
+    ts:topicArea "Computer Science" .
+
+ts:QuantumPhenomenaTopic a ts:Topic ;
+    rdfs:label "Quantum Phenomena"@en ;
+    ts:hasName "Quantum Phenomena" ;
+    ts:topicArea "Physics" .
+
+
+ts:DigitalEra a ts:TechnologicalEra ;
+    rdfs:label "Digital Era"@en ;
+    ts:hasName "Digital Era" ;
+    ts:startYear "1970"^^xsd:gYear ;
+    ts:endYear "2020"^^xsd:gYear .
+
+ts:ModernPhysicsEra a ts:TechnologicalEra ;
+    rdfs:label "Modern Physics Era"@en ;
+    ts:hasName "Modern Physics Era" ;
+    ts:startYear "1900"^^xsd:gYear ;
+    ts:endYear "1980"^^xsd:gYear .
+
+
+ts:NeuralNetworkTool a ts:TechnicalDevice ;
+    rdfs:label "Neural Network Analysis Tool"@en ;
+    ts:hasName "NN Analysis Tool" ;
+    ts:powerConsumption "150"^^xsd:decimal ;
+    ts:partOfSystem ts:AIResearchSystem .
+
+ts:AIResearchSystem a ts:SystemObject ;
+    rdfs:label "AI Research System"@en ;
+    ts:hasName "AI Research System" ;
+    ts:systemComplexity "High" ;
+    ts:integrationLevel "Multi-system" ;
+    ts:usesMethod ts:DeepLearningMethod .
+
+
+ts:BioinformaticsApplied skos:exactMatch edam:topic_0003 .
+
+
+ts:QuantumMechanicsTheory skos:related modsci:TheoreticalPhysics .
+
+
+ts:BiotechIndustry owl:sameAs edam:topic_0002 .
+
+
+ts:SequenceAlignmentMethod ts:usedInDiscipline ts:BioinformaticsApplied .
+ts:DeepLearningMethod ts:usedInDiscipline ts:MachineLearningTheory .
+
+
+ts:QuantumPhenomenaTopic ts:describesPhenomenon ts:QuantumEntanglementPhenomenon .
+
+
+ts:GenomeData ts:analyzedBy ts:SequenceAlignmentMethod .
+
+
+ts:MachineLearningTheory rdfs:comment "Theoretical foundations of data-driven learning algorithms"@en .
+ts:BioinformaticsApplied rdfs:comment "Application of computational methods in biological research"@en .
+ts:DeepLearningMethod rdfs:comment "Statistical learning method using multi-layer neural networks"@en .

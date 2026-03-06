@@ -55,21 +55,15 @@ class TextProcessor:
                     if child.dep_ not in target_deps:
                         continue
 
-                    # ЛОГИКА ФИЛЬТРАЦИИ СТОП-СЛОВ:
-                    # 1. Если связь предлог (prep/prt), то стоп-слова (on, in, up) НУЖНЫ.
-                    # 2. Для остальных связей (dobj, amod) стоп-слова (it, the, a) обычно НЕ НУЖНЫ.
                     if child.dep_ not in ['prep', 'prt'] and (child.is_stop or child.is_punct):
                         continue
 
-                    # ЛОГИКА СКЛЕИВАНИЯ:
-                    # Берем токен и его ребенка, сортируем их по индексу в предложении (.i).
-                    # Это гарантирует, что "write code" останется "write code", а "red car" будет "red car".
+                   
                     w1, w2 = sorted([token, child], key=lambda t: t.i)
                     
                     phrase = f"{w1.lemma_.lower()} {w2.lemma_.lower()}"
                     phrases.append(phrase)
 
-            # Подсчет частоты
             counts = Counter(phrases)
             return [(phrase, count) for phrase, count in counts.items()]
 

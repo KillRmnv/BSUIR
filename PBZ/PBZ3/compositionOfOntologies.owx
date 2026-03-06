@@ -12,6 +12,7 @@
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Import>file:/home/kirillromanoff/University/BSUIR/PBZ/PBZ3/ontologyv3-instances.ttl</Import>
     <Import>http://edamontology.org</Import>
     <Import>https://w3id.org/skgo/modsci/1.0</Import>
     <Annotation>
@@ -266,10 +267,10 @@
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="#AppliedDiscipline"/>
@@ -1562,7 +1563,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#AppliedDiscipline</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485018"/>
+        <AnonymousIndividual nodeID="_:genid2147484332"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1577,7 +1578,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#IndustrySector</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485027"/>
+        <AnonymousIndividual nodeID="_:genid2147484333"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1592,7 +1593,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#MaterialObject</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485024"/>
+        <AnonymousIndividual nodeID="_:genid2147484334"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1607,7 +1608,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#ModelingApproach</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485019"/>
+        <AnonymousIndividual nodeID="_:genid2147484335"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1622,7 +1623,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#ProcessObject</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485021"/>
+        <AnonymousIndividual nodeID="_:genid2147484336"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1637,7 +1638,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#ResearchMethod</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485026"/>
+        <AnonymousIndividual nodeID="_:genid2147484337"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1652,7 +1653,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#ResearchObject</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485017"/>
+        <AnonymousIndividual nodeID="_:genid2147484338"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1667,7 +1668,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#SystemObject</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485020"/>
+        <AnonymousIndividual nodeID="_:genid2147484339"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1682,7 +1683,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#TechnicalDevice</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485028"/>
+        <AnonymousIndividual nodeID="_:genid2147484340"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1697,7 +1698,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#TechnicalDiscipline</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485023"/>
+        <AnonymousIndividual nodeID="_:genid2147484341"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1712,7 +1713,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#TechnologicalEra</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485022"/>
+        <AnonymousIndividual nodeID="_:genid2147484342"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1727,7 +1728,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#TheoreticalDiscipline</IRI>
-        <AnonymousIndividual nodeID="_:genid2147485025"/>
+        <AnonymousIndividual nodeID="_:genid2147484343"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -1876,182 +1877,182 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485017"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">246.69874056989767</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485017"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">33.754700670742736</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485017"/>
-        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485018"/>
+        <AnonymousIndividual nodeID="_:genid2147484332"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">227.66731260676127</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485018"/>
+        <AnonymousIndividual nodeID="_:genid2147484332"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">300.8834432242315</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485018"/>
+        <AnonymousIndividual nodeID="_:genid2147484332"/>
         <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485019"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">85.22017639021946</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485019"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">295.8651634416322</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485019"/>
-        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485020"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">112.17008939682295</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485020"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">231.06053952521293</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485020"/>
-        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485021"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">268.77013591864323</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485021"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">162.2819350807059</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485021"/>
-        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485022"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">289.14454241864456</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485022"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">241.30855698814096</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485022"/>
-        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485023"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">53.7369695307652</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485023"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">239.5367031057396</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485023"/>
-        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485024"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">39.867033145860404</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485024"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">13.615880632128489</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485024"/>
-        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485025"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">73.9771544560764</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485025"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">124.80863048348573</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485025"/>
-        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485026"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">37.55846877379165</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485026"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">127.92293553366704</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485026"/>
-        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485027"/>
+        <AnonymousIndividual nodeID="_:genid2147484333"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">114.46823020241645</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485027"/>
+        <AnonymousIndividual nodeID="_:genid2147484333"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">234.51205920756473</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485027"/>
+        <AnonymousIndividual nodeID="_:genid2147484333"/>
         <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
-        <AnonymousIndividual nodeID="_:genid2147485028"/>
+        <AnonymousIndividual nodeID="_:genid2147484334"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">39.867033145860404</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147484334"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">13.615880632128489</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147484334"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147484335"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">85.22017639021946</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147484335"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">295.8651634416322</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147484335"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147484336"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">268.77013591864323</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147484336"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">162.2819350807059</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147484336"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147484337"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">37.55846877379165</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147484337"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">127.92293553366704</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147484337"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147484338"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">246.69874056989767</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147484338"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">33.754700670742736</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147484338"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147484339"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">112.17008939682295</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147484339"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">231.06053952521293</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147484339"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147484340"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">109.39340293570532</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
-        <AnonymousIndividual nodeID="_:genid2147485028"/>
+        <AnonymousIndividual nodeID="_:genid2147484340"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">291.1698143561794</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <AnonymousIndividual nodeID="_:genid2147485028"/>
+        <AnonymousIndividual nodeID="_:genid2147484340"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147484341"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">53.7369695307652</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147484341"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">239.5367031057396</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147484341"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147484342"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">289.14454241864456</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147484342"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">241.30855698814096</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147484342"/>
+        <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
+        <AnonymousIndividual nodeID="_:genid2147484343"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">73.9771544560764</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
+        <AnonymousIndividual nodeID="_:genid2147484343"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">124.80863048348573</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AnonymousIndividual nodeID="_:genid2147484343"/>
         <Literal xml:lang="en">This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view.</Literal>
     </AnnotationAssertion>
 </Ontology>

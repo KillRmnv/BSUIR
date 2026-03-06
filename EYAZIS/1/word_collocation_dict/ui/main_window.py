@@ -2,6 +2,17 @@
 
 import logging
 import sys
+from ..database.models import DictionaryDB
+from ..processors.synthesizer import MorphoDictionary
+from ..processors.text_processor import TextProcessor
+from ..benchmark import PerformanceTester
+from .mixins import (
+    FileTabMixin,
+    DictionaryTabMixin,
+    SynthesizerTabMixin,
+    StorageMixin,
+)
+from .ui_controller import UIController
 
 from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import (
@@ -16,19 +27,6 @@ from PyQt6.QtWidgets import (
 )
 
 logger = logging.getLogger(__name__)
-
-from ..database.models import DictionaryDB
-from ..processors.synthesizer import MorphoDictionary
-from ..processors.text_processor import TextProcessor
-from ..benchmark import PerformanceTester
-from .mixins import (
-    FileTabMixin,
-    DictionaryTabMixin,
-    SynthesizerTabMixin,
-    StorageMixin,
-)
-from .ui_controller import UIController
-
 
 class ProcessingThread(QThread):
     """Поток для обработки текста в фоновом режиме."""

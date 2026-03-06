@@ -20,7 +20,7 @@ from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 pd.set_option("display.max_columns", None)
 pd.set_option("display.max_rows", None)
 
-plt.style.use('seaborn-v0_8')
+plt.style.use('seaborn')
 sns.set_palette("husl")
 plt.rcParams['figure.figsize'] = (10, 6)
 plt.rcParams['font.size'] = 12
@@ -42,7 +42,7 @@ def plot_distribution(names):
     fig, axes = plt.subplots(1, 4, figsize=(12, 6))
 
     for name  in names:
-        sns.histplot(df[name], bins=50, ax=axes[i], color='teal', kde=True)
+        sns.histplot(df[name].to_numpy(), bins=50, ax=axes[i], color='teal', kde=False)
         axes[i].set_title(f"{name} до обработки выбросов")
         i+=1
     plt.tight_layout()
@@ -194,17 +194,13 @@ if __name__=="__main__":
     df['temp_diff'] = df['temp_max'] - df['temp_min']
     df['temp_max_prev'] = df['temp_max'].shift(1)
     df['precipitation_prev'] = df['precipitation'].shift(1)
-    # df['avg_temperature']=(df["temp_max"]+df["temp_min"])/2
-    # df['temp_precipitation']=df["precipitation"]*df['avg_temperature']
     df['temp_diff_precipitation_prev']=df['precipitation_prev']*df['temp_diff']
     df['temp_max_change'] = df['temp_max'] - df['temp_max_prev']
     df['temp_min_change'] = df['temp_min'] - df['temp_min'].shift(1)
-    # df['avg_temp_change'] = df['avg_temperature'] - df['avg_temperature'].shift(1)
-    # df['precipitation_change'] = df['precipitation'] - df['precipitation_prev']
+
     df['is_cloudy'] = (df['weather_fog'] + df['weather_drizzle'] + df['weather_rain']).clip(0, 1)
     df['is_clear'] = df['weather_sun']
-    # df['temp_precip_change'] = df['precipitation_change'] * df['avg_temperature']
-    # df['tempdiff_precip_change'] = df['temp_diff'] * df['precipitation_change']
+
     print("Table:")
     print(df.info() )
     print(df.head())
