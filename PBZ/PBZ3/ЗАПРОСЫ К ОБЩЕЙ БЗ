@@ -1,0 +1,68 @@
+PREFIX my: <http://www.technical-sciences.org/ontology#>
+
+SELECT ?industry ?label ?sourceClass
+WHERE {
+  {
+    # Твои индустрии напрямую
+    ?industry a my:IndustrySector .
+    BIND(my:IndustrySector AS ?sourceClass)
+  }
+  UNION
+  {
+    # Индустрии из эквивалентного внешнего класса
+    ?eqClass owl:equivalentClass my:IndustrySector .
+    ?industry a ?eqClass .
+    BIND(?eqClass AS ?sourceClass)
+  }
+  UNION
+  {
+    # Обратная связь (внешний класс эквивалентен твоему)
+    my:IndustrySector owl:equivalentClass ?eqClass .
+    ?industry a ?eqClass .
+    BIND(?eqClass AS ?sourceClass)
+  }
+  
+  OPTIONAL { ?industry rdfs:label ?label }
+}
+
+----------------------------------------------------------------------------------------
+
+PREFIX my: <http://www.technical-sciences.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?phenomenon ?label ?sourceClass
+WHERE {
+  {
+    ?phenomenon a my:ResearchObject .
+    BIND(my:ResearchObject AS ?sourceClass)
+  }
+  UNION
+  {
+    ?subClass rdfs:subClassOf* my:ResearchObject .
+    ?phenomenon a ?subClass .
+    BIND(?subClass AS ?sourceClass)
+  }
+  UNION
+  {
+    # Эквивалентные классы
+    ?eqClass owl:equivalentClass my:ResearchObject .
+    ?phenomenon a ?eqClass .
+    BIND(?eqClass AS ?sourceClass)
+  }
+  UNION
+  {
+    my:ResearchObject owl:equivalentClass ?eqClass .
+    ?phenomenon a ?eqClass .
+    BIND(?eqClass AS ?sourceClass)
+  }
+  UNION
+  {
+    ?eqClass owl:equivalentClass|^(owl:equivalentClass) my:ResearchObject .
+    ?subEqClass rdfs:subClassOf* ?eqClass .
+    ?phenomenon a ?subEqClass .
+    BIND(?subEqClass AS ?sourceClass)
+  }
+  
+  OPTIONAL { ?phenomenon rdfs:label ?label }
+}
