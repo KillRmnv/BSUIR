@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <uri id="Imports Wizard Entry" name="http://edamontology.org" uri="EDAM.owl"/>
+    <uri id="User Entered Import Resolution" name="http://www.w3.org/2004/02/skos/core" uri="ModSci.ttl"/>
+    <uri id="Imports Wizard Entry" name="http://edamontology.org" uri="EDAM.owl"/>
     <uri id="User Entered Import Resolution" name="http://xmlns.com/foaf/0.1/" uri="ModSci.ttl"/>
     <uri id="User Entered Import Resolution" name="http://sweetontology.net/sweetMerged" uri="EDAM.owl"/>
     <uri id="Imports Wizard Entry" name="http://edamontology.org" uri="EDAM.owl"/>
@@ -11,14 +13,14 @@
     <uri id="Imports Wizard Entry" name="http://edamontology.org" uri="EDAM.owl"/>
     <uri id="Imports Wizard Entry" name="https://w3id.org/skgo/modsci/1.0" uri="ModSci.ttl"/>
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1773160754508" name="http://edamontology.org/" uri="EDAM.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1773160754508" name="duplicate:http://www.technical-sciences.org/ontology" uri="ALL_IN_ONE.rdf"/>
-        <uri id="Automatically generated entry, Timestamp=1773160754508" name="duplicate:http://www.technical-sciences.org/ontology" uri="ontologiev3.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1773160754508" name="shadowed:http://edamontology.org/" uri="my-app/src/main/resources/EDAM.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1773160754508" name="shadowed:http://edamontology.org/" uri="my-app/target/classes/EDAM.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1773160754508" name="shadowed:http://www.technical-sciences.org/ontology" uri="my-app/src/main/resources/ALL.rdf"/>
-        <uri id="Automatically generated entry, Timestamp=1773160754508" name="shadowed:http://www.technical-sciences.org/ontology" uri="my-app/src/main/resources/ontologiev3.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1773160754508" name="shadowed:http://www.technical-sciences.org/ontology" uri="my-app/target/classes/ALL.rdf"/>
-        <uri id="Automatically generated entry, Timestamp=1773160754508" name="shadowed:http://www.technical-sciences.org/ontology" uri="my-app/target/classes/ontologiev3.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1774073313888" name="http://edamontology.org/" uri="EDAM.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1774073313888" name="http://www.technical-sciences.org/ontology" uri="ontologiev3.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1774073313888" name="https://w3id.org/skgo/modsci#" uri="ALLL.owx"/>
+        <uri id="Automatically generated entry, Timestamp=1774073313888" name="shadowed:http://edamontology.org/" uri="my-app/src/main/resources/EDAM.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1774073313888" name="shadowed:http://edamontology.org/" uri="my-app/target/classes/EDAM.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1774073313888" name="shadowed:http://www.technical-sciences.org/ontology" uri="my-app/src/main/resources/ontologiev3.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1774073313888" name="shadowed:http://www.technical-sciences.org/ontology" uri="my-app/target/classes/ontologiev3.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1774073313888" name="shadowed:https://w3id.org/skgo/modsci#" uri="my-app/src/main/resources/MERGED_ENTITIES.owx"/>
+        <uri id="Automatically generated entry, Timestamp=1774073313888" name="shadowed:https://w3id.org/skgo/modsci#" uri="my-app/target/classes/MERGED_ENTITIES.owx"/>
     </group>
 </catalog>

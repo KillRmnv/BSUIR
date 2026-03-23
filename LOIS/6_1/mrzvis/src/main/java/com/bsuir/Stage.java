@@ -1,3 +1,11 @@
+/*
+Лабораторная работа №1
+Выполнил студент группы 321701
+Романов К.В.
+Вариант 6
+Улучшенный класс Stage с отслеживанием операций
+*/
+
 package com.bsuir;
 
 import java.util.List;
@@ -40,7 +48,8 @@ public class Stage {
     }
 
     public void execute() throws InterruptedException {
-        if (pairs == null || pairs.isEmpty()) return;
+        if (pairs == null || pairs.isEmpty())
+            return;
 
         CountDownLatch latch = new CountDownLatch(pairs.size());
 
@@ -49,7 +58,10 @@ public class Stage {
                 BinaryNumber a = pair.getFirst();
                 BinaryNumber b = pair.getSecond().clone();
                 int p = Config.amountOfBits;
-                int size = a.size(); 
+                int size = a.size();
+
+                
+                pair.setStateBeforeOp(a.clone());
 
                 BinaryNumber bAligned = new BinaryNumber(size);
                 for (int i = 0; i < p; i++) {
@@ -58,23 +70,27 @@ public class Stage {
 
                 try {
                     BinaryNumber result;
-
                     if (a.getBits()[size - 1] == 1) {
                         a.shiftLeft();
                         result = a.add(bAligned);
+                        pair.setOperation("+M");
                     } else {
                         a.shiftLeft();
                         result = a.subtract(bAligned);
+                        pair.setOperation("-M");
                     }
 
                     if (result.getBits()[size - 1] == 1) {
                         result.setBit(0, 0);
+                        pair.setCurrentBit(0);
                     } else {
                         result.setBit(0, 1);
+                        pair.setCurrentBit(1);
                     }
 
                     if (isLast && result.getBits()[size - 1] == 1) {
                         result = result.add(bAligned);
+                        pair.setOperation(pair.getOperation() + " + Коррекция");
                     }
 
                     pair.setFirst(result);
@@ -82,28 +98,10 @@ public class Stage {
                     latch.countDown();
                 }
             })
-                .start();
+                    .start();
         }
 
         latch.await();
-    }
-
-    private void changeBit(BinaryNumber result, int size) {
-        if (result.getBits()[size - 1] == 1) {
-            result.setBit(0, 0);
-        } else {
-            result.setBit(0, 1);
-        }
-    }
-
-    private BinaryNumber addSubstact(BinaryNumber first, BinaryNumber second) {
-        int size = first.size();
-
-        if (first.getBits()[size - 1] == 1) {
-            return first.add(second);
-        } else {
-            return first.subtract(second);
-        }
     }
 
     public void eject() {

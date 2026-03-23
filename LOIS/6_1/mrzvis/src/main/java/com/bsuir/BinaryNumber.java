@@ -1,3 +1,16 @@
+/*
+Лабораторная работа №1
+Выполнил студент группы 321701
+Романов К.В.
+Вариант 6
+Алгоритм вычисления целочисленного частного пары 4-разрядных чисел делением без восстановления частичного остатка
+Файл реализующий класс бинарного числа
+Источники:
+(1) Интеграционная платформа
+
+14.03.2026
+
+ */
 package com.bsuir;
 
 public class BinaryNumber {
@@ -78,5 +91,29 @@ public class BinaryNumber {
         for (int i = 0; i < bits.length; i++) {
             bits[i] = (value >> i) & 1;
         }
+    }
+
+    public String toBinaryString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = bits.length - 1; i >= 0; i--) {
+            sb.append(bits[i]);
+        }
+        return sb.toString();
+    }
+
+    public String toBinaryString(int from, int to) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = to - 1; i >= from; i--) {
+            sb.append(bits[i]);
+        }
+        return sb.toString();
+    }
+
+    public int toInt() {
+        int result = 0;
+        for (int i = 0; i < bits.length; i++) {
+            result += bits[i] * (1 << i);
+        }
+        return result;
     }
 }

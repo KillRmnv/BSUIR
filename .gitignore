@@ -407,7 +407,8 @@ CVS/
 *.pptx
 *.xls
 *.xlsx
-
+mvnw 
+mvnw.cmd  
 
 # Разрешить важные конфиги IDE, если они нужны для команды
 !.vscode/settings.json
