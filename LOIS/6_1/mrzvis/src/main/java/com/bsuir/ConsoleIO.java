@@ -134,12 +134,13 @@ public class ConsoleIO {
 
     private void displayPairState(Pair pair) {
         int p = Config.amountOfBits;
-        BinaryNumber current = pair.getFirst();
-        int[] bits = current.getBits();
-
-        int[] aBits = Arrays.copyOfRange(bits, p, 2 * p);
-        int[] qBits = Arrays.copyOfRange(bits, 0, p);
-
+        int[] bits2=pair.getStateBeforeOp().getBits();
+        int[] aBits = Arrays.copyOfRange(bits2,p, 2*p);
+        int[] qBits = Arrays.copyOfRange(bits2, 0, p);
+        int[] reversedArray = new int[qBits.length];
+        for (int i = 0; i < qBits.length; i++) {
+            reversedArray[i] = qBits[qBits.length - 1 - i];
+        }
         BinaryNumber aNum = new BinaryNumber(aBits);
         BinaryNumber qNum = new BinaryNumber(qBits);
 
