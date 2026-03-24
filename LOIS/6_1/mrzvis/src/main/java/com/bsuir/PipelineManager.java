@@ -18,6 +18,7 @@ public class PipelineManager {
     private List<Pair> completedPairs = new ArrayList<>();
 
     public void init() {
+        io.clearConsole();
         System.out.println("\nГенерация " + Config.amountOfPairs + " пар...");
         for (int i = 0; i < Config.amountOfPairs; i++) {
             System.out.print("  Пара " + i + ": ");

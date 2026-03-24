@@ -22,13 +22,13 @@ public class ConsoleIO {
     private Random random = new Random();
 
     public void inputPipelineParams() {
+        clearConsole();
         System.out.println("НАСТРОЙКА ПАЙПЛАЙНА");
 
         Config.amountOfPairs = readSafeInt(
             "m - длина вектора (кол-во пар): ",
             1
         );
-        Config.parallelism = readSafeInt("r - ранг задачи (параллелизм): ", 1);
         Config.amountOfBits = readSafeInt("p - разряды (количество бит): ", 1);
         Config.tactTime = readSafeInt("ti - тактов на этап: ", 1);
     }
@@ -130,6 +130,57 @@ public class ConsoleIO {
         System.out.println(
             "-----------------------------------------------------------------"
         );
+
+        System.out.println("\n>>> Нажмите Enter для продолжения...");
+        System.out.flush();
+        
+        try {
+            int input = System.in.read();
+            
+            while (System.in.available() > 0) {
+                System.in.read();
+            }
+            
+            Thread.sleep(50);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        clearConsole();
+    }
+
+
+    public void clearConsole() {
+        try {
+            final String os = System.getProperty("os.name");
+
+            if (os.contains("Windows")) {
+                Runtime.getRuntime().exec("cls");
+                Thread.sleep(100); 
+                
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                
+                System.out.print("\033[0;0H\033[2J");
+                System.out.flush();
+            } else {
+                System.out.print("\033[H\033[2J\033[3J");
+                System.out.flush();
+                
+                System.out.print("\033c"); 
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            System.out.print("\033[H\033[2J\033[3J");
+            System.out.flush();
+            
+            for (int i = 0; i < 100; i++) {
+                System.out.println();
+            }
+            
+            System.out.print("\033[H");
+            System.out.flush();
+        }
     }
 
     private void displayPairState(Pair pair) {
@@ -259,7 +310,6 @@ public class ConsoleIO {
         for (int i = 0; i < bits.length; i++) {
             result += bits[i] * (1 << i);
         }
-
         return result;
     }
 }
