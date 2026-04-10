@@ -23,10 +23,8 @@ private:
     size_t size;
 
 public:
-    // 1. Конструктор по умолчанию
     Claster() : memory(nullptr), size(0) {}
 
-    // 2. Конструктор с выделением памяти
     Claster(size_t size) : size(size) {
         memory = malloc(size);
         if (!memory) {
@@ -34,30 +32,26 @@ public:
         }
     }
 
-    // 3. Копирующий конструктор
     Claster(const Claster &other) : size(other.size) {
         if (other.memory) {
-            memory = malloc(size); // Выделяем новую память такого же размера
+            memory = malloc(size);
             if (!memory) {
                 throw std::bad_alloc();
             }
-            memcpy(memory, other.memory, size); // Копируем данные
+            memcpy(memory, other.memory, size); 
         } else {
             memory = nullptr;
         }
     }
 
-    // 4. Перемещающий конструктор (C++11)
     Claster(Claster &&other) noexcept : memory(other.memory), size(other.size) {
-        other.memory = nullptr; // Очищаем память в перемещённом объекте
+        other.memory = nullptr; 
         other.size = 0;
     }
 
-    // 5. Оператор присваивания (копирующий)
     Claster &operator=(const Claster &other) {
-        if (this == &other) return *this; // Проверка на самоприсваивание
+        if (this == &other) return *this;
 
-        // Если уже была выделена память, очищаем её
         if (memory) {
             free(memory);
         }
@@ -77,27 +71,22 @@ public:
         return *this;
     }
 
-    // 6. Оператор присваивания (перемещающий)
     Claster &operator=(Claster &&other) noexcept {
-        if (this == &other) return *this; // Проверка на самоприсваивание
+        if (this == &other) return *this; 
 
-        // Освобождаем текущую память
         if (memory) {
             free(memory);
         }
 
-        // Перемещаем данные
         memory = other.memory;
         size = other.size;
 
-        // Очищаем исходный объект
         other.memory = nullptr;
         other.size = 0;
 
         return *this;
     }
 
-    // 7. Деструктор
     ~Claster() {
         if (memory) {
             free(memory);
@@ -105,12 +94,10 @@ public:
         }
     }
 
-    // Чтение данных
     void *read() {
         return memory;
     }
 
-    // Запись данных
     void write(void *data, size_t length) {
         if (length > size) {
             throw std::out_of_range("Data length exceeds allocated memory");

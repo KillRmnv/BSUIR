@@ -291,7 +291,7 @@ coverage/
 *.sqlite3
 
 # MySQL / PostgreSQL dumps
-*.sql
+
 *.dump
 *.bak
 
@@ -400,9 +400,7 @@ CVS/
 *.ai
 *.sketch
 *.fig
-*.pdf
-*.doc
-*.docx
+
 *.ppt
 *.pptx
 *.xls

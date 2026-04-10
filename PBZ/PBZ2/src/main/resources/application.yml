@@ -21,5 +21,5 @@ flyway:
 
 logger:
   levels:
-    ROOT: INFO           # минимальный уровень для всего приложения
-    org.flywaydb: DEBUG  # включаем подробные логи Flyway
+    ROOT: INFO           
+    org.flywaydb: DEBUG 

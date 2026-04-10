@@ -62,7 +62,6 @@ def KNN(df, columns):
 
     return df
 def fill_gaps_with_most_frequent(names):
-    # Заполнение наиболее частым значением
     imputer_freq = SimpleImputer(strategy="most_frequent")
     for name in names:
         df[f"{name}_filled_freq"] = imputer_freq.fit_transform(df[[name]])  
@@ -80,7 +79,6 @@ def one_hot(df, columns):
         index=df.index
     )
 
-    # Убираем оригинальные категориальные колонки
     df = pd.concat([df.drop(columns=columns), encoded_df], axis=1)
     return df
 def get_season(month):
@@ -179,7 +177,6 @@ if __name__=="__main__":
     
     df['date'] = pd.to_datetime(df['date'])
 
-    # Добавим колонку с месяцем
     df['month'] = df['date'].dt.month
     df['season'] = df['month'].apply(get_season)
     print("Table:")

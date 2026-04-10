@@ -16,33 +16,60 @@
 @prefix cpannotationschema: <http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl#> .
 @base <https://w3id.org/skgo/modsci##> .
 
-<https://w3id.org/skgo/modsci#> rdf:type owl:Ontology ;
-                                 owl:versionIRI <https://w3id.org/skgo/modsci/1.0> ;
-                                 owl:imports <http://www.w3.org/2004/02/skos/core> ,
-                                             foaf: ;
-                                 dc:creator "Said Fathalla" ;
-                                 terms:contributor <https://scholar.google.de/citations?user=JOI-7d0AAAAJ&hl=en> ;
-                                 terms:created "2019-09-01"@en ;
-                                 terms:description "ModSci is a reference ontology for modelling different types of modern sciences and related entities, such as scientific discoveries, renowned scientists, instruments, phenomena ... etc."@en ;
-                                 terms:license <http://creativecommons.org/licenses/by/3.0/> ;
-                                 terms:title "ModSci, Modern Science Ontology."@en ;
-                                 vann:preferredNamespacePrefix "modsci" ;
-                                 owl:versionInfo 1.0 .
+<https://pbz.org> rdf:type owl:Ontology ;
+                   owl:versionIRI <https://pbz.org/1.0> ;
+                   owl:imports <http://edamontology.org> ,
+                               <http://sweetontology.net/sweetMerged> ,
+                               <http://www.technical-sciences.org/ontology> ,
+                               <http://www.w3.org/2004/02/skos/core> ,
+                               foaf: ;
+                   dc:creator "Said Fathalla" ;
+                   terms:contributor <https://scholar.google.de/citations?user=JOI-7d0AAAAJ&hl=en> ;
+                   terms:created "2019-09-01"@en ;
+                   terms:description "ModSci is a reference ontology for modelling different types of modern sciences and related entities, such as scientific discoveries, renowned scientists, instruments, phenomena ... etc."@en ;
+                   terms:license <http://creativecommons.org/licenses/by/3.0/> ;
+                   terms:title "ModSci, Modern Science Ontology."@en ;
+                   vann:preferredNamespacePrefix "modsci" ;
+                   owl:versionInfo 1.0 .
 
 #################################################################
 #    Annotation properties
 #################################################################
 
-###  http://purl.org/dc/elements/1.1/creator
-dc:creator rdf:type owl:AnnotationProperty .
+###  http://edamontology.org/created_by
+<http://edamontology.org/created_by> rdf:type owl:AnnotationProperty .
+
+
+###  http://edamontology.org/hasHumanReadableId
+<http://edamontology.org/hasHumanReadableId> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/contributor
+terms:contributor rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/dc/terms/created
 terms:created rdf:type owl:AnnotationProperty .
 
 
+###  http://purl.org/dc/terms/description
+terms:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/format
+terms:format rdf:type owl:AnnotationProperty .
+
+
 ###  http://purl.org/dc/terms/license
 terms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+terms:title rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/vocab/vann/preferredNamespacePrefix
@@ -51,6 +78,38 @@ vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty .
 
 ###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
 <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.geneontology.org/formats/oboInOwl#created_by
+<http://www.geneontology.org/formats/oboInOwl#created_by> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.geneontology.org/formats/oboInOwl#creation_date
+<http://www.geneontology.org/formats/oboInOwl#creation_date> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#altLabel
+skos:altLabel rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#broadMatch
+skos:broadMatch rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#closeMatch
+skos:closeMatch rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#editorialNote
+skos:editorialNote rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#exactMatch
+skos:exactMatch rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#narrowMatch
+skos:narrowMatch rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.w3.org/2004/02/skos/core#nationality
@@ -62,13 +121,25 @@ skos:nationality rdf:type owl:AnnotationProperty ;
 skos:prefLabel rdf:type owl:AnnotationProperty .
 
 
+###  http://www.w3.org/2004/02/skos/core#relatedMatch
+skos:relatedMatch rdf:type owl:AnnotationProperty .
+
+
 ###  http://xmlns.com/foaf/0.1/familyName
 foaf:familyName rdf:type owl:AnnotationProperty .
+
+
+###  http://xmlns.com/foaf/0.1/logo
+foaf:logo rdf:type owl:AnnotationProperty .
 
 
 #################################################################
 #    Object Properties
 #################################################################
+
+###  http://www.w3.org/2004/02/skos/core#related
+skos:related rdf:type owl:ObjectProperty .
+
 
 ###  https://w3id.org/skgo/modsci#appliesLawsFrom
 modsci:appliesLawsFrom rdf:type owl:ObjectProperty ,
@@ -131,7 +202,7 @@ modsci:discoveredByNaturalScience rdf:type owl:ObjectProperty ;
 modsci:discoveredByScience rdf:type owl:ObjectProperty ,
                                     owl:FunctionalProperty ;
                            rdfs:domain [ rdf:type owl:Class ;
-                                         owl:unionOf ( sweet:Phenomenon
+                                         owl:unionOf ( <http://www.technical-sciences.org/ontology#ResearchObject>
                                                        modsci:ScientificDiscovery
                                                      )
                                        ] ;
@@ -142,7 +213,7 @@ modsci:discoveredByScience rdf:type owl:ObjectProperty ,
 modsci:discoveredByScientist rdf:type owl:ObjectProperty ,
                                       owl:FunctionalProperty ;
                              rdfs:domain [ rdf:type owl:Class ;
-                                           owl:unionOf ( sweet:Phenomenon
+                                           owl:unionOf ( <http://www.technical-sciences.org/ontology#ResearchObject>
                                                          modsci:ScientificDiscovery
                                                        )
                                          ] ,
@@ -222,7 +293,7 @@ modsci:inspiredFrom rdf:type owl:ObjectProperty ,
                              owl:FunctionalProperty ;
                     rdfs:domain modsci:ScientificMethod ;
                     rdfs:range [ rdf:type owl:Class ;
-                                 owl:unionOf ( sweet:Phenomenon
+                                 owl:unionOf ( <http://www.technical-sciences.org/ontology#ResearchObject>
                                                modsci:ScientificDiscovery
                                              )
                                ] .
@@ -254,7 +325,7 @@ modsci:instrumentUsedInScience rdf:type owl:ObjectProperty ;
 ###  https://w3id.org/skgo/modsci#interestedInPhenomenon
 modsci:interestedInPhenomenon rdf:type owl:ObjectProperty ;
                               rdfs:domain modsci:Scientist ;
-                              rdfs:range sweet:Phenomenon .
+                              rdfs:range <http://www.technical-sciences.org/ontology#ResearchObject> .
 
 
 ###  https://w3id.org/skgo/modsci#isApplicationOfAppliedScience
@@ -302,7 +373,7 @@ modsci:isApplicationOfSocialSciences rdf:type owl:ObjectProperty ;
 modsci:isDiscoveredBy rdf:type owl:ObjectProperty ,
                                owl:IrreflexiveProperty ;
                       rdfs:domain [ rdf:type owl:Class ;
-                                    owl:unionOf ( sweet:Phenomenon
+                                    owl:unionOf ( <http://www.technical-sciences.org/ontology#ResearchObject>
                                                   modsci:ScientificDiscovery
                                                 )
                                   ] ;
@@ -346,7 +417,7 @@ modsci:suppliesSubstancesTo rdf:type owl:ObjectProperty ;
                             rdf:type owl:ReflexiveProperty ;
                             rdfs:domain modsci:ModernScience ;
                             rdfs:range [ rdf:type owl:Class ;
-                                         owl:unionOf ( modsci:Industry
+                                         owl:unionOf ( <http://www.technical-sciences.org/ontology#IndustrySector>
                                                        modsci:ModernScience
                                                      )
                                        ] .
@@ -387,10 +458,51 @@ modsci:InstrumentFunctionDesription rdf:type owl:DatatypeProperty ;
 #    Classes
 #################################################################
 
-###  http://sweetontology.net/phen/Phenomenon
-sweet:Phenomenon rdf:type owl:Class ;
-                 rdfs:comment "A phenomenon, in a scientific context, is something that is observed to occur or to exist."@en ;
-                 rdfs:label "Phenomenon"@en .
+###  http://edamontology.org/topic_0605
+<http://edamontology.org/topic_0605> rdfs:subClassOf <http://www.technical-sciences.org/ontology#TheoreticalDiscipline> .
+
+
+###  http://edamontology.org/topic_3314
+<http://edamontology.org/topic_3314> rdfs:subClassOf <http://www.technical-sciences.org/ontology#TheoreticalDiscipline> .
+
+
+###  http://edamontology.org/topic_3315
+<http://edamontology.org/topic_3315> rdfs:subClassOf <http://www.technical-sciences.org/ontology#TheoreticalDiscipline> .
+
+
+###  http://edamontology.org/topic_3316
+<http://edamontology.org/topic_3316> rdfs:subClassOf <http://www.technical-sciences.org/ontology#TheoreticalDiscipline> .
+
+
+###  http://edamontology.org/topic_3318
+<http://edamontology.org/topic_3318> rdfs:subClassOf <http://www.technical-sciences.org/ontology#TheoreticalDiscipline> .
+
+
+###  http://www.technical-sciences.org/ontology#AppliedDiscipline
+<http://www.technical-sciences.org/ontology#AppliedDiscipline> rdf:type owl:Class ;
+                                                               rdfs:subClassOf modsci:ModernScience ;
+                                                               rdfs:comment "Applied science is the use or the study of the use of scientific knowledge to develop technology." ;
+                                                               skos:altLabel "Applied Sciences" .
+
+
+###  http://www.technical-sciences.org/ontology#IndustrySector
+<http://www.technical-sciences.org/ontology#IndustrySector> rdf:type owl:Class ;
+                                                            rdfs:comment "An industry is a sector that produces goods or related services within an economy." ;
+                                                            skos:altLabel "Industry" .
+
+
+###  http://www.technical-sciences.org/ontology#ResearchObject
+<http://www.technical-sciences.org/ontology#ResearchObject> rdf:type owl:Class ;
+                                                            rdfs:comment "A phenomenon, in a scientific context, is something that is observed to occur or to exist."@en ;
+                                                            skos:altLabel "Phenomenon"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Organization
+foaf:Organization rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class .
 
 
 ###  https://w3id.org/skgo/modsci#AcidbaseChemistry
@@ -402,14 +514,14 @@ modsci:AcidbaseChemistry rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#Acoustics
 modsci:Acoustics rdf:type owl:Class ;
-                 rdfs:subClassOf modsci:AppliedSciences ;
+                 rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                  rdfs:comment "Acoustics is a branch of continuum mechanics and is the study of sound, mechanical waves in gases, liquids, and solids." ;
                  rdfs:label "Acoustics" .
 
 
 ###  https://w3id.org/skgo/modsci#Agriculture
 modsci:Agriculture rdf:type owl:Class ;
-                   rdfs:subClassOf modsci:AppliedSciences ;
+                   rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                    rdfs:comment "Agriculture, also known as farming, is the process of producing food, feed, fiber and other desired products by cultivation of certain plants and the raising of domesticated animals." ;
                    rdfs:label "Agriculture" .
 
@@ -449,7 +561,7 @@ modsci:ApplicationOfScience rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#AppliedMathematics
 modsci:AppliedMathematics rdf:type owl:Class ;
-                          rdfs:subClassOf modsci:AppliedSciences ;
+                          rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                           rdfs:comment "Applied mathematics is a branch of mathematics that concerns itself with the application of mathematical knowledge to other domains." ;
                           rdfs:label "Applied Mathematics" .
 
@@ -462,13 +574,6 @@ modsci:AppliedPhysics rdf:type owl:Class ;
                       rdfs:label "Applied and Interdisciplinary Physics" .
 
 
-###  https://w3id.org/skgo/modsci#AppliedSciences
-modsci:AppliedSciences rdf:type owl:Class ;
-                       rdfs:subClassOf modsci:ModernScience ;
-                       rdfs:comment "Applied science is the use or the study of the use of scientific knowledge to develop technology." ;
-                       rdfs:label "Applied Sciences" .
-
-
 ###  https://w3id.org/skgo/modsci#Archaeology
 modsci:Archaeology rdf:type owl:Class ;
                    rdfs:subClassOf modsci:SocialSciences ;
@@ -478,7 +583,7 @@ modsci:Archaeology rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#Architecture
 modsci:Architecture rdf:type owl:Class ;
-                    rdfs:subClassOf modsci:AppliedSciences ;
+                    rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                     rdfs:comment "Architecture is the art and science of designing buildings." ;
                     rdfs:label "Architecture" .
 
@@ -775,7 +880,7 @@ modsci:ComputerGraphics rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#ComputerScience
 modsci:ComputerScience rdf:type owl:Class ;
-                       rdfs:subClassOf modsci:AppliedSciences ;
+                       rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                        rdfs:comment "Computer science is the study of processes that interact with data and that can be represented as data in the form of programs." ;
                        rdfs:label "Computer Science" .
 
@@ -907,14 +1012,14 @@ modsci:Economics rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#Education
 modsci:Education rdf:type owl:Class ;
-                 rdfs:subClassOf modsci:AppliedSciences ;
+                 rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                  rdfs:comment "Education is the teaching or learning of knowledge, especially to develop the reasoning, judgement and skill required in adult life and professional occupations." ;
                  rdfs:label "Education" .
 
 
 ###  https://w3id.org/skgo/modsci#Engineering
 modsci:Engineering rdf:type owl:Class ;
-                   rdfs:subClassOf modsci:AppliedSciences ;
+                   rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                    rdfs:comment "Engineering is the practical application of science. This is accomplished through knowledge, mathematics, and practical experience applied to the design of useful objects or processes." ;
                    rdfs:label "Engineering" .
 
@@ -942,7 +1047,7 @@ modsci:Epidemiology rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#Ergonomics
 modsci:Ergonomics rdf:type owl:Class ;
-                  rdfs:subClassOf modsci:AppliedSciences ;
+                  rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                   rdfs:comment "Human factors and ergonomics is the application of psychological and physiological principles to the (engineering and) design of products, processes, and systems." ;
                   rdfs:label "Ergonomics" .
 
@@ -1019,7 +1124,7 @@ modsci:FoodChemistry rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#Forensics
 modsci:Forensics rdf:type owl:Class ;
-                 rdfs:subClassOf modsci:AppliedSciences ;
+                 rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                  rdfs:comment "Forensic science, also known as criminalistics, is the application of science to criminal and civil laws, mainly—on the criminal side—during criminal investigation, as governed by the legal standards of admissible evidence and criminal procedure." ;
                  rdfs:label "Forensics" .
 
@@ -1199,20 +1304,14 @@ modsci:Immunology rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#IndustrialScience
 modsci:IndustrialScience rdf:type owl:Class ;
-                         rdfs:subClassOf modsci:AppliedSciences ;
+                         rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                          rdfs:comment "An industrial process alters materials or substances." ;
                          rdfs:label "Industrial Process" .
 
 
-###  https://w3id.org/skgo/modsci#Industry
-modsci:Industry rdf:type owl:Class ;
-                rdfs:comment "An industry is a sector that produces goods or related services within an economy." ;
-                rdfs:label "Industry" .
-
-
 ###  https://w3id.org/skgo/modsci#InformationScience
 modsci:InformationScience rdf:type owl:Class ;
-                          rdfs:subClassOf modsci:AppliedSciences ;
+                          rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                           rdfs:comment "Information science is a field primarily concerned with the analysis, collection, classification, manipulation, storage, retrieval, movement, dissemination, and protection of information." ;
                           rdfs:label "Information Science" .
 
@@ -1250,7 +1349,7 @@ modsci:LaboratoryInstrument rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#LibraryScience
 modsci:LibraryScience rdf:type owl:Class ;
-                      rdfs:subClassOf modsci:AppliedSciences ,
+                      rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ,
                                       modsci:InterdisciplinaryStudies ;
                       rdfs:comment "Library science is an interdisciplinary or multidisciplinary field that applies the practices, perspectives, and tools of management, information technology, education, and other areas to libraries; the collection, organization, preservation, and dissemination of information resources; and the political economy of information." ;
                       rdfs:label "Library Science" .
@@ -1322,7 +1421,7 @@ modsci:Mathematics rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#Measurement
 modsci:Measurement rdf:type owl:Class ;
-                   rdfs:subClassOf modsci:AppliedSciences ;
+                   rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                    rdfs:comment "Measurement is the assignment of a number to a characteristic of an object or event, which can be compared with other objects or events." ;
                    rdfs:label "Measurement" .
 
@@ -1368,14 +1467,14 @@ modsci:MeteorologicalPhenomena rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#Metrology
 modsci:Metrology rdf:type owl:Class ;
-                 rdfs:subClassOf modsci:AppliedSciences ;
+                 rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                  rdfs:comment "Metrology is the science of measurement." ;
                  rdfs:label "Metrology" .
 
 
 ###  https://w3id.org/skgo/modsci#MilitaryScience
 modsci:MilitaryScience rdf:type owl:Class ;
-                       rdfs:subClassOf modsci:AppliedSciences ;
+                       rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                        rdfs:comment "Military science is the study of military processes, dentsciitutions, and behavior, along with the study of warfare, and the theory and application of organized coercive force." ;
                        rdfs:label "Military Science" .
 
@@ -1418,7 +1517,7 @@ modsci:NaturalLanguageProcessing rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#NaturalPhenomenon
 modsci:NaturalPhenomenon rdf:type owl:Class ;
-                         rdfs:subClassOf sweet:Phenomenon ;
+                         rdfs:subClassOf <http://www.technical-sciences.org/ontology#ResearchObject> ;
                          owl:disjointWith modsci:SocialPhenomenon ;
                          rdfs:comment "Natural phenomena include gravity, tides, biological processes and oscillation."@en ;
                          rdfs:label "Natural Phenomenon"@en .
@@ -1489,7 +1588,7 @@ modsci:OperatingSystems rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#Optics
 modsci:Optics rdf:type owl:Class ;
-              rdfs:subClassOf modsci:AppliedSciences ;
+              rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
               rdfs:comment "Optics is the branch of physics that studies the behaviour and properties of light, including its interactions with matter and the construction of instruments that use or detect it." ;
               rdfs:label "Optics" .
 
@@ -1799,7 +1898,7 @@ modsci:Semiotics rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#SocialPhenomenon
 modsci:SocialPhenomenon rdf:type owl:Class ;
-                        rdfs:subClassOf sweet:Phenomenon ;
+                        rdfs:subClassOf <http://www.technical-sciences.org/ontology#ResearchObject> ;
                         rdfs:comment "Social phenomena are those that occur or exist through the actions of groups of humans."@en ;
                         rdfs:label "Social Phenomenon"@en .
 
@@ -1890,7 +1989,7 @@ modsci:SpaceScience rdf:type owl:Class ;
 
 ###  https://w3id.org/skgo/modsci#SportsScience
 modsci:SportsScience rdf:type owl:Class ;
-                     rdfs:subClassOf modsci:AppliedSciences ;
+                     rdfs:subClassOf <http://www.technical-sciences.org/ontology#AppliedDiscipline> ;
                      rdfs:comment "Sports science is a discipline that studies how the healthy human body works during exercise, and how sport and physical activity promote health and performance from cellular to whole body perspectives." ;
                      rdfs:label "Sports Science" .
 
@@ -2037,6 +2136,18 @@ modsci:Zoology rdf:type owl:Class ;
 #################################################################
 #    Individuals
 #################################################################
+
+###  http://edamontology.org
+<http://edamontology.org> rdf:type owl:NamedIndividual .
+
+
+###  http://edamontology.org/format_2197
+<http://edamontology.org/format_2197> rdf:type owl:NamedIndividual .
+
+
+###  http://edamontology.org/format_3261
+<http://edamontology.org/format_3261> rdf:type owl:NamedIndividual .
+
 
 ###  https://w3id.org/skgo/modsci#ADInstruments
 modsci:ADInstruments rdf:type owl:NamedIndividual ,
@@ -2186,6 +2297,11 @@ modsci:Deep_Learning rdf:type owl:NamedIndividual ,
                      modsci:inspiredFrom modsci:Biomedical_Signals .
 
 
+###  https://w3id.org/skgo/modsci#Differential_Equations
+modsci:Differential_Equations rdf:type owl:NamedIndividual ,
+                                       <http://edamontology.org/topic_3570> .
+
+
 ###  https://w3id.org/skgo/modsci#Dynamo
 modsci:Dynamo rdf:type owl:NamedIndividual ,
                        modsci:ScientificInstrument ;
@@ -2297,6 +2413,16 @@ modsci:Genetic_algorithms rdf:type owl:NamedIndividual ,
 ###  https://w3id.org/skgo/modsci#Geological_Studies
 modsci:Geological_Studies rdf:type owl:NamedIndividual ,
                                    modsci:Geology .
+
+
+###  https://w3id.org/skgo/modsci#Git
+modsci:Git rdf:type owl:NamedIndividual ,
+                    <http://edamontology.org/topic_4046> .
+
+
+###  https://w3id.org/skgo/modsci#Grammar_extracting
+modsci:Grammar_extracting rdf:type owl:NamedIndividual ,
+                                   <http://edamontology.org/topic_0218> .
 
 
 ###  https://w3id.org/skgo/modsci#Gravitometer
@@ -2475,6 +2601,11 @@ modsci:NASA rdf:type owl:NamedIndividual ,
                      modsci:ScientificOrganization .
 
 
+###  https://w3id.org/skgo/modsci#Next_analysis
+modsci:Next_analysis rdf:type owl:NamedIndividual ,
+                              <http://edamontology.org/topic_0218> .
+
+
 ###  https://w3id.org/skgo/modsci#NovacamTechnologies
 modsci:NovacamTechnologies rdf:type owl:NamedIndividual ,
                                     modsci:ScientificInstrumentManufacturer .
@@ -2560,7 +2691,7 @@ modsci:Racism rdf:type owl:NamedIndividual ,
 
 ###  https://w3id.org/skgo/modsci#Radio_Signals
 modsci:Radio_Signals rdf:type owl:NamedIndividual ,
-                              sweet:Phenomenon ;
+                              <http://www.technical-sciences.org/ontology#ResearchObject> ;
                      modsci:discoveredByScientist modsci:Guglielmo_Marconi .
 
 
@@ -2719,6 +2850,11 @@ modsci:WatersCorporation rdf:type owl:NamedIndividual ,
                                   modsci:ScientificInstrumentManufacturer .
 
 
+###  https://w3id.org/skgo/modsci#WebDev
+modsci:WebDev rdf:type owl:NamedIndividual ,
+                       <http://edamontology.org/topic_3372> .
+
+
 ###  https://w3id.org/skgo/modsci#Weddings
 modsci:Weddings rdf:type owl:NamedIndividual ,
                          modsci:SocialPhenomenon .
@@ -2746,11 +2882,11 @@ modsci:Metabolism rdfs:comment "Metabolism is the set of life-sustaining chemica
 #    Rules
 #################################################################
 
-modsci:x rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+<urn:swrl:var#x> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
-modsci:y rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+<urn:swrl:var#y> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
-modsci:z rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+<urn:swrl:var#z> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
 [ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
    rdfs:comment "" ;
@@ -2759,13 +2895,13 @@ modsci:z rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
    <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
                                                        <http://www.w3.org/2003/11/swrl#classPredicate> modsci:ScientificOrganization ;
-                                                       <http://www.w3.org/2003/11/swrl#argument1> modsci:x
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#x>
                                                      ] ;
                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
                                                                   <http://www.w3.org/2003/11/swrl#propertyPredicate> modsci:isDiscoveredBy ;
-                                                                  <http://www.w3.org/2003/11/swrl#argument1> modsci:y ;
-                                                                  <http://www.w3.org/2003/11/swrl#argument2> modsci:x
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#y> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#x>
                                                                 ] ;
                                                       rdf:rest rdf:nil
                                                     ]
@@ -2773,8 +2909,8 @@ modsci:z rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
    <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> modsci:isDiscoveredByOrganization ;
-                                                       <http://www.w3.org/2003/11/swrl#argument1> modsci:y ;
-                                                       <http://www.w3.org/2003/11/swrl#argument2> modsci:x
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#y> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#x>
                                                      ] ;
                                            rdf:rest rdf:nil
                                          ]
@@ -2787,13 +2923,13 @@ modsci:z rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
    <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
                                                        <http://www.w3.org/2003/11/swrl#classPredicate> modsci:Scientist ;
-                                                       <http://www.w3.org/2003/11/swrl#argument1> modsci:x
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#x>
                                                      ] ;
                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
                                                                   <http://www.w3.org/2003/11/swrl#propertyPredicate> modsci:isDiscoveredBy ;
-                                                                  <http://www.w3.org/2003/11/swrl#argument1> modsci:y ;
-                                                                  <http://www.w3.org/2003/11/swrl#argument2> modsci:x
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#y> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#x>
                                                                 ] ;
                                                       rdf:rest rdf:nil
                                                     ]
@@ -2801,8 +2937,8 @@ modsci:z rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
    <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> modsci:isDiscoveredByScientist ;
-                                                       <http://www.w3.org/2003/11/swrl#argument1> modsci:y ;
-                                                       <http://www.w3.org/2003/11/swrl#argument2> modsci:x
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#y> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#x>
                                                      ] ;
                                            rdf:rest rdf:nil
                                          ]
@@ -2815,14 +2951,14 @@ modsci:z rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
    <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> modsci:discoveredByScientist ;
-                                                       <http://www.w3.org/2003/11/swrl#argument1> modsci:x ;
-                                                       <http://www.w3.org/2003/11/swrl#argument2> modsci:y
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#x> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#y>
                                                      ] ;
                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
                                                                   <http://www.w3.org/2003/11/swrl#propertyPredicate> modsci:discoveredByScience ;
-                                                                  <http://www.w3.org/2003/11/swrl#argument1> modsci:x ;
-                                                                  <http://www.w3.org/2003/11/swrl#argument2> modsci:z
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#x> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#z>
                                                                 ] ;
                                                       rdf:rest rdf:nil
                                                     ]
@@ -2830,8 +2966,8 @@ modsci:z rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
    <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> modsci:scientistBelongsTo ;
-                                                       <http://www.w3.org/2003/11/swrl#argument1> modsci:y ;
-                                                       <http://www.w3.org/2003/11/swrl#argument2> modsci:z
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl:var#y> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl:var#z>
                                                      ] ;
                                            rdf:rest rdf:nil
                                          ]

@@ -13,6 +13,7 @@ package com.bsuir;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -85,7 +86,8 @@ public class ConsoleIO {
     public void displayState(
         int tact,
         List<Stage> stages,
-        List<Pair> completedPairs
+        List<Pair> completedPairs,
+        Queue<Pair> queue
     ) {
         if (!completedPairs.isEmpty() && tact > 0) {
             System.out.println("\nВЫПОЛНЕННЫЕ ПАРЫ:");
@@ -97,6 +99,7 @@ public class ConsoleIO {
         }
 
         System.out.println(" ТАКТ: " + tact);
+        displayQueue(queue);
         System.out.println(
             "ЭТАП    | №   | A (" +
                 Config.amountOfBits +
@@ -181,6 +184,37 @@ public class ConsoleIO {
             System.out.print("\033[H");
             System.out.flush();
         }
+    }
+
+    private void displayQueue(Queue<Pair> queue) {
+        System.out.println("ОЧЕРЕДЬ:");
+        if (queue == null || queue.isEmpty()) {
+            System.out.println("  [ Очередь пуста ]");
+        } else {
+            System.out.println(
+                "№   | Делимое (dec) | Делитель (dec) | Делимое (bin) | Делитель (bin)"
+            );
+            System.out.println(
+                "------------------------------------------------------------------------"
+            );
+            for (Pair pair : queue) {
+                int dividend = pair.getFirst().toInt();
+                int divisor = pair.getDivisor().toInt();
+                String dividendBin = toBinaryString(pair.getFirst());
+                String divisorBin = toBinaryString(pair.getDivisor());
+                System.out.println(
+                    String.format(
+                        "%-3d | %-13d | %-14d | %-13s | %-13s",
+                        pair.getPairNumber(),
+                        dividend,
+                        divisor,
+                        dividendBin,
+                        divisorBin
+                    )
+                );
+            }
+        }
+        System.out.println();
     }
 
     private void displayPairState(Pair pair) {

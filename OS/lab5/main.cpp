@@ -151,8 +151,8 @@ void FileSystem::allocate_memory(unsigned int size, unsigned int clasterSize) {
     clasterTable.allocate(amnt);
     this->clasterSize = clasterSize;
     for (int i = 0; i < amnt; i++) {
-        Claster claster(clasterSize); // Создаём постоянный объект
-        clasters.push_back(claster);    // Копируем объект в вектор
+        Claster claster(clasterSize);
+        clasters.push_back(claster);    
     }
 }
 

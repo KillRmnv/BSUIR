@@ -1,16 +1,18 @@
 PREFIX my: <http://www.technical-sciences.org/ontology#>
-            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-            PREFIX owl: <http://www.w3.org/2002/07/owl#>
-            SELECT DISTINCT ?industry ?label ?sourceClass
-            WHERE {
-              
-                ?industry a my:IndustrySector .
-                BIND(my:IndustrySector AS ?sourceClass)
-              
-             
-              OPTIONAL { ?industry rdfs:label ?label }
-            }
-            ORDER BY ?sourceClass ?industry
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT DISTINCT ?entity ?label ?sourceClass
+WHERE {
+  ?sourceClass rdfs:subClassOf* my:ResearchObject .
+  ?entity a ?sourceClass .
+  
+  FILTER NOT EXISTS { ?entity a rdfs:Class }
+  FILTER NOT EXISTS { ?entity a owl:Class }
+  
+  OPTIONAL { ?entity rdfs:label ?label }
+}
+ORDER BY ?sourceClass ?entity
 ---------------------------------------------------------------------------
 PREFIX my: <http://www.technical-sciences.org/ontology#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -34,7 +36,6 @@ WHERE {
   ?sourceClass rdfs:subClassOf* my:TechnicalDiscipline .
   ?entity a ?sourceClass .
   
-  # Исключаем сами классы (чтобы не было owl:Class и т.п.)
   FILTER NOT EXISTS { ?entity a rdfs:Class }
   FILTER NOT EXISTS { ?entity a owl:Class }
   

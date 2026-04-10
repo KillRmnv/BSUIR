@@ -1,324 +1,342 @@
-<?xml version="1.0" ?>
-<rdf:RDF
-    xmlns="http://www.technical-sciences.org/ontology#"
-    xml:base="http://www.technical-sciences.org/ontology"
-    xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:xml="http://www.w3.org/XML/1998/namespace"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
->
-
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.technical-sciences.org/ontology#"
+     xml:base="http://www.technical-sciences.org/ontology"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:ns="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:wot="http://xmlns.com/wot/0.1/"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:doap="http://usefulinc.com/ns/doap#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#"
+     xmlns:edamontology="http://edamontology.org/">
     <owl:Ontology rdf:about="http://www.technical-sciences.org/ontology">
+        <owl:imports rdf:resource="http://edamontology.org"/>
+        <owl:imports rdf:resource="https://w3id.org/skgo/modsci/1.0"/>
+        <rdfs:comment>Ontology covering the domain of Technical Sciences including theoretical disciplines, applied disciplines, industry sectors, research objects, methods, and historical technological paradigms.</rdfs:comment>
         <rdfs:label>Technical Sciences Ontology</rdfs:label>
-        <rdfs:comment
-        >Ontology covering the domain of Technical Sciences including theoretical disciplines, applied disciplines, industry sectors, research objects, methods, and historical technological paradigms.</rdfs:comment>
     </owl:Ontology>
+    
 
-    <!--
+
+    <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
-    // Object Properties (Relations)
+    // Annotation properties
     //
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    <owl:ObjectProperty
-        rdf:about="http://www.technical-sciences.org/ontology#hasApplicationArea"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"
-        />
-        <rdfs:range
-            rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"
-        />
-        <rdfs:label>has application area</rdfs:label>
-    </owl:ObjectProperty>
+    
 
-    <owl:ObjectProperty
-        rdf:about="http://www.technical-sciences.org/ontology#usesMethod"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchObject"
-        />
-        <rdfs:range
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchMethod"
-        />
-        <rdfs:label>uses method</rdfs:label>
-    </owl:ObjectProperty>
 
-    <owl:ObjectProperty
-        rdf:about="http://www.technical-sciences.org/ontology#belongsToEra"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDiscipline"
-        />
-        <rdfs:range
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"
-        />
+    <!-- http://www.w3.org/2004/02/skos/core#altLabel -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#altLabel"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#belongsToEra -->
+
+    <owl:ObjectProperty rdf:about="http://www.technical-sciences.org/ontology#belongsToEra">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDiscipline"/>
+        <rdfs:range rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"/>
         <rdfs:label>belongs to era</rdfs:label>
     </owl:ObjectProperty>
+    
 
-    <owl:ObjectProperty
-        rdf:about="http://www.technical-sciences.org/ontology#studies"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"
-        />
-        <rdfs:range
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchObject"
-        />
-        <rdfs:label>studies</rdfs:label>
+
+    <!-- http://www.technical-sciences.org/ontology#hasApplicationArea -->
+
+    <owl:ObjectProperty rdf:about="http://www.technical-sciences.org/ontology#hasApplicationArea">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"/>
+        <rdfs:range rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"/>
+        <rdfs:label>has application area</rdfs:label>
     </owl:ObjectProperty>
+    
 
-    <owl:ObjectProperty
-        rdf:about="http://www.technical-sciences.org/ontology#partOfSystem"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"
-        />
-        <rdfs:range
-            rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"
-        />
+
+    <!-- http://www.technical-sciences.org/ontology#partOfSystem -->
+
+    <owl:ObjectProperty rdf:about="http://www.technical-sciences.org/ontology#partOfSystem">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"/>
+        <rdfs:range rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"/>
         <rdfs:label>part of system</rdfs:label>
     </owl:ObjectProperty>
+    
 
-    <!--
+
+    <!-- http://www.technical-sciences.org/ontology#studies -->
+
+    <owl:ObjectProperty rdf:about="http://www.technical-sciences.org/ontology#studies">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"/>
+        <rdfs:range rdf:resource="http://www.technical-sciences.org/ontology#ResearchObject"/>
+        <rdfs:label>studies</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#usesMethod -->
+
+    <owl:ObjectProperty rdf:about="http://www.technical-sciences.org/ontology#usesMethod">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#ResearchObject"/>
+        <rdfs:range rdf:resource="https://w3id.org/skgo/modsci#ScientificMethod"/>
+        <rdfs:label>uses method</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
-    // Data Properties (Slots/Attributes)
+    // Data properties
     //
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    <!-- Common properties for all classes -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#hasName"
-    >
-        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing" />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>has name</rdfs:label>
-    </owl:DatatypeProperty>
+    
 
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#hasDescription"
-    >
-        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing" />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>has description</rdfs:label>
-    </owl:DatatypeProperty>
 
-    <!-- Properties for TheoreticalDiscipline -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#mathematicalComplexity"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>mathematical complexity</rdfs:label>
-    </owl:DatatypeProperty>
+    <!-- http://www.technical-sciences.org/ontology#automationLevel -->
 
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#foundationYear"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer" />
-        <rdfs:label>foundation year</rdfs:label>
-    </owl:DatatypeProperty>
-
-    <!-- Properties for AppliedDiscipline -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#industryRelevance"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>industry relevance</rdfs:label>
-    </owl:DatatypeProperty>
-
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#practicalApplication"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>practical application</rdfs:label>
-    </owl:DatatypeProperty>
-
-    <!-- Properties for IndustrySector -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#economicImpact"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>economic impact</rdfs:label>
-    </owl:DatatypeProperty>
-
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#workforceSize"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer" />
-        <rdfs:label>workforce size</rdfs:label>
-    </owl:DatatypeProperty>
-
-    <!-- Properties for MaterialObject -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#materialType"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>material type</rdfs:label>
-    </owl:DatatypeProperty>
-
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#scaleLevel"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>scale level</rdfs:label>
-    </owl:DatatypeProperty>
-
-    <!-- Properties for ProcessObject -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#processDuration"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>process duration</rdfs:label>
-    </owl:DatatypeProperty>
-
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#automationLevel"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#automationLevel">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:label>automation level</rdfs:label>
     </owl:DatatypeProperty>
+    
 
-    <!-- Properties for SystemObject -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#systemComplexity"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>system complexity</rdfs:label>
+
+    <!-- http://www.technical-sciences.org/ontology#economicImpact -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#economicImpact">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>economic impact</rdfs:label>
     </owl:DatatypeProperty>
+    
 
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#integrationLevel"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>integration level</rdfs:label>
-    </owl:DatatypeProperty>
 
-    <!-- Properties for ResearchMethod -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#methodAccuracy"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchMethod"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>method accuracy</rdfs:label>
-    </owl:DatatypeProperty>
+    <!-- http://www.technical-sciences.org/ontology#endYear -->
 
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#resourceIntensity"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchMethod"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>resource intensity</rdfs:label>
-    </owl:DatatypeProperty>
-
-    <!-- Properties for TechnologicalEra -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#startYear"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer" />
-        <rdfs:label>start year</rdfs:label>
-    </owl:DatatypeProperty>
-
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#endYear"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer" />
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#endYear">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:label>end year</rdfs:label>
     </owl:DatatypeProperty>
+    
 
-    <!-- Properties for TechnicalDevice -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#powerConsumption"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>power consumption</rdfs:label>
+
+    <!-- http://www.technical-sciences.org/ontology#foundationYear -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#foundationYear">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>foundation year</rdfs:label>
     </owl:DatatypeProperty>
+    
 
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#operatingTemperature"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
-        <rdfs:label>operating temperature</rdfs:label>
+
+    <!-- http://www.technical-sciences.org/ontology#hasDescription -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#hasDescription">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>has description</rdfs:label>
     </owl:DatatypeProperty>
+    
 
-    <!-- Properties for ModelingApproach -->
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#modelFidelity"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
+
+    <!-- http://www.technical-sciences.org/ontology#hasName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#hasName">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>has name</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#industryRelevance -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#industryRelevance">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>industry relevance</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#integrationLevel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#integrationLevel">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>integration level</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#materialType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#materialType">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>material type</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#mathematicalComplexity -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#mathematicalComplexity">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>mathematical complexity</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#methodAccuracy -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#methodAccuracy">
+        <rdfs:domain rdf:resource="https://w3id.org/skgo/modsci#ScientificMethod"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>method accuracy</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#modelFidelity -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#modelFidelity">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:label>model fidelity</rdfs:label>
     </owl:DatatypeProperty>
+    
 
-    <owl:DatatypeProperty
-        rdf:about="http://www.technical-sciences.org/ontology#realTimeCapability"
-    >
-        <rdfs:domain
-            rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"
-        />
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
+
+    <!-- http://www.technical-sciences.org/ontology#operatingTemperature -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#operatingTemperature">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>operating temperature</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#powerConsumption -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#powerConsumption">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>power consumption</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#practicalApplication -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#practicalApplication">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>practical application</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#processDuration -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#processDuration">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>process duration</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#realTimeCapability -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#realTimeCapability">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
         <rdfs:label>real time capability</rdfs:label>
     </owl:DatatypeProperty>
+    
 
-    <!--
+
+    <!-- http://www.technical-sciences.org/ontology#resourceIntensity -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#resourceIntensity">
+        <rdfs:domain rdf:resource="https://w3id.org/skgo/modsci#ScientificMethod"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>resource intensity</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#scaleLevel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#scaleLevel">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>scale level</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#startYear -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#startYear">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>start year</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#systemComplexity -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#systemComplexity">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>system complexity</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#workforceSize -->
+
+    <owl:DatatypeProperty rdf:about="http://www.technical-sciences.org/ontology#workforceSize">
+        <rdfs:domain rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>workforce size</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Classes
@@ -326,1129 +344,639 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    <!-- Class 1: TechnicalDiscipline (Top Level) -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#TechnicalDiscipline"
-    >
-        <rdfs:label>Technical Discipline</rdfs:label>
-        <rdfs:comment
-        >Base class for all technical and engineering disciplines</rdfs:comment>
-    </owl:Class>
+    
 
-    <!-- Class 2: TheoreticalDiscipline -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"
-    >
-        <rdfs:subClassOf
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDiscipline"
-        />
-        <rdfs:label>Theoretical Discipline</rdfs:label>
-        <rdfs:comment
-        >Fundamental theoretical disciplines forming the basis of technical sciences</rdfs:comment>
-    </owl:Class>
 
-    <!-- Class 3: AppliedDiscipline -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#AppliedDiscipline"
-    >
-        <rdfs:subClassOf
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDiscipline"
-        />
-        <rdfs:label>Applied Discipline</rdfs:label>
+    <!-- http://www.technical-sciences.org/ontology#AppliedDiscipline -->
+
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#AppliedDiscipline">
+        <rdfs:subClassOf rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDiscipline"/>
         <rdfs:comment>Practical implementation disciplines</rdfs:comment>
+        <rdfs:label>Applied Discipline</rdfs:label>
     </owl:Class>
+    
 
-    <!-- Class 4: IndustrySector -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#IndustrySector"
-    >
-        <rdfs:label>Industry Sector</rdfs:label>
+
+    <!-- http://www.technical-sciences.org/ontology#IndustrySector -->
+
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#IndustrySector">
         <rdfs:comment>Industrial application domains and sectors</rdfs:comment>
+        <rdfs:label>Industry Sector</rdfs:label>
     </owl:Class>
+    
 
-    <!-- Class 5: ResearchObject -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#ResearchObject"
-    >
-        <rdfs:label>Research Object</rdfs:label>
-        <rdfs:comment>Objects of study in technical sciences</rdfs:comment>
-    </owl:Class>
 
-    <!-- Class 6: MaterialObject -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#MaterialObject"
-    >
-        <rdfs:subClassOf
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchObject"
-        />
+    <!-- http://www.technical-sciences.org/ontology#MaterialObject -->
+
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#MaterialObject">
+        <rdfs:subClassOf rdf:resource="http://www.technical-sciences.org/ontology#ResearchObject"/>
+        <rdfs:comment>Physical material objects at micro and macro levels</rdfs:comment>
         <rdfs:label>Material Object</rdfs:label>
-        <rdfs:comment
-        >Physical material objects at micro and macro levels</rdfs:comment>
     </owl:Class>
+    
 
-    <!-- Class 7: ProcessObject -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#ProcessObject"
-    >
-        <rdfs:subClassOf
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchObject"
-        />
-        <rdfs:label>Process Object</rdfs:label>
-        <rdfs:comment>Algorithmic and procedural objects</rdfs:comment>
-    </owl:Class>
 
-    <!-- Class 8: SystemObject -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#SystemObject"
-    >
-        <rdfs:subClassOf
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchObject"
-        />
-        <rdfs:label>System Object</rdfs:label>
-        <rdfs:comment>Complex system-level objects at mega level</rdfs:comment>
-    </owl:Class>
+    <!-- http://www.technical-sciences.org/ontology#ModelingApproach -->
 
-    <!-- Class 9: ResearchMethod -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#ResearchMethod"
-    >
-        <rdfs:label>Research Method</rdfs:label>
-        <rdfs:comment>Methods and tools for technical research</rdfs:comment>
-    </owl:Class>
-
-    <!-- Class 10: TechnologicalEra -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#TechnologicalEra"
-    >
-        <rdfs:label>Technological Era</rdfs:label>
-        <rdfs:comment
-        >Historical technological paradigms and evolutionary waves</rdfs:comment>
-    </owl:Class>
-
-    <!-- Class 11: TechnicalDevice (Bonus for completeness) -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#TechnicalDevice"
-    >
-        <rdfs:subClassOf
-            rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"
-        />
-        <rdfs:label>Technical Device</rdfs:label>
-        <rdfs:comment>Technical devices and equipment</rdfs:comment>
-    </owl:Class>
-
-    <!-- Class 12: ModelingApproach (Bonus for completeness) -->
-    <owl:Class
-        rdf:about="http://www.technical-sciences.org/ontology#ModelingApproach"
-    >
-        <rdfs:subClassOf
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchMethod"
-        />
-        <rdfs:label>Modeling Approach</rdfs:label>
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#ModelingApproach">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/skgo/modsci#ScientificMethod"/>
         <rdfs:comment>Modeling and simulation approaches</rdfs:comment>
+        <rdfs:label>Modeling Approach</rdfs:label>
     </owl:Class>
+    
 
-    <!--
+
+    <!-- http://www.technical-sciences.org/ontology#ProcessObject -->
+
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#ProcessObject">
+        <rdfs:subClassOf rdf:resource="http://www.technical-sciences.org/ontology#ResearchObject"/>
+        <rdfs:comment>Algorithmic and procedural objects</rdfs:comment>
+        <rdfs:label>Process Object</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#ResearchObject -->
+
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#ResearchObject">
+        <rdfs:comment>Objects of study in technical sciences</rdfs:comment>
+        <rdfs:label>Research Object</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#SystemObject -->
+
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#SystemObject">
+        <rdfs:subClassOf rdf:resource="http://www.technical-sciences.org/ontology#ResearchObject"/>
+        <rdfs:comment>Complex system-level objects at mega level</rdfs:comment>
+        <rdfs:label>System Object</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#TechnicalDevice -->
+
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#TechnicalDevice">
+        <rdfs:subClassOf rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"/>
+        <rdfs:comment>Technical devices and equipment</rdfs:comment>
+        <rdfs:label>Technical Device</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#TechnicalDiscipline -->
+
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#TechnicalDiscipline">
+        <rdfs:comment>Base class for all technical and engineering disciplines</rdfs:comment>
+        <rdfs:label>Technical Discipline</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#TechnologicalEra -->
+
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#TechnologicalEra">
+        <rdfs:comment>Historical technological paradigms and evolutionary waves</rdfs:comment>
+        <rdfs:label>Technological Era</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#TheoreticalDiscipline -->
+
+    <owl:Class rdf:about="http://www.technical-sciences.org/ontology#TheoreticalDiscipline">
+        <rdfs:subClassOf rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDiscipline"/>
+        <rdfs:comment>Fundamental theoretical disciplines forming the basis of technical sciences</rdfs:comment>
+        <rdfs:label>Theoretical Discipline</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/skgo/modsci#ScientificMethod -->
+
+    <owl:Class rdf:about="https://w3id.org/skgo/modsci#ScientificMethod">
+        <rdfs:comment>Methods and tools for technical research</rdfs:comment>
+        <skos:altLabel>Research Method</skos:altLabel>
+    </owl:Class>
+    
+
+
+    <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
-    // Instances of TheoreticalDiscipline (2+ instances)
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#MathematicalAnalysis"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Mathematical Analysis</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Foundation of mathematical methods for engineering calculations</hasDescription>
-        <mathematicalComplexity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Very High</mathematicalComplexity>
-        <foundationYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1687</foundationYear>
-    </owl:NamedIndividual>
-
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#TechnicalMechanics"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Technical Mechanics</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Study of forces and motion in mechanical systems</hasDescription>
-        <mathematicalComplexity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >High</mathematicalComplexity>
-        <foundationYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1687</foundationYear>
-    </owl:NamedIndividual>
-
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#Thermodynamics"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Technical Thermodynamics</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Study of heat transfer and energy conversion</hasDescription>
-        <mathematicalComplexity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >High</mathematicalComplexity>
-        <foundationYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1824</foundationYear>
-    </owl:NamedIndividual>
-
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#ControlTheory"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Control Theory</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Mathematical theory of automatic control systems</hasDescription>
-        <mathematicalComplexity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Very High</mathematicalComplexity>
-        <foundationYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1868</foundationYear>
-    </owl:NamedIndividual>
-
-    <!--
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Instances of AppliedDiscipline (2+ instances)
+    // Individuals
     //
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#MachineEngineering"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Machine Engineering Technology</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Technology of machine building and manufacturing</hasDescription>
-        <industryRelevance
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Critical</industryRelevance>
-        <practicalApplication
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Manufacturing of mechanical components</practicalApplication>
+    
+
+
+    <!-- http://www.technical-sciences.org/ontology#ActuatorSystem -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#ActuatorSystem">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"/>
+        <hasDescription>Executive mechanisms for motion control</hasDescription>
+        <hasName>Actuator System</hasName>
+        <operatingTemperature>-20 to 60°C</operatingTemperature>
+        <powerConsumption>0.5-100 kW</powerConsumption>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#RadioEngineering"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Radio Engineering and Electronics</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Engineering of radio systems and electronic devices</hasDescription>
-        <industryRelevance
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >High</industryRelevance>
-        <practicalApplication
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Communication systems and signal processing</practicalApplication>
+
+    <!-- http://www.technical-sciences.org/ontology#AdditiveManufacturing -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#AdditiveManufacturing">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"/>
+        <automationLevel>High</automationLevel>
+        <hasDescription>3D printing and layer-by-layer construction</hasDescription>
+        <hasName>Additive Manufacturing</hasName>
+        <processDuration>Hours to days</processDuration>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#SoftwareEngineering"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Software Engineering and AI</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Development of software systems and artificial intelligence</hasDescription>
-        <industryRelevance
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Critical</industryRelevance>
-        <practicalApplication
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Information systems and automation</practicalApplication>
+
+    <!-- http://www.technical-sciences.org/ontology#AnalyticalMethod -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#AnalyticalMethod">
+        <rdf:type rdf:resource="https://w3id.org/skgo/modsci#ScientificMethod"/>
+        <hasDescription>Differential and integral equations for process description</hasDescription>
+        <hasName>Analytical Methods</hasName>
+        <methodAccuracy>Exact</methodAccuracy>
+        <resourceIntensity>Low</resourceIntensity>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#Biotechnology"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Biotechnology and Bioengineering</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Application of biological systems in engineering</hasDescription>
-        <industryRelevance
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >High</industryRelevance>
-        <practicalApplication
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Pharmaceuticals and agricultural production</practicalApplication>
+
+    <!-- http://www.technical-sciences.org/ontology#Biotechnology -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#Biotechnology">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"/>
+        <hasDescription>Application of biological systems in engineering</hasDescription>
+        <hasName>Biotechnology and Bioengineering</hasName>
+        <industryRelevance>High</industryRelevance>
+        <practicalApplication>Pharmaceuticals and agricultural production</practicalApplication>
     </owl:NamedIndividual>
+    
 
-    <!--
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Instances of IndustrySector (2+ instances)
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#EnergySector"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Energy and Resource Sector</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Power generation and resource extraction industries</hasDescription>
-        <economicImpact
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Global Critical Infrastructure</economicImpact>
-        <workforceSize
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >25000000</workforceSize>
+    <!-- http://www.technical-sciences.org/ontology#CNCMachine -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#CNCMachine">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"/>
+        <partOfSystem rdf:resource="http://www.technical-sciences.org/ontology#Technosphere"/>
+        <hasDescription>Computer numerical control machine for precision manufacturing</hasDescription>
+        <hasName>CNC Machine Tool</hasName>
+        <operatingTemperature>15-35°C</operatingTemperature>
+        <powerConsumption>5-50 kW</powerConsumption>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#MachineBuilding"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Machine Building Industry</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Manufacturing of machinery and equipment</hasDescription>
-        <economicImpact
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Major Industrial Base</economicImpact>
-        <workforceSize
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >40000000</workforceSize>
+
+    <!-- http://www.technical-sciences.org/ontology#CompositeMaterials -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#CompositeMaterials">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"/>
+        <hasDescription>Multi-phase materials with enhanced properties</hasDescription>
+        <hasName>Composite Materials</hasName>
+        <materialType>Hybrid</materialType>
+        <scaleLevel>Multi-scale</scaleLevel>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#TransportInfrastructure"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Transport and Infrastructure</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Transportation systems and logistics infrastructure</hasDescription>
-        <economicImpact
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Essential for Global Trade</economicImpact>
-        <workforceSize
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >88000000</workforceSize>
+
+    <!-- http://www.technical-sciences.org/ontology#ComputationalMethod -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#ComputationalMethod">
+        <rdf:type rdf:resource="https://w3id.org/skgo/modsci#ScientificMethod"/>
+        <hasDescription>Numerical modeling and computer simulation</hasDescription>
+        <hasName>Computational Methods</hasName>
+        <methodAccuracy>Medium to High</methodAccuracy>
+        <resourceIntensity>Medium</resourceIntensity>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#ICTSector"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Information and Communication Technology</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Digital technologies and telecommunications</hasDescription>
-        <economicImpact
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Fastest Growing Sector</economicImpact>
-        <workforceSize
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >55000000</workforceSize>
+
+    <!-- http://www.technical-sciences.org/ontology#ControlTheory -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#ControlTheory">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"/>
+        <belongsToEra rdf:resource="http://www.technical-sciences.org/ontology#ElectrotechnicalEra"/>
+        <foundationYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1868</foundationYear>
+        <hasDescription>Mathematical theory of automatic control systems</hasDescription>
+        <hasName>Control Theory</hasName>
+        <mathematicalComplexity>Very High</mathematicalComplexity>
     </owl:NamedIndividual>
+    
 
-    <!--
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Instances of MaterialObject (2+ instances)
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#SteelAlloys"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Steel and Alloys</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Metallic materials for construction and manufacturing</hasDescription>
-        <materialType
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Metallic</materialType>
-        <scaleLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Macro</scaleLevel>
+    <!-- http://www.technical-sciences.org/ontology#DataProcessing -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#DataProcessing">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"/>
+        <automationLevel>Fully Automated</automationLevel>
+        <hasDescription>Collection, transmission and processing of data</hasDescription>
+        <hasName>Information Processing</hasName>
+        <processDuration>Real-time to batch</processDuration>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#Nanomaterials"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Nanomaterials</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Materials with nanoscale structures</hasDescription>
-        <materialType
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Nano-structured</materialType>
-        <scaleLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Nano</scaleLevel>
+
+    <!-- http://www.technical-sciences.org/ontology#DigitalRevolution -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#DigitalRevolution">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"/>
+        <endYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2020</endYear>
+        <hasDescription>Microelectronics and information technology (1980-2010s)</hasDescription>
+        <hasName>Digital Revolution</hasName>
+        <startYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1980</startYear>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#Polymers"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Polymers and Plastics</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Synthetic and natural polymer materials</hasDescription>
-        <materialType
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Organic</materialType>
-        <scaleLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Molecular</scaleLevel>
+
+    <!-- http://www.technical-sciences.org/ontology#DigitalTwin -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#DigitalTwin">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"/>
+        <usesMethod rdf:resource="http://www.technical-sciences.org/ontology#ComputationalMethod"/>
+        <hasDescription>Complex virtual models synchronized with real objects in real-time</hasDescription>
+        <hasName>Digital Twin</hasName>
+        <modelFidelity>Very High</modelFidelity>
+        <realTimeCapability rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</realTimeCapability>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#CompositeMaterials"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Composite Materials</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Multi-phase materials with enhanced properties</hasDescription>
-        <materialType
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Hybrid</materialType>
-        <scaleLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Multi-scale</scaleLevel>
+
+    <!-- http://www.technical-sciences.org/ontology#EcologicalSystem -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#EcologicalSystem">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"/>
+        <hasDescription>Resource efficiency and closed production cycles</hasDescription>
+        <hasName>Ecology of Technosphere</hasName>
+        <integrationLevel>Multi-system</integrationLevel>
+        <systemComplexity>High</systemComplexity>
     </owl:NamedIndividual>
+    
 
-    <!--
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Instances of ProcessObject (2+ instances)
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#MaterialProcessing"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Material Processing</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Technological processes for material treatment</hasDescription>
-        <processDuration
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Variable from minutes to hours</processDuration>
-        <automationLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >High</automationLevel>
+    <!-- http://www.technical-sciences.org/ontology#ElectrotechnicalEra -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#ElectrotechnicalEra">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"/>
+        <endYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1950</endYear>
+        <hasDescription>Electrification and telecommunications (late 19th - mid 20th century)</hasDescription>
+        <hasName>Electrotechnical Era</hasName>
+        <startYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1870</startYear>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#QualityControl"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Quality Control Systems</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Processes for ensuring product quality (TQM, Six Sigma)</hasDescription>
-        <processDuration
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Continuous</processDuration>
-        <automationLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Semi-automated</automationLevel>
+
+    <!-- http://www.technical-sciences.org/ontology#EnergySector -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#EnergySector">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"/>
+        <economicImpact>Global Critical Infrastructure</economicImpact>
+        <hasDescription>Power generation and resource extraction industries</hasDescription>
+        <hasName>Energy and Resource Sector</hasName>
+        <workforceSize rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25000000</workforceSize>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#DataProcessing"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Information Processing</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Collection, transmission and processing of data</hasDescription>
-        <processDuration
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Real-time to batch</processDuration>
-        <automationLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Fully Automated</automationLevel>
+
+    <!-- http://www.technical-sciences.org/ontology#ExperimentalMethod -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#ExperimentalMethod">
+        <rdf:type rdf:resource="https://w3id.org/skgo/modsci#ScientificMethod"/>
+        <hasDescription>Natural tests, field studies and stand modeling</hasDescription>
+        <hasName>Experimental Research</hasName>
+        <methodAccuracy>High</methodAccuracy>
+        <resourceIntensity>Very High</resourceIntensity>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#AdditiveManufacturing"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Additive Manufacturing</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >3D printing and layer-by-layer construction</hasDescription>
-        <processDuration
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Hours to days</processDuration>
-        <automationLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >High</automationLevel>
+
+    <!-- http://www.technical-sciences.org/ontology#HumanMachineSystem -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#HumanMachineSystem">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"/>
+        <hasDescription>Ergonomics and engineering psychology systems</hasDescription>
+        <hasName>Human-Machine Systems</hasName>
+        <integrationLevel>Local</integrationLevel>
+        <systemComplexity>Medium</systemComplexity>
     </owl:NamedIndividual>
+    
 
-    <!--
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Instances of SystemObject (2+ instances)
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#Technosphere"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Technosphere</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Natural-technical complexes and infrastructure systems</hasDescription>
-        <systemComplexity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Ultra-high</systemComplexity>
-        <integrationLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Global</integrationLevel>
+    <!-- http://www.technical-sciences.org/ontology#ICTSector -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#ICTSector">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"/>
+        <economicImpact>Fastest Growing Sector</economicImpact>
+        <hasDescription>Digital technologies and telecommunications</hasDescription>
+        <hasName>Information and Communication Technology</hasName>
+        <workforceSize rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">55000000</workforceSize>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#EcologicalSystem"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Ecology of Technosphere</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Resource efficiency and closed production cycles</hasDescription>
-        <systemComplexity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >High</systemComplexity>
-        <integrationLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Multi-system</integrationLevel>
+
+    <!-- http://www.technical-sciences.org/ontology#IndustrialRevolution -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#IndustrialRevolution">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"/>
+        <endYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1840</endYear>
+        <hasDescription>Steam power and machine building (18th-19th centuries)</hasDescription>
+        <hasName>Industrial Revolution</hasName>
+        <startYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1760</startYear>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#SafetySystem"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Technosphere Safety</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Risk management and emergency protection systems</hasDescription>
-        <systemComplexity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >High</systemComplexity>
-        <integrationLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >National</integrationLevel>
+
+    <!-- http://www.technical-sciences.org/ontology#IndustrialRobot -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#IndustrialRobot">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"/>
+        <partOfSystem rdf:resource="http://www.technical-sciences.org/ontology#HumanMachineSystem"/>
+        <hasDescription>Automated manipulator for manufacturing operations</hasDescription>
+        <hasName>Industrial Robot</hasName>
+        <operatingTemperature>0-45°C</operatingTemperature>
+        <powerConsumption>1-10 kW</powerConsumption>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#HumanMachineSystem"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Human-Machine Systems</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Ergonomics and engineering psychology systems</hasDescription>
-        <systemComplexity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Medium</systemComplexity>
-        <integrationLevel
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Local</integrationLevel>
+
+    <!-- http://www.technical-sciences.org/ontology#MachineBuilding -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#MachineBuilding">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"/>
+        <economicImpact>Major Industrial Base</economicImpact>
+        <hasDescription>Manufacturing of machinery and equipment</hasDescription>
+        <hasName>Machine Building Industry</hasName>
+        <workforceSize rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40000000</workforceSize>
     </owl:NamedIndividual>
+    
 
-    <!--
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Instances of ResearchMethod (2+ instances)
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#ExperimentalMethod"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchMethod"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Experimental Research</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Natural tests, field studies and stand modeling</hasDescription>
-        <methodAccuracy
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >High</methodAccuracy>
-        <resourceIntensity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Very High</resourceIntensity>
+    <!-- http://www.technical-sciences.org/ontology#MachineEngineering -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#MachineEngineering">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"/>
+        <studies rdf:resource="http://www.technical-sciences.org/ontology#SteelAlloys"/>
+        <hasDescription>Technology of machine building and manufacturing</hasDescription>
+        <hasName>Machine Engineering Technology</hasName>
+        <industryRelevance>Critical</industryRelevance>
+        <practicalApplication>Manufacturing of mechanical components</practicalApplication>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#ComputationalMethod"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchMethod"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Computational Methods</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Numerical modeling and computer simulation</hasDescription>
-        <methodAccuracy
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Medium to High</methodAccuracy>
-        <resourceIntensity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Medium</resourceIntensity>
+
+    <!-- http://www.technical-sciences.org/ontology#MaterialProcessing -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#MaterialProcessing">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"/>
+        <automationLevel>High</automationLevel>
+        <hasDescription>Technological processes for material treatment</hasDescription>
+        <hasName>Material Processing</hasName>
+        <processDuration>Variable from minutes to hours</processDuration>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#AnalyticalMethod"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchMethod"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Analytical Methods</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Differential and integral equations for process description</hasDescription>
-        <methodAccuracy
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Exact</methodAccuracy>
-        <resourceIntensity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Low</resourceIntensity>
+
+    <!-- http://www.technical-sciences.org/ontology#MathematicalAnalysis -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#MathematicalAnalysis">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"/>
+        <belongsToEra rdf:resource="http://www.technical-sciences.org/ontology#PreIndustrialEra"/>
+        <hasApplicationArea rdf:resource="http://www.technical-sciences.org/ontology#MachineBuilding"/>
+        <foundationYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1687</foundationYear>
+        <hasDescription>Foundation of mathematical methods for engineering calculations</hasDescription>
+        <hasName>Mathematical Analysis</hasName>
+        <mathematicalComplexity>Very High</mathematicalComplexity>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#MetrologyMethod"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ResearchMethod"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Metrology and Standardization</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Measurement, standards and certification</hasDescription>
-        <methodAccuracy
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Very High</methodAccuracy>
-        <resourceIntensity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Medium</resourceIntensity>
+
+    <!-- http://www.technical-sciences.org/ontology#MathematicalModel -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#MathematicalModel">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"/>
+        <hasDescription>Analytical descriptions of physical properties and processes</hasDescription>
+        <hasName>Mathematical Modeling</hasName>
+        <modelFidelity>High</modelFidelity>
+        <realTimeCapability rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</realTimeCapability>
     </owl:NamedIndividual>
+    
 
-    <!--
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Instances of TechnologicalEra (2+ instances)
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#PreIndustrialEra"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Pre-Industrial Era</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Mechanics of simple mechanisms before 18th century</hasDescription>
-        <startYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >-3000</startYear>
-        <endYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1760</endYear>
+    <!-- http://www.technical-sciences.org/ontology#MetrologyMethod -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#MetrologyMethod">
+        <rdf:type rdf:resource="https://w3id.org/skgo/modsci#ScientificMethod"/>
+        <hasDescription>Measurement, standards and certification</hasDescription>
+        <hasName>Metrology and Standardization</hasName>
+        <methodAccuracy>Very High</methodAccuracy>
+        <resourceIntensity>Medium</resourceIntensity>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#IndustrialRevolution"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Industrial Revolution</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Steam power and machine building (18th-19th centuries)</hasDescription>
-        <startYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1760</startYear>
-        <endYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1840</endYear>
+
+    <!-- http://www.technical-sciences.org/ontology#ModernFrontier -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#ModernFrontier">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"/>
+        <endYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2100</endYear>
+        <hasDescription>AI, quantum technologies and ecological engineering (2020s-present)</hasDescription>
+        <hasName>Modern Frontier</hasName>
+        <startYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2020</startYear>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#ElectrotechnicalEra"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Electrotechnical Era</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Electrification and telecommunications (late 19th - mid 20th century)</hasDescription>
-        <startYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1870</startYear>
-        <endYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1950</endYear>
+
+    <!-- http://www.technical-sciences.org/ontology#Nanomaterials -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#Nanomaterials">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"/>
+        <usesMethod rdf:resource="http://www.technical-sciences.org/ontology#ExperimentalMethod"/>
+        <hasDescription>Materials with nanoscale structures</hasDescription>
+        <hasName>Nanomaterials</hasName>
+        <materialType>Nano-structured</materialType>
+        <scaleLevel>Nano</scaleLevel>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#DigitalRevolution"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Digital Revolution</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Microelectronics and information technology (1980-2010s)</hasDescription>
-        <startYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >1980</startYear>
-        <endYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >2020</endYear>
+
+    <!-- http://www.technical-sciences.org/ontology#PhysicalModel -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#PhysicalModel">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"/>
+        <hasDescription>Scaled copies for aerodynamic, hydrodynamic and seismic testing</hasDescription>
+        <hasName>Physical Modeling</hasName>
+        <modelFidelity>Medium</modelFidelity>
+        <realTimeCapability rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</realTimeCapability>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#ModernFrontier"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Modern Frontier</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >AI, quantum technologies and ecological engineering (2020s-present)</hasDescription>
-        <startYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >2020</startYear>
-        <endYear
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
-        >2100</endYear>
+
+    <!-- http://www.technical-sciences.org/ontology#Polymers -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#Polymers">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"/>
+        <hasDescription>Synthetic and natural polymer materials</hasDescription>
+        <hasName>Polymers and Plastics</hasName>
+        <materialType>Organic</materialType>
+        <scaleLevel>Molecular</scaleLevel>
     </owl:NamedIndividual>
+    
 
-    <!--
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Instances of TechnicalDevice (2+ instances)
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#CNCMachine"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >CNC Machine Tool</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Computer numerical control machine for precision manufacturing</hasDescription>
-        <powerConsumption
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >5-50 kW</powerConsumption>
-        <operatingTemperature
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >15-35°C</operatingTemperature>
+    <!-- http://www.technical-sciences.org/ontology#PreIndustrialEra -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#PreIndustrialEra">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TechnologicalEra"/>
+        <endYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1760</endYear>
+        <hasDescription>Mechanics of simple mechanisms before 18th century</hasDescription>
+        <hasName>Pre-Industrial Era</hasName>
+        <startYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-3000</startYear>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#IndustrialRobot"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Industrial Robot</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Automated manipulator for manufacturing operations</hasDescription>
-        <powerConsumption
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >1-10 kW</powerConsumption>
-        <operatingTemperature
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >0-45°C</operatingTemperature>
+
+    <!-- http://www.technical-sciences.org/ontology#ProbabilisticModel -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#ProbabilisticModel">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"/>
+        <hasDescription>Statistical methods, Monte Carlo, reliability analysis</hasDescription>
+        <hasName>Probabilistic Modeling</hasName>
+        <modelFidelity>Statistical</modelFidelity>
+        <realTimeCapability rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</realTimeCapability>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#SensorArray"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Sensor Array</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Network of sensors for data collection</hasDescription>
-        <powerConsumption
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >0.1-5 W per sensor</powerConsumption>
-        <operatingTemperature
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >-40 to 85°C</operatingTemperature>
+
+    <!-- http://www.technical-sciences.org/ontology#QualityControl -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#QualityControl">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#ProcessObject"/>
+        <automationLevel>Semi-automated</automationLevel>
+        <hasDescription>Processes for ensuring product quality (TQM, Six Sigma)</hasDescription>
+        <hasName>Quality Control Systems</hasName>
+        <processDuration>Continuous</processDuration>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#ActuatorSystem"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Actuator System</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Executive mechanisms for motion control</hasDescription>
-        <powerConsumption
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >0.5-100 kW</powerConsumption>
-        <operatingTemperature
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >-20 to 60°C</operatingTemperature>
+
+    <!-- http://www.technical-sciences.org/ontology#RadioEngineering -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#RadioEngineering">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"/>
+        <hasDescription>Engineering of radio systems and electronic devices</hasDescription>
+        <hasName>Radio Engineering and Electronics</hasName>
+        <industryRelevance>High</industryRelevance>
+        <practicalApplication>Communication systems and signal processing</practicalApplication>
     </owl:NamedIndividual>
+    
 
-    <!--
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Instances of ModelingApproach (2+ instances)
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#DigitalTwin"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Digital Twin</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Complex virtual models synchronized with real objects in real-time</hasDescription>
-        <modelFidelity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Very High</modelFidelity>
-        <realTimeCapability
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >true</realTimeCapability>
+    <!-- http://www.technical-sciences.org/ontology#SafetySystem -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#SafetySystem">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"/>
+        <hasDescription>Risk management and emergency protection systems</hasDescription>
+        <hasName>Technosphere Safety</hasName>
+        <integrationLevel>National</integrationLevel>
+        <systemComplexity>High</systemComplexity>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#PhysicalModel"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Physical Modeling</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Scaled copies for aerodynamic, hydrodynamic and seismic testing</hasDescription>
-        <modelFidelity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Medium</modelFidelity>
-        <realTimeCapability
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >true</realTimeCapability>
+
+    <!-- http://www.technical-sciences.org/ontology#SensorArray -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#SensorArray">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TechnicalDevice"/>
+        <hasDescription>Network of sensors for data collection</hasDescription>
+        <hasName>Sensor Array</hasName>
+        <operatingTemperature>-40 to 85°C</operatingTemperature>
+        <powerConsumption>0.1-5 W per sensor</powerConsumption>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#MathematicalModel"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Mathematical Modeling</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Analytical descriptions of physical properties and processes</hasDescription>
-        <modelFidelity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >High</modelFidelity>
-        <realTimeCapability
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >false</realTimeCapability>
+
+    <!-- http://www.technical-sciences.org/ontology#SoftwareEngineering -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#SoftwareEngineering">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#AppliedDiscipline"/>
+        <belongsToEra rdf:resource="http://www.technical-sciences.org/ontology#DigitalRevolution"/>
+        <studies rdf:resource="http://www.technical-sciences.org/ontology#DataProcessing"/>
+        <hasDescription>Development of software systems and artificial intelligence</hasDescription>
+        <hasName>Software Engineering and AI</hasName>
+        <industryRelevance>Critical</industryRelevance>
+        <practicalApplication>Information systems and automation</practicalApplication>
     </owl:NamedIndividual>
+    
 
-    <owl:NamedIndividual
-        rdf:about="http://www.technical-sciences.org/ontology#ProbabilisticModel"
-    >
-        <rdf:type
-            rdf:resource="http://www.technical-sciences.org/ontology#ModelingApproach"
-        />
-        <hasName
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Probabilistic Modeling</hasName>
-        <hasDescription
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Statistical methods, Monte Carlo, reliability analysis</hasDescription>
-        <modelFidelity
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >Statistical</modelFidelity>
-        <realTimeCapability
-            rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-        >false</realTimeCapability>
+
+    <!-- http://www.technical-sciences.org/ontology#SteelAlloys -->
+
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#SteelAlloys">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#MaterialObject"/>
+        <hasDescription>Metallic materials for construction and manufacturing</hasDescription>
+        <hasName>Steel and Alloys</hasName>
+        <materialType>Metallic</materialType>
+        <scaleLevel>Macro</scaleLevel>
     </owl:NamedIndividual>
+    
 
-    <!--
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Relations between instances (Object Property Assertions)
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#MathematicalAnalysis"
-    >
-        <belongsToEra
-            rdf:resource="http://www.technical-sciences.org/ontology#PreIndustrialEra"
-        />
-    </rdf:Description>
+    <!-- http://www.technical-sciences.org/ontology#TechnicalMechanics -->
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#Thermodynamics"
-    >
-        <belongsToEra
-            rdf:resource="http://www.technical-sciences.org/ontology#IndustrialRevolution"
-        />
-    </rdf:Description>
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#TechnicalMechanics">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"/>
+        <foundationYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1687</foundationYear>
+        <hasDescription>Study of forces and motion in mechanical systems</hasDescription>
+        <hasName>Technical Mechanics</hasName>
+        <mathematicalComplexity>High</mathematicalComplexity>
+    </owl:NamedIndividual>
+    
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#ControlTheory"
-    >
-        <belongsToEra
-            rdf:resource="http://www.technical-sciences.org/ontology#ElectrotechnicalEra"
-        />
-    </rdf:Description>
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#SoftwareEngineering"
-    >
-        <belongsToEra
-            rdf:resource="http://www.technical-sciences.org/ontology#DigitalRevolution"
-        />
-    </rdf:Description>
+    <!-- http://www.technical-sciences.org/ontology#Technosphere -->
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#MathematicalAnalysis"
-    >
-        <hasApplicationArea
-            rdf:resource="http://www.technical-sciences.org/ontology#MachineBuilding"
-        />
-    </rdf:Description>
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#Technosphere">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#SystemObject"/>
+        <hasDescription>Natural-technical complexes and infrastructure systems</hasDescription>
+        <hasName>Technosphere</hasName>
+        <integrationLevel>Global</integrationLevel>
+        <systemComplexity>Ultra-high</systemComplexity>
+    </owl:NamedIndividual>
+    
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#Thermodynamics"
-    >
-        <hasApplicationArea
-            rdf:resource="http://www.technical-sciences.org/ontology#EnergySector"
-        />
-    </rdf:Description>
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#Nanomaterials"
-    >
-        <usesMethod
-            rdf:resource="http://www.technical-sciences.org/ontology#ExperimentalMethod"
-        />
-    </rdf:Description>
+    <!-- http://www.technical-sciences.org/ontology#Thermodynamics -->
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#DigitalTwin"
-    >
-        <usesMethod
-            rdf:resource="http://www.technical-sciences.org/ontology#ComputationalMethod"
-        />
-    </rdf:Description>
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#Thermodynamics">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#TheoreticalDiscipline"/>
+        <belongsToEra rdf:resource="http://www.technical-sciences.org/ontology#IndustrialRevolution"/>
+        <hasApplicationArea rdf:resource="http://www.technical-sciences.org/ontology#EnergySector"/>
+        <foundationYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1824</foundationYear>
+        <hasDescription>Study of heat transfer and energy conversion</hasDescription>
+        <hasName>Technical Thermodynamics</hasName>
+        <mathematicalComplexity>High</mathematicalComplexity>
+    </owl:NamedIndividual>
+    
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#CNCMachine"
-    >
-        <partOfSystem
-            rdf:resource="http://www.technical-sciences.org/ontology#Technosphere"
-        />
-    </rdf:Description>
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#IndustrialRobot"
-    >
-        <partOfSystem
-            rdf:resource="http://www.technical-sciences.org/ontology#HumanMachineSystem"
-        />
-    </rdf:Description>
+    <!-- http://www.technical-sciences.org/ontology#TransportInfrastructure -->
 
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#MachineEngineering"
-    >
-        <studies
-            rdf:resource="http://www.technical-sciences.org/ontology#SteelAlloys"
-        />
-    </rdf:Description>
-
-    <rdf:Description
-        rdf:about="http://www.technical-sciences.org/ontology#SoftwareEngineering"
-    >
-        <studies
-            rdf:resource="http://www.technical-sciences.org/ontology#DataProcessing"
-        />
-    </rdf:Description>
-
+    <owl:NamedIndividual rdf:about="http://www.technical-sciences.org/ontology#TransportInfrastructure">
+        <rdf:type rdf:resource="http://www.technical-sciences.org/ontology#IndustrySector"/>
+        <economicImpact>Essential for Global Trade</economicImpact>
+        <hasDescription>Transportation systems and logistics infrastructure</hasDescription>
+        <hasName>Transport and Infrastructure</hasName>
+        <workforceSize rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">88000000</workforceSize>
+    </owl:NamedIndividual>
 </rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

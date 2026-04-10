@@ -233,7 +233,7 @@ if __name__ == "__main__":
         print(f"Classification report for {name}:\n")
         print(classification_report(y, y_pred, target_names=class_labels, zero_division=0))
         plot_confusion_matrix(y, y_pred, class_labels=class_labels, title=f"Confusion Matrix: {name}")
-        # Покажем метки по индексам (чтобы легко читать матрицу)
+ 
         print("Label mapping (index -> label):")
         for idx, lab in enumerate(class_labels):
             print(f"{idx} -> {lab}")
@@ -242,7 +242,7 @@ if __name__ == "__main__":
     print("\nСводная таблица результатов (по убыванию F1_macro):")
     print(results_df)
 
-    # Визуализация таблицы метрик
+  
     plt.figure(figsize=(10,6))
     metrics_plot = results_df.set_index('Model')[['Accuracy','Precision_macro','Recall_macro','F1_macro','ROC_AUC_macro']]
     sns.heatmap(metrics_plot, annot=True, fmt=".3f", cmap='YlGnBu', cbar_kws={'label': 'score'})

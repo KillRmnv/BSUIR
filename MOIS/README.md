@@ -1,0 +1,2 @@
+# Mathematical Foundations of Intelligent Systems
+This directory contains source files to formalization of concepts os ScS( text representation of Semantic code ) and ScG(Graphical representation of Semantic code).This languages is part of the OSTIS(Open Semantic Technology for Intelligent Systems) an open semantic technology for designing next-generation intelligent computer systems based on semantic representation and knowledge processing.

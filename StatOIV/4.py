@@ -10,7 +10,6 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import StratifiedKFold, cross_val_predict
 from sklearn.pipeline import make_pipeline
 
-# Добавь эти импорты в самое начало к остальным!
 from sklearn.cluster import KMeans, AgglomerativeClustering, DBSCAN
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
 from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score
@@ -246,7 +245,6 @@ if __name__ == "__main__":
     
 
     def evaluate_clustering(name, labels, data_x, true_labels):
-        # Считаем кол-во кластеров и выбросов
         unique_labels = set(labels)
         n_clusters = len(unique_labels) - (1 if -1 in labels else 0)
         n_noise = list(labels).count(-1)

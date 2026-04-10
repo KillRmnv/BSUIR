@@ -46,7 +46,7 @@ public class PipelineManager {
 
     public void start() throws InterruptedException {
         int tactCounter = 0;
-        io.displayState(tactCounter, pipeline.getStages(), completedPairs);
+        io.displayState(tactCounter, pipeline.getStages(), completedPairs, pipeline.getQueue());
         
         tactCounter = 1;
 
@@ -65,7 +65,7 @@ public class PipelineManager {
                 }
             }
 
-            io.displayState(tactCounter, pipeline.getStages(), completedPairs);
+            io.displayState(tactCounter, pipeline.getStages(), completedPairs, pipeline.getQueue());
             tactCounter++;
         }
         
