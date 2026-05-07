@@ -3,7 +3,12 @@
 Выполнил студент группы 321701
 Романов К.В.
 Вариант 6
-Улучшенный PipelineManager с отслеживанием завершенных пар
+Алгоритм вычисления целочисленного частного пары 4-разрядных чисел делением без восстановления частичного остатка
+
+Данный файл реализует класс ответственный за управление ковеером
+Источники:
+(1) Интеграционная платформа
+14.03.2026
 */
 
 package com.bsuir;
@@ -19,13 +24,27 @@ public class PipelineManager {
 
     public void init() {
         io.clearConsole();
-        System.out.println("\nГенерация " + Config.amountOfPairs + " пар...");
+        System.out.println("\nВведите данные для " + Config.amountOfPairs + " пар...");
+
         for (int i = 0; i < Config.amountOfPairs; i++) {
-            System.out.print("  Пара " + i + ": ");
-            Pair pair = io.generateRandomPair();
+
+            Pair pair = io.inputPair(i);
             pair.setPairNumber(i);
             pipeline.getQueue().add(pair);
         }
+        try {
+            int input = System.in.read();
+            
+            while (System.in.available() > 0) {
+                System.in.read();
+            }
+            
+            Thread.sleep(50);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        io.clearConsole();
     }
 
     public Pipeline getPipeline() {

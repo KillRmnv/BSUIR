@@ -14,13 +14,11 @@ package com.bsuir;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Queue;
-import java.util.Random;
 import java.util.Scanner;
 
 public class ConsoleIO {
 
     private Scanner scanner = new Scanner(System.in);
-    private Random random = new Random();
 
     public void inputPipelineParams() {
         clearConsole();
@@ -31,10 +29,13 @@ public class ConsoleIO {
             1
         );
         Config.amountOfBits = readSafeInt("p - разряды (количество бит): ", 1);
-        Config.tactTime = readSafeInt("ti - тактов на этап: ", 1);
     }
 
     private int readSafeInt(String message, int minValue) {
+        return readSafeIntWithRange(message, minValue, Integer.MAX_VALUE);
+    }
+
+    private int readSafeIntWithRange(String message, int minValue, int maxValue) {
         int value;
         while (true) {
             System.out.print(message);
@@ -42,11 +43,11 @@ public class ConsoleIO {
             if (scanner.hasNextInt()) {
                 value = scanner.nextInt();
 
-                if (value >= minValue) {
+                if (value >= minValue && value <= maxValue) {
                     return value;
                 } else {
                     System.out.println(
-                        "Ошибка: значение должно быть >= " + minValue
+                        "Ошибка: значение должно быть в диапазоне [" + minValue + ", " + maxValue + "]"
                     );
                 }
             } else {
@@ -56,10 +57,11 @@ public class ConsoleIO {
         }
     }
 
-    public Pair generateRandomPair() {
-        int maxVal = (1 << (Config.amountOfBits - 1)) - 1;
-        int dividend = random.nextInt(maxVal) + 1;
-        int divisor = random.nextInt(maxVal) + 1;
+    public Pair inputPair(int pairNumber) {
+        int maxVal = (1 << Config.amountOfBits) - 1;
+        System.out.println("Пара №" + (pairNumber + 1));
+        int dividend = readSafeIntWithRange("  Введите делимое (1-" + maxVal + "): ", 1, maxVal);
+        int divisor = readSafeIntWithRange("  Введите делитель (1-" + maxVal + "): ", 1, maxVal);
 
         BinaryNumber first = new BinaryNumber(
             dividend,
@@ -71,7 +73,8 @@ public class ConsoleIO {
         );
 
         System.out.println(
-            dividend +
+            "  Результат: " +
+                dividend +
                 " : " +
                 divisor +
                 " ~ " +
@@ -82,6 +85,7 @@ public class ConsoleIO {
 
         return new Pair(first, second);
     }
+
 
     public void displayState(
         int tact,

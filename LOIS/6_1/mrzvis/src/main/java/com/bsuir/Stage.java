@@ -3,7 +3,12 @@
 Выполнил студент группы 321701
 Романов К.В.
 Вариант 6
-Улучшенный класс Stage с отслеживанием операций
+Алгоритм вычисления целочисленного частного пары 4-разрядных чисел делением без восстановления частичного остатка
+
+Данный файл реализует класс этапа конвеера
+Источники:
+(1) Интеграционная платформа
+14.03.2026
 */
 
 package com.bsuir;
@@ -48,19 +53,28 @@ public class Stage {
     }
 
     public void execute() throws InterruptedException {
-        if (pairs == null || pairs.isEmpty())
-            return;
+        if (pairs == null || pairs.isEmpty()) return;
 
         CountDownLatch latch = new CountDownLatch(pairs.size());
 
         for (Pair pair : pairs) {
             new Thread(() -> {
-                BinaryNumber a = pair.getFirst();
-                BinaryNumber b = pair.getSecond().clone();
+                BinaryNumber aOriginal = pair.getFirst();
                 int p = Config.amountOfBits;
-                int size = a.size();
 
-                
+                BinaryNumber a;
+                if (aOriginal.size() == p * 2) {
+                    a = new BinaryNumber(p * 2 + 1);
+                    for (int i = 0; i < p * 2; i++) {
+                        a.setBit(i, aOriginal.getBits()[i]);
+                    }
+                } else {
+                    a = aOriginal;
+                }
+
+                int size = a.size();
+                BinaryNumber b = pair.getSecond().clone();
+
                 pair.setStateBeforeOp(a.clone());
 
                 BinaryNumber bAligned = new BinaryNumber(size);
@@ -98,7 +112,7 @@ public class Stage {
                     latch.countDown();
                 }
             })
-                    .start();
+                .start();
         }
 
         latch.await();
