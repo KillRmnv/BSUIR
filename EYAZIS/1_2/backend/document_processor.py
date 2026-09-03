@@ -156,3 +156,26 @@ def extract_keywords(text: str, top_k: int = 5) -> List[str]:
         scored.append((token, tf_val * idf_val))
     scored.sort(key=lambda x: x[1], reverse=True)
     return [word for word, _ in scored[:top_k]]
+
+
+def generate_summary(text: str, top_k: int = 3, min_sentence_len: int = 4) -> str:
+    """Extractive summary: pick the top-K sentences by summed TF-IDF weight
+    and return them in their original order. Empty if nothing qualifying."""
+    sentences = re.split(r'(?<=[.!?])\s+', text.strip())
+    scored = []
+    for i, sent in enumerate(sentences):
+        tokens = clean_text(sent)
+        if len(tokens) < min_sentence_len:
+            continue
+        tf = Counter(tokens)
+        weight = sum(
+            (1 + math.log(tf[token])) * IDF.get(token, 1.0)
+            for token in tf
+        )
+        scored.append((weight, i, sent.strip()))
+    if not scored:
+        return ""
+    scored.sort(key=lambda x: x[0], reverse=True)
+    top = scored[:top_k]
+    top.sort(key=lambda x: x[1])
+    return " ".join(s for _, _, s in top)

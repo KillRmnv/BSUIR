@@ -89,7 +89,6 @@ SUPPORTED_FORMATS = ", ".join(
     "." + ext for ext in ("txt", "md", "pdf", "docx", "html", "rtf", "csv", "log")
 )
 
-
 def extract_text_from_bytes(data: bytes, filename: str) -> Tuple[str, Optional[str]]:
     """Extract plain text from a file's bytes. Returns (text, error)."""
     ext = filename.rsplit(".", 1)[-1].lower() if "." in filename else ""

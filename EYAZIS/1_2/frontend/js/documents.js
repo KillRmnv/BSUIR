@@ -29,6 +29,7 @@ async function loadDocuments() {
                 </div>
                 <div class="doc-actions">
                     <button class="btn btn-small btn-secondary" onclick="event.stopPropagation(); viewDocument(${doc.id})">View</button>
+                    ${doc.summary ? `<button class="btn btn-small btn-primary" onclick="event.stopPropagation(); showSummary(${doc.id})">Summary</button>` : ''}
                     <button class="btn btn-small btn-danger" onclick="event.stopPropagation(); deleteDocument(${doc.id})">Delete</button>
                 </div>
             `;
@@ -59,6 +60,18 @@ async function deleteDocument(docId) {
         loadDocuments();
     } catch (err) {
         alert('Failed to delete document');
+    }
+}
+
+async function showSummary(docId) {
+    try {
+        const res = await fetch(`${API_BASE}/documents/${docId}`);
+        const doc = await res.json();
+        modal.querySelector('h3').textContent = `Summary: ${doc.title}`;
+        document.getElementById('modalBody').innerHTML = `<p>${escapeHtml(doc.summary || 'No summary available for this document.')}</p>`;
+        modal.classList.remove('hidden');
+    } catch (err) {
+        alert('Failed to load summary');
     }
 }
 

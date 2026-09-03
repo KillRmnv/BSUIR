@@ -65,6 +65,7 @@ searchForm.addEventListener('submit', async (e) => {
                         ${doc.matched_terms.map(t => `<span class="matched-tag">${escapeHtml(t)}</span>`).join('')}
                     </div>
                 ` : ''}
+                ${doc.summary ? '<button class="btn btn-small btn-primary summary-btn" onclick="event.stopPropagation(); showSummary(' + doc.id + ')">Summary</button>' : ''}
             `;
             card.addEventListener('click', () => showDocPreview(doc.id));
             resultsList.appendChild(card);
@@ -73,6 +74,18 @@ searchForm.addEventListener('submit', async (e) => {
         resultsList.innerHTML = `<div class="empty-state">Error: ${err.message}</div>`;
     }
 });
+
+async function showSummary(docId) {
+    try {
+        const res = await fetch(`${API_BASE}/documents/${docId}`);
+        const doc = await res.json();
+        modal.querySelector('h3').textContent = `Summary: ${doc.title}`;
+        modalBody.innerHTML = `<p>${escapeHtml(doc.summary || 'No summary available for this document.')}</p>`;
+        modal.classList.remove('hidden');
+    } catch (err) {
+        alert('Failed to load summary');
+    }
+}
 
 async function showDocPreview(docId) {
     try {

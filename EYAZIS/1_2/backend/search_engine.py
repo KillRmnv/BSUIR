@@ -8,6 +8,7 @@ from document_processor import (
     extract_keywords,
     get_query_terms,
     highlight_snippet,
+    generate_summary,
     VOCAB,
     IDF,
 )
@@ -16,7 +17,7 @@ from database_manager import search_documents, log_search, load_vocabulary, load
 
 
 class SearchEngine:
-    def __init__(self, vector_dim: int = 1000):
+    def __init__(self, vector_dim: int = 5000):
         self.vector_dim = vector_dim
 
     def _ensure_vocab(self) -> bool:
@@ -40,7 +41,6 @@ class SearchEngine:
         query_vector = self.process_query(query_string)
         log_search(query_string, query_vector)
         raw_results = search_documents(query_vector, top_k)
-        # Drop results with zero similarity — they add no value
         raw_results = [r for r in raw_results if r["similarity"] > 0]
         keywords = extract_keywords(query_string)
         query_terms = set(get_query_terms(query_string))
@@ -48,7 +48,6 @@ class SearchEngine:
         for res in raw_results:
             snippet_html, matched = highlight_snippet(res["content"], query_terms)
             if not matched:
-                # No query term in this doc — fall back to the doc's own top TF-IDF keywords
                 doc_terms = set(extract_keywords(res["content"], 5))
                 snippet_html, matched = highlight_snippet(res["content"], doc_terms)
             res["highlighted_content"] = snippet_html
@@ -67,7 +66,14 @@ class SearchEngine:
         indexed = 0
         for doc in documents:
             embedding = vectorize_text_with_dim(doc["content"], self.vector_dim)
-            insert_document(doc["title"], doc["content"], embedding)
+            summary = generate_summary(doc["content"])
+            insert_document(
+                doc["title"],
+                doc["content"],
+                embedding,
+                summary=summary,
+                file_path=doc.get("file_path"),
+            )
             indexed += 1
         return indexed
 

@@ -280,6 +280,10 @@ h1 {
     border-radius: 999px;
 }
 
+.summary-btn {
+    margin-top: 0.625rem;
+}
+
 .upload-section {
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -1,11 +1,13 @@
 import os
 import glob
+import base64
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 
 from database_manager import (
     init_db,
     get_all_documents,
+    get_all_document_texts,
     get_document_by_id,
     delete_document,
     get_document_count,
@@ -18,12 +20,14 @@ from search_engine import SearchEngine
 from evaluator import calculate_metrics, evaluate_search_results, plot_metrics
 from document_processor import vectorize_text_with_dim, build_vocabulary, compute_idf, get_query_terms, highlight_terms
 from document_loader import extract_text_from_bytes
+from watch_handler import handle_watch_event
+from database_manager import register_watch_client, get_watch_clients
 import document_processor as dp
 
 app = Flask(__name__, static_folder="frontend", static_url_path="")
 CORS(app)
 
-engine = SearchEngine(vector_dim=1000)
+engine = SearchEngine(vector_dim=5000)
 
 
 @app.route("/")
@@ -148,6 +152,49 @@ def api_stats():
     return jsonify({"document_count": count})
 
 
+@app.route("/api/watch-event", methods=["POST"])
+def api_watch_event():
+    data = request.get_json(force=True) or {}
+    event_type = data.get("event_type")
+    file_path = data.get("file_path")
+    client_id = data.get("client_id", "")
+    if not event_type or not file_path:
+        return jsonify({"error": "event_type and file_path are required"}), 400
+
+    file_content = None
+    b64 = data.get("file_content")
+    if b64:
+        try:
+            file_content = base64.b64decode(b64)
+        except Exception:
+            return jsonify({"error": "invalid file_content base64"}), 400
+
+    result = handle_watch_event(
+        event_type,
+        file_path,
+        client_id,
+        file_content,
+        data.get("old_path"),
+        engine.vector_dim,
+    )
+    return jsonify(result)
+
+
+@app.route("/api/watch-clients", methods=["GET", "POST"])
+def api_watch_clients():
+    if request.method == "POST":
+        data = request.get_json(force=True) or {}
+        client_id = data.get("client_id")
+        watched_dir = data.get("watched_dir", "")
+        if not client_id:
+            return jsonify({"error": "client_id is required"}), 400
+        register_watch_client(client_id, watched_dir)
+        return jsonify({"message": "Client registered", "client_id": client_id})
+
+    clients = get_watch_clients()
+    return jsonify({"clients": clients, "total": len(clients)})
+
+
 @app.route("/api/help", methods=["GET"])
 def api_help():
     return jsonify({
@@ -231,6 +278,53 @@ def api_init_db():
     return jsonify({"message": "Database initialized", "documents_loaded": len(txt_files)})
 
 
+def _backfill_summaries():
+    """Generate auto-summaries for documents indexed before the summary column existed."""
+    from database_manager import get_documents_without_summary, update_document_summary
+
+    docs = get_documents_without_summary()
+    if not docs:
+        return 0
+    for doc in docs:
+        summary = dp.generate_summary(doc["content"])
+        if summary:
+            update_document_summary(doc["id"], summary)
+    return len(docs)
+
+
+def _ensure_corpus():
+    """Run migrations, load seed .txt corpus if DB is empty, and backfill missing summaries.
+    Call once at startup so no external /api/init-db call is required."""
+    init_db()
+
+    all_docs = get_all_document_texts()
+    if not all_docs:
+        # Seed corpus from backend/documents/*.txt on first start
+        docs_dir = os.path.join(os.path.dirname(__file__), "documents")
+        txt_files = glob.glob(os.path.join(docs_dir, "*.txt"))
+        if txt_files:
+            texts = []
+            for f in txt_files:
+                with open(f, "r", encoding="utf-8") as fh:
+                    texts.append(fh.read())
+            build_vocabulary(texts)
+            compute_idf(texts)
+            save_vocabulary(dp.VOCAB)
+            save_idf(dp.IDF)
+            for f in txt_files:
+                with open(f, "r", encoding="utf-8") as fh:
+                    content = fh.read()
+                title = os.path.basename(f).rsplit(".", 1)[0]
+                engine.index_documents([{"title": title, "content": content}])
+    else:
+        # Existing corpus: rebuild vocab/IDF from full texts, then fill in summaries
+        build_vocabulary(all_docs)
+        compute_idf(all_docs)
+        save_vocabulary(dp.VOCAB)
+        save_idf(dp.IDF)
+        _backfill_summaries()
+
+
 if __name__ == "__main__":
     if not dp.VOCAB:
         saved_vocab = load_vocabulary()
@@ -238,12 +332,5 @@ if __name__ == "__main__":
         if saved_vocab and saved_idf:
             dp.VOCAB = saved_vocab
             dp.IDF = saved_idf
-        else:
-            docs = get_all_documents()
-            if docs:
-                all_texts = [d["content"] for d in docs]
-                build_vocabulary(all_texts)
-                compute_idf(all_texts)
-                save_vocabulary(dp.VOCAB)
-                save_idf(dp.IDF)
+    _ensure_corpus()
     app.run(host="0.0.0.0", port=5000, debug=False)

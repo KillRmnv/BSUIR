@@ -10,14 +10,14 @@ CREATE TABLE IF NOT EXISTS documents (
     title VARCHAR(500) NOT NULL,
     content TEXT NOT NULL,
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    embedding vector(1000)
+    embedding vector(5000)
 );
 
 -- 3. Search logs table for analytics
 CREATE TABLE IF NOT EXISTS search_logs (
     id SERIAL PRIMARY KEY,
     query_text TEXT,
-    query_embedding vector(1000),
+    query_embedding vector(5000),
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

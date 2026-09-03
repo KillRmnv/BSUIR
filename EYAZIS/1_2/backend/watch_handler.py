@@ -1,0 +1,79 @@
+"""
+Server-side processing of file-watcher events pushed by watch_client.py.
+
+Flow for created/modified:
+    base64 content -> extract text -> rebuild vocab/IDF -> summary -> upsert by file_path
+Flow for deleted:
+    remove document by file_path -> rebuild vocab/IDF
+"""
+import os
+from typing import Dict, Optional
+
+from document_loader import extract_text_from_bytes
+from document_processor import (
+    build_vocabulary,
+    compute_idf,
+    generate_summary,
+    vectorize_text_with_dim,
+)
+import document_processor as dp
+from database_manager import (
+    get_all_document_texts,
+    upsert_document,
+    delete_document_by_path,
+    save_vocabulary,
+    save_idf,
+    log_watch_event,
+)
+
+
+def _rebuild_vocab_idf():
+    texts = get_all_document_texts()
+    build_vocabulary(texts)
+    compute_idf(texts)
+    save_vocabulary(dp.VOCAB)
+    save_idf(dp.IDF)
+
+
+def handle_watch_event(
+    event_type: str,
+    file_path: str,
+    client_id: str,
+    file_content: Optional[bytes] = None,
+    old_path: Optional[str] = None,
+    vector_dim: int = 5000,
+) -> Dict:
+    if event_type in ("created", "modified"):
+        if file_content is None:
+            return {"status": "skipped", "reason": "no file content provided"}
+
+        text, err = extract_text_from_bytes(file_content, os.path.basename(file_path))
+        if err or not text.strip():
+            log_watch_event(client_id, event_type, file_path, old_path)
+            return {"status": "skipped", "reason": err or "empty text"}
+
+        title = os.path.basename(file_path).rsplit(".", 1)[0]
+
+        # Rebuild the whole corpus vocab/IDF including the new text,
+        # then persist so the search engine stays consistent.
+        texts = get_all_document_texts() + [text]
+        build_vocabulary(texts)
+        compute_idf(texts)
+        save_vocabulary(dp.VOCAB)
+        save_idf(dp.IDF)
+
+        summary = generate_summary(text)
+        embedding = vectorize_text_with_dim(text, vector_dim)
+        doc_id = upsert_document(title, text, embedding, summary, file_path)
+
+        log_watch_event(client_id, event_type, file_path, old_path)
+        return {"status": "indexed", "document_id": doc_id, "title": title}
+
+    if event_type == "deleted":
+        deleted = delete_document_by_path(file_path)
+        if deleted:
+            _rebuild_vocab_idf()
+        log_watch_event(client_id, event_type, file_path, old_path)
+        return {"status": "deleted" if deleted else "not_found"}
+
+    return {"status": "unknown_event", "event_type": event_type}
