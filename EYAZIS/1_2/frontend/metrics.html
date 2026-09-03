@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IR System - Metrics</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">IR System</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Search</a>
+            <a href="upload.html" class="nav-link">Upload</a>
+            <a href="documents.html" class="nav-link">Documents</a>
+            <a href="metrics.html" class="nav-link active">Metrics</a>
+            <a href="help.html" class="nav-link">Help</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Evaluation Metrics</h1>
+        <p class="subtitle">Measure search quality with Precision, Recall, and F-Score</p>
+
+        <div class="metrics-form-section">
+            <div class="upload-card">
+                <h3>Query Evaluation</h3>
+                <p class="hint">Enter queries and specify which document IDs are relevant for each query. Retrieved results are taken automatically from the live search (top-10).</p>
+                <form id="evalForm">
+                    <div id="evalQueries">
+                        <div class="eval-query-row">
+                            <input type="text" class="eval-query-input" placeholder="Search query...">
+                            <input type="text" class="eval-relevant-input" placeholder="Relevant doc IDs (comma-separated, e.g. 1,2,3)">
+                        </div>
+                    </div>
+                    <div class="eval-actions">
+                        <button type="button" class="btn btn-secondary" id="addQueryBtn">+ Add Query</button>
+                        <button type="submit" class="btn btn-primary">Evaluate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="metricsResults" class="metrics-results hidden">
+            <div class="metrics-summary">
+                <div class="metric-card">
+                    <div class="metric-value" id="avgPrecision">-</div>
+                    <div class="metric-label">Avg Precision</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="avgRecall">-</div>
+                    <div class="metric-label">Avg Recall</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="avgFscore">-</div>
+                    <div class="metric-label">Avg F1-Score</div>
+                </div>
+            </div>
+
+            <div id="chartContainer" class="chart-container">
+                <img id="metricsChart" src="" alt="Metrics Chart">
+            </div>
+
+            <div class="upload-card">
+                <h3>Per-Query Breakdown</h3>
+                <table class="metrics-table" id="metricsTable">
+                    <thead>
+                        <tr>
+                            <th>Query</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1</th>
+                            <th>F0.5</th>
+                            <th>F2</th>
+                        </tr>
+                    </thead>
+                    <tbody id="metricsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/metrics.js"></script>
+</body>
+</html>

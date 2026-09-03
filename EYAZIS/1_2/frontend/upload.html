@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IR System - Upload</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">IR System</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Search</a>
+            <a href="upload.html" class="nav-link active">Upload</a>
+            <a href="documents.html" class="nav-link">Documents</a>
+            <a href="metrics.html" class="nav-link">Metrics</a>
+            <a href="help.html" class="nav-link">Help</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Upload Documents</h1>
+        <p class="subtitle">Add text documents to the search corpus</p>
+
+        <div class="upload-section">
+            <div class="upload-card">
+                <h3>Manual Entry</h3>
+                <form id="manualForm">
+                    <div class="form-group">
+                        <label for="docTitle">Document Title</label>
+                        <input type="text" id="docTitle" placeholder="Enter title...">
+                    </div>
+                    <div class="form-group">
+                        <label for="docContent">Document Content</label>
+                        <textarea id="docContent" rows="8" placeholder="Enter or paste document text..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Document</button>
+                </form>
+            </div>
+
+            <div class="upload-card">
+                <h3>File Upload</h3>
+                <form id="fileForm">
+                    <div class="form-group">
+                        <label>Supported formats: .txt .md .pdf .docx .html .rtf .csv .log</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="fileInput" accept=".txt,.md,.pdf,.docx,.html,.htm,.rtf,.csv,.log">
+                            <label for="fileInput" class="file-label">Choose File</label>
+                            <span id="fileName" class="file-name">No file selected</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload File</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="uploadStatus" class="upload-status hidden"></div>
+    </main>
+
+    <script src="js/upload.js"></script>
+</body>
+</html>

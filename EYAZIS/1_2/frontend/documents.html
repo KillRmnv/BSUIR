@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IR System - Documents</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">IR System</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Search</a>
+            <a href="upload.html" class="nav-link">Upload</a>
+            <a href="documents.html" class="nav-link active">Documents</a>
+            <a href="metrics.html" class="nav-link">Metrics</a>
+            <a href="help.html" class="nav-link">Help</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Document Corpus</h1>
+        <div class="documents-header">
+            <span id="docCount" class="result-count"></span>
+        </div>
+
+        <div id="documentsList" class="documents-list"></div>
+    </main>
+
+    <div id="helpModal" class="modal hidden">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="modalTitle">Document Preview</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="js/documents.js"></script>
+</body>
+</html>

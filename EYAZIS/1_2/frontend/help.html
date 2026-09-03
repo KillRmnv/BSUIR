@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IR System - Help</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">IR System</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Search</a>
+            <a href="upload.html" class="nav-link">Upload</a>
+            <a href="documents.html" class="nav-link">Documents</a>
+            <a href="metrics.html" class="nav-link">Metrics</a>
+            <a href="help.html" class="nav-link active">Help</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Help & Documentation</h1>
+
+        <section class="help-section">
+            <h2>Navigation Guide</h2>
+            <div class="help-grid">
+                <div class="help-card">
+                    <h3>Search</h3>
+                    <p>Main page with the search bar. Enter your query to search through the document corpus using cosine similarity. Results are ranked by relevance score.</p>
+                </div>
+                <div class="help-card">
+                    <h3>Upload</h3>
+                    <p>Add text documents to the corpus. You can enter text manually or upload .txt files. Documents are automatically indexed for searching.</p>
+                </div>
+                <div class="help-card">
+                    <h3>Documents</h3>
+                    <p>Browse all indexed documents in the corpus. Click on any document to view its full content. Delete documents you no longer need.</p>
+                </div>
+                <div class="help-card">
+                    <h3>Metrics</h3>
+                    <p>Evaluate search quality using standard IR metrics. Enter queries with known relevant documents to calculate Precision, Recall, and F-Score.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="help-section">
+            <h2>Theoretical Terms</h2>
+            <div id="termsContainer" class="terms-container"></div>
+        </section>
+
+        <section class="help-section">
+            <h2>System Architecture</h2>
+            <div class="architecture">
+                <div class="arch-block">
+                    <div class="arch-title">Frontend</div>
+                    <div class="arch-desc">HTML/CSS/JS</div>
+                </div>
+                <div class="arch-arrow">&rarr;</div>
+                <div class="arch-block">
+                    <div class="arch-title">Flask API</div>
+                    <div class="arch-desc">Python Backend</div>
+                </div>
+                <div class="arch-arrow">&rarr;</div>
+                <div class="arch-block">
+                    <div class="arch-title">PostgreSQL + pgvector</div>
+                    <div class="arch-desc">Vector Storage</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/help.js"></script>
+</body>
+</html>
