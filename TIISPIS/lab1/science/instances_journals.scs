@@ -1,0 +1,38 @@
+// ============================================
+// ЭКЗЕМПЛЯРЫ: Научные журналы
+// ============================================
+
+nature_journal
+<- concept_journal;
+=> nrel_main_idtf:
+	[Nature] (* <- lang_en;; *);
+=> nrel_note:
+	[Один из наиболее цитируемых научных журналов в мире] (* <- lang_ru;; *);;
+
+science_journal
+<- concept_journal;
+=> nrel_main_idtf:
+	[Science] (* <- lang_en;; *);
+=> nrel_note:
+	[Научный журнал, публикующий оригинальные исследования] (* <- lang_ru;; *);;
+
+physical_review
+<- concept_journal;
+=> nrel_main_idtf:
+	[Physical Review Letters] (* <- lang_en;; *);
+=> nrel_note:
+	[Ведущий журнал по физике] (* <- lang_ru;; *);;
+
+chemical_reviews
+<- concept_journal;
+=> nrel_main_idtf:
+	[Chemical Reviews] (* <- lang_en;; *);
+=> nrel_note:
+	[Обзорный журнал по химии] (* <- lang_ru;; *);;
+
+cell_journal
+<- concept_journal;
+=> nrel_main_idtf:
+	[Cell] (* <- lang_en;; *);
+=> nrel_note:
+	[Научный журнал по биологии и биомедицине] (* <- lang_ru;; *);;

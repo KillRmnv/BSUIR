@@ -1,0 +1,66 @@
+// ============================================
+// ЭКЗЕМПЛЯРЫ: Научные учреждения
+// ============================================
+
+cern
+<- concept_institution;
+=> nrel_main_idtf:
+	[ЦЕРН] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[CERN] (* <- lang_en;; *);
+=> nrel_note:
+	[Европейская организация по ядерным исследованиям] (* <- lang_ru;; *);;
+
+mit
+<- concept_institution;
+=> nrel_main_idtf:
+	[Массачусетский технологический институт] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Massachusetts Institute of Technology] (* <- lang_en;; *);
+=> nrel_note:
+	[Один из ведущих технологических университетов мира] (* <- lang_ru;; *);;
+
+russian_academy
+<- concept_institution;
+=> nrel_main_idtf:
+	[Российская академия наук] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Russian Academy of Sciences] (* <- lang_en;; *);
+=> nrel_note:
+	[Крупнейшая научная организация в России] (* <- lang_ru;; *);;
+
+stanford_university
+<- concept_institution;
+=> nrel_main_idtf:
+	[Стэнфордский университет] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Stanford University] (* <- lang_en;; *);
+=> nrel_note:
+	[Один из ведущих университетов мира] (* <- lang_ru;; *);;
+
+max_planck_institute
+<- concept_institution;
+=> nrel_main_idtf:
+	[Институт Макса Планка] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Max Planck Institute] (* <- lang_en;; *);
+=> nrel_note:
+	[Сеть научных исследовательских институтов в Германии] (* <- lang_ru;; *);;
+
+pasteur_institute
+<- concept_institution;
+=> nrel_main_idtf:
+	[Институт Пастера] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Pasteur Institute] (* <- lang_en;; *);
+=> nrel_note:
+	[Французский исследовательский институт] (* <- lang_ru;; *);;
+
+moscow_state_university
+<- concept_institution;
+=> nrel_main_idtf:
+	[Московский государственный университет] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Moscow State University] (* <- lang_en;; *);
+=> nrel_note:
+	[Старейший и крупнейший университет России] (* <- lang_ru;; *);;

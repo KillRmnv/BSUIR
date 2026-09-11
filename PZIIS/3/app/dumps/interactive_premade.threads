@@ -1,0 +1,125 @@
+Thread 0x71120d3b0
+
+  locals:
+
+Thread 0x711201820
+  at java.io.FileInputStream.readBytes([BII)I (FileInputStream.java(Native Method))
+  at java.io.FileInputStream.read([BII)I (FileInputStream.java:287)
+  at java.io.BufferedInputStream.read1([BII)I (BufferedInputStream.java:345)
+  at java.io.BufferedInputStream.implRead([BII)I (BufferedInputStream.java:420)
+  at java.io.BufferedInputStream.read([BII)I (BufferedInputStream.java:399)
+  at sun.nio.cs.StreamDecoder.readBytes()I (StreamDecoder.java:350)
+  at sun.nio.cs.StreamDecoder.implRead([CII)I (StreamDecoder.java:393)
+  at sun.nio.cs.StreamDecoder.lockedRead([CII)I (StreamDecoder.java:217)
+  at sun.nio.cs.StreamDecoder.read([CII)I (StreamDecoder.java:171)
+  at java.io.Reader.read(Ljava/nio/CharBuffer;)I (Reader.java:212)
+  at java.io.InputStreamReader.read(Ljava/nio/CharBuffer;)I (InputStreamReader.java:168)
+  at java.util.Scanner.readInput()V (Scanner.java:890)
+  at java.util.Scanner.findWithinHorizon(Ljava/util/regex/Pattern;I)Ljava/lang/String; (Scanner.java:1805)
+  at java.util.Scanner.nextLine()Ljava/lang/String; (Scanner.java:1658)
+  at app.Main.menuLoop()V (Main.java:194)
+  at app.Main.main([Ljava/lang/String;)V (Main.java:45)
+
+  locals:
+    objectId=0x7112041c0, line=0
+    objectId=0x711204180, line=1
+    objectId=0x711090f58, line=1
+    objectId=0x7112042c8, line=2
+    objectId=0x711090f58, line=2
+    objectId=0x7112042c8, line=3
+    objectId=0x711090f58, line=3
+    objectId=0x7112042c8, line=4
+    objectId=0x711090f58, line=4
+    objectId=0x711090ec8, line=5
+    objectId=0x711090ec8, line=6
+    objectId=0x711093118, line=6
+    objectId=0x710e04888, line=6
+    objectId=0x7110812b0, line=6
+    objectId=0x711090ec8, line=7
+    objectId=0x711093118, line=7
+    objectId=0x711090ec8, line=8
+    objectId=0x711093118, line=8
+    objectId=0x711090e88, line=8
+    objectId=0x711090e88, line=8
+    objectId=0x711090ec8, line=9
+    objectId=0x7110930e0, line=9
+    objectId=0x711093118, line=9
+    objectId=0x711090e70, line=10
+    objectId=0x7110930e0, line=10
+    objectId=0x711090d78, line=11
+    objectId=0x711090d78, line=12
+    objectId=0x7110d2d58, line=12
+    objectId=0x711090d78, line=13
+    objectId=0x71108d5f0, line=14
+    objectId=0x711210a70, line=15
+    objectId=0x711211208, line=15
+    objectId=0x71108d480, line=15
+    objectId=0x71108d5f0, line=15
+
+Thread 0x71120fc80
+  at jdk.internal.misc.Unsafe.park(ZJ)V (Unsafe.java(Native Method))
+  at java.util.concurrent.locks.LockSupport.parkNanos(Ljava/lang/Object;J)V (LockSupport.java:269)
+  at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(JLjava/util/concurrent/TimeUnit;)Z (AbstractQueuedSynchronizer.java:1886)
+  at java.lang.ref.ReferenceQueue.await(J)V (ReferenceQueue.java:71)
+  at java.lang.ref.ReferenceQueue.remove0(J)Ljava/lang/ref/Reference; (ReferenceQueue.java:143)
+  at java.lang.ref.ReferenceQueue.remove(J)Ljava/lang/ref/Reference; (ReferenceQueue.java:218)
+  at jdk.internal.ref.CleanerImpl.run()V (CleanerImpl.java:140)
+  at java.lang.Thread.runWith(Ljava/lang/Object;Ljava/lang/Runnable;)V (Thread.java:1596)
+  at java.lang.Thread.run()V (Thread.java:1583)
+  at jdk.internal.misc.InnocuousThread.run()V (InnocuousThread.java:186)
+
+  locals:
+    objectId=0x71120fb08, line=1
+    objectId=0x71120fc80, line=1
+    objectId=0x71120fb08, line=2
+    objectId=0x71124a048, line=2
+    objectId=0x71124a2a8, line=2
+    objectId=0x71120fab8, line=3
+    objectId=0x71120fab8, line=4
+    objectId=0x71120fab8, line=5
+    objectId=0x71120faa0, line=6
+    objectId=0x71120fc80, line=6
+    objectId=0x71120fc80, line=6
+    objectId=0x71120fc80, line=7
+    objectId=0x710a80750, line=7
+    objectId=0x71120faa0, line=7
+    objectId=0x71120fc80, line=8
+    objectId=0x71120faa0, line=8
+    objectId=0x710a80750, line=8
+    objectId=0x71120fc80, line=9
+
+Thread 0x71120d240
+  at java.lang.Object.wait0(J)V (Object.java(Native Method))
+  at java.lang.Object.wait(J)V (Object.java:366)
+  at java.lang.Object.wait()V (Object.java:339)
+  at java.lang.ref.NativeReferenceQueue.await()V (NativeReferenceQueue.java:48)
+  at java.lang.ref.ReferenceQueue.remove0()Ljava/lang/ref/Reference; (ReferenceQueue.java:158)
+  at java.lang.ref.NativeReferenceQueue.remove()Ljava/lang/ref/Reference; (NativeReferenceQueue.java:89)
+  at java.lang.ref.Finalizer$FinalizerThread.run()V (Finalizer.java:173)
+
+  locals:
+    objectId=0x711201a88, line=1
+    objectId=0x711201a88, line=2
+    objectId=0x711201a60, line=3
+    objectId=0x711201a60, line=4
+    objectId=0x711201a60, line=5
+    objectId=0x711201a88, line=5
+    objectId=0x71120d240, line=6
+    objectId=0x711201ab8, line=6
+
+Thread 0x71120f430
+
+  locals:
+
+Thread 0x71120d168
+  at java.lang.ref.Reference.waitForReferencePendingList()V (Reference.java(Native Method))
+  at java.lang.ref.Reference.processPendingReferences()V (Reference.java:246)
+  at java.lang.ref.Reference$ReferenceHandler.run()V (Reference.java:208)
+
+  locals:
+    objectId=0x71120d168, line=2
+
+Thread 0x710e048f8
+
+  locals:
+

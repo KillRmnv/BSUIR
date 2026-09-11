@@ -1,0 +1,48 @@
+// ============================================
+// ЭКЗЕМПЛЯРЫ: Открытия
+// ============================================
+
+discovery_penicillin
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие пенициллина] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of penicillin] (* <- lang_en;; *);
+=> nrel_note:
+	[Открытие первого антибиотика] (* <- lang_ru;; *);;
+
+discovery_dna
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие структуры ДНК] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of DNA structure] (* <- lang_en;; *);
+=> nrel_note:
+	[Открытие двойной спирали ДНК] (* <- lang_ru;; *);;
+
+discovery_gravity
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие закона тяготения] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of gravity] (* <- lang_en;; *);
+=> nrel_note:
+	[Установление закона всемирного тяготения] (* <- lang_ru;; *);;
+
+discovery_electromagnetic_induction
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие электромагнитной индукции] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of electromagnetic induction] (* <- lang_en;; *);
+=> nrel_note:
+	[Открытие явления электромагнитной индукции] (* <- lang_ru;; *);;
+
+discovery_periodic_table
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Создание периодической таблицы] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Creation of periodic table] (* <- lang_en;; *);
+=> nrel_note:
+	[Создание периодической таблицы химических элементов] (* <- lang_ru;; *);;

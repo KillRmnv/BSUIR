@@ -1,0 +1,960 @@
+// ============================================
+// Предметная область "Наука"
+// Science Domain Ontology
+// ============================================
+
+// ============================================
+// КЛАССЫ (абсолютные понятия)
+// ============================================
+
+concept_science
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Science] (* <- lang_en;; *);
+=> nrel_note:
+	[Систематизированная деятельность человека, направленная на развитие знаний о мире] (* <- lang_ru;; *);;
+
+concept_natural_science
+<- sc_node_class;
+<= nrel_inclusion: concept_science;
+=> nrel_main_idtf:
+	[Естественная наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Natural science] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука, изучающая природные явления и законы] (* <- lang_ru;; *);;
+
+concept_human_science
+<- sc_node_class;
+<= nrel_inclusion: concept_science;
+=> nrel_main_idtf:
+	[Гуманитарная наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Human science] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука, изучающая человека, общество и культуру] (* <- lang_ru;; *);;
+
+concept_formal_science
+<- sc_node_class;
+<= nrel_inclusion: concept_science;
+=> nrel_main_idtf:
+	[Формальная наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Formal science] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука, основанная на формальных системах и логике] (* <- lang_ru;; *);;
+
+concept_applied_science
+<- sc_node_class;
+<= nrel_inclusion: concept_science;
+=> nrel_main_idtf:
+	[Прикладная наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Applied science] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука, направленная на практическое применение знаний] (* <- lang_ru;; *);;
+
+concept_research
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Исследование] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Research] (* <- lang_en;; *);
+=> nrel_note:
+	[Систематическая деятельность для получения новых знаний] (* <- lang_ru;; *);;
+
+concept_experiment
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Эксперимент] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Experiment] (* <- lang_en;; *);
+=> nrel_note:
+	[Метод познания, заключающийся в воздействии на изучаемый объект] (* <- lang_ru;; *);;
+
+concept_hypothesis
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Гипотеза] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Hypothesis] (* <- lang_en;; *);
+=> nrel_note:
+	[Предположение, требующее проверки] (* <- lang_ru;; *);;
+
+concept_theory
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Теория] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Theory] (* <- lang_en;; *);
+=> nrel_note:
+	[Система обобщённых положений, объясняющих определённую область явлений] (* <- lang_ru;; *);;
+
+concept_method
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Метод] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Method] (* <- lang_en;; *);
+=> nrel_note:
+	[Способ достижения цели, организованная деятельность] (* <- lang_ru;; *);;
+
+concept_scientist
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Учёный] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Scientist] (* <- lang_en;; *);
+=> nrel_note:
+	[Человек, занимающийся научной деятельностью] (* <- lang_ru;; *);;
+
+concept_institution
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Научное учреждение] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Scientific institution] (* <- lang_en;; *);
+=> nrel_note:
+	[Организация, осуществляющая научную деятельность] (* <- lang_ru;; *);;
+
+concept_journal
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Научный журнал] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Scientific journal] (* <- lang_en;; *);
+=> nrel_note:
+	[Периодическое издание, публикующее результаты научных исследований] (* <- lang_ru;; *);;
+
+concept_discovery
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Открытие] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery] (* <- lang_en;; *);
+=> nrel_note:
+	[Установление ранее неизвестного научного факта или закона] (* <- lang_ru;; *);;
+
+concept_physics
+<- sc_node_class;
+<= nrel_inclusion: concept_natural_science;
+=> nrel_main_idtf:
+	[Физика] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Physics] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука о природных явлениях и строении материи] (* <- lang_ru;; *);;
+
+concept_chemistry
+<- sc_node_class;
+<= nrel_inclusion: concept_natural_science;
+=> nrel_main_idtf:
+	[Химия] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Chemistry] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука о веществах, их строении, свойствах и превращениях] (* <- lang_ru;; *);;
+
+concept_biology
+<- sc_node_class;
+<= nrel_inclusion: concept_natural_science;
+=> nrel_main_idtf:
+	[Биология] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Biology] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука о живых организмах и их взаимодействии со средой] (* <- lang_ru;; *);;
+
+concept_mathematics
+<- sc_node_class;
+<= nrel_inclusion: concept_formal_science;
+=> nrel_main_idtf:
+	[Математика] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Mathematics] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука о структурах, порядке и отношениях] (* <- lang_ru;; *);;
+
+concept_informatics
+<- sc_node_class;
+<= nrel_inclusion: concept_formal_science;
+=> nrel_main_idtf:
+	[Информатика] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Informatics] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука об обработке, хранении и передаче информации] (* <- lang_ru;; *);;
+
+concept_engineering
+<- sc_node_class;
+<= nrel_inclusion: concept_applied_science;
+=> nrel_main_idtf:
+	[Инженерия] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Engineering] (* <- lang_en;; *);
+=> nrel_note:
+	[Применение научных знаний для создания технических систем] (* <- lang_ru;; *);;
+
+concept_medical_science
+<- sc_node_class;
+<= nrel_inclusion: concept_applied_science;
+=> nrel_main_idtf:
+	[Медицинская наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Medical science] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука о здоровье человека, болезнях и их лечении] (* <- lang_ru;; *);;
+
+concept_law
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Закон научный] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Scientific law] (* <- lang_en;; *);
+=> nrel_note:
+	[Обобщение эмпирических фактов, выражающее объективную закономерность] (* <- lang_ru;; *);;
+
+concept_conference
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Научная конференция] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Scientific conference] (* <- lang_en;; *);
+=> nrel_note:
+	[Форма организации научной деятельности, обмена опытом] (* <- lang_ru;; *);;
+
+concept_patent
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Патент] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Patent] (* <- lang_en;; *);
+=> nrel_note:
+	[Документ, удостоверяющий авторское право на изобретение] (* <- lang_ru;; *);;
+
+concept_dissertation
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Диссертация] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Dissertation] (* <- lang_en;; *);
+=> nrel_note:
+	[Научная работа, представленная для получения учёной степени] (* <- lang_ru;; *);;
+
+concept_paradigm
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Парадигма] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Paradigm] (* <- lang_en;; *);
+=> nrel_note:
+	[Совокупность основных идей и принципов в науке] (* <- lang_ru;; *);;
+
+concept_model
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Модель] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Model] (* <- lang_en;; *);
+=> nrel_note:
+	[Упрощённое представление объекта или процесса] (* <- lang_ru;; *);;
+
+// ============================================
+// ОТНОШЕНИЯ (относительные понятия)
+// ============================================
+
+nrel_branch_of
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<- antireflexive_relation;
+<- asymmetric_relation;
+<- antitransitive_relation;
+=> nrel_main_idtf:
+	[является отраслью] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[is branch of] (* <- lang_en;; *);
+=> nrel_first_domain: concept_science;
+=> nrel_second_domain: concept_science;;
+
+nrel_researches
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<- antireflexive_relation;
+<- asymmetric_relation;
+=> nrel_main_idtf:
+	[исследует] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[researches] (* <- lang_en;; *);
+=> nrel_first_domain: concept_scientist;
+=> nrel_second_domain: concept_science;;
+
+nrel_conducted_by
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<- antireflexive_relation;
+=> nrel_main_idtf:
+	[проводится кем] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[conducted by] (* <- lang_en;; *);
+=> nrel_first_domain: concept_experiment;
+=> nrel_second_domain: concept_scientist;;
+
+nrel_author_of
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<- antireflexive_relation;
+=> nrel_main_idtf:
+	[автор] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[author of] (* <- lang_en;; *);
+=> nrel_first_domain: concept_scientist;
+=> nrel_second_domain: concept_discovery;;
+
+nrel_published_in
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+	[опубликовано в] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[published in] (* <- lang_en;; *);
+=> nrel_first_domain: concept_scientist;
+=> nrel_second_domain: concept_journal;;
+
+nrel_affiliated
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+	[приписан к] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[affiliated with] (* <- lang_en;; *);
+=> nrel_first_domain: concept_scientist;
+=> nrel_second_domain: concept_institution;;
+
+nrel_discovered
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<- antireflexive_relation;
+=> nrel_main_idtf:
+	[открыл] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[discovered] (* <- lang_en;; *);
+=> nrel_first_domain: concept_scientist;
+=> nrel_second_domain: concept_discovery;;
+
+nrel_applies_method
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+	[применяет метод] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[applies method] (* <- lang_en;; *);
+=> nrel_first_domain: concept_scientist;
+=> nrel_second_domain: concept_method;;
+
+nrel_verifies
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<- antireflexive_relation;
+=> nrel_main_idtf:
+	[верифицирует] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[verifies] (* <- lang_en;; *);
+=> nrel_first_domain: concept_experiment;
+=> nrel_second_domain: concept_hypothesis;;
+
+nrel_based_on
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+	[основана на] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[is based on] (* <- lang_en;; *);
+=> nrel_first_domain: concept_theory;
+=> nrel_second_domain: concept_hypothesis;;
+
+nrel_explains
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+	[объясняет] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[explains] (* <- lang_en;; *);
+=> nrel_first_domain: concept_theory;
+=> nrel_second_domain: concept_law;;
+
+nrel_defines
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+	[определяет] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[defines] (* <- lang_en;; *);
+=> nrel_first_domain: concept_paradigm;
+=> nrel_second_domain: concept_theory;;
+
+nrel_replaces
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<- antireflexive_relation;
+<- asymmetric_relation;
+=> nrel_main_idtf:
+	[заменяет] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[replaces] (* <- lang_en;; *);
+=> nrel_first_domain: concept_paradigm;
+=> nrel_second_domain: concept_paradigm;;
+
+nrel_discovered_by
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<- antireflexive_relation;
+=> nrel_main_idtf:
+	[было открыто кем] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[discovered by] (* <- lang_en;; *);
+=> nrel_first_domain: concept_discovery;
+=> nrel_second_domain: concept_scientist;;
+
+nrel_has_instance
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<= nrel_inclusion: concept_wit_entity;
+=> nrel_main_idtf:
+	[имеет экземпляр] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[has instance] (* <- lang_en;; *);
+=> nrel_first_domain: concept_scientist;
+=> nrel_second_domain: concept_institution;;
+
+// ============================================
+// ЭКЗЕМПЛЯРЫ
+// ============================================
+
+// --- Учёные ---
+
+isaac_newton
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Исаак Ньютон] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Isaac Newton] (* <- lang_en;; *);
+=> nrel_note:
+	[Английский физик и математик, один из основателей классической физики] (* <- lang_ru;; *);;
+
+albert_einstein
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Альберт Эйнштейн] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Albert Einstein] (* <- lang_en;; *);
+=> nrel_note:
+	[Немецкий физик-теоретик, создатель теории относительности] (* <- lang_ru;; *);;
+
+marie_curie
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Мария Кюри] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Marie Curie] (* <- lang_en;; *);
+=> nrel_note:
+	[Французский физик и химик, первая женщина — лауреат Нобелевской премии] (* <- lang_ru;; *);;
+
+charles_darwin
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Чарльз Дарвин] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Charles Darwin] (* <- lang_en;; *);
+=> nrel_note:
+	[Английский натуралист, автор теории эволюции] (* <- lang_ru;; *);;
+
+alan_turing
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Алан Тьюринг] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Alan Turing] (* <- lang_en;; *);
+=> nrel_note:
+	[Английский математик, один из основателей информатики] (* <- lang_ru;; *);;
+
+dmitri_mendeleev
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Дмитрий Менделеев] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Dmitri Mendeleev] (* <- lang_en;; *);
+=> nrel_note:
+	[Русский химик, создатель периодической таблицы] (* <- lang_ru;; *);;
+
+louis_pasteur
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Луи Пастер] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Louis Pasteur] (* <- lang_en;; *);
+=> nrel_note:
+	[Французский микробиолог и химик, основатель микробиологии] (* <- lang_ru;; *);;
+
+max_planck
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Макс Планк] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Max Planck] (* <- lang_en;; *);
+=> nrel_note:
+	[Немецкий физик, основатель квантовой теории] (* <- lang_ru;; *);;
+
+niels_bohr
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Нильс Бор] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Niels Bohr] (* <- lang_en;; *);
+=> nrel_note:
+	[Датский физик, один из основателей квантовой механики] (* <- lang_ru;; *);;
+
+// --- Научные учреждения ---
+
+cern
+<- concept_institution;
+=> nrel_main_idtf:
+	[ЦЕРН] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[CERN] (* <- lang_en;; *);
+=> nrel_note:
+	[Европейская организация по ядерным исследованиям] (* <- lang_ru;; *);;
+
+mit
+<- concept_institution;
+=> nrel_main_idtf:
+	[Массачусетский технологический институт] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Massachusetts Institute of Technology] (* <- lang_en;; *);
+=> nrel_note:
+	[Один из ведущих технологических университетов мира] (* <- lang_ru;; *);;
+
+russian_academy
+<- concept_institution;
+=> nrel_main_idtf:
+	[Российская академия наук] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Russian Academy of Sciences] (* <- lang_en;; *);
+=> nrel_note:
+	[Крупнейшая научная организация в России] (* <- lang_ru;; *);;
+
+stanford_university
+<- concept_institution;
+=> nrel_main_idtf:
+	[Стэнфордский университет] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Stanford University] (* <- lang_en;; *);
+=> nrel_note:
+	[Один из ведущих университетов мира] (* <- lang_ru;; *);;
+
+max_planck_institute
+<- concept_institution;
+=> nrel_main_idtf:
+	[Институт Макса Планка] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Max Planck Institute] (* <- lang_en;; *);
+=> nrel_note:
+	[Сеть научных исследовательских институтов в Германии] (* <- lang_ru;; *);;
+
+pasteur_institute
+<- concept_institution;
+=> nrel_main_idtf:
+	[Институт Пастера] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Pasteur Institute] (* <- lang_en;; *);
+=> nrel_note:
+	[Французский исследовательский институт] (* <- lang_ru;; *);;
+
+moscow_state_university
+<- concept_institution;
+=> nrel_main_idtf:
+	[Московский государственный университет] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Moscow State University] (* <- lang_en;; *);
+=> nrel_note:
+	[Старейший и крупнейший университет России] (* <- lang_ru;; *);;
+
+// --- Научные журналы ---
+
+nature_journal
+<- concept_journal;
+=> nrel_main_idtf:
+	[Nature] (* <- lang_en;; *);
+=> nrel_note:
+	[Один из наиболее цитируемых научных журналов в мире] (* <- lang_ru;; *);;
+
+science_journal
+<- concept_journal;
+=> nrel_main_idtf:
+	[Science] (* <- lang_en;; *);
+=> nrel_note:
+	[Научный журнал, публикующий оригинальные исследования] (* <- lang_ru;; *);;
+
+physical_review
+<- concept_journal;
+=> nrel_main_idtf:
+	[Physical Review Letters] (* <- lang_en;; *);
+=> nrel_note:
+	[Ведущий журнал по физике] (* <- lang_ru;; *);;
+
+chemical_reviews
+<- concept_journal;
+=> nrel_main_idtf:
+	[Chemical Reviews] (* <- lang_en;; *);
+=> nrel_note:
+	[Обзорный журнал по химии] (* <- lang_ru;; *);;
+
+cell_journal
+<- concept_journal;
+=> nrel_main_idtf:
+	[Cell] (* <- lang_en;; *);
+=> nrel_note:
+	[Научный журнал по биологии и биомедицине] (* <- lang_ru;; *);;
+
+// --- Научные теории ---
+
+theory_of_relativity
+<- concept_theory;
+=> nrel_main_idtf:
+	[Теория относительности] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Theory of relativity] (* <- lang_en;; *);
+=> nrel_note:
+	[Физическая теория, описывающая пространство-время] (* <- lang_ru;; *);;
+
+quantum_mechanics
+<- concept_theory;
+=> nrel_main_idtf:
+	[Квантовая механика] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Quantum mechanics] (* <- lang_en;; *);
+=> nrel_note:
+	[Раздел физики, описывающий поведение микрочастиц] (* <- lang_ru;; *);;
+
+theory_of_evolution
+<- concept_theory;
+=> nrel_main_idtf:
+	[Теория эволюции] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Theory of evolution] (* <- lang_en;; *);
+=> nrel_note:
+	[Научная теория происхождения видов] (* <- lang_ru;; *);;
+
+// --- Научные гипотезы ---
+
+higgs_hypothesis
+<- concept_hypothesis;
+=> nrel_main_idtf:
+	[Гипотеза Хиггса] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Higgs hypothesis] (* <- lang_en;; *);
+=> nrel_note:
+	[Гипотеза о существовании бозона Хиггса] (* <- lang_ru;; *);;
+
+string_theory_hypothesis
+<- concept_hypothesis;
+=> nrel_main_idtf:
+	[Теория струн] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[String theory] (* <- lang_en;; *);
+=> nrel_note:
+	[Гипотетическая теория, описывающая фундаментальные частицы] (* <- lang_ru;; *);;
+
+// --- Научные законы ---
+
+newton_laws
+<- concept_law;
+=> nrel_main_idtf:
+	[Законы Ньютона] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Newton's laws] (* <- lang_en;; *);
+=> nrel_note:
+	[Три закона классической механики] (* <- lang_ru;; *);;
+
+thermodynamics_laws
+<- concept_law;
+=> nrel_main_idtf:
+	[Законы термодинамики] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Laws of thermodynamics] (* <- lang_en;; *);
+=> nrel_note:
+	[Законы, описывающие тепловые явления] (* <- lang_ru;; *);;
+
+periodic_law
+<- concept_law;
+=> nrel_main_idtf:
+	[Периодический закон] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Periodic law] (* <- lang_en;; *);
+=> nrel_note:
+	[Закон, установленный Менделеевым] (* <- lang_ru;; *);;
+
+// --- Научные методы ---
+
+experimental_method
+<- concept_method;
+=> nrel_main_idtf:
+	[Экспериментальный метод] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Experimental method] (* <- lang_en;; *);
+=> nrel_note:
+	[Метод исследования, основанный на проведении экспериментов] (* <- lang_ru;; *);;
+
+mathematical_modeling
+<- concept_method;
+=> nrel_main_idtf:
+	[Математическое моделирование] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Mathematical modeling] (* <- lang_en;; *);
+=> nrel_note:
+	[Метод исследования с помощью математических моделей] (* <- lang_ru;; *);;
+
+comparative_method
+<- concept_method;
+=> nrel_main_idtf:
+	[Сравнительный метод] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Comparative method] (* <- lang_en;; *);
+=> nrel_note:
+	[Метод сравнения объектов или явлений] (* <- lang_ru;; *);;
+
+// --- Открытия ---
+
+discovery_penicillin
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие пенициллина] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of penicillin] (* <- lang_en;; *);
+=> nrel_note:
+	[Открытие первого антибиотика] (* <- lang_ru;; *);;
+
+discovery_dna
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие структуры ДНК] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of DNA structure] (* <- lang_en;; *);
+=> nrel_note:
+	[Открытие двойной спирали ДНК] (* <- lang_ru;; *);;
+
+discovery_gravity
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие закона тяготения] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of gravity] (* <- lang_en;; *);
+=> nrel_note:
+	[Установление закона всемирного тяготения] (* <- lang_ru;; *);;
+
+discovery_electromagnetic_induction
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие электромагнитной индукции] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of electromagnetic induction] (* <- lang_en;; *);
+=> nrel_note:
+	[Открытие явления электромагнитной индукции] (* <- lang_ru;; *);;
+
+discovery_periodic_table
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Создание периодической таблицы] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Creation of periodic table] (* <- lang_en;; *);
+=> nrel_note:
+	[Создание периодической таблицы химических элементов] (* <- lang_ru;; *);;
+
+// --- Эксперименты ---
+
+experiment_double_slit
+<- concept_experiment;
+=> nrel_main_idtf:
+	[Опыт со щелью] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Double-slit experiment] (* <- lang_en;; *);
+=> nrel_note:
+	[Классический эксперимент по квантовой механике] (* <- lang_ru;; *);;
+
+experiment_miller_urey
+<- concept_experiment;
+=> nrel_main_idtf:
+	[Эксперимент Миллера — Юри] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Miller-Urey experiment] (* <- lang_en;; *);
+=> nrel_note:
+	[Эксперимент по синтезу аминокислот] (* <- lang_ru;; *);;
+
+// --- Конференции ---
+
+conference_icpc
+<- concept_conference;
+=> nrel_main_idtf:
+	[ICPC] (* <- lang_en;; *);
+=> nrel_note:
+	[Международная олимпиада по программированию] (* <- lang_ru;; *);;
+
+conference_neurips
+<- concept_conference;
+=> nrel_main_idtf:
+	[NeurIPS] (* <- lang_en;; *);
+=> nrel_note:
+	[Конференция по нейронным сетям и обработке информации] (* <- lang_ru;; *);;
+
+// --- Диссертации ---
+
+dissertation_phd
+<- concept_dissertation;
+=> nrel_main_idtf:
+	[Докторская диссертация] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Doctoral dissertation] (* <- lang_en;; *);
+=> nrel_note:
+	[Научная работа для получения учёной степени доктора наук] (* <- lang_ru;; *);;
+
+// --- Парадигмы ---
+
+paradigm_classical
+<- concept_paradigm;
+=> nrel_main_idtf:
+	[Классическая парадигма] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Classical paradigm] (* <- lang_en;; *);
+=> nrel_note:
+	[Парадигма классической механики] (* <- lang_ru;; *);;
+
+paradigm_quantum
+<- concept_paradigm;
+=> nrel_main_idtf:
+	[Квантовая парадигма] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Quantum paradigm] (* <- lang_en;; *);
+=> nrel_note:
+	[Парадигма квантовой физики] (* <- lang_ru;; *);;
+
+// --- Модели ---
+
+model_atom
+<- concept_model;
+=> nrel_main_idtf:
+	[Модель атома] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Atomic model] (* <- lang_en;; *);
+=> nrel_note:
+	[Модель строения атома] (* <- lang_ru;; *);;
+
+model_standard
+<- concept_model;
+=> nrel_main_idtf:
+	[Стандартная модель] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Standard Model] (* <- lang_en;; *);
+=> nrel_note:
+	[Модель элементарных частиц и взаимодействий] (* <- lang_ru;; *);;
+
+// ============================================
+// ОТНОШЕНИЯ МЕЖДУ ЭКЗЕМПЛЯРАМИ
+// ============================================
+
+// Отрасли науки
+concept_physics <- nrel_branch_of concept_natural_science;;
+concept_chemistry <- nrel_branch_of concept_natural_science;;
+concept_biology <- nrel_branch_of concept_natural_science;;
+concept_mathematics <- nrel_branch_of concept_formal_science;;
+concept_informatics <- nrel_branch_of concept_formal_science;;
+concept_engineering <- nrel_branch_of concept_applied_science;;
+concept_medical_science <- nrel_branch_of concept_applied_science;;
+
+// Учёные исследуют области науки
+isaac_newton <- nrel_researches concept_physics;;
+albert_einstein <- nrel_researches concept_physics;;
+marie_curie <- nrel_researches concept_chemistry;;
+charles_darwin <- nrel_researches concept_biology;;
+alan_turing <- nrel_researches concept_informatics;;
+dmitri_mendeleev <- nrel_researches concept_chemistry;;
+louis_pasteur <- nrel_researches concept_biology;;
+max_planck <- nrel_researches concept_physics;;
+niels_bohr <- nrel_researches concept_physics;;
+
+// Учёные сделали открытия
+isaac_newton <- nrel_author_of discovery_gravity;;
+albert_einstein <- nrel_author_of discovery_electromagnetic_induction;;
+louis_pasteur <- nrel_author_of discovery_penicillin;;
+dmitri_mendeleev <- nrel_author_of discovery_periodic_table;;
+
+// Учёные приписаны к учреждениям
+isaac_newton <- nrel_affiliated mit;;
+albert_einstein <- nrel_affiliated cern;;
+alan_turing <- nrel_affiliated mit;;
+max_planck <- nrel_affiliated max_planck_institute;;
+niels_bohr <- nrel_affiliated cern;;
+
+// Теории основаны на гипотезах
+theory_of_relativity <- nrel_based_on higgs_hypothesis;;
+quantum_mechanics <- nrel_based_on string_theory_hypothesis;;
+
+// Теории объясняют законы
+theory_of_relativity <- nrel_explains newton_laws;;
+quantum_mechanics <- nrel_explains thermodynamics_laws;;
+
+// Эксперименты верифицируют гипотезы
+experiment_double_slit <- nrel_verifies higgs_hypothesis;;
+experiment_double_slit <- nrel_verifies string_theory_hypothesis;;
+
+// Эксперименты проводились учёными
+experiment_double_slit <- nrel_conducted_by isaac_newton;;
+experiment_miller_urey <- nrel_conducted_by louis_pasteur;;
+
+// Учёные применяют методы
+isaac_newton <- nrel_applies_method mathematical_modeling;;
+albert_einstein <- nrel_applies_method mathematical_modeling;;
+louis_pasteur <- nrel_applies_method experimental_method;;
+charles_darwin <- nrel_applies_method comparative_method;;
+
+// Парадигмы определяют теории
+paradigm_classical <- nrel_defines theory_of_relativity;;
+paradigm_quantum <- nrel_defines quantum_mechanics;;
+
+// Парадигмы заменяют друг друга
+paradigm_quantum <- nrel_replaces paradigm_classical;;
+
+// Учёные опубликованы в журналах
+isaac_newton <- nrel_published_in nature_journal;;
+albert_einstein <- nrel_published_in science_journal;;
+max_planck <- nrel_published_in physical_review;;

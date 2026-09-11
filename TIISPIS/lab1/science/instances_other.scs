@@ -1,0 +1,70 @@
+// ============================================
+// ЭКЗЕМПЛЯРЫ: Конференции, диссертации, парадигмы, модели
+// ============================================
+
+// --- Конференции ---
+
+conference_icpc
+<- concept_conference;
+=> nrel_main_idtf:
+	[ICPC] (* <- lang_en;; *);
+=> nrel_note:
+	[Международная олимпиада по программированию] (* <- lang_ru;; *);;
+
+conference_neurips
+<- concept_conference;
+=> nrel_main_idtf:
+	[NeurIPS] (* <- lang_en;; *);
+=> nrel_note:
+	[Конференция по нейронным сетям и обработке информации] (* <- lang_ru;; *);;
+
+// --- Диссертации ---
+
+dissertation_phd
+<- concept_dissertation;
+=> nrel_main_idtf:
+	[Докторская диссертация] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Doctoral dissertation] (* <- lang_en;; *);
+=> nrel_note:
+	[Научная работа для получения учёной степени доктора наук] (* <- lang_ru;; *);;
+
+// --- Парадигмы ---
+
+paradigm_classical
+<- concept_paradigm;
+=> nrel_main_idtf:
+	[Классическая парадигма] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Classical paradigm] (* <- lang_en;; *);
+=> nrel_note:
+	[Парадигма классической механики] (* <- lang_ru;; *);;
+
+paradigm_quantum
+<- concept_paradigm;
+=> nrel_main_idtf:
+	[Квантовая парадигма] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Quantum paradigm] (* <- lang_en;; *);
+=> nrel_note:
+	[Парадигма квантовой физики] (* <- lang_ru;; *);;
+
+// --- Модели ---
+
+model_atom
+<- concept_model;
+=> nrel_main_idtf:
+	[Модель атома] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Atomic model] (* <- lang_en;; *);
+=> nrel_note:
+	[Модель строения атома] (* <- lang_ru;; *);;
+
+model_standard
+<- concept_model;
+=> nrel_main_idtf:
+	[Стандартная модель] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Standard Model] (* <- lang_en;; *);
+=> nrel_note:
+	[Модель элементарных частиц и взаимодействий] (* <- lang_ru;; *);;

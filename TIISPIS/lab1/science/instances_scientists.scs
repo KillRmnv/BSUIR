@@ -1,0 +1,84 @@
+// ============================================
+// ЭКЗЕМПЛЯРЫ: Учёные
+// ============================================
+
+isaac_newton
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Исаак Ньютон] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Isaac Newton] (* <- lang_en;; *);
+=> nrel_note:
+	[Английский физик и математик, один из основателей классической физики] (* <- lang_ru;; *);;
+
+albert_einstein
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Альберт Эйнштейн] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Albert Einstein] (* <- lang_en;; *);
+=> nrel_note:
+	[Немецкий физик-теоретик, создатель теории относительности] (* <- lang_ru;; *);;
+
+marie_curie
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Мария Кюри] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Marie Curie] (* <- lang_en;; *);
+=> nrel_note:
+	[Французский физик и химик, первая женщина — лауреат Нобелевской премии] (* <- lang_ru;; *);;
+
+charles_darwin
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Чарльз Дарвин] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Charles Darwin] (* <- lang_en;; *);
+=> nrel_note:
+	[Английский натуралист, автор теории эволюции] (* <- lang_ru;; *);;
+
+alan_turing
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Алан Тьюринг] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Alan Turing] (* <- lang_en;; *);
+=> nrel_note:
+	[Английский математик, один из основателей информатики] (* <- lang_ru;; *);;
+
+dmitri_mendeleev
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Дмитрий Менделеев] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Dmitri Mendeleev] (* <- lang_en;; *);
+=> nrel_note:
+	[Русский химик, создатель периодической таблицы] (* <- lang_ru;; *);;
+
+louis_pasteur
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Луи Пастер] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Louis Pasteur] (* <- lang_en;; *);
+=> nrel_note:
+	[Французский микробиолог и химик, основатель микробиологии] (* <- lang_ru;; *);;
+
+max_planck
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Макс Планк] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Max Planck] (* <- lang_en;; *);
+=> nrel_note:
+	[Немецкий физик, основатель квантовой теории] (* <- lang_ru;; *);;
+
+niels_bohr
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Нильс Бор] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Niels Bohr] (* <- lang_en;; *);
+=> nrel_note:
+	[Датский физик, один из основателей квантовой механики] (* <- lang_ru;; *);;

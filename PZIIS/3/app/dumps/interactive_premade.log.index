@@ -1,0 +1,11 @@
+[2026-09-11T12:08:59.606081204+03:00[Europe/Minsk]] [INFO] Started opening dump /home/kirillrmnv/University/BSUIR/PZIIS/3/app/dumps/interactive_premade.hprof at 2026-09-11T12:08:59.595641211+03:00[Europe/Minsk]
+[2026-09-11T12:08:59.971755417+03:00[Europe/Minsk]] [INFO] Detected compressed references, because with uncompressed 64-bit references the array at 0x710a80138 would overlap the array at 0x710a7fff8
+[2026-09-11T12:09:00.011985106+03:00[Europe/Minsk]] [INFO] Wrote threads call stacks to /home/kirillrmnv/University/BSUIR/PZIIS/3/app/dumps/interactive_premade.threads
+[2026-09-11T12:09:00.046486725+03:00[Europe/Minsk]] [INFO] Heap /home/kirillrmnv/University/BSUIR/PZIIS/3/app/dumps/interactive_premade.hprof contains 53 866 objects
+[2026-09-11T12:09:00.693358087+03:00[Europe/Minsk]] [INFO] The keep unreachable objects condition is set to false. This may come either from the preference or dump condition requirements.
+[2026-09-11T12:09:00.713587085+03:00[Europe/Minsk]] [INFO] Removed 1 108 unreachable objects using 30 352 bytes
+[2026-09-11T12:09:01.57702051+03:00[Europe/Minsk]] [INFO] Finished opening dump in 1,98 seconds (1.978251861s) at 2026-09-11T12:09:01.573893072+03:00[Europe/Minsk]
+[2026-09-11T17:03:06.449133601+03:00[Europe/Minsk]] [INFO] Started opening dump /home/kirillrmnv/University/BSUIR/PZIIS/3/app/dumps/interactive_premade.hprof at 2026-09-11T17:03:06.438093327+03:00[Europe/Minsk]
+[2026-09-11T17:03:06.724062165+03:00[Europe/Minsk]] [INFO] Finished opening dump in ,28 seconds (0.282897173s) at 2026-09-11T17:03:06.7209905+03:00[Europe/Minsk]
+[2026-09-11T17:03:59.343658458+03:00[Europe/Minsk]] [INFO] Started opening dump /home/kirillrmnv/University/BSUIR/PZIIS/3/app/dumps/interactive_premade.hprof at 2026-09-11T17:03:59.331173871+03:00[Europe/Minsk]
+[2026-09-11T17:03:59.583037906+03:00[Europe/Minsk]] [INFO] Finished opening dump in ,25 seconds (0.249415243s) at 2026-09-11T17:03:59.580589114+03:00[Europe/Minsk]
