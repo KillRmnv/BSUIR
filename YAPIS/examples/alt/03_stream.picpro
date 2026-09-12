@@ -1,0 +1,68 @@
+Function Boolean isWarm(Color c): {
+    Return c.R > 150 And c.G > 100 And c.G < 200
+}
+
+Function Void main(): {
+    Image src = Load("portrait.jpg")
+    Image logo = Load("watermark.png")
+
+    If isWarm(src[5, 5]): {
+        Print("Проба тёплая")
+    } Otherwise: {
+        Print("Проба холодная")
+    }
+
+    Integer warm = Count(src, R > 150 And G > 100 And G < 200)
+    Print("Тёплых пикселей: " + warm)
+
+    Process src: {
+        If R > 150 And G > 100 And G < 200: {
+            Print("warm at " + x + "," + y)
+            apply Brightness(1.3)
+        }
+        Otherwise: { apply Brightness(0.7) }
+        Finally: { Save("s1_warm.jpg") }
+    }
+
+    Process src: {
+        If pixel Is Red: { apply Invert, Blur(3), Brightness(1.2) }
+        Finally: { Save("chain_reds.jpg") }
+    }
+
+    Process src: {
+        If pixel Is Bright: { apply Invert, Vignette }
+        Otherwise: { apply Grayscale, Blur(5) }
+        Finally: { Save("chain_full.jpg") }
+    }
+
+    Process src: {
+        If Not (R > 150 And G > 100 And G < 200): { apply Blur(3) }
+        Finally: { Save("s2_blur.jpg") }
+    }
+
+    Process src: {
+        If Not pixel Is Bright: { apply Sobel }
+        Finally: { Save("s3_edges.jpg") }
+    }
+
+    Process src: {
+        If pixel Is Dark: { apply Color(0, 0, 255) }
+        If pixel Is Bright: { apply Color(255, 0, 0) }
+        Otherwise: { apply Color(0, 255, 0) }
+        Finally: { Save("s4_coded.jpg") }
+    }
+
+    Process src: {
+        If pixel Is Bright: { apply Blend(logo, Do On Each: { Return (src * 0.85) + (over * 0.15) }) }
+        Otherwise: { apply Brightness(0.9) }
+        Finally: { apply Vignette, Save("s5_final.jpg") }
+    }
+
+    Process src: {
+        If pixel Is Contour: {
+            Print("Contour at")
+            Stop
+        }
+        Finally: { Print("No contours") }
+    }
+}

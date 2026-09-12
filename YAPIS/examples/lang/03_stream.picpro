@@ -1,0 +1,43 @@
+func bool isWarm(color c) {
+    return c.R > 150 && c.G > 100 && c.G < 200
+}
+
+func void main() {
+    image src = load("portrait.jpg")
+    image logo = load("watermark.png")
+
+    int warm = src -> (isWarm(color(R, G, B))) .count()
+    print("Тёплых пикселей: " + warm)
+
+    src -> (isWarm(color(R, G, B))) .print("warm at " + x + "," + y) .brightness(1.3)
+       : else .brightness(0.7)
+       ::save("s1_warm.jpg")
+
+    src -> (isRed()) .invert() .blur(2) .brightness(1.2)
+       ::save("chain_reds.jpg")
+
+    src -> (isBright()) .invert() .vignette()
+       : else .grayscale() .blur(5) .brightness(0.8)
+       ::save("chain_full.jpg")
+
+    src -> (!(isWarm(color(R, G, B)))) .blur(3)
+       ::save("s2_blur.jpg")
+
+    src -> (!(isBright())) .sobel()
+       ::save("s3_edges.jpg")
+
+    src -> (isDark()) .color(0, 0, 255)
+       : (isBright()) .color(255, 0, 0)
+       : else .color(0, 255, 0)
+       ::save("s4_coded.jpg")
+
+    src -> (isBright()) .blend(logo, (color s, color o) -> {
+        return (s * 0.85) + (o * 0.15)
+    })
+       : else .brightness(0.9)
+       ::vignette()
+         .save("s5_final.jpg")
+
+    src -> (isContour()) .print("Contour at") .break()
+       ::print("No contours")
+}

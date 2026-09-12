@@ -1,0 +1,78 @@
+string appName = "PicPro types demo"
+
+func int maxOf(int a, int b) {
+    if a > b {
+        return a
+    } else {
+        return b
+    }
+}
+
+func float brightnessOf(color c) {
+    return (c.R + c.G + c.B) / 3
+}
+
+func void main() {
+    int w = 800
+    float k = 1.5
+    bool flag = true
+    string initial = "A"
+    string title = read()
+    string label = "img_" + initial + "_" + title + "_" + w
+    image src = load("photo.jpg")
+    pixel p = {x: 10, y: 20}
+    color white = 255
+    color bg = (10, 20, 30)
+    color fg = {R: 255, G: 0, B: 0}
+
+    print("Start " + label + " (" + appName + ")")
+
+    color sample = src[p.x, p.y]
+    float bright = brightnessOf(sample)
+    float root = sqrt((bright * bright) + (w * w))
+    color mix = ((sample * k) + white - 5) / 2 % 256
+    int total = (w * 2) % 1000
+    int rest = total - w
+    bool ready = (w > 0) && (bright < 300) || !(total != 0) && flag
+
+    if ready {
+        print("ready")
+    } else {
+        print("not ready")
+    }
+
+    switch total {
+    case 0: { print("пусто") }
+    case 600: { print("стандарт") }
+    default: { print("total=" + total) }
+    }
+
+    for int i = 0; i < 3; i = i + 1 {
+        print("for " + i)
+    }
+
+    int j = 0
+    while j < 2 {
+        print("while " + j)
+        j = j + 1
+    }
+
+    int n = 0
+    until n == 2 {
+        print("until " + n)
+        n = n + 1
+    }
+
+    for int q = 0; q < 5; q = q + 1 {
+        if q == 1 {
+            continue
+        }
+        if q == 3 {
+            break
+        }
+        print("q=" + q)
+    }
+
+    int m = maxOf(w, total)
+    print("Done max=" + m + " root=" + root)
+}

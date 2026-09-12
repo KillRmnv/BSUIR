@@ -1,0 +1,46 @@
+string appName = "PicPro transforms demo"
+
+func color dimPixel(color c, float k) {
+    return c * k
+}
+
+func void main() {
+    image src = load("photo.jpg")
+    int w = width(src)
+    int h = height(src)
+    float k = 0.8
+    string name = read()
+
+    print("Transform " + name + " " + w + "x" + h + " (" + appName + ")")
+
+    image pre = src.resize(800, 600).rotate(90).crop(0, 0, 400, 300).grayscale()
+    image soft = pre.blur(2)
+    image neg = soft.invert()
+
+    image tinted = src * {R: 255, G: 200, B: 150}
+    image warm = color(255, 200, 150) * src
+    image lifted = soft + 20
+    image diff = pre - soft
+
+    for int x = 0; x < w; x = x + 1 {
+        int y = 0
+        while y < h {
+            color px = src[x, y]
+            float lum = (px.R + px.G + px.B) / 3
+            if lum > 200 {
+                src[x, y] = 255
+            } else {
+                src[x, y] = dimPixel(px, k)
+            }
+            y = y + 1
+        }
+    }
+
+    image mapped = neg.map((color p) -> {
+        return p * 1.2
+    })
+
+    save(mapped, "out_" + name + ".jpg")
+    save(src, "manual_" + name + ".jpg")
+    print("Done")
+}
