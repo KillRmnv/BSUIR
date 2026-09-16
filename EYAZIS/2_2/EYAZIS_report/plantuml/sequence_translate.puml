@@ -1,0 +1,58 @@
+@startuml sequence_translate
+skinparam backgroundColor #FEFEFE
+skinparam sequenceArrowThickness 2
+skinparam sequenceParticipantBorderColor #222222
+skinparam sequenceLifeLineBorderColor #BBBBBB
+skinparam noteBorderColor #888888
+
+title Sequence: Machine Translation (text)
+
+actor User
+participant "translate.html" as FE
+participant "app.py\n(REST)" as API
+participant "translation_engine.py\n(translate)" as TE
+participant "pos_tagger.py\n(tag_text)" as POS
+participant "dictionary.py\n(lookup)" as DB
+database "PostgreSQL\n(translation_dictionary)" as PG
+
+User -> FE : Enter English text\n+ click "Translate"
+activate FE
+
+FE -> API : POST /api/translate\n{text}
+activate API
+
+API -> TE : translate_text(text)
+activate TE
+
+TE -> POS : tag_text(text, lang='en')
+activate POS
+POS --> TE : [(word, POS), ...]
+deactivate POS
+
+loop for each (word, pos) in tagged
+
+    TE -> DB : lookup(word, pos)
+    activate DB
+    DB -> PG : SELECT target_word\nWHERE source=word AND pos=pos
+    PG --> DB : [result]
+    DB --> TE : entries[0].target
+    deactivate DB
+
+    alt found
+        TE -> TE : fr_word = entries[0].target\ntranslated_count++
+    else not found
+        TE -> TE : keep English word
+    end
+
+end
+
+TE --> API : {\n  translated_text,\n  stats: {coverage, ...},\n  words: [{en, fr, pos}, ...]\n}
+deactivate TE
+
+API --> FE : JSON response
+deactivate API
+
+FE --> User : Show translation\n+ stats + detailed table
+deactivate FE
+
+@enduml

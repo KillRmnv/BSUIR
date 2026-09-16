@@ -1,0 +1,13 @@
+Software Architecture Patterns
+
+Software architecture defines the fundamental structure of a system. It encompasses the decisions about how the system is organized, the relationships between components, and the principles guiding its design. Good architecture enables systems to evolve gracefully as requirements change over time.
+
+The layered architecture is one of the most common patterns. It separates concerns into horizontal layers: presentation, business logic, data access, and database. Each layer depends only on the layer directly below it. This separation makes it easy to modify or replace individual layers without affecting the rest of the system.
+
+Microservices architecture decomposes an application into small, independent services. Each service runs in its own process and communicates with others through well-defined APIs. This pattern enables teams to develop, deploy, and scale services independently. However, it introduces complexity in areas such as service discovery, distributed transactions, and monitoring.
+
+The event-driven architecture uses events as the primary mechanism for communication between components. An event represents a significant change in state. Producers emit events without knowing who will consume them. This decoupling enables highly responsive and scalable systems. Message brokers like Apache Kafka and RabbitMQ facilitate reliable event delivery.
+
+Clean architecture, proposed by Robert Martin, emphasizes the separation of concerns through concentric layers. The innermost layer contains entities with enterprise-wide business rules. Use cases define application-specific business rules. Interface adapters convert data between layers. Frameworks and drivers form the outermost layer.
+
+Selecting the right architecture depends on the specific requirements of the system. Factors such as team size, scalability needs, deployment constraints, and long-term maintainability all influence the decision. A well-chosen architecture reduces technical debt and accelerates development velocity.

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IR System - Summarize</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">IR System</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Search</a>
+            <a href="upload.html" class="nav-link">Upload</a>
+            <a href="documents.html" class="nav-link">Documents</a>
+            <a href="metrics.html" class="nav-link">Metrics</a>
+            <a href="classify.html" class="nav-link">Classification</a>
+            <a href="summarize.html" class="nav-link active">Summarize</a>
+            <a href="translate.html" class="nav-link">Translate</a>
+            <a href="help.html" class="nav-link">Help</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="search-hero">
+            <h1>Document Summarization</h1>
+            <p class="subtitle">Extractive summarization with Sentence Extraction (TF-IDF) and TextRank</p>
+        </div>
+
+        <div class="upload-section">
+            <!-- Left: input -->
+            <div class="upload-card">
+                <h3>Input</h3>
+
+                <div class="form-group">
+                    <label>Source</label>
+                    <div class="input-group">
+                        <select id="source" style="flex:1; padding:8px; border:1px solid var(--border); border-radius:var(--radius);">
+                            <option value="text">Paste text</option>
+                            <option value="document">Select document</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="textInput">
+                    <div class="form-group">
+                        <label for="text">Text</label>
+                        <textarea id="text" rows="12" placeholder="Paste your document text here..." style="width:100%; padding:8px; border:1px solid var(--border); border-radius:var(--radius); font-family:inherit; resize:vertical;"></textarea>
+                    </div>
+                </div>
+
+                <div id="docInput" class="hidden">
+                    <div class="form-group">
+                        <label for="docSelect">Document</label>
+                        <select id="docSelect" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:var(--radius);">
+                            <option value="">Loading documents...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Method</label>
+                    <div class="method-selector">
+                        <label class="method-option">
+                            <input type="radio" name="method" value="textrank" checked>
+                            <span class="method-label">TextRank</span>
+                            <span class="method-desc">Graph-based ranking</span>
+                        </label>
+                        <label class="method-option">
+                            <input type="radio" name="method" value="extraction">
+                            <span class="method-label">Sentence Extraction</span>
+                            <span class="method-desc">TF-IDF + positional</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="nSentences">Sentences: <strong id="nVal">10</strong></label>
+                    <input type="range" id="nSentences" min="3" max="20" value="10" style="width:100%;">
+                </div>
+
+                <div class="form-group">
+                    <label for="lang">Language</label>
+                    <select id="lang" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:var(--radius);">
+                        <option value="en">English</option>
+                        <option value="fr">French</option>
+                    </select>
+                </div>
+
+                <button id="summarizeBtn" class="btn btn-primary" style="width:100%; margin-top:8px;">
+                    Summarize
+                </button>
+                <div id="status" class="upload-status" style="margin-top:8px;"></div>
+            </div>
+
+            <!-- Right: results -->
+            <div class="upload-card">
+                <h3>Summary</h3>
+                <div id="summaryStats" class="hidden" style="display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap;"></div>
+                <div id="summarySentences" style="margin-bottom:16px;"></div>
+
+                <h3>Keywords</h3>
+                <div id="keywords" class="keywords" style="margin-bottom:16px;"></div>
+
+                <h3>Original Text <small style="color:var(--text-light);">(highlighted)</small></h3>
+                <div id="originalText" style="font-size:0.9em; line-height:1.6; color:var(--text); max-height:500px; overflow-y:auto; border-top:1px solid var(--border); padding-top:12px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/summarize.js"></script>
+</body>
+</html>

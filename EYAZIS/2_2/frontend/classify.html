@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IR System - Language Classification</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">IR System</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Search</a>
+            <a href="upload.html" class="nav-link">Upload</a>
+            <a href="documents.html" class="nav-link">Documents</a>
+            <a href="metrics.html" class="nav-link">Metrics</a>
+            <a href="classify.html" class="nav-link active">Classification</a>
+            <a href="summarize.html" class="nav-link">Summarize</a>
+            <a href="translate.html" class="nav-link">Translate</a>
+            <a href="help.html" class="nav-link">Help</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Language Classification (EN / FR)</h1>
+
+        <div class="upload-card">
+            <h3>Model</h3>
+            <div id="modelStatus" class="hint">Checking model status…</div>
+            <div id="modelMeta" class="hint hidden"></div>
+            <button id="trainBtn" class="btn btn-secondary">Train model</button>
+        </div>
+
+        <div class="upload-section">
+            <div class="upload-card">
+                <h3>Single document</h3>
+                <form id="singleForm">
+                    <div class="form-group">
+                        <label>HTML file (priority) or paste text below</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="langFileInput" accept=".html,.htm,.txt">
+                            <label for="langFileInput" class="file-label">Choose file</label>
+                            <span id="langFileName" class="file-name">No file chosen</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="langTextInput" rows="6" placeholder="…or paste English/French text here…"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Classify</button>
+                </form>
+            </div>
+
+            <div class="upload-card">
+                <h3>Result</h3>
+                <div id="singleResult" class="empty-state">No result yet</div>
+            </div>
+        </div>
+
+        <div class="upload-card">
+            <h3>Test corpus</h3>
+            <p class="hint">Runs all documents from <code>backend/test_html/</code> and computes accuracy, confusion matrix, and average time.</p>
+            <button id="batchBtn" class="btn btn-primary">Run corpus</button>
+            <button id="csvBtn" class="btn btn-secondary hidden">Download CSV</button>
+            <button id="printBtn" class="btn btn-secondary hidden" onclick="window.print()">Print</button>
+        </div>
+
+        <div id="batchResults" class="metrics-results hidden">
+            <div class="metrics-summary">
+                <div class="metric-card">
+                    <div class="metric-value" id="batchAccuracy">-</div>
+                    <div class="metric-label">Accuracy</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="batchCorrect">-</div>
+                    <div class="metric-label">Correct</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="batchTime">-</div>
+                    <div class="metric-label">Avg time, ms</div>
+                </div>
+            </div>
+
+            <div id="pmRow"></div>
+
+            <div class="upload-card">
+                <h3>Per-document results</h3>
+                <table class="metrics-table" id="batchTable">
+                    <thead>
+                        <tr>
+                            <th>File</th>
+                            <th>Ground truth</th>
+                            <th>Vote</th>
+                            <th>N-grams</th>
+                            <th>Alphabet</th>
+                            <th>Neural</th>
+                            <th>ms</th>
+                            <th>✓</th>
+                        </tr>
+                    </thead>
+                    <tbody id="batchTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="classifyStatus" class="upload-status hidden"></div>
+    </main>
+
+    <script src="js/classify.js"></script>
+</body>
+</html>

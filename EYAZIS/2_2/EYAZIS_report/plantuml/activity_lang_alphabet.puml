@@ -1,0 +1,39 @@
+@startuml activity_lang_alphabet
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+
+skinparam activity {
+    BorderColor #2563EB
+    BackgroundColor #EAF2FB
+    ArrowColor #475569
+    DiamondBorderColor #D97706
+    DiamondBackgroundColor #FEF3C7
+}
+
+title Блок-схема алфавитного метода (классификация)
+
+start
+:Извлечение текста из <body> HTML;
+:Предобработка: нижний регистр,\nсохранение диакритики;
+:Подсчёт букв: всего N,\nс диакритикой D (é è ç œ ...);
+:Подсчёт слов-маркеров:\nFR (le/la/les/des/...) = F,\nEN (the/and/of/...) = E;
+:fr_ratio = D / N;\nmark_ratio = (F − E) / W;\nfr_score = 1,0·fr_ratio +\n0,5·mark_ratio;
+:Загрузка порога из alphabet.json\n(подобран на обучении: 0,04726);
+if (fr_score >= порога?) then (да)
+    :Язык = французский;
+else (нет)
+    :Язык = английский;
+endif
+:Возврат {lang, fr_ratio,\nmarkers, fr_score, ms};
+stop
+
+note right
+  Обучение (офлайн): скоры чанков
+  ~2000 символов, порог — середина
+  между худшим FR и лучшим EN.
+  0,02 с. Точность на тесте 10/10.
+end note
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml sequence_upload_file
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam defaultFontName DejaVu Sans
+skinparam sequenceArrowColor #475569
+skinparam sequenceLifeLineBorderColor #94A3B8
+skinparam sequenceParticipantBackgroundColor #F1F5F9
+skinparam sequenceParticipantBorderColor #64748B
+
+actor "Пользователь" as User
+participant "Браузер" as Browser
+participant "Flask\n(controllers/documents.py)" as Flask
+participant "document_service.py" as DS
+participant "s3_client.py\n(Storage)" as S3
+participant "MinIO\nObject Storage" as MinIO
+participant "document_loader.py" as Loader
+participant "document_processor.py" as DP
+participant "database_manager.py" as DB
+database "PostgreSQL" as PG
+
+== Загрузка файла (POST /api/upload-file) ==
+
+User -> Browser : выбирает файл
+Browser -> Flask : POST /api/upload-file\n(multipart/form-data)
+Flask -> DS : upload_file(file, engine)
+DS -> S3 : upload_file(file_bytes, object_name)
+S3 -> MinIO : PUT /<bucket>/<object_name>
+MinIO --> S3 : OK
+S3 --> DS : s3_key
+DS -> Loader : extract_text(file)
+Loader --> DS : extracted_text
+DS -> DP : process(extracted_text)
+DP --> DS : embedding, summary
+DS -> DB : insert_document(title, content, embedding,\nsummary, s3_key=s3_key, lang=lang)
+DB -> PG : INSERT INTO documents (..., s3_key, lang)
+PG --> DB : OK
+DB --> DS : OK
+DS --> Flask : {count, lang, message, title}
+Flask --> Browser : 200 OK JSON
+Browser --> User : документ добавлен
+
+@enduml

@@ -1,0 +1,56 @@
+@startuml sequence_lang_train
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+skinparam SequenceMessageAlign center
+
+skinparam sequence {
+    ArrowColor #475569
+    LifeLineBorderColor #94A3B8
+    LifeLineBackgroundColor #E2E8F0
+    ParticipantBorderColor #2563EB
+    ParticipantBackgroundColor #EAF2FB
+    ActorBorderColor #D97706
+    ActorBackgroundColor #FEF3C7
+}
+
+actor "Оператор" as User
+box "Клиентский уровень" #FEF3C7
+    participant "classify.html\n(classify.js)" as UI
+end box
+box "Серверный уровень (Flask)" #DCFCE7
+    participant "app.py\nPOST /api/lang/train" as API
+    participant "lang_methods.py\ntrain_all()" as LM
+    participant "lang_ngram.py" as NG
+    participant "lang_alphabet.py" as AB
+    participant "lang_detect.py\n(LogReg)" as NN
+end box
+participant "training/\nen.txt, fr.txt" as CORP
+participant "lang_profiles/\njson + pkl" as PROF
+
+User -> UI : нажимает "Обучить модель"
+UI -> API : POST /api/lang/train
+API -> CORP : чтение en.txt, fr.txt\n(~36 Кб каждый)
+API -> LM : train_all([en], [fr])
+
+LM -> NG : train(en, fr)
+NG -> NG : preprocess_for_lang:\nнижний регистр,\nдиакритика сохраняется
+NG -> NG : символьные 1-5-граммы,\nтоп-300 по частоте
+NG -> PROF : ngram_en.json\nngram_fr.json
+
+LM -> AB : train(en, fr)
+AB -> AB : чанки ~2000 символов,\nскоры fr_score на чанках
+AB -> AB : порог = середина между\nхудшим FR и лучшим EN
+AB -> PROF : alphabet.json\n(порог 0,04726)
+
+LM -> NN : train(en, fr)
+NN -> NN : чанки, char TF-IDF (1-5),\nLogReg, holdout 80/20
+NN -> PROF : ml_model.pkl\n(vectorizer + clf + metadata)
+
+LM --> API : metadata трёх методов
+API --> UI : {message, metadata}
+UI --> User : "Модели обучены",\nстатусы методов
+
+note over PROF : ngram/alphabet — stdlib,\nнейро — нужен scikit-learn
+@enduml

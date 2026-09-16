@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IR System - Help</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">IR System</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Search</a>
+            <a href="upload.html" class="nav-link">Upload</a>
+            <a href="documents.html" class="nav-link">Documents</a>
+            <a href="metrics.html" class="nav-link">Metrics</a>
+            <a href="classify.html" class="nav-link">Classification</a>
+            <a href="summarize.html" class="nav-link">Summarize</a>
+            <a href="translate.html" class="nav-link">Translate</a>
+            <a href="help.html" class="nav-link active">Help</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="help-layout">
+            <div class="help-content">
+                <h1>Help</h1>
+                <p class="subtitle">Static page — works without the server. Theory grouped by functionality.</p>
+
+                <!-- ===== Classification Theory ===== -->
+                <section class="help-section" id="classification">
+                    <h2>Classification Theory</h2>
+
+                    <div class="terms-container">
+                        <div class="term-card">
+                            <div class="term-name">Text Preprocessing</div>
+                            <div class="term-definition">
+                                <b>Body extraction</b> — &lt;script&gt;, &lt;style&gt;, &lt;noscript&gt; blocks are removed along with their content, then only &lt;body&gt; is taken (if absent — the whole document), remaining tags are stripped, HTML entities are decoded.
+                                Implementation: <code>lang_text.extract_body_text</code>.
+                            </div>
+                            <div class="term-definition">
+                                <b>Diacritics-aware preprocessing</b> — lowercasing, digit/punctuation removal, but French letters are preserved: é è ê ë à â ç î ï ô ù û ÿ œ æ. This is critical: the regular search <code>clean_text</code> keeps only a–z and "blinds" French.
+                                Implementation: <code>lang_text.preprocess_for_lang</code>.
+                            </div>
+                            <div class="term-definition">
+                                <b>Chunking</b> — training corpus is split into ~2000-char fragments at sentence boundaries: instead of 2 giant strings the classifier gets dozens of examples.
+                                Implementation: <code>lang_text.chunk_text</code>.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">N-gram Method (Cavnar &amp; Trenkle)</div>
+                            <div class="term-definition">
+                                Character n-grams (1–5 chars) are extracted from the training corpus, top-300 by frequency form a language profile
+                                (<code>backend/lang_profiles/ngram_en.json</code>, <code>ngram_fr.json</code>).
+                                The same profile is built for the target document; distance is <em>out-of-place</em>: sum of rank differences, with a penalty of 300 for missing n-grams. The language with the smallest distance wins.
+                                Implementation: <code>lang_ngram.py</code>.
+                            </div>
+                            <div class="term-formula">distance = Σ |rank_doc(g) − rank_lang(g)|, penalty = K if n-gram missing</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Alphabet Method</div>
+                            <div class="term-definition">
+                                Reference character sets: English — a–z, French — a–z plus diacritics (é è ê ë à â ç î ï ô ù û œ æ).
+                                The ratio of specific characters in the input text is computed; when none are found, the decision falls back to base Latin letter frequency and marker words (le/la/les/des vs the/and/of).
+                                The final score is weighted; the threshold is tuned on the training corpus and stored in <code>backend/lang_profiles/alphabet.json</code>.
+                                Implementation: <code>lang_alphabet.py</code>.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Neural Method (Logistic Regression)</div>
+                            <div class="term-definition">
+                                Logistic regression on character TF-IDF features (1–5 grams, max_features=5000). Trained on corpus chunks, validated with 80/20 holdout. Outputs probabilities P(EN) and P(FR).
+                                Advantages: trains in seconds on CPU, deterministic, provides probabilities out of the box, small model.
+                                Implementation: <code>lang_detect.train / classify_text / classify_html</code>, model: <code>backend/lang_profiles/ml_model.pkl</code>.
+                            </div>
+                            <div class="term-formula">P(fr|x) = 1 / (1 + exp(−(w·x + b)))</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Classification Metrics</div>
+                            <div class="term-definition">
+                                <b>Accuracy</b> — fraction of correctly classified test documents. Ground truth comes from <code>test_html/manifest.csv</code>.
+                                <b>Confusion matrix</b> — 2×2 table showing how many English/French documents were classified as each.
+                                <b>Timing</b> — average classification time per document in milliseconds.
+                            </div>
+                            <div class="term-formula">Accuracy = correct / total</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== Search Theory ===== -->
+                <section class="help-section" id="search">
+                    <h2>Search Theory</h2>
+
+                    <div class="terms-container">
+                        <div class="term-card">
+                            <div class="term-name">TF-IDF</div>
+                            <div class="term-definition">
+                                Word weight: frequency in the document (TF) × rarity across the collection (IDF).
+                                Document vectors are built in <code>document_processor.vectorize_text_with_dim</code>.
+                            </div>
+                            <div class="term-formula">TF-IDF(t,d) = TF(t,d) × IDF(t)</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Cosine Similarity</div>
+                            <div class="term-definition">
+                                Measures how similar a query and a document are: the cosine of the angle between their vectors.
+                                Search uses the pgvector operator <code>&lt;=&gt;</code> in <code>database_manager.search_documents</code>.
+                            </div>
+                            <div class="term-formula">similarity = (A·B) / (||A|| × ||B||)</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">pgvector</div>
+                            <div class="term-definition">
+                                PostgreSQL extension for storing vector embeddings (dimension 5000 here) and nearest-neighbor search.
+                                Tables: <code>documents</code>, <code>search_logs</code>.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Vocabulary &amp; IDF</div>
+                            <div class="term-definition">
+                                Word → vector index mapping and IDF weights are held in memory (<code>VOCAB</code>, <code>IDF</code>) and in tables <code>vocabulary</code>, <code>idf_values</code>;
+                                expanded incrementally on upload (<code>expand_vocabulary</code>).
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Stemming &amp; Stop Words</div>
+                            <div class="term-definition">
+                                Porter stemmer reduces words to their root; English stop words are removed before vectorization (<code>document_processor.clean_text</code>).
+                                Note: English search only — not used for classification.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Precision / Recall / F-Score</div>
+                            <div class="term-definition">
+                                Search quality metrics on the Metrics tab: fraction of relevant among retrieved / fraction of retrieved among relevant / their harmonic mean.
+                                Implementation: <code>evaluator.py</code>.
+                            </div>
+                            <div class="term-formula">F1 = 2·P·R / (P + R)</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Snippet &amp; Auto-summary</div>
+                            <div class="term-definition">
+                                <b>Snippet</b> — fragment around the first match with <code>&lt;mark&gt;</code> highlighting (<code>highlight_snippet</code>).
+                                <b>Auto-summary</b> — top-3 sentences by TF-IDF weight, computed at index time (<code>generate_summary</code>).
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Migrations &amp; File Watcher</div>
+                            <div class="term-definition">
+                                DB schema is applied via numbered SQL files from <code>backend/migrations/</code> through <code>migrate.py</code> (not Alembic).
+                                File watcher — a separate CLI client that sends file create/modify/delete events to <code>/api/watch-event</code>.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== Summarization Theory ===== -->
+                <section class="help-section" id="summarization">
+                    <h2>Summarization Theory</h2>
+
+                    <div class="terms-container">
+                        <div class="term-card">
+                            <div class="term-name">Extractive Summarization</div>
+                            <div class="term-definition">
+                                The summary is built by selecting the most important sentences from the original text without rewriting or paraphrasing.
+                                Both methods implemented in this system are <b>extractive</b>: they rank sentences and pick the top-N in original document order.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Sentence Extraction (TF-IDF + Positional)</div>
+                            <div class="term-definition">
+                                Each sentence receives a score based on the TF-IDF weights of its terms, adjusted by positional heuristics:
+                                <ul>
+                                    <li><b>Term weight:</b> augmented TF: <code>0.5 + 0.5 × tf(t,D) / tf_max(D)</code> — rewards frequent terms while capping influence of very common words.</li>
+                                    <li><b>Document position (Posd):</b> <code>1 − chars_before / total_chars</code> — earlier sentences are weighted higher.</li>
+                                    <li><b>Paragraph position (Posp):</b> <code>1 − chars_before_in_para / para_len</code> — first sentence of each paragraph is preferred.</li>
+                                </ul>
+                                Final score: <code>Score(Si) = Σ tf(t,Si) × w(t,D) × Posd(Si) × Posp(Si)</code>
+                            </div>
+                            <div class="term-formula">Score(Si) = Σ [tf(t,Si) × (0.5 + 0.5·tf(t,D)/tf_max(D))] × Posd(Si) × Posp(Si)</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">TextRank (Graph-based)</div>
+                            <div class="term-definition">
+                                Sentences are vertices in a graph; edges represent cosine similarity between their TF-IDF vectors.
+                                PageRank is run on this graph to determine the most "central" sentences.
+                                <ul>
+                                    <li><b>Similarity:</b> cosine similarity between normalized TF-IDF sentence vectors.</li>
+                                    <li><b>PageRank:</b> iterative algorithm with damping factor d = 0.85, convergence tolerance 1e-6, max 50 iterations.</li>
+                                    <li>Sentences with the highest PageRank score are the most connected to other important sentences.</li>
+                                </ul>
+                            </div>
+                            <div class="term-formula">PR(i) = (1−d)/N + d × Σ [PR(j) / OutDeg(j)]</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Compression Ratio</div>
+                            <div class="term-definition">
+                                The ratio of the summary length to the original document length, expressed as a percentage.
+                                A lower ratio means a more concise summary. Typical extractive summaries achieve 15–30% compression.
+                            </div>
+                            <div class="term-formula">compression = len(summary) / len(original) × 100%</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Keywords Extraction</div>
+                            <div class="term-definition">
+                                Keywords are extracted from the document by TF-IDF weight: each term's TF in the document is multiplied by its IDF (within the document context).
+                                The top-K terms by weight are returned as keywords.
+                                Implementation: <code>summary_engine._extract_keywords_from_text</code>.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== Translation Theory ===== -->
+                <section class="help-section" id="translation">
+                    <h2>Translation Theory</h2>
+
+                    <div class="terms-container">
+                        <div class="term-card">
+                            <div class="term-name">Word-by-Word Translation</div>
+                            <div class="term-definition">
+                                Each English word is looked up in a translation dictionary and replaced with its French equivalent.
+                                The system performs direct translation without reordering or morphological adjustment.
+                                Dictionary entries include source POS (NLTK), target POS, and frequency.
+                                Implementation: <code>translator.translation_engine.translate_text</code>.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Translation Coverage</div>
+                            <div class="term-definition">
+                                <b>Coverage</b> = (translated words / total words) × 100%.
+                                Untranslated words are kept in English.
+                                Coverage depends on dictionary completeness: bootstrapping loads ~800+ common word pairs.
+                                Implementation: <code>translator.translation_engine.translate_text</code> (stats.coverage).
+                            </div>
+                            <div class="term-formula">coverage = (translated / total) × 100%</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">POS Tagging (EN/FR)</div>
+                            <div class="term-definition">
+                                English: NLTK averaged perceptron tagger (<code>averaged_perceptron_tagger_eng</code>).
+                                French: NLTK perceptron tagger (<code>perceptron_tagger_fr</code>).
+                                Both fall back to a rule-based heuristic when the model is unavailable.
+                                POS tags are used for accurate dictionary lookup and syntax parsing.
+                                Implementation: <code>translator.pos_tagger</code>.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Syntax Parsing</div>
+                            <div class="term-definition">
+                                Constituency parse trees built with NLTK RegexpParser.
+                                English grammar: NP (determiner + adjective + noun), VP (verb + NP/PP), PP (preposition + NP).
+                                French grammar: GN (det + adj + NC/NPP), GP (verbe + GN/PP), GP (préposition + GN).
+                                Parse trees reveal sentence structure for future morphological or reordering improvements.
+                                Implementation: <code>translator.syntax_parser</code>.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Dictionary Bootstrap</div>
+                            <div class="term-definition">
+                                Initial dictionary built from two sources: (1) 800+ hand-curated common word pairs (articles, prepositions, pronouns, verbs, nouns, adjectives, adverbs, CS terminology);
+                                (2) frequency-aligned extraction from parallel EN/FR corpora in the project.
+                                More pairs can be added via the Dictionary tab or API.
+                                Implementation: <code>translator.dict_builder.bootstrap_dictionary</code>.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Frequency List</div>
+                            <div class="term-definition">
+                                Counts word occurrences in input text, ordered by frequency descending.
+                                Each word is enriched with its POS tag, French translation from the dictionary, and frequency count.
+                                Useful for identifying key terminology before full translation.
+                                Implementation: <code>translator.translation_engine.get_frequency_list</code>.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== System Overview ===== -->
+                <section class="help-section" id="overview">
+                    <h2>System Overview</h2>
+
+                    <div class="help-grid">
+                        <div class="help-card">
+                            <h3>Search</h3>
+                            <p>Vector search across the corpus. Results are ranked by similarity, matches are highlighted.</p>
+                        </div>
+                        <div class="help-card">
+                            <h3>Upload</h3>
+                            <p>Add documents: paste text or upload a file (.txt/.md/.pdf/.docx/.html/.rtf/.csv/.log).</p>
+                        </div>
+                        <div class="help-card">
+                            <h3>Documents</h3>
+                            <p>Browse all indexed documents, delete unwanted ones.</p>
+                        </div>
+                        <div class="help-card">
+                            <h3>Metrics</h3>
+                            <p>Evaluate search quality: precision/recall/F-score for queries with known relevant document IDs.</p>
+                        </div>
+                        <div class="help-card">
+                            <h3>Classification</h3>
+                            <p>Train models, classify a single HTML/text file or run the full test corpus with accuracy, confusion matrix, and timing; CSV export and print for reports.</p>
+                        </div>
+                        <div class="help-card">
+                            <h3>Summarize</h3>
+                            <p>Generate extractive summaries using Sentence Extraction or TextRank. Choose method, sentence count, view highlighted sentences in original text.</p>
+                        </div>
+                        <div class="help-card">
+                            <h3>Translate</h3>
+                            <p>Word-by-word EN→FR translation with POS tagging, syntax tree visualization, and dictionary management. View word frequency lists and translation coverage.</p>
+                        </div>
+                        <div class="help-card">
+                            <h3>Help</h3>
+                            <p>This page: theory and navigation, available offline.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <nav class="help-sidebar">
+                <div class="help-sidebar-label">On this page</div>
+                <a href="#classification">Classification Theory</a>
+                <a href="#search">Search Theory</a>
+                <a href="#summarization">Summarization Theory</a>
+                <a href="#translation">Translation Theory</a>
+                <a href="#overview">System Overview</a>
+            </nav>
+        </div>
+    </main>
+
+    <script>
+    (function () {
+        const links = document.querySelectorAll('.help-sidebar a');
+        const sections = [];
+        links.forEach(function (link) {
+            const id = link.getAttribute('href').slice(1);
+            const el = document.getElementById(id);
+            if (el) sections.push({ id: id, el: el, link: link });
+        });
+        if (!sections.length) return;
+
+        function update() {
+            let current = sections[0];
+            const scrollY = window.scrollY + 100;
+            for (let i = 0; i < sections.length; i++) {
+                if (sections[i].el.offsetTop <= scrollY) {
+                    current = sections[i];
+                }
+            }
+            links.forEach(function (l) { l.classList.remove('active'); });
+            current.link.classList.add('active');
+        }
+
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+    })();
+    </script>
+</body>
+</html>

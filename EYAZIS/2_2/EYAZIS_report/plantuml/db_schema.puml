@@ -1,0 +1,91 @@
+@startuml db_schema
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+skinparam linetype ortho
+hide circle
+
+skinparam class {
+    BackgroundColor #E0E7FF
+    BorderColor #4F46E5
+    ArrowColor #475569
+    HeaderBackgroundColor #C7D2FE
+}
+
+entity "documents" as documents {
+    * id : SERIAL <<PK>>
+    --
+    title : VARCHAR(500)
+    content : TEXT
+    date_added : TIMESTAMP
+    embedding : vector(5000)
+    summary : TEXT
+    file_path : VARCHAR(1000) <<UNIQUE>>
+    lang : VARCHAR(10)
+    s3_key : VARCHAR(500)
+}
+
+entity "search_logs" as search_logs {
+    * id : SERIAL <<PK>>
+    --
+    query_text : TEXT
+    query_embedding : vector(5000)
+    timestamp : TIMESTAMP
+}
+
+entity "vocabulary" as vocabulary {
+    * id : SERIAL <<PK>>
+    --
+    word : VARCHAR(255) <<UNIQUE>>
+    vector_index : INTEGER
+}
+
+entity "idf_values" as idf_values {
+    * id : SERIAL <<PK>>
+    --
+    word : VARCHAR(255) <<UNIQUE>>
+    idf_value : DOUBLE PRECISION
+}
+
+entity "schema_migrations" as schema_migrations {
+    * id : SERIAL <<PK>>
+    --
+    migration_name : VARCHAR(255) <<UNIQUE>>
+    applied_at : TIMESTAMP
+}
+
+entity "watch_clients" as watch_clients {
+    * id : SERIAL <<PK>>
+    --
+    client_id : VARCHAR(255) <<UNIQUE>>
+    watched_dir : VARCHAR(1000)
+    registered_at : TIMESTAMP
+    last_seen : TIMESTAMP
+}
+
+entity "watch_events" as watch_events {
+    * id : SERIAL <<PK>>
+    --
+    client_id : VARCHAR(255)
+    event_type : VARCHAR(50)
+    file_path : VARCHAR(1000)
+    old_path : VARCHAR(1000)
+    timestamp : TIMESTAMP
+}
+
+watch_clients ||--o{ watch_events
+
+note bottom of schema_migrations
+  Служебная таблица:
+  учёт применённых
+  SQL-миграций
+end note
+
+note bottom of watch_clients
+  Клиенты-наблюдатели:
+  машины, мониторящие
+  локальные директории
+end note
+
+@enduml

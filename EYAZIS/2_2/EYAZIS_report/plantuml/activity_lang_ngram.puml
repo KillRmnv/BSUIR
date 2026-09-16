@@ -1,0 +1,39 @@
+@startuml activity_lang_ngram
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+
+skinparam activity {
+    BorderColor #2563EB
+    BackgroundColor #EAF2FB
+    ArrowColor #475569
+    DiamondBorderColor #D97706
+    DiamondBackgroundColor #FEF3C7
+}
+
+title Блок-схема метода N-грамм (Cavnar & Trenkle, классификация)
+
+start
+:Извлечение текста из <body> HTML\n(без script/style/тегов);
+:Предобработка: нижний регистр,\nсохранение диакритики é è ç œ;
+:Извлечение символьных n-грамм\n(n = 1..5, паддинг пробелами);
+:Профиль документа: топ-300\nпо частоте;
+:Загрузка профилей ngram_en.json,\nngram_fr.json;
+:Дистанция out-of-place до EN:\nсумма |ранг_док − ранг_en|,\nштраф 300 за отсутствие;
+:Дистанция out-of-place до FR\n(аналогично);
+if (dist_en <= dist_fr?) then (да)
+    :Язык = английский;
+else (нет)
+    :Язык = французский;
+endif
+:Возврат {lang, dist_en,\ndist_fr, margin, ms};
+stop
+
+note right
+  Обучение (офлайн): те же шаги
+  на training/en.txt, fr.txt,
+  0,18 с. Точность на тесте 10/10.
+end note
+
+@enduml

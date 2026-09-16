@@ -1,0 +1,13 @@
+Machine Learning in Computer Vision
+
+Machine learning has revolutionized the field of computer vision. Deep neural networks, particularly convolutional neural networks, have achieved remarkable performance on image classification tasks. The architecture of these networks consists of multiple layers that automatically learn hierarchical features from raw pixel data.
+
+Training a deep learning model requires a large dataset of labeled images. The model learns to identify patterns such as edges, textures, and shapes through backpropagation. During training, the algorithm adjusts the weights of the network to minimize the loss function. This process requires significant computational power, typically provided by graphics processing units.
+
+Transfer learning has emerged as a powerful technique to reduce the amount of data and computation needed. A pre-trained model on a large dataset like ImageNet can be fine-tuned for a specific task with relatively few examples. This approach has made computer vision accessible to researchers and practitioners with limited resources.
+
+Object detection extends image classification by localizing and identifying multiple objects within a single image. Algorithms such as YOLO and Faster R-CNN have achieved real-time performance on standard benchmarks. These systems find applications in autonomous driving, surveillance, and medical imaging.
+
+Semantic segmentation goes further by assigning a class label to every pixel in an image. This dense prediction task is essential for understanding the scene at a granular level. Recent architectures use encoder-decoder structures with skip connections to preserve spatial information.
+
+The field continues to advance rapidly. Vision transformers, which apply the self-attention mechanism from natural language processing to images, have shown competitive results. Multimodal models that combine vision and language enable tasks such as image captioning and visual question answering.

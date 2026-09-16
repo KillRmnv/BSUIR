@@ -1,0 +1,53 @@
+@startuml sequence_parse
+skinparam backgroundColor #FEFEFE
+skinparam sequenceArrowThickness 2
+skinparam sequenceParticipantBorderColor #222222
+skinparam sequenceLifeLineBorderColor #BBBBBB
+skinparam noteBorderColor #888888
+
+title Sequence: Syntax Parse Tree
+
+actor User
+participant "translate.html\n(Syntax Tree)" as FE
+participant "app.py\n(REST)" as API
+participant "syntax_parser.py\n(parse_text)" as SP
+participant "pos_tagger.py\n(pos_tag_en)" as POS
+participant "NLTK RegexpParser\n(EN_GRAMMAR)" as RP
+
+User -> FE : Enter text + select lang\n+ click "Parse"
+activate FE
+
+FE -> API : POST /api/translate/parse\n{text, lang}
+activate API
+
+API -> SP : parse_text(text, lang)
+activate SP
+
+SP -> SP : sent_tokenize(text)
+
+loop for each sentence
+
+    SP -> POS : pos_tag_en(sentence)
+    activate POS
+    POS --> SP : [(word, POS), ...]
+    deactivate POS
+
+    SP -> RP : EN_PARSER.parse(tagged)
+    activate RP
+    RP --> SP : Tree (NP, VP, PP, ...)
+    deactivate RP
+
+    SP -> SP : tree_to_dict(tree)\nstr(tree)
+
+end
+
+SP --> API : [\n  {sentence, tree, tree_str}, ...\n]
+deactivate SP
+
+API --> FE : JSON response
+deactivate API
+
+FE --> User : Show parse trees\n(preformatted)
+deactivate FE
+
+@enduml

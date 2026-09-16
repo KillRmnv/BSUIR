@@ -1,0 +1,45 @@
+@startuml sequence_lang_batch
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+skinparam SequenceMessageAlign center
+
+skinparam sequence {
+    ArrowColor #475569
+    LifeLineBorderColor #94A3B8
+    LifeLineBackgroundColor #E2E8F0
+    ParticipantBorderColor #2563EB
+    ParticipantBackgroundColor #EAF2FB
+    ActorBorderColor #D97706
+    ActorBackgroundColor #FEF3C7
+}
+
+actor "Пользователь" as User
+box "Клиентский уровень" #FEF3C7
+    participant "classify.html\n(classify.js)" as UI
+end box
+box "Серверный уровень (Flask)" #DCFCE7
+    participant "app.py\nPOST /api/lang/classify-batch" as API
+    participant "lang_methods.py\nclassify_batch_all()" as LM
+end box
+participant "test_html/\n10 × .html + manifest.csv" as TEST
+
+User -> UI : "Прогнать коллекцию"
+UI -> API : POST /api/lang/classify-batch
+API -> TEST : чтение manifest.csv\n(true_lang) и 10 HTML
+API -> LM : classify_batch_all(items,\ntrue_labels)
+
+loop для каждого документа
+    LM -> LM : classify_html_all:\nпарсинг, 3 метода, голос
+    LM -> LM : true_lang из манифеста,\nфлаг correct
+end
+
+LM -> LM : accuracy голосования,\nconfusion 2×2, avg_time_ms
+LM -> LM : per_method: accuracy,\nconfusion, avg_ms\n(ngram / alphabet / neural)
+LM --> API : {documents, summary}
+API --> UI : JSON
+UI -> UI : сводные карточки,\nтаблица по документам,\nCSV + печать
+UI --> User : отчёт для лабораторной
+
+@enduml

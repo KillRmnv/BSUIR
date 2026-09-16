@@ -1,0 +1,79 @@
+@startuml architecture
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam defaultFontName DejaVu Sans
+skinparam ArrowColor #475569
+skinparam rectangle {
+    BackgroundColor #EAF2FB
+    BorderColor #2563EB
+}
+skinparam rectangle<<client>> {
+    BackgroundColor #FEF3C7
+    BorderColor #D97706
+}
+skinparam rectangle<<server>> {
+    BackgroundColor #DCFCE7
+    BorderColor #16A34A
+}
+skinparam rectangle<<db>> {
+    BackgroundColor #FCE7F3
+    BorderColor #DB2777
+}
+skinparam rectangle<<watcher>> {
+    BackgroundColor #FFF7ED
+    BorderColor #EA580C
+}
+
+rectangle "КЛИЕНТСКИЙ УРОВЕНЬ — браузер\n(статический фронтенд: HTML5 / CSS3 / JavaScript)" <<client>> as CLIENT
+
+rectangle "index.html\n(поиск)" as INDEX
+rectangle "upload.html\n(загрузка)" as UPLOAD
+rectangle "documents.html\n(список)" as DOCS
+rectangle "metrics.html\n(оценка)" as METRICS
+
+rectangle "ФАЙЛОВЫЙ НАБЛЮДАТЕЛЬ — watchdog (Python)\nCLI-клиент: мониторинг директории,\nавтоматическая репликация" <<watcher>> as WATCHER
+
+rectangle "watch_client.py\nнаблюдение за файлами,\nstate-файл (.json)" as WCLI
+
+rectangle "СЕРВЕРНЫЙ УРОВЕНЬ — Flask (Python 3.11), REST API /api/*" <<server>> as FLASK
+
+rectangle "search_engine.py\nпоиск, подсветка" as SE
+rectangle "document_processor.py\nTF-IDF, словарь, IDF" as DP
+rectangle "document_loader.py\nизвлечение текста\n(pdf, docx, html...)" as LOADER
+rectangle "database_manager.py\nPostgreSQL CRUD,\nвекторный поиск" as DBM
+rectangle "evaluator.py\nPrecision / Recall /\nF-мера + графики" as EVAL
+rectangle "watch_handler.py\nобработка событий\nфайлового наблюдателя" as WH
+rectangle "migrate.py\nмиграции БД" as MIGRATE
+rectangle "s3_client.py\nMinIO S3-клиент\n(upload, download,\npresigned URL)" as S3
+
+rectangle "PostgreSQL 16 + pgvector\n(documents, search_logs,\nvocabulary, idf_values,\nschema_migrations,\nwatch_clients, watch_events)" <<db>> as PG
+
+rectangle "MinIO Object Storage\n(bucket: documents)\nхранилище оригинальных\nфайлов" <<db>> as MINIO
+
+CLIENT -down-> INDEX
+CLIENT -down-> UPLOAD
+CLIENT -down-> DOCS
+CLIENT -down-> METRICS
+
+INDEX -down-> FLASK
+UPLOAD -down-> FLASK
+DOCS -down-> FLASK
+METRICS -down-> FLASK
+
+WATCHER -down-> WCLI
+WCLI -down-> FLASK : HTTP POST\n/api/watch-event
+
+FLASK -down-> SE
+FLASK -right-> DP
+FLASK -right-> LOADER
+FLASK -right-> DBM
+FLASK -right-> WH
+FLASK -right-> S3
+
+SE -down-> EVAL
+DBM -down-> PG
+WH -down-> DBM
+S3 -down-> MINIO
+
+@enduml

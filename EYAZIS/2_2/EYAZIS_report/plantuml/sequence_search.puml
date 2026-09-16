@@ -1,0 +1,69 @@
+@startuml sequence_search
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+skinparam SequenceMessageAlign center
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+
+skinparam sequence {
+    ArrowColor #475569
+    LifeLineBorderColor #94A3B8
+    LifeLineBackgroundColor #E2E8F0
+    ParticipantBorderColor #2563EB
+    ParticipantBackgroundColor #EAF2FB
+    ActorBorderColor #D97706
+    ActorBackgroundColor #FEF3C7
+    DatabaseBorderColor #DB2777
+    DatabaseBackgroundColor #FCE7F3
+}
+
+actor "Пользователь" as User
+box "Клиентский уровень" #FEF3C7
+    participant "index.html\n(app.js)" as UI
+end box
+box "Серверный уровень (Flask)" #DCFCE7
+    participant "app.py\n(REST API)" as API
+    participant "search_engine.py" as SE
+    participant "document_processor.py" as DP
+    participant "database_manager.py" as DBM
+end box
+database "PostgreSQL 16\n+ pgvector" as DB
+
+User -> UI : вводит запрос,\nнажимает "Search"
+UI -> API : POST /api/search\n{query, top_k}
+API -> SE : get_results(query, top_k)
+
+SE -> DP : get_query_terms(query)
+DP -> DP : clean_text():\nнижний регистр, стоп-слова,\nстемминг Портера
+DP --> SE : термины запроса (в словаре)
+
+SE -> DP : vectorize_text_with_dim(query, 5000)
+DP -> DP : TF-IDF + L2-нормализация
+DP --> SE : вектор запроса q
+
+SE -> DBM : log_search(query, q)
+DBM -> DB : INSERT INTO search_logs
+
+SE -> DBM : search_documents(q, top_k)
+DBM -> DB : SELECT id, title, content,\n1 - (embedding <=> q) AS similarity\nFROM documents\nORDER BY embedding <=> q\nLIMIT top_k
+DB --> DBM : строки результатов
+DBM --> SE : [{id, title, content, similarity}]
+
+SE -> SE : отбрасывание\nsimilarity = 0
+
+loop для каждого результата
+    SE -> DP : highlight_snippet(content, terms)
+    DP --> SE : сниппет с <mark>,\nmatched_terms
+end
+
+SE --> API : {query, keywords, results,\nhighlighted_content, matched_terms}
+API --> UI : JSON
+
+UI -> UI : рендер карточек:\n<title, similarity%,\nсниппет с <mark>, бейджи Matched>
+UI -> API : GET /api/documents/{id}?query=...
+API --> UI : полный текст\nс подсветкой
+UI --> User : отображение результатов
+
+@enduml

@@ -1,0 +1,59 @@
+@startuml sequence_lang_classify
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+skinparam SequenceMessageAlign center
+
+skinparam sequence {
+    ArrowColor #475569
+    LifeLineBorderColor #94A3B8
+    LifeLineBackgroundColor #E2E8F0
+    ParticipantBorderColor #2563EB
+    ParticipantBackgroundColor #EAF2FB
+    ActorBorderColor #D97706
+    ActorBackgroundColor #FEF3C7
+}
+
+actor "Пользователь" as User
+box "Клиентский уровень" #FEF3C7
+    participant "classify.html\n(classify.js)" as UI
+end box
+box "Серверный уровень (Flask)" #DCFCE7
+    participant "app.py\nPOST /api/lang/classify" as API
+    participant "lang_methods.py\nclassify_html_all()" as LM
+    participant "lang_text.py" as LT
+    participant "lang_ngram.py" as NG
+    participant "lang_alphabet.py" as AB
+    participant "lang_detect.py" as NN
+end box
+
+User -> UI : HTML-файл или текст,\n"Классифицировать"
+UI -> API : POST /api/lang/classify\n(multipart-файл или JSON {text})
+API -> LM : classify_html_all(data)
+LM -> LT : extract_body_text:\nбез script/style/тегов,\nтолько <body>
+LT --> LM : чистый текст
+
+LM -> NG : classify_text(text)
+NG -> NG : профиль документа топ-300,\nout-of-place до en/fr
+NG --> LM : {lang, dist_en,\ndist_fr, margin, ms}
+
+LM -> AB : classify_text(text)
+AB -> AB : fr_ratio, маркеры,\nfr_score vs порог
+AB --> LM : {lang, fr_ratio,\nmarkers, score, ms}
+
+LM -> NN : classify_text(text)
+alt нейромодель обучена
+    NN -> NN : char TF-IDF (1-5),\nLogReg predict_proba
+    NN --> LM : {lang, proba_en,\nproba_fr, ms}
+else модель отсутствует
+    NN --> LM : пропуск (null),\nголос по двум методам
+end
+
+LM -> LM : голосование большинства,\nфлаг agreed
+LM --> API : {lang, agreed, methods,\nproba_en/fr, elapsed_ms}
+API --> UI : JSON
+UI -> UI : бейдж языка, 3 блока методов,\nбары вероятностей
+UI --> User : отображение результата
+
+@enduml

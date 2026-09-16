@@ -1,0 +1,80 @@
+@startuml sequence_summarize_doc
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+skinparam SequenceMessageAlign center
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+
+skinparam sequence {
+    ArrowColor #475569
+    LifeLineBorderColor #94A3B8
+    LifeLineBackgroundColor #E2E8F0
+    ParticipantBorderColor #2563EB
+    ParticipantBackgroundColor #EAF2FB
+    ActorBorderColor #D97706
+    ActorBackgroundColor #FEF3C7
+    DatabaseBorderColor #DB2777
+    DatabaseBackgroundColor #FCE7F3
+}
+
+actor "Пользователь" as User
+box "Клиентский уровень" #FEF3C7
+    participant "summarize.html\n(summarize.js)" as UI
+end box
+box "Серверный уровень (Flask)" #DCFCE7
+    participant "app.py\n(REST API)" as API
+    participant "summary_engine.py" as SE
+    participant "document_processor.py" as DP
+    participant "database_manager.py" as DBM
+end box
+database "PostgreSQL 16\n+ pgvector" as DB
+
+== Выбор документа ==
+
+User -> UI : выбирает документ из списка,\nметод, кол-во предложений
+UI -> API : GET /api/documents
+API -> DBM : get_all_documents()
+DBM -> DB : SELECT id, title, content, lang\nFROM documents
+DB --> DBM : строки документов
+DBM --> API : [{id, title, content, lang}]
+API --> UI : JSON список документов
+
+User -> UI : нажимает "Summarize"
+UI -> API : POST /api/summarize-doc\n{doc_id, method, n_sentences}
+
+== Извлечение документа ==
+
+API -> DBM : get_document_by_id(doc_id)
+DBM -> DB : SELECT * FROM documents\nWHERE id = doc_id
+DB --> DBM : {id, title, content, lang}
+DBM --> API : документ
+
+== Обработка (аналогично /api/summarize) ==
+
+API -> SE : summarize(content, method, n, lang)
+
+SE -> DP : clean_text(text, lang)
+DP --> SE : токены
+
+alt метод = "extraction"
+    SE -> SE : TF-IDF + Posd + Posp\nвзвешивание предложений
+else метод = "textrank"
+    SE -> SE : TF-IDF векторы →\nграф схожести → PageRank
+end
+
+SE -> SE : выбор N лучших,\nключевые слова
+
+SE --> API : {method, sentences, keywords, stats}
+
+== Формирование ответа ==
+
+API --> API : добавление doc_id, title
+
+API --> UI : JSON
+
+UI -> UI : рендер результатов
+UI --> User : реферат документа,\nключевые слова,\nподсветка
+
+@enduml

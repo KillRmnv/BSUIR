@@ -1,0 +1,166 @@
+\section{Машинный перевод документов}
+\label{sec:translate}
+
+\subsection{Постановка задачи}
+
+Разработана подсистема пословного машинного перевода с английского языка на французский
+(variant~5: область --- компьютерные науки и литературные эссе).
+Подсистема реализует прямой перевод без перестановки слов и морфологической адаптации.
+
+Основные возможности:
+\begin{itemize}
+	\item Пословный перевод с использованием базы данных словарных пар;
+	\item POS-тегирование (определение частей речи) для английского и французского языков;
+	\item Синтаксический разбор (построение деревьев составляющих);
+	\item Частотный список слов с переводом;
+	\item Управление словарём (добавление, поиск, удаление пар слов).
+\end{itemize}
+
+\subsection{Архитектура подсистемы}
+
+Подсистема состоит из четырёх модулей:
+
+\begin{enumerate}
+	\item \texttt{translator/dictionary.py} "--- операции с базой данных PostgreSQL:
+	      добавление, поиск, удаление пар слов;
+	\item \texttt{translator/pos\_tagger.py} "--- POS-тегирование с использованием NLTK
+	      (average perceptron tagger для EN, perceptron\_tagger\_fr для FR);
+	\item \texttt{translator/syntax\_parser.py} "--- построение деревьев составляющих
+	      с помощью RegexpParser;
+	\item \texttt{translator/translation\_engine.py} "--- основной движок перевода:
+	     lookup словаря, замена слов, сбор статистики.
+\end{enumerate}
+
+\subsection{Процесс перевода}
+
+Алгоритм перевода текста:
+
+\begin{enumerate}
+	\item Входной текст токенизируется и разбивается на предложения.
+	\item Каждое слово POS-тегируется NLTK-теггером (средний перцептрон).
+	\item Для каждого слова выполняется поиск в базе данных словарных пар
+	      (сначала по словоформе и POS-тегу, затем без POS-тега).
+	\item Найденное французское слово подставляется вместо английского.
+	\item Слова, не найденные в словаре, остаются на английском.
+	\item Формируется статистика: количество слов, переведённых слов, покрытие.
+\end{enumerate}
+
+\subsection{POS-тегирование}
+
+Для английского языка используется NLTK averaged perceptron tagger
+(\texttt{averaged\_perceptron\_tagger\_eng}), для французского --- NLTK perceptron tagger
+(\texttt{perceptron\_tagger\_fr}). При отсутствии модели используется эвристика на основе
+суффиксов:
+
+\begin{lstlisting}[caption={Эвристическое определение POS-тега для FR.},label={lst:pos_heuristic}]
+def _heuristic_pos_fr(word: str) -> str:
+    w = word.lower()
+    if w.endswith(('tion', 'ment', 'age', 'ence', 'ance')):
+        return 'NC'
+    if w.endswith(('eux', 'if', 'ique', 'al')):
+        return 'ADJ'
+    if w.endswith(('er', 'ir', 're')):
+        return 'V'
+    return 'NC'
+\end{lstlisting}
+
+Описания POS-тегов хранятся в словаре \texttt{POS\_DESCRIPTIONS}
+и передаются клиенту для отображения.
+
+\subsection{Синтаксический разбор}
+
+Для построения деревьев составляющих используется NLTK RegexpParser
+с грамматическими правилами:
+
+\begin{lstlisting}[caption={Грамматические правила для EN.},label={lst:en_grammar}]
+EN_GRAMMAR = r"""
+    NP: {<DT|PRP\$>?<JJ.*>*<NN.*>+}       # Noun phrase
+    VP: {<MD>?<VB.*><NP|PP|CLAUSE>*}         # Verb phrase
+    PP: {<IN><NP>}                            # Prepositional phrase
+    CLAUSE: {<NP><VP>}                        # Clause
+"""
+\end{lstlisting}
+
+Деревья сериализуются в JSON (вложенные dict) для передачи клиенту.
+Строковое представление генерируется методом \texttt{str(tree)} NLTK.
+
+\subsection{Словарь переводчика}
+
+База данных PostgreSQL хранит таблицу \texttt{translation\_dictionary}:
+
+\begin{lstlisting}[caption={Схема таблицы словаря.},label={lst:dict_schema}]
+CREATE TABLE translation_dictionary (
+    id SERIAL PRIMARY KEY,
+    source_word TEXT NOT NULL,
+    target_word TEXT NOT NULL,
+    source_pos TEXT DEFAULT '',
+    target_pos TEXT DEFAULT '',
+    frequency INTEGER DEFAULT 1,
+    UNIQUE (source_word, target_word, source_pos)
+);
+CREATE INDEX idx_dict_source ON translation_dictionary (LOWER(source_word));
+\end{lstlisting}
+
+Начальный словарь загружается из двух источников:
+\begin{enumerate}
+	\item 800+ заранее подготовленных пар слов (артикли, предлоги, местоимения,
+	      глаголы, существительные, прилагательные, наречия, термины ИТ);
+	\item Частотное выравнивание пар из параллельных корпусов EN/FR в проекте.
+\end{enumerate}
+
+\subsection{API методы}
+
+\begin{lstlisting}[caption={HTTP эндпоинты подсистемы перевода.},label={lst:translate_api}]
+POST /api/translate             --- перевод текста
+POST /api/translate/pos         --- POS-тегирование
+POST /api/translate/parse       --- синтаксический разбор
+GET  /api/translate/dict        --- список словаря
+POST /api/translate/dict        --- добавление пары
+GET  /api/translate/dict/search --- поиск по префиксу
+POST /api/translate/dict/bulk   --- массовая загрузка
+POST /api/translate/dict/bootstrap --- загрузка базового словаря
+POST /api/translate/dict/delete --- удаление пары
+POST /api/translate/freq        --- частотный список
+\end{lstlisting}
+
+\subsection{Интерфейс пользователя}
+
+Фронтенд (\texttt{translate.html}) содержит три вкладки:
+
+\begin{enumerate}
+	\item \textbf{Word List} "--- ввод английского текста, получение перевода
+	      со статистикой (количество слов, переведённых слов, покрытие)
+	      и подробной таблицей с POS-тегами и статусом перевода.
+	\item \textbf{Syntax Tree} "--- ввод одного или нескольких предложений,
+	      отображение деревьев составляющих (NP, VP, PP, CLAUSE).
+	\item \textbf{Dictionary} "--- просмотр, поиск, добавление и удаление
+	      пар слов в базе данных; кнопка ``Bootstrap Common Words''
+	      для загрузки базового словаря.
+\end{enumerate}
+
+\subsection{Тестовые результаты}
+
+Тестовый запуск перевода: \texttt{``The cat sat on the mat''}.
+
+\begin{lstlisting}[caption={Результат перевода.},label={lst:translate_result}]
+{
+  "translated_text": "le cat sat sur le mat",
+  "stats": {
+    "total_words": 6,
+    "translated": 3,
+    "coverage": 50.0
+  }
+}
+\end{lstlisting}
+
+Слова ``The'', ``on'', ``the'' переведены (le, sur, le).
+Слова ``cat'', ``sat'', ``mat'' не найдены в словаре.
+После загрузки базового словаря покрытие типичного текста составляет 60--70\%.
+
+\subsection{Выводы}
+
+Разработана подсистема пословного машинного перевода с интеграцией в IR-систему.
+Подсистема демонстрирует базовую функциональность: POS-тегирование, синтаксический
+разбор, управление словарём. Ограничения: отсутствие морфологической адаптации
+склонений и спряжений, отсутствие перестановки слов. Для повышения качества перевода
+необходимо расширение словаря и добавление морфологической обработки.

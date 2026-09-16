@@ -1,0 +1,87 @@
+@startuml sequence_summarize
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+skinparam SequenceMessageAlign center
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+
+skinparam sequence {
+    ArrowColor #475569
+    LifeLineBorderColor #94A3B8
+    LifeLineBackgroundColor #E2E8F0
+    ParticipantBorderColor #2563EB
+    ParticipantBackgroundColor #EAF2FB
+    ActorBorderColor #D97706
+    ActorBackgroundColor #FEF3C7
+    DatabaseBorderColor #DB2777
+    DatabaseBackgroundColor #FCE7F3
+}
+
+actor "Пользователь" as User
+box "Клиентский уровень" #FEF3C7
+    participant "summarize.html\n(summarize.js)" as UI
+end box
+box "Серверный уровень (Flask)" #DCFCE7
+    participant "app.py\n(REST API)" as API
+    participant "summary_engine.py" as SE
+    participant "document_processor.py" as DP
+    participant "database_manager.py" as DBM
+end box
+database "PostgreSQL 16\n+ pgvector" as DB
+
+== Ввод текста ==
+
+User -> UI : вводит текст, выбирает метод\n(TextRank / Extraction),\nкол-во предложений, язык
+UI -> API : POST /api/summarize\n{text, method, n_sentences, lang}
+
+== Обработка ==
+
+API -> SE : summarize(text, method, n, lang)
+
+alt метод = "extraction"
+    SE -> DP : clean_text(text, lang)
+    DP -> DP : токенизация, стоп-слова,\nстемминг (EN) / без стемминга (FR)
+    DP --> SE : токены документа
+
+    SE -> SE : _compute_tf(tokens)\nЧастоты терминов в документе
+
+    loop для каждого предложения
+        SE -> DP : clean_text(sentence, lang)
+        DP --> SE : токены предложения
+        SE -> SE : Score(Si) = Σ[tf(t,Si) × w(t,D)]\n× Posd(Si) × Posp(Si)
+    end
+
+    SE -> SE : сортировка по Score,\nвыбор N лучших,\nвозврат в исходном порядке
+
+else метод = "textrank"
+    SE -> DP : clean_text(text, lang)
+    DP --> SE : токены документа
+
+    SE -> SE : _build_similarity_matrix()\nTF-IDF векторы предложений,\nкосинусная близость
+
+    SE -> SE : _pagerank(matrix)\nd=0.85, итерации=50
+
+    loop для каждого предложения
+        SE -> SE : Score(Si) = PageRank(i)
+    end
+
+    SE -> SE : сортировка по Score,\nвыбор N лучших,\nвозврат в исходном порядке
+end
+
+SE -> SE : _extract_keywords_from_text()\nTF-IDF ключевые слова
+
+SE --> API : {method, sentences, keywords, stats}
+
+== Формирование ответа ==
+
+API --> UI : JSON
+
+UI -> UI : рендер результатов:\nранжированные предложения,\nключевые слова,\nподсветка в оригинале
+
+UI -> UI : выделение предложений\nтегом <mark> в исходном тексте
+
+UI --> User : реферат, ключевые слова,\nподсветка, статистика
+
+@enduml

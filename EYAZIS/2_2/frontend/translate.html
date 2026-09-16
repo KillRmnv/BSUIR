@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IR System - Translate</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">IR System</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Search</a>
+            <a href="upload.html" class="nav-link">Upload</a>
+            <a href="documents.html" class="nav-link">Documents</a>
+            <a href="metrics.html" class="nav-link">Metrics</a>
+            <a href="classify.html" class="nav-link">Classification</a>
+            <a href="summarize.html" class="nav-link">Summarize</a>
+            <a href="translate.html" class="nav-link active">Translate</a>
+            <a href="help.html" class="nav-link">Help</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="search-hero">
+            <h1>Machine Translation</h1>
+            <p class="subtitle">English → French word-by-word translation with POS tagging and syntax parsing</p>
+        </div>
+
+        <div class="tab-bar" style="margin-bottom:1.5rem;">
+            <button class="tab active" data-tab="wordlist">Word List</button>
+            <button class="tab" data-tab="syntax">Syntax Tree</button>
+            <button class="tab" data-tab="dictionary">Dictionary</button>
+        </div>
+
+        <!-- WORD LIST TAB -->
+        <div id="tab-wordlist" class="tab-panel active">
+            <div class="upload-section">
+                <div class="upload-card">
+                    <h3>Input</h3>
+                    <div class="form-group">
+                        <label>Translation Mode</label>
+                        <div style="display:flex; gap:8px; margin-top:4px;">
+                            <button class="btn btn-secondary mode-btn active" data-mode="dict"
+                                    onclick="setMode('dict')">Dictionary (Word-by-Word)</button>
+                            <button class="btn btn-secondary mode-btn" data-mode="nmt"
+                                    onclick="setMode('nmt')">Neural MT (Full Text)</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tlText">English text</label>
+                        <textarea id="tlText" rows="10" placeholder="Paste your English text here..." style="width:100%; padding:8px; border:1px solid var(--border); border-radius:var(--radius); font-family:inherit; resize:vertical;"></textarea>
+                    </div>
+                    <button class="btn" id="tlBtn">Translate</button>
+                    <button class="btn btn-secondary" id="tlExportBtn" style="display:none; margin-left:8px;">Download TXT</button>
+                </div>
+
+                <div class="results-card" id="tlResults" style="display:none;">
+                    <h3>Translation</h3>
+                    <div class="no-results" id="tlTranslated" style="margin-bottom:1rem;"></div>
+                    <div class="summary-stats" id="tlStats" style="display:none;">
+                        <div class="stat-item"><span class="stat-value" id="tlWordCount">0</span><span class="stat-label">Words</span></div>
+                        <div class="stat-item"><span class="stat-value" id="tlTranslatedCount">0</span><span class="stat-label">Translated</span></div>
+                        <div class="stat-item"><span class="stat-value" id="tlCoverage">0%</span><span class="stat-label">Coverage</span></div>
+                    </div>
+
+                    <div id="tlSummary" style="display:none;"></div>
+
+                    <h3 style="margin-top:1.5rem;">Detailed Table</h3>
+                    <table style="width:100%; border-collapse:collapse; font-size:0.9rem;" id="tlTable">
+                        <thead>
+                            <tr style="border-bottom:2px solid var(--border); text-align:left;">
+                                <th style="padding:8px 6px;">#</th>
+                                <th style="padding:8px 6px;">English</th>
+                                <th style="padding:8px 6px;">French</th>
+                                <th style="padding:8px 6px;">POS</th>
+                                <th style="padding:8px 6px;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tlBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SYNTAX TREE TAB -->
+        <div id="tab-syntax" class="tab-panel" style="display:none;">
+            <div class="upload-section">
+                <div class="upload-card">
+                    <h3>Parse</h3>
+                    <div class="form-group">
+                        <label for="parseLang">Language</label>
+                        <select id="parseLang" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:var(--radius);">
+                            <option value="en">English</option>
+                            <option value="fr">French</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="parseText">Text (one sentence per line)</label>
+                        <textarea id="parseText" rows="6" placeholder="The cat sat on the mat." style="width:100%; padding:8px; border:1px solid var(--border); border-radius:var(--radius); font-family:inherit; resize:vertical;"></textarea>
+                    </div>
+                    <button class="btn" id="parseBtn">Parse</button>
+                </div>
+
+                <div class="results-card" id="parseResults" style="display:none;">
+                    <h3>Syntax Trees</h3>
+                    <div id="parseTrees"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DICTIONARY TAB -->
+        <div id="tab-dictionary" class="tab-panel" style="display:none;">
+            <div class="upload-section">
+                <div class="upload-card">
+                    <h3>Dictionary</h3>
+                    <div class="form-group">
+                        <label for="dictSearch">Search</label>
+                        <input type="text" id="dictSearch" placeholder="Search word..." style="width:100%; padding:8px; border:1px solid var(--border); border-radius:var(--radius);">
+                    </div>
+                    <button class="btn" id="dictSearchBtn">Search</button>
+                    <button class="btn btn-secondary" id="dictBootBtn">Bootstrap Common Words</button>
+                    <button class="btn btn-secondary" id="dictListBtn">Show All</button>
+                </div>
+
+                <div class="results-card" id="dictResults" style="display:none;">
+                    <h3>Entries</h3>
+                    <table style="width:100%; border-collapse:collapse; font-size:0.9rem;" id="dictTable">
+                        <thead>
+                            <tr style="border-bottom:2px solid var(--border); text-align:left;">
+                                <th style="padding:8px 6px;">English</th>
+                                <th style="padding:8px 6px;">French</th>
+                                <th style="padding:8px 6px;">EN POS</th>
+                                <th style="padding:8px 6px;">FR POS</th>
+                                <th style="padding:8px 6px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dictBody"></tbody>
+                    </table>
+                    <div class="pagination" id="dictPag" style="display:none;">
+                        <button class="btn btn-secondary" id="dictPrev" style="font-size:0.85rem;">Prev</button>
+                        <span id="dictPageInfo" style="font-size:0.85rem;"></span>
+                        <button class="btn btn-secondary" id="dictNext" style="font-size:0.85rem;">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="js/translate.js"></script>
+</body>
+</html>

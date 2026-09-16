@@ -1,0 +1,17 @@
+{
+  "method": "seeded_shuffle_expand",
+  "seed": 7,
+  "source": "lang_seeds.py (37 EN + 37 FR paragraphs: curated + Wikipedia)",
+  "languages": {
+    "en": {
+      "file": "en.txt",
+      "kb": 200.7,
+      "base_paragraphs": 33
+    },
+    "fr": {
+      "file": "fr.txt",
+      "kb": 200.7,
+      "base_paragraphs": 39
+    }
+  }
+}

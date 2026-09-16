@@ -1,0 +1,17 @@
+% references.tex - этот файл подключается через \input, не компилируется отдельно!
+
+% Убедитесь, что natbib уже подключен в preamble.tex
+% \usepackage[numbers,square,sort&compress]{natbib}
+
+\renewcommand{\bibsection}{\section*{Список использованных источников}}
+\phantomsection
+\pagebreak
+
+\addcontentsline{toc}{section}{Список использованных источников}
+
+\nocite{*} % включает все записи из .bib файла
+
+\bibliographystyle{belarus-specific-utf8gost780u}
+\bibliography{bibliography} % имя файла без расширения
+
+\newpage

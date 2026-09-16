@@ -1,0 +1,51 @@
+@startuml sequence_metrics
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+skinparam SequenceMessageAlign center
+skinparam ParticipantPadding 20
+
+skinparam sequence {
+    ArrowColor #475569
+    LifeLineBorderColor #94A3B8
+    LifeLineBackgroundColor #E2E8F0
+    ParticipantBorderColor #2563EB
+    ParticipantBackgroundColor #EAF2FB
+    ActorBorderColor #D97706
+    ActorBackgroundColor #FEF3C7
+    DatabaseBorderColor #DB2777
+    DatabaseBackgroundColor #FCE7F3
+}
+
+actor "Пользователь" as User
+box "Клиентский уровень" #FEF3C7
+    participant "metrics.html\n(metrics.js)" as UI
+end box
+box "Серверный уровень (Flask)" #DCFCE7
+    participant "app.py\n(REST API)" as API
+    participant "search_engine.py" as SE
+    participant "evaluator.py" as EVAL
+end box
+
+User -> UI : вводит тестовые запросы\nи эталонные relevant_ids
+UI -> API : POST /api/search\n{query, top_k: 10}
+
+loop для каждого тестового запроса
+    API -> SE : get_results(query, 10)
+    SE --> API : results [{id, similarity, ...}]
+    API --> UI : retrieved_ids
+end
+
+UI -> API : POST /api/metrics\n{queries_results: [{query,\nretrieved_ids, relevant_ids}]}
+
+API -> EVAL : evaluate_search_results(queries_results)
+EVAL -> EVAL : P = |R ∩ Rel| / |R|\nR = |R ∩ Rel| / |Rel|\nF1, F0.5, F2 по (6)
+EVAL -> EVAL : усреднение по запросам
+EVAL -> EVAL : plot_metrics():\nmatplotlib-график → base64
+EVAL --> API : {average_precision,\naverage_recall, average_fscore,\nquery_metrics, chart}
+
+API --> UI : JSON с метриками и графиком
+UI --> User : таблица per-query,\nсредние метрики,\nграфик (PNG из base64)
+
+@enduml

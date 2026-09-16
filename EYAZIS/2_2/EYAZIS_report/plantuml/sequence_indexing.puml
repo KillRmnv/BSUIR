@@ -1,0 +1,79 @@
+@startuml sequence_indexing
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+skinparam SequenceMessageAlign center
+skinparam ParticipantPadding 20
+
+skinparam sequence {
+    ArrowColor #475569
+    LifeLineBorderColor #94A3B8
+    LifeLineBackgroundColor #E2E8F0
+    ParticipantBorderColor #2563EB
+    ParticipantBackgroundColor #EAF2FB
+    ActorBorderColor #D97706
+    ActorBackgroundColor #FEF3C7
+    DatabaseBorderColor #DB2777
+    DatabaseBackgroundColor #FCE7F3
+}
+
+actor "Пользователь" as User
+box "Клиентский уровень" #FEF3C7
+    participant "upload.html\n(upload.js)" as UI
+end box
+box "Серверный уровень (Flask)" #DCFCE7
+    participant "app.py\n(REST API)" as API
+    participant "document_loader.py" as LOADER
+    participant "document_processor.py" as DP
+    participant "s3_client.py" as S3
+    participant "database_manager.py" as DBM
+end box
+database "PostgreSQL 16\n+ pgvector" as DB
+database "MinIO\nObject Storage" as MINIO
+
+User -> UI : выбирает файл\nили вводит текст
+UI -> API : POST /api/upload-file\n(multipart/form-data)
+
+alt формат поддержан (.txt, .md, .pdf, .docx, .html, .rtf...)
+    API -> S3 : upload_file(file_bytes, object_name)
+    S3 -> MINIO : PUT /<bucket>/<object_name>
+    MINIO --> S3 : OK
+    S3 --> API : s3_key
+    API -> LOADER : extract_text_from_bytes(data, filename)
+    LOADER -> LOADER : выбор экстрактора\nпо расширению
+    LOADER --> API : текст документа
+    API -> API : валидация\n(текст не пуст)
+
+    API -> DBM : get_all_documents()
+    DBM -> DB : SELECT id, title, content\nFROM documents
+    DB --> DBM : текущий корпус
+    DBM --> API : список документов
+
+    API -> DP : build_vocabulary(all_texts)
+    DP -> DP : clean_text + Counter,\nсортировка терминов
+    API -> DP : compute_idf(all_texts)
+    DP -> DP : IDF_i = log(N / (P_i + 1)) + 1
+
+    API -> DBM : save_vocabulary(VOCAB)
+    DBM -> DB : DELETE + INSERT INTO vocabulary
+    API -> DBM : save_idf(IDF)
+    DBM -> DB : DELETE + INSERT INTO idf_values
+
+    API -> DP : vectorize_text_with_dim(content, 5000)
+    DP --> API : TF-IDF-вектор документа
+
+    API -> DBM : insert_document(title, content, embedding,\nsummary, s3_key, lang)
+    DBM -> DB : INSERT INTO documents\n(embedding vector(5000),\ns3_key, lang)
+    DB --> DBM : id документа
+    DBM --> API : doc_id
+
+    API --> UI : {message: "File uploaded\nand indexed", title}
+    UI --> User : подтверждение
+else формат не поддержан / текст не извлечён
+    LOADER --> API : error
+    API --> UI : {error} HTTP 400
+    UI --> User : сообщение об ошибке
+end
+
+@enduml
