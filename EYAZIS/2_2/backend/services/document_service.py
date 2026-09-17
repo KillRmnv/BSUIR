@@ -5,6 +5,7 @@ from data.database_manager import (
     get_document_by_id,
     delete_document,
     get_all_document_ids_and_contents,
+    get_all_document_texts_with_lang,
     update_document_embedding,
     load_vocabulary,
     load_idf,
@@ -40,8 +41,8 @@ def _rebuild_embeddings(engine):
 
 
 def _expand_and_reembed(content: str, lang: str, engine):
-    docs = get_all_documents()
-    existing_texts = [d["content"] for d in docs]
+    doc_langs = get_all_document_texts_with_lang()
+    existing_texts = [d[0] for d in doc_langs]
     all_texts = existing_texts + [content]
     expand_vocabulary([content], all_texts,
                       load_vocabulary, load_idf, save_vocabulary, save_idf,
@@ -69,14 +70,12 @@ def upload_file(file_storage, engine) -> dict:
         raise ValidationError("No text could be extracted from this file")
     title = file_storage.filename.rsplit(".", 1)[0] if "." in file_storage.filename else file_storage.filename
 
-    s3_key = None
+    # Upload text to S3
+    s3_key = f"{uuid.uuid4().hex[:12]}.txt"
     try:
-        ext = file_storage.filename.rsplit(".", 1)[1] if "." in file_storage.filename else "bin"
-        s3_key = f"{uuid.uuid4().hex[:12]}.{ext}"
-        content_type = file_storage.content_type or "application/octet-stream"
-        s3_client.upload_file(file_bytes, s3_key, content_type)
+        s3_client.upload_text(content, s3_key)
     except Exception:
-        pass
+        s3_key = None
 
     lang = _classify_lang(content)
     _expand_and_reembed(content, lang, engine)
@@ -93,7 +92,7 @@ def get_document(doc_id: int, query: str = "") -> dict:
     doc = get_document_by_id(doc_id)
     if not doc:
         raise NotFoundError("Document not found")
-    if query.strip():
+    if query.strip() and doc.get("content"):
         terms = set(get_query_terms(query))
         if terms:
             highlighted, matched = highlight_terms(doc["content"], terms)

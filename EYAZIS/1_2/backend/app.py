@@ -15,10 +15,12 @@ from database_manager import (
     load_idf,
     save_vocabulary,
     save_idf,
+    get_all_document_ids_and_contents,
+    update_document_embedding,
 )
 from search_engine import SearchEngine
 from evaluator import calculate_metrics, evaluate_search_results, plot_metrics
-from document_processor import vectorize_text_with_dim, build_vocabulary, compute_idf, get_query_terms, highlight_terms
+from document_processor import vectorize_text_with_dim, build_vocabulary, compute_idf, get_query_terms, highlight_terms, expand_vocabulary
 from document_loader import extract_text_from_bytes
 from watch_handler import handle_watch_event
 from database_manager import register_watch_client, get_watch_clients
@@ -60,11 +62,16 @@ def api_upload():
         return jsonify({"error": "Title and content are required"}), 400
 
     docs = get_all_documents()
-    all_texts = [d["content"] for d in docs] + [content]
-    build_vocabulary(all_texts)
-    compute_idf(all_texts)
-    save_vocabulary(dp.VOCAB)
-    save_idf(dp.IDF)
+    existing_texts = [d["content"] for d in docs]
+    all_texts = existing_texts + [content]
+
+    expand_vocabulary([content], all_texts,
+                      load_vocabulary, load_idf, save_vocabulary, save_idf)
+
+    all_docs = get_all_document_ids_and_contents()
+    for doc in all_docs:
+        emb = vectorize_text_with_dim(doc["content"], engine.vector_dim)
+        update_document_embedding(doc["id"], emb)
 
     indexed = engine.index_documents([{"title": title, "content": content}])
     return jsonify({"message": "Document indexed", "count": indexed})
@@ -87,11 +94,16 @@ def api_upload_file():
     title = file.filename.rsplit(".", 1)[0] if "." in file.filename else file.filename
 
     docs = get_all_documents()
-    all_texts = [d["content"] for d in docs] + [content]
-    build_vocabulary(all_texts)
-    compute_idf(all_texts)
-    save_vocabulary(dp.VOCAB)
-    save_idf(dp.IDF)
+    existing_texts = [d["content"] for d in docs]
+    all_texts = existing_texts + [content]
+
+    expand_vocabulary([content], all_texts,
+                      load_vocabulary, load_idf, save_vocabulary, save_idf)
+
+    all_docs = get_all_document_ids_and_contents()
+    for doc in all_docs:
+        emb = vectorize_text_with_dim(doc["content"], engine.vector_dim)
+        update_document_embedding(doc["id"], emb)
 
     indexed = engine.index_documents([{"title": title, "content": content}])
     return jsonify({"message": "File uploaded and indexed", "count": indexed, "title": title})
@@ -317,11 +329,13 @@ def _ensure_corpus():
                 title = os.path.basename(f).rsplit(".", 1)[0]
                 engine.index_documents([{"title": title, "content": content}])
     else:
-        # Existing corpus: rebuild vocab/IDF from full texts, then fill in summaries
-        build_vocabulary(all_docs)
-        compute_idf(all_docs)
-        save_vocabulary(dp.VOCAB)
-        save_idf(dp.IDF)
+        # Existing corpus: load vocab from DB (preserving indices) and re-embed all docs
+        saved_vocab = load_vocabulary()
+        saved_idf = load_idf()
+        if saved_vocab:
+            dp.VOCAB = saved_vocab
+        if saved_idf:
+            dp.IDF = saved_idf
         _backfill_summaries()
 
 

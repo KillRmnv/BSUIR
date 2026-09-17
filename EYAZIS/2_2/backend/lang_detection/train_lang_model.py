@@ -19,6 +19,10 @@ import os
 import sys
 import time
 
+from lang_detection import lang_alphabet
+from lang_detection import lang_ngram
+from lang_detection.lang_methods import classify_html_all, classify_text_all, classify_batch_all
+
 sys.path.insert(0, os.path.dirname(__file__))
 
 BASE = os.path.dirname(__file__)
@@ -31,9 +35,6 @@ METHOD_TITLE = {
 
 
 def cmd_train(train_dir: str) -> int:
-    from lang_detection import lang_alphabet
-    from lang_detection import lang_ngram
-
     en_path = os.path.join(train_dir, "en.txt")
     fr_path = os.path.join(train_dir, "fr.txt")
     for path in (en_path, fr_path):
@@ -81,8 +82,6 @@ def _print_result(result: dict) -> None:
 
 
 def cmd_classify(path: str) -> int:
-    from lang_detection.lang_methods import classify_html_all, classify_text_all
-
     with open(path, "rb") as fh:
         data = fh.read()
     try:
@@ -98,8 +97,6 @@ def cmd_classify(path: str) -> int:
 
 
 def cmd_batch(test_dir: str) -> int:
-    from lang_detection.lang_methods import classify_batch_all
-
     manifest_path = os.path.join(test_dir, "manifest.csv")
     true_labels = {}
     if os.path.exists(manifest_path):

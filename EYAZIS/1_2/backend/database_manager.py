@@ -121,6 +121,26 @@ def update_document_summary(doc_id: int, summary: str):
     conn.close()
 
 
+def get_all_document_ids_and_contents() -> List[Dict]:
+    conn = get_connection(apply_vector=False)
+    cur = conn.cursor()
+    cur.execute("SELECT id, content FROM documents ORDER BY id")
+    rows = [{"id": row[0], "content": row[1]} for row in cur.fetchall()]
+    cur.close()
+    conn.close()
+    return rows
+
+
+def update_document_embedding(doc_id: int, embedding: List[float]):
+    conn = get_connection()
+    register_vector(conn)
+    cur = conn.cursor()
+    cur.execute("UPDATE documents SET embedding = %s WHERE id = %s", (str(embedding), doc_id))
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
 def get_document_by_id(doc_id: int) -> Optional[Dict]:
     conn = get_connection(apply_vector=False)
     cur = conn.cursor()

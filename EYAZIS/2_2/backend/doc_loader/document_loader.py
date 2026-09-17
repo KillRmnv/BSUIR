@@ -12,6 +12,9 @@ import re
 import html as html_module
 from typing import Tuple, Optional
 
+from pypdf import PdfReader
+from docx import Document
+
 
 def _extract_txt(data: bytes, filename: str) -> Tuple[str, Optional[str]]:
     for enc in ("utf-8", "cp1251", "latin-1"):
@@ -24,10 +27,6 @@ def _extract_txt(data: bytes, filename: str) -> Tuple[str, Optional[str]]:
 
 def _extract_pdf(data: bytes, filename: str) -> Tuple[str, Optional[str]]:
     try:
-        from pypdf import PdfReader
-    except ImportError:
-        return "", "PDF support requires 'pypdf' (pip install pypdf)"
-    try:
         reader = PdfReader(io.BytesIO(data))
         pages = [page.extract_text() or "" for page in reader.pages]
         return "\n".join(pages).strip(), None
@@ -36,10 +35,6 @@ def _extract_pdf(data: bytes, filename: str) -> Tuple[str, Optional[str]]:
 
 
 def _extract_docx(data: bytes, filename: str) -> Tuple[str, Optional[str]]:
-    try:
-        from docx import Document
-    except ImportError:
-        return "", "DOCX support requires 'python-docx' (pip install python-docx)"
     try:
         doc = Document(io.BytesIO(data))
         parts = [p.text for p in doc.paragraphs]

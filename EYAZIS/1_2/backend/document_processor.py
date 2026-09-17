@@ -49,6 +49,39 @@ def compute_idf(documents: List[str]) -> Dict[str, float]:
     return IDF
 
 
+def expand_vocabulary(new_texts: List[str], all_corpus_texts: List[str],
+                      load_vocab_fn, load_idf_fn, save_vocab_fn, save_idf_fn) -> Dict[str, int]:
+    """Incrementally extend the global VOCAB/IDF without re-indexing existing words.
+
+    1. Load existing vocab+IDF from DB (preserving old word->index mappings).
+    2. Add only genuinely new words, appending indices after existing ones.
+    3. Recompute IDF over the full corpus (old + new texts).
+    4. Persist to DB.
+    """
+    global VOCAB, IDF
+
+    existing_vocab = load_vocab_fn() or {}
+    next_idx = max(existing_vocab.values(), default=-1) + 1
+
+    new_tokens = set()
+    for text in new_texts:
+        new_tokens.update(clean_text(text))
+
+    extended = dict(existing_vocab)
+    for token in sorted(new_tokens):
+        if token not in extended:
+            extended[token] = next_idx
+            next_idx += 1
+
+    VOCAB = extended
+    save_vocab_fn(VOCAB)
+
+    compute_idf(all_corpus_texts)
+    save_idf_fn(IDF)
+
+    return VOCAB
+
+
 def vectorize_text(text: str) -> List[float]:
     tokens = clean_text(text)
     tf = Counter(tokens)

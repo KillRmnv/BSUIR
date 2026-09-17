@@ -5,6 +5,8 @@ from flask_cors import CORS
 from search.search_engine import SearchEngine
 from search import document_processor as dp
 from data.database_manager import load_vocabulary, load_idf
+from services.init_service import ensure_corpus, ensure_lang_model
+from storage.s3_client import ensure_bucket
 from controllers import (
     search_bp, documents_bp, lang_bp, summarize_bp,
     translate_bp, watcher_bp, admin_bp,
@@ -54,10 +56,14 @@ def create_app():
 
 
 if __name__ == "__main__":
-    from services.init_service import ensure_corpus, ensure_lang_model
-
     app = create_app()
     engine = app.config["ENGINE"]
+
+    # Create S3 bucket BEFORE corpus init (documents upload to S3)
+    try:
+        ensure_bucket()
+    except Exception:
+        pass
 
     if not dp.VOCAB:
         saved_vocab = load_vocabulary()
@@ -69,11 +75,5 @@ if __name__ == "__main__":
     base_dir = os.path.dirname(__file__)
     ensure_corpus(engine, base_dir)
     ensure_lang_model(base_dir)
-
-    try:
-        from storage.s3_client import ensure_bucket
-        ensure_bucket()
-    except Exception:
-        pass
 
     app.run(host="0.0.0.0", port=5000, debug=False)

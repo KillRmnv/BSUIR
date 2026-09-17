@@ -117,3 +117,16 @@ def object_exists(object_name: str) -> bool:
         return True
     except ClientError:
         return False
+
+
+def upload_text(text: str, object_name: str) -> str:
+    """Upload text content to MinIO as UTF-8. Returns the object key."""
+    return upload_file(text.encode("utf-8"), object_name, content_type="text/plain; charset=utf-8")
+
+
+def download_text(object_name: str) -> Optional[str]:
+    """Download text content from MinIO. Returns string or None."""
+    data = download_file(object_name)
+    if data is None:
+        return None
+    return data.decode("utf-8")

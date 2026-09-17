@@ -4,6 +4,7 @@ from psycopg2.extras import execute_values
 from pgvector.psycopg2 import register_vector
 from typing import List, Dict, Optional, Tuple
 from data.migrate import run_migrations
+from storage import s3_client
 
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_PORT = os.getenv("DB_PORT", "5432")
@@ -29,13 +30,28 @@ def init_db():
     run_migrations()
 
 
+def fetch_content(s3_key: Optional[str]) -> Optional[str]:
+    """Fetch document text content from S3 by s3_key. Returns text or None."""
+    if not s3_key:
+        return None
+    return s3_client.download_text(s3_key)
+
+
 def insert_document(title: str, content: str, embedding: List[float], summary: Optional[str] = None, file_path: Optional[str] = None, lang: Optional[str] = None, s3_key: Optional[str] = None) -> int:
+    """Insert document. Content is stored in S3, not in DB."""
+    # Upload content to S3 if not already uploaded
+    if not s3_key and content:
+        import uuid
+        ext = title.rsplit(".", 1)[-1] if "." in title else "txt"
+        s3_key = f"{uuid.uuid4().hex[:12]}.{ext}"
+        s3_client.upload_text(content, s3_key)
+
     conn = get_connection()
     register_vector(conn)
     cur = conn.cursor()
     cur.execute(
-        "INSERT INTO documents (title, content, embedding, summary, file_path, lang, s3_key) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id",
-        (title, content, str(embedding), summary, file_path, lang, s3_key),
+        "INSERT INTO documents (title, embedding, summary, file_path, lang, s3_key) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id",
+        (title, str(embedding), summary, file_path, lang, s3_key),
     )
     doc_id = cur.fetchone()[0]
     conn.commit()
@@ -50,9 +66,9 @@ def search_documents(query_embedding: List[float], top_k: int = 10) -> List[Dict
     cur = conn.cursor()
     cur.execute(
         """
-        SELECT id, title, content,
+        SELECT id, title, s3_key,
                1 - (embedding <=> %s::vector) AS similarity,
-               summary, lang, s3_key
+               summary, lang
         FROM documents
         ORDER BY embedding <=> %s::vector
         LIMIT %s
@@ -61,14 +77,16 @@ def search_documents(query_embedding: List[float], top_k: int = 10) -> List[Dict
     )
     results = []
     for row in cur.fetchall():
+        s3_key = row[2]
+        content = fetch_content(s3_key) if s3_key else ""
         results.append({
             "id": row[0],
             "title": row[1],
-            "content": row[2],
+            "content": content,
             "similarity": float(row[3]),
             "summary": row[4],
             "lang": row[5],
-            "s3_key": row[6],
+            "s3_key": s3_key,
         })
     cur.close()
     conn.close()
@@ -78,17 +96,16 @@ def search_documents(query_embedding: List[float], top_k: int = 10) -> List[Dict
 def get_all_documents() -> List[Dict]:
     conn = get_connection(apply_vector=False)
     cur = conn.cursor()
-    cur.execute("SELECT id, title, content, date_added, summary, lang, s3_key FROM documents ORDER BY id")
+    cur.execute("SELECT id, title, s3_key, date_added, summary, lang FROM documents ORDER BY id")
     results = []
     for row in cur.fetchall():
         results.append({
             "id": row[0],
             "title": row[1],
-            "content": row[2][:500],
+            "s3_key": row[2],
             "date_added": row[3].isoformat() if row[3] else None,
             "summary": row[4],
             "lang": row[5],
-            "s3_key": row[6],
         })
     cur.close()
     conn.close()
@@ -96,22 +113,30 @@ def get_all_documents() -> List[Dict]:
 
 
 def get_all_document_texts() -> List[str]:
-    """Full (untruncated) content of every document — for vocab/IDF rebuilds."""
+    """Full content of every document from S3 — for vocab/IDF rebuilds."""
     conn = get_connection(apply_vector=False)
     cur = conn.cursor()
-    cur.execute("SELECT content FROM documents")
-    texts = [row[0] for row in cur.fetchall()]
+    cur.execute("SELECT s3_key FROM documents WHERE s3_key IS NOT NULL")
+    texts = []
+    for row in cur.fetchall():
+        text = fetch_content(row[0])
+        if text:
+            texts.append(text)
     cur.close()
     conn.close()
     return texts
 
 
 def get_all_document_texts_with_lang() -> List[Tuple[str, str]]:
-    """Full content + language of every document — for multilingual vocab/IDF rebuilds."""
+    """Full content + language of every document from S3 — for multilingual vocab/IDF rebuilds."""
     conn = get_connection(apply_vector=False)
     cur = conn.cursor()
-    cur.execute("SELECT content, lang FROM documents")
-    rows = [(row[0], row[1] or 'en') for row in cur.fetchall()]
+    cur.execute("SELECT s3_key, lang FROM documents WHERE s3_key IS NOT NULL")
+    rows = []
+    for row in cur.fetchall():
+        text = fetch_content(row[0])
+        if text:
+            rows.append((text, row[1] or 'en'))
     cur.close()
     conn.close()
     return rows
@@ -120,8 +145,12 @@ def get_all_document_texts_with_lang() -> List[Tuple[str, str]]:
 def get_documents_without_summary() -> List[Dict]:
     conn = get_connection(apply_vector=False)
     cur = conn.cursor()
-    cur.execute("SELECT id, content, lang FROM documents WHERE summary IS NULL OR summary = ''")
-    docs = [{"id": row[0], "content": row[1], "lang": row[2] or "en"} for row in cur.fetchall()]
+    cur.execute("SELECT id, s3_key, lang FROM documents WHERE summary IS NULL OR summary = ''")
+    docs = []
+    for row in cur.fetchall():
+        content = fetch_content(row[1]) if row[1] else ""
+        if content:
+            docs.append({"id": row[0], "content": content, "lang": row[2] or "en"})
     cur.close()
     conn.close()
     return docs
@@ -137,10 +166,14 @@ def update_document_summary(doc_id: int, summary: str):
 
 
 def get_all_document_ids_and_contents() -> List[Dict]:
+    """Get all documents with content fetched from S3."""
     conn = get_connection(apply_vector=False)
     cur = conn.cursor()
-    cur.execute("SELECT id, content, lang FROM documents ORDER BY id")
-    rows = [{"id": row[0], "content": row[1], "lang": row[2]} for row in cur.fetchall()]
+    cur.execute("SELECT id, s3_key, lang FROM documents ORDER BY id")
+    rows = []
+    for row in cur.fetchall():
+        content = fetch_content(row[1]) if row[1] else ""
+        rows.append({"id": row[0], "content": content, "lang": row[2]})
     cur.close()
     conn.close()
     return rows
@@ -159,18 +192,20 @@ def update_document_embedding(doc_id: int, embedding: List[float]):
 def get_document_by_id(doc_id: int) -> Optional[Dict]:
     conn = get_connection(apply_vector=False)
     cur = conn.cursor()
-    cur.execute("SELECT id, title, content, date_added, summary, lang, s3_key FROM documents WHERE id = %s", (doc_id,))
+    cur.execute("SELECT id, title, s3_key, date_added, summary, lang FROM documents WHERE id = %s", (doc_id,))
     row = cur.fetchone()
     result = None
     if row:
+        s3_key = row[2]
+        content = fetch_content(s3_key) if s3_key else ""
         result = {
             "id": row[0],
             "title": row[1],
-            "content": row[2],
+            "content": content,
             "date_added": row[3].isoformat() if row[3] else None,
             "summary": row[4],
             "lang": row[5],
-            "s3_key": row[6],
+            "s3_key": s3_key,
         }
     cur.close()
     conn.close()
@@ -180,6 +215,11 @@ def get_document_by_id(doc_id: int) -> Optional[Dict]:
 def delete_document(doc_id: int) -> bool:
     conn = get_connection(apply_vector=False)
     cur = conn.cursor()
+    # Also delete from S3
+    cur.execute("SELECT s3_key FROM documents WHERE id = %s", (doc_id,))
+    row = cur.fetchone()
+    if row and row[0]:
+        s3_client.delete_file(row[0])
     cur.execute("DELETE FROM documents WHERE id = %s", (doc_id,))
     deleted = cur.rowcount > 0
     conn.commit()
@@ -266,28 +306,36 @@ def load_idf() -> Optional[Dict[str, float]]:
 def get_document_by_path(file_path: str) -> Optional[Dict]:
     conn = get_connection(apply_vector=False)
     cur = conn.cursor()
-    cur.execute("SELECT id, title, content, summary FROM documents WHERE file_path = %s", (file_path,))
+    cur.execute("SELECT id, title, s3_key, summary FROM documents WHERE file_path = %s", (file_path,))
     row = cur.fetchone()
     result = None
     if row:
-        result = {"id": row[0], "title": row[1], "content": row[2], "summary": row[3]}
+        content = fetch_content(row[2]) if row[2] else ""
+        result = {"id": row[0], "title": row[1], "content": content, "summary": row[3]}
     cur.close()
     conn.close()
     return result
 
 
 def upsert_document(title: str, content: str, embedding: List[float], summary: Optional[str], file_path: str, lang: Optional[str] = None, s3_key: Optional[str] = None) -> int:
-    """Insert a document bound to file_path, or update it if it already exists."""
+    """Insert a document bound to file_path, or update it if it already exists.
+    Content is stored in S3, not in DB."""
+    # Upload content to S3 if not already uploaded
+    if not s3_key and content:
+        import uuid
+        ext = title.rsplit(".", 1)[-1] if "." in title else "txt"
+        s3_key = f"{uuid.uuid4().hex[:12]}.{ext}"
+        s3_client.upload_text(content, s3_key)
+
     conn = get_connection()
     register_vector(conn)
     cur = conn.cursor()
     cur.execute(
         """
-        INSERT INTO documents (title, content, embedding, summary, file_path, lang, s3_key)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO documents (title, embedding, summary, file_path, lang, s3_key)
+        VALUES (%s, %s, %s, %s, %s, %s)
         ON CONFLICT (file_path) WHERE file_path IS NOT NULL
         DO UPDATE SET title = EXCLUDED.title,
-                      content = EXCLUDED.content,
                       embedding = EXCLUDED.embedding,
                       summary = EXCLUDED.summary,
                       lang = EXCLUDED.lang,
@@ -295,7 +343,7 @@ def upsert_document(title: str, content: str, embedding: List[float], summary: O
                       date_added = CURRENT_TIMESTAMP
         RETURNING id
         """,
-        (title, content, str(embedding), summary, file_path, lang, s3_key),
+        (title, str(embedding), summary, file_path, lang, s3_key),
     )
     doc_id = cur.fetchone()[0]
     conn.commit()
@@ -307,6 +355,11 @@ def upsert_document(title: str, content: str, embedding: List[float], summary: O
 def delete_document_by_path(file_path: str) -> bool:
     conn = get_connection(apply_vector=False)
     cur = conn.cursor()
+    # Also delete from S3
+    cur.execute("SELECT s3_key FROM documents WHERE file_path = %s", (file_path,))
+    row = cur.fetchone()
+    if row and row[0]:
+        s3_client.delete_file(row[0])
     cur.execute("DELETE FROM documents WHERE file_path = %s", (file_path,))
     deleted = cur.rowcount > 0
     conn.commit()

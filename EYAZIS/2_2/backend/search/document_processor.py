@@ -54,7 +54,7 @@ def compute_idf(documents: List[str], lang: str = 'en', langs: List[str] = None)
         tokens = set(clean_text(doc, doc_lang))
         for token in tokens:
             doc_freq[token] += 1
-    IDF = {word: math.log(n / (freq + 1)) + 1 for word, freq in doc_freq.items()}
+    IDF = {word: math.log(22 * n / df) for word, df in doc_freq.items()}
     return IDF
 
 

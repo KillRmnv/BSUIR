@@ -14,9 +14,22 @@ from nltk.tokenize import sent_tokenize
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from search.document_processor import (
-    clean_text, VOCAB, IDF, STEMMER,
+    clean_text, STEMMER,
     STOP_WORDS_EN, STOP_WORDS_FR, get_query_terms
 )
+from search import document_processor as dp
+from data.database_manager import load_vocabulary, load_idf
+
+
+def _ensure_vocab():
+    """Load VOCAB/IDF from DB if not in memory."""
+    if not dp.VOCAB or not dp.IDF:
+        saved_vocab = load_vocabulary()
+        saved_idf = load_idf()
+        if saved_vocab:
+            dp.VOCAB.update(saved_vocab)
+        if saved_idf:
+            dp.IDF.update(saved_idf)
 
 
 def _split_sentences(text: str) -> List[str]:
@@ -45,6 +58,7 @@ def _compute_tf(tokens: List[str]) -> Dict[str, float]:
 
 def sentence_extraction(text: str, n: int = 10, lang: str = 'en') -> Dict:
     t0 = time.time()
+    _ensure_vocab()
 
     sentences = _split_sentences(text)
     paragraphs = _split_paragraphs(text)
@@ -72,7 +86,7 @@ def sentence_extraction(text: str, n: int = 10, lang: str = 'en') -> Dict:
         sent_tf = _compute_tf(tokens)
 
         score_tf = sum(
-            sent_tf[t] * (0.5 + 0.5 * doc_tf.get(t, 0) / tf_max)
+            sent_tf[t] * (0.5 + 0.5 * doc_tf.get(t, 0) / tf_max) * dp.IDF.get(t, 1.0)
             for t in sent_tf
         )
 
@@ -127,7 +141,7 @@ def _build_similarity_matrix(sentences: List[str], lang: str) -> np.ndarray:
     if n <= 1:
         return np.zeros((1, 1))
 
-    dim = min(len(VOCAB), 5000) if VOCAB else 5000
+    dim = min(len(dp.VOCAB), 5000) if dp.VOCAB else 5000
 
     vectors = []
     for sent in sentences:
@@ -135,11 +149,11 @@ def _build_similarity_matrix(sentences: List[str], lang: str) -> np.ndarray:
         vec = np.zeros(dim)
         tf = Counter(tokens)
         for token, count in tf.items():
-            if token in VOCAB:
-                idx = VOCAB[token]
+            if token in dp.VOCAB:
+                idx = dp.VOCAB[token]
                 if idx < dim:
                     tf_val = 1 + math.log(count) if count > 0 else 0
-                    idf_val = IDF.get(token, math.log(10) + 1)
+                    idf_val = dp.IDF.get(token, math.log(10) + 1)
                     vec[idx] = tf_val * idf_val
         norm = np.linalg.norm(vec)
         if norm > 0:
@@ -183,6 +197,7 @@ def _pagerank(matrix: np.ndarray, damping: float = 0.85,
 
 def textrank(text: str, n: int = 10, lang: str = 'en') -> Dict:
     t0 = time.time()
+    _ensure_vocab()
 
     sentences = _split_sentences(text)
     if not sentences:
@@ -230,7 +245,7 @@ def _extract_keywords_from_text(text: str, top_k: int = 8, lang: str = 'en') -> 
     scored = []
     for token, count in tf.items():
         tf_val = 1 + math.log(count) if count > 0 else 0
-        idf_val = IDF.get(token, 1.0)
+        idf_val = dp.IDF.get(token, 1.0)
         scored.append((token, tf_val * idf_val))
     scored.sort(key=lambda x: x[1], reverse=True)
     return [word for word, _ in scored[:top_k]]

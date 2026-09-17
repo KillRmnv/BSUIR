@@ -53,28 +53,15 @@ def api_download_document(doc_id):
         file_bytes = s3_client.download_file(s3_key)
         if file_bytes:
             title = doc.get("title", "document")
-            ext = s3_key.rsplit(".", 1)[-1] if "." in s3_key else "bin"
-            mime_map = {
-                "txt": "text/plain",
-                "pdf": "application/pdf",
-                "docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                "html": "text/html",
-                "htm": "text/html",
-                "csv": "text/csv",
-                "json": "application/json",
-                "xml": "application/xml",
-                "md": "text/markdown",
-            }
-            mime = mime_map.get(ext.lower(), "application/octet-stream")
             buf = io.BytesIO(file_bytes)
             buf.seek(0)
-            return send_file(buf, mimetype=mime, as_attachment=True,
-                             download_name=f"{title}.{ext}")
+            return send_file(buf, mimetype="text/plain; charset=utf-8", as_attachment=True,
+                             download_name=f"{title}.txt")
     content = doc.get("content", "")
     title = doc.get("title", "document")
     buf = io.BytesIO(content.encode("utf-8"))
     buf.seek(0)
-    return send_file(buf, mimetype="text/plain", as_attachment=True,
+    return send_file(buf, mimetype="text/plain; charset=utf-8", as_attachment=True,
                      download_name=f"{title}.txt")
 
 

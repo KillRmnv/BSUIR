@@ -16,6 +16,7 @@ from typing import Dict, List, Tuple
 
 from lang_detection import lang_alphabet
 from lang_detection import lang_ngram
+from lang_detection import lang_detect
 from lang_detection.lang_text import batch_metrics, extract_text_from_html_bytes
 
 METHODS = ("ngram", "alphabet", "neural")
@@ -23,8 +24,6 @@ METHODS = ("ngram", "alphabet", "neural")
 
 def train_all(en_texts: List[str], fr_texts: List[str]) -> dict:
     """Train all three methods. Neural needs sklearn; others are stdlib."""
-    from lang_detection import lang_detect
-
     meta = {
         "ngram": lang_ngram.train(en_texts, fr_texts),
         "alphabet": lang_alphabet.train(en_texts, fr_texts),
@@ -34,8 +33,6 @@ def train_all(en_texts: List[str], fr_texts: List[str]) -> dict:
 
 
 def status_all() -> dict:
-    from lang_detection import lang_detect
-
     neural_trained = lang_detect.is_trained()
     return {
         "trained": neural_trained and lang_ngram.is_trained() and lang_alphabet.is_trained(),
@@ -69,8 +66,6 @@ def classify_text_all(text: str) -> dict:
     Methods that are not trained (e.g. neural without sklearn) are skipped:
     the vote goes over the available ones, missing entries are null.
     """
-    from lang_detection import lang_detect
-
     t0 = time.perf_counter()
     ngram_res = lang_ngram.classify_text(text)
     alphabet_res = lang_alphabet.classify_text(text)
@@ -83,7 +78,6 @@ def classify_text_all(text: str) -> dict:
     total_ms = (time.perf_counter() - t0) * 1000.0
     neural = neural_res or {}
     if neural and "metadata" not in neural:
-        from lang_detection import lang_detect
         neural["metadata"] = lang_detect.get_metadata()
     return {
         "lang": winner,

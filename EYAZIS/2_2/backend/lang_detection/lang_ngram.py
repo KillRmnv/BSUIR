@@ -17,7 +17,7 @@ import time
 from collections import Counter
 from typing import Dict, List, Tuple
 
-from lang_detection.lang_text import preprocess_for_lang
+from lang_detection.lang_text import preprocess_for_lang, batch_metrics
 
 LANG_EN = "en"
 LANG_FR = "fr"
@@ -146,7 +146,5 @@ def train(en_texts: List[str], fr_texts: List[str]) -> dict:
 
 def batch_accuracy(pairs: List[Tuple[str, str]]) -> Tuple[float, dict]:
     """Self-check on (true_lang, text) pairs. Returns (accuracy, confusion)."""
-    from lang_detection.lang_text import batch_metrics
-
     pred = [classify_text(text)["lang"] for _, text in pairs]
     return batch_metrics([t for t, _ in pairs], pred)

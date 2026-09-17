@@ -2,14 +2,15 @@
 Server-side processing of file-watcher events pushed by watch_client.py.
 
 Flow for created/modified:
-    base64 content -> extract text -> classify lang -> rebuild vocab/IDF -> summary -> upsert by file_path
+    base64 content -> extract text -> classify lang -> upload text to S3 -> rebuild vocab/IDF -> summary -> upsert by file_path
 Flow for deleted:
-    remove document by file_path -> rebuild vocab/IDF
+    remove document by file_path -> delete from S3 -> rebuild vocab/IDF
 """
 import os
 import uuid
 from typing import Dict, Optional
 
+from flask import current_app
 from doc_loader.document_loader import extract_text_from_bytes
 from search.document_processor import (
     build_vocabulary,
@@ -58,7 +59,6 @@ def _rebuild_vocab_idf():
 
 def _reembed_all():
     """Re-embed all documents with the current VOCAB/IDF."""
-    from flask import current_app
     engine = current_app.config["ENGINE"]
     all_docs = get_all_document_ids_and_contents()
     for doc in all_docs:
@@ -86,13 +86,12 @@ def handle_watch_event(
         title = os.path.basename(file_path).rsplit(".", 1)[0]
         lang = _classify_lang(text)
 
-        s3_key = None
+        # Upload extracted text to S3
+        s3_key = f"{uuid.uuid4().hex[:12]}.txt"
         try:
-            ext = os.path.basename(file_path).rsplit(".", 1)[1] if "." in os.path.basename(file_path) else "bin"
-            s3_key = f"{uuid.uuid4().hex[:12]}.{ext}"
-            s3_client.upload_file(file_content, s3_key)
+            s3_client.upload_text(text, s3_key)
         except Exception:
-            pass
+            s3_key = None
 
         doc_langs = get_all_document_texts_with_lang()
         all_texts = [d[0] for d in doc_langs] + [text]

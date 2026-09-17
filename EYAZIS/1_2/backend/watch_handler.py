@@ -15,6 +15,7 @@ from document_processor import (
     compute_idf,
     generate_summary,
     vectorize_text_with_dim,
+    expand_vocabulary,
 )
 import document_processor as dp
 from database_manager import (
@@ -24,6 +25,10 @@ from database_manager import (
     save_vocabulary,
     save_idf,
     log_watch_event,
+    load_vocabulary,
+    load_idf,
+    get_all_document_ids_and_contents,
+    update_document_embedding,
 )
 
 
@@ -33,6 +38,16 @@ def _rebuild_vocab_idf():
     compute_idf(texts)
     save_vocabulary(dp.VOCAB)
     save_idf(dp.IDF)
+    _reembed_all()
+
+
+def _reembed_all():
+    """Re-embed all documents with the current VOCAB/IDF."""
+    from app import engine
+    all_docs = get_all_document_ids_and_contents()
+    for doc in all_docs:
+        emb = vectorize_text_with_dim(doc["content"], engine.vector_dim)
+        update_document_embedding(doc["id"], emb)
 
 
 def handle_watch_event(
@@ -54,13 +69,10 @@ def handle_watch_event(
 
         title = os.path.basename(file_path).rsplit(".", 1)[0]
 
-        # Rebuild the whole corpus vocab/IDF including the new text,
-        # then persist so the search engine stays consistent.
-        texts = get_all_document_texts() + [text]
-        build_vocabulary(texts)
-        compute_idf(texts)
-        save_vocabulary(dp.VOCAB)
-        save_idf(dp.IDF)
+        all_texts = get_all_document_texts() + [text]
+        expand_vocabulary([text], all_texts,
+                          load_vocabulary, load_idf, save_vocabulary, save_idf)
+        _reembed_all()
 
         summary = generate_summary(text)
         embedding = vectorize_text_with_dim(text, vector_dim)

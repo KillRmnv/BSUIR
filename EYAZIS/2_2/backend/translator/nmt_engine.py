@@ -4,6 +4,7 @@ Lazy-loaded model (~305 MB, ~1.2 GB RAM).
 """
 import time
 import torch
+from nltk.tokenize import sent_tokenize
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 MODEL_NAME = "Helsinki-NLP/opus-mt-en-fr"
@@ -36,8 +37,6 @@ def translate_text(text: str) -> dict:
     t0 = time.time()
     _load()
 
-    # Split into sentences for better quality
-    from nltk.tokenize import sent_tokenize
     sentences = sent_tokenize(text.strip())
 
     translations = []
@@ -64,14 +63,3 @@ def translate_text(text: str) -> dict:
         "word_count": word_count,
         "processing_time": elapsed,
     }
-
-
-def is_available() -> bool:
-    """Check if the model can be loaded."""
-    try:
-        import transformers
-        import torch
-        import sentencepiece
-        return True
-    except ImportError:
-        return False
