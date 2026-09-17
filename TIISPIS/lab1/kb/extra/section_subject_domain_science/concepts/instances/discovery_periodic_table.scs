@@ -1,0 +1,8 @@
+discovery_periodic_table
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Создание периодической таблицы] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Creation of periodic table] (* <- lang_en;; *);
+=> nrel_note:
+	[Систематизация химических элементов Дмитрием Менделеевым в 1869 году] (* <- lang_ru;; *);;

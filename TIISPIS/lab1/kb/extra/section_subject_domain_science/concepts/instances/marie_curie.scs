@@ -1,0 +1,8 @@
+marie_curie
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Мария Кюри] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Marie Curie] (* <- lang_en;; *);
+=> nrel_note:
+	[Французский физик и химик, первая женщина — лауреат Нобелевской премии] (* <- lang_ru;; *);;

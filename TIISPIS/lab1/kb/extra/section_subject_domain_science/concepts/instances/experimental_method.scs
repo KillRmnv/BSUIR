@@ -1,0 +1,8 @@
+experimental_method
+<- concept_method;
+=> nrel_main_idtf:
+	[Экспериментальный метод] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Experimental method] (* <- lang_en;; *);
+=> nrel_note:
+	[Метод познания, основанный на проведении экспериментов] (* <- lang_ru;; *);;

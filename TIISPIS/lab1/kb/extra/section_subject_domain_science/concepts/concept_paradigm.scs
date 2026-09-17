@@ -1,0 +1,26 @@
+concept_paradigm
+<- sc_node_class;
+<- concept_wit_entity;
+=> nrel_main_idtf:
+	[Парадигма] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Paradigm] (* <- lang_en;; *);
+=> nrel_note:
+	[Совокупность основных идей и принципов в науке] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Совокупность основных идей и принципов в науке] (* <- lang_ru;; *);
+<= nrel_subdividing: 
+	...
+   (*
+		<- sc_node_tuple;;
+		-> ..paradigm_classical;;
+		-> ..paradigm_quantum;;
+   *);;
+
+..paradigm_classical
+=> nrel_main_idtf:
+	[Классическая парадигма] (* <- lang_ru;; *);;
+
+..paradigm_quantum
+=> nrel_main_idtf:
+	[Квантовая парадигма] (* <- lang_ru;; *);;

@@ -1,0 +1,11 @@
+concept_theory
+<- sc_node_class;
+<= nrel_inclusion: concept_wit_entity;
+=> nrel_main_idtf:
+	[Теория] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Theory] (* <- lang_en;; *);
+=> nrel_note:
+	[Система обобщённых положений, объясняющих определённую область явлений] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Система обобщённых положений, объясняющих определённую область явлений] (* <- lang_ru;; *);;

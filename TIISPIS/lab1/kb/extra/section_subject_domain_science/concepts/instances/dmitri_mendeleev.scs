@@ -1,0 +1,8 @@
+dmitri_mendeleev
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Дмитрий Менделеев] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Dmitri Mendeleev] (* <- lang_en;; *);
+=> nrel_note:
+	[Русский химик, создатель периодической таблицы] (* <- lang_ru;; *);;

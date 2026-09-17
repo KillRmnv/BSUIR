@@ -1,0 +1,8 @@
+max_planck
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Макс Планк] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Max Planck] (* <- lang_en;; *);
+=> nrel_note:
+	[Немецкий физик, основатель квантовой теории] (* <- lang_ru;; *);;

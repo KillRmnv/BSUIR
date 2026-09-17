@@ -1,0 +1,8 @@
+discovery_gravity
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие закона тяготения] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of gravity] (* <- lang_en;; *);
+=> nrel_note:
+	[Формулировка закона всемирного тяготения Исааком Ньютоном] (* <- lang_ru;; *);;

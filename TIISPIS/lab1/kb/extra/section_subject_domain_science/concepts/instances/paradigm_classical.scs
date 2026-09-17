@@ -1,0 +1,8 @@
+paradigm_classical
+<- concept_paradigm;
+=> nrel_main_idtf:
+	[Классическая парадигма] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Classical paradigm] (* <- lang_en;; *);
+=> nrel_note:
+	[Научная картина мира, основанная на классической физике] (* <- lang_ru;; *);;

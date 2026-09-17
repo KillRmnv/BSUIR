@@ -1,0 +1,12 @@
+concept_human_science
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_science;
+=> nrel_main_idtf:
+	[Гуманитарная наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Human science] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука, изучающая человека, общество и культуру] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Наука, изучающая человека, общество и культуру] (* <- lang_ru;; *);;

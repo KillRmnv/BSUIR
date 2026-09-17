@@ -1,0 +1,14 @@
+nrel_branch_of
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<- antireflexive_relation;
+<- asymmetric_relation;
+<- antitransitive_relation;
+=> nrel_main_idtf:
+	[Является отраслью] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Is branch of] (* <- lang_en;; *);
+=> nrel_first_domain: concept_science;
+=> nrel_second_domain: concept_science;;

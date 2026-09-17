@@ -1,0 +1,41 @@
+concept_journal
+<- sc_node_class;
+<- concept_wit_entity;
+=> nrel_main_idtf:
+	[Научный журнал] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Scientific journal] (* <- lang_en;; *);
+=> nrel_note:
+	[Периодическое издание, публикующее результаты научных исследований] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Периодическое издание, публикующее результаты научных исследований] (* <- lang_ru;; *);
+<= nrel_subdividing: 
+	...
+   (*
+		<- sc_node_tuple;;
+		-> ..nature_journal;;
+		-> ..science_journal;;
+		-> ..physical_review;;
+		-> ..chemical_reviews;;
+		-> ..cell_journal;;
+   *);;
+
+..nature_journal
+=> nrel_main_idtf:
+	[Nature] (* <- lang_en;; *);;
+
+..science_journal
+=> nrel_main_idtf:
+	[Science] (* <- lang_en;; *);;
+
+..physical_review
+=> nrel_main_idtf:
+	[Physical Review Letters] (* <- lang_en;; *);;
+
+..chemical_reviews
+=> nrel_main_idtf:
+	[Chemical Reviews] (* <- lang_en;; *);;
+
+..cell_journal
+=> nrel_main_idtf:
+	[Cell] (* <- lang_en;; *);;

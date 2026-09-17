@@ -1,0 +1,12 @@
+concept_medical_science
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_applied_science;
+=> nrel_main_idtf:
+	[Медицинская наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Medical science] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука о здоровье человека, болезнях и их лечении] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Наука о здоровье человека, болезнях и их лечении] (* <- lang_ru;; *);;

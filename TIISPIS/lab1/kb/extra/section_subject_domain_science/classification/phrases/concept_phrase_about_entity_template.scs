@@ -1,0 +1,16 @@
+@pattern = [* 
+	_message <-_ concept_message;
+	_-> rrel_entity:: _entity;;
+	_entity <-_ concept_wit_entity;
+		_=> nrel_definition: [ ]
+			(*
+				-> _id;;
+			*);;
+*];;
+
+concept_phrase_about_entity_template
+<= nrel_inclusion:
+	concept_phrase;
+-> [Это ${_id}]
+	(* <- lang_ru;; *);
+=> nrel_phrase_template: @pattern;;

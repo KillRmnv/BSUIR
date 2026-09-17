@@ -1,0 +1,12 @@
+concept_mathematics
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_formal_science;
+=> nrel_main_idtf:
+	[Математика] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Mathematics] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука о структурах, порядке и отношениях] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Наука о структурах, порядке и отношениях] (* <- lang_ru;; *);;

@@ -1,0 +1,8 @@
+model_standard
+<- concept_model;
+=> nrel_main_idtf:
+	[Стандартная модель] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Standard Model] (* <- lang_en;; *);
+=> nrel_note:
+	[Теория элементарных частиц и фундаментальных взаимодействий] (* <- lang_ru;; *);;

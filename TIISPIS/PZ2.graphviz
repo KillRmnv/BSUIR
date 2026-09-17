@@ -1,0 +1,117 @@
+digraph BankingSemanticNetwork {
+    graph [
+        rankdir=TB,
+        splines=polyline,
+        overlap=false,
+        nodesep=0.25,
+        ranksep=0.45,
+        size="7.5,10.5!",
+        ratio="compress",
+        fontname="Helvetica"
+    ];
+    node [fontname="Helvetica", fontsize=9, color=black, fontcolor=black];
+    edge [fontname="Helvetica", fontsize=8, color=black, fontcolor=black, style=solid];
+
+    // ==========================================
+    // КЛАССЫ (АБСОЛЮТНЫЕ ПОНЯТИЯ) — ОВАЛЫ
+    // ==========================================
+    node [shape=ellipse];
+    FinOrg       [label="Финансовая\nорганизация"];
+    CentralBank  [label="Центральный\nбанк"];
+    CommBank     [label="Коммерческий\nбанк"];
+    Client       [label="Клиент"];
+    PhysClient   [label="Физическое\nлицо"];
+    JurClient    [label="Юридическое\nлицо"];
+    Product      [label="Банковский\nпродукт"];
+    Credit       [label="Кредит"];
+    Deposit      [label="Депозит"];
+    RKO          [label="РКО"];
+    Account      [label="Банковский\nсчет"];
+    Transaction  [label="Транзакция"];
+    Department   [label="Подразделение"];
+    CreditDept   [label="Кредитный\nотдел"];
+    OpsDept      [label="Операционный\nотдел"];
+    SecDept      [label="Служба\nбезопасности"];
+    AttrLicence  [label="Лицензия"];
+    AttrKeyRate  [label="Ключевая\nставка"];
+    AttrRate     [label="Процентная\nставка"];
+    AttrBalance  [label="Баланс\nсчета"];
+    AttrCredHist [label="Кредитная\nистория"];
+
+    // ==========================================
+    // ЭКЗЕМПЛЯРЫ — ПРЯМОУГОЛЬНИКИ
+    // ==========================================
+    node [shape=box];
+    CBR          [label="Банк России"];
+    Sber         [label="ПАО Сбербанк"];
+    Ivanov       [label="Иванов И.И."];
+    IvanovAcc    [label="Счет\n№40817810..."];
+    Credit104    [label="Кредит №104"];
+
+    // ==========================================
+    // ВЕРТИКАЛЬНАЯ ОСЬ (принудительное вытягивание)
+    // ==========================================
+    FinOrg -> CommBank -> Department -> Product -> Client -> Ivanov [style=invis, weight=10];
+
+    // ==========================================
+    // ИЕРАРХИЯ КЛАССОВ (a-kind-of)
+    // ==========================================
+    CentralBank -> FinOrg     [label="разновидность"];
+    CommBank    -> FinOrg     [label="разновидность"];
+    PhysClient  -> Client     [label="разновидность"];
+    JurClient   -> Client     [label="разновидность"];
+    Credit      -> Product    [label="разновидность"];
+    Deposit     -> Product    [label="разновидность"];
+    RKO         -> Product    [label="разновидность"];
+    CreditDept  -> Department [label="разновидность"];
+    OpsDept     -> Department [label="разновидность"];
+    SecDept     -> Department [label="разновидность"];
+
+    // ==========================================
+    // СТРУКТУРНЫЕ СВЯЗИ (has-part)
+    // ==========================================
+    CommBank -> CreditDept [label="содержит"];
+    CommBank -> OpsDept    [label="содержит"];
+    CommBank -> SecDept    [label="содержит"];
+    CommBank -> Account    [label="содержит"];
+
+    // ==========================================
+    // АТРИБУТИВНЫЕ СВЯЗИ
+    // ==========================================
+    CentralBank -> AttrKeyRate  [label="устанавливает"];
+    CommBank    -> AttrLicence  [label="имеет"];
+    Credit      -> AttrRate     [label="характеризуется"];
+    Deposit     -> AttrRate     [label="характеризуется"];
+    Account     -> AttrBalance  [label="содержит"];
+    Client      -> AttrCredHist [label="обладает"];
+
+    // ==========================================
+    // ФУНКЦИОНАЛЬНЫЕ СВЯЗИ
+    // ==========================================
+    CentralBank -> CommBank    [label="регулирует"];
+    CentralBank -> AttrLicence [label="выдает"];
+    CommBank    -> Client      [label="обслуживает"];
+    Client      -> Account     [label="открывает"];
+    Client      -> Product     [label="оформляет"];
+    CreditDept  -> Credit      [label="одобряет"];
+    SecDept     -> AttrCredHist[label="проверяет"];
+    OpsDept     -> Transaction [label="проводит"];
+    Transaction -> AttrBalance [label="изменяет"];
+
+    // ==========================================
+    // КЛАСС -> ЭКЗЕМПЛЯР (пример)
+    // ==========================================
+    CentralBank -> CBR       [label="пример"];
+    CommBank    -> Sber      [label="пример"];
+    PhysClient  -> Ivanov    [label="пример"];
+    Credit      -> Credit104 [label="пример"];
+    Account     -> IvanovAcc [label="пример"];
+
+    // ==========================================
+    // СВЯЗИ МЕЖДУ ЭКЗЕМПЛЯРАМИ
+    // ==========================================
+    CBR    -> Sber      [label="регулирует"];
+    Sber   -> Ivanov    [label="обслуживает"];
+    Ivanov -> Credit104 [label="подал заявку"];
+    Ivanov -> IvanovAcc [label="владеет"];
+}

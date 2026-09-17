@@ -1,0 +1,41 @@
+concept_discovery
+<- sc_node_class;
+<- concept_wit_entity;
+=> nrel_main_idtf:
+	[Открытие] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery] (* <- lang_en;; *);
+=> nrel_note:
+	[Установление ранее неизвестного научного факта или закона] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Установление ранее неизвестного научного факта или закона] (* <- lang_ru;; *);
+<= nrel_subdividing: 
+	...
+   (*
+		<- sc_node_tuple;;
+		-> ..discovery_penicillin;;
+		-> ..discovery_dna;;
+		-> ..discovery_gravity;;
+		-> ..discovery_electromagnetic_induction;;
+		-> ..discovery_periodic_table;;
+   *);;
+
+..discovery_penicillin
+=> nrel_main_idtf:
+	[Открытие пенициллина] (* <- lang_ru;; *);;
+
+..discovery_dna
+=> nrel_main_idtf:
+	[Открытие структуры ДНК] (* <- lang_ru;; *);;
+
+..discovery_gravity
+=> nrel_main_idtf:
+	[Открытие закона тяготения] (* <- lang_ru;; *);;
+
+..discovery_electromagnetic_induction
+=> nrel_main_idtf:
+	[Открытие электромагнитной индукции] (* <- lang_ru;; *);;
+
+..discovery_periodic_table
+=> nrel_main_idtf:
+	[Создание периодической таблицы] (* <- lang_ru;; *);;

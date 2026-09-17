@@ -1,0 +1,8 @@
+moscow_state_university
+<- concept_institution;
+=> nrel_main_idtf:
+	[Московский государственный университет] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Moscow State University] (* <- lang_en;; *);
+=> nrel_note:
+	[Старейший и крупнейший университет России] (* <- lang_ru;; *);;

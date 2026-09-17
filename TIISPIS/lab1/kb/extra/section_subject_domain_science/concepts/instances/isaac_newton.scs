@@ -1,0 +1,8 @@
+isaac_newton
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Исаак Ньютон] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Isaac Newton] (* <- lang_en;; *);
+=> nrel_note:
+	[Английский физик и математик, один из основателей классической физики] (* <- lang_ru;; *);;

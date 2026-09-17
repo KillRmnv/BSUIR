@@ -1,0 +1,6 @@
+concept_greeting_message
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Сообщение приветствия] (* <- lang_ru;; *);
+=> nrel_wit_ai_idtf:
+	[greeting];;

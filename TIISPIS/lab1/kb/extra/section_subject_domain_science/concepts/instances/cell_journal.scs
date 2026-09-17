@@ -1,0 +1,6 @@
+cell_journal
+<- concept_journal;
+=> nrel_main_idtf:
+	[Cell] (* <- lang_en;; *);
+=> nrel_note:
+	[Журнал по биологии клетки] (* <- lang_ru;; *);;

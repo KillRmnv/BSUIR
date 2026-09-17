@@ -1,0 +1,8 @@
+paradigm_quantum
+<- concept_paradigm;
+=> nrel_main_idtf:
+	[Квантовая парадигма] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Quantum paradigm] (* <- lang_en;; *);
+=> nrel_note:
+	[Научная картина мира, основанная на квантовой механике] (* <- lang_ru;; *);;

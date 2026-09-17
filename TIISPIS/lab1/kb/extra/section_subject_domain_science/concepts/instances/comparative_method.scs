@@ -1,0 +1,8 @@
+comparative_method
+<- concept_method;
+=> nrel_main_idtf:
+	[Сравнительный метод] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Comparative method] (* <- lang_en;; *);
+=> nrel_note:
+	[Метод сравнения объектов для выявления сходств и различий] (* <- lang_ru;; *);;

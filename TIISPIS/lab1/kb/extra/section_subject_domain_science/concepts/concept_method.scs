@@ -1,0 +1,11 @@
+concept_method
+<- sc_node_class;
+<= nrel_inclusion: concept_wit_entity;
+=> nrel_main_idtf:
+	[Метод] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Method] (* <- lang_en;; *);
+=> nrel_note:
+	[Способ достижения цели, организованная деятельность] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Способ достижения цели, организованная деятельность] (* <- lang_ru;; *);;

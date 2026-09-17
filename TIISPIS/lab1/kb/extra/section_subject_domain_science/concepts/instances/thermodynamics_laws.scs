@@ -1,0 +1,8 @@
+thermodynamics_laws
+<- concept_law;
+=> nrel_main_idtf:
+	[Законы термодинамики] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Laws of thermodynamics] (* <- lang_en;; *);
+=> nrel_note:
+	[Фундаментальные законы физики, описывающие тепловые процессы] (* <- lang_ru;; *);;

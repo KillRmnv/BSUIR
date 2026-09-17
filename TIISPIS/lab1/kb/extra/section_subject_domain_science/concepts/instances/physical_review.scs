@@ -1,0 +1,6 @@
+physical_review
+<- concept_journal;
+=> nrel_main_idtf:
+	[Physical Review Letters] (* <- lang_en;; *);
+=> nrel_note:
+	[Журнал Американского физического общества] (* <- lang_ru;; *);;

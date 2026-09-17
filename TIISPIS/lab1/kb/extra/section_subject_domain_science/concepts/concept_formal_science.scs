@@ -1,0 +1,12 @@
+concept_formal_science
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_science;
+=> nrel_main_idtf:
+	[Формальная наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Formal science] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука, основанная на формальных системах и логике] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Наука, основанная на формальных системах и логике] (* <- lang_ru;; *);;

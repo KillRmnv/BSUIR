@@ -1,0 +1,17 @@
+@pattern = [* 
+	_message <-_ concept_message;
+	_-> rrel_entity:: _entity;;
+	_entity <-_ concept_wit_entity;
+		_=> nrel_main_idtf: [ ]
+			(*
+				=> nrel_main_idtf: [_id];;
+				<-_ lang_ru;;
+			*);;
+*];;
+
+concept_phrase_discovery_template
+<= nrel_inclusion:
+	concept_phrase;
+-> [Открытие ${_id} сделал Александр Флеминг]
+	(* <- lang_ru;; *);
+=> nrel_phrase_template: @pattern;;

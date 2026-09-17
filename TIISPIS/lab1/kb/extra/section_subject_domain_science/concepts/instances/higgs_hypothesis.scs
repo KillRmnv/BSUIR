@@ -1,0 +1,8 @@
+higgs_hypothesis
+<- concept_hypothesis;
+=> nrel_main_idtf:
+	[Гипотеза Хиггса] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Higgs hypothesis] (* <- lang_en;; *);
+=> nrel_note:
+	[Гипотеза о существовании поля Хиггса, придающего массу частицам] (* <- lang_ru;; *);;

@@ -1,0 +1,105 @@
+digraph BankingFrameSystem {
+    graph [
+        rankdir=TB,
+        splines=spline,
+        nodesep=0.35,
+        ranksep=0.55,
+        size="7.5,10.5!",
+        ratio="compress",
+        fontname="Arial"
+    ];
+
+    node [
+        shape=record,
+        style="solid",
+        color="#222222",
+        fontname="Arial",
+        fontsize=9.5,
+        width=2.1,
+        height=0.55
+    ];
+
+    edge [
+        fontname="Arial",
+        fontsize=8.5,
+        color="#222222",
+        fontcolor="#222222",
+        arrowsize=0.7
+    ];
+
+    // ===================================================
+    // 1. УРОВЕНЬ 1: КОРНЕВЫЕ ПРОТОТИПЫ
+    // ===================================================
+    Bank       [label="Банк | "];
+    Human      [label="Человек | "];
+
+    // ===================================================
+    // 2. УРОВЕНЬ 2: ОРГАНИЗАЦИИ И РОЛИ
+    // ===================================================
+    Sberbank   [label="ПАО Сбербанк | АКО Банк"];
+    VTB        [label="Банк ВТБ | АКО Банк"];
+    Manager    [label="Кредитный менеджер | АКО Человек"];
+    Client     [label="Клиент | АКО Человек"];
+
+    // ===================================================
+    // 3. УРОВЕНЬ 3: СУБЪЕКТЫ (ЭКЗЕМПЛЯРЫ ЛЮДЕЙ)
+    // ===================================================
+    Smirnova   [label="Смирнова | АКО Кредитный менеджер"];
+    Ivanov     [label="Иванов | АКО Клиент"];
+
+    // ===================================================
+    // 4. УРОВЕНЬ 4: СЦЕНАРИЙ И ОБОБЩЕННЫЕ СИТУАЦИИ
+    // ===================================================
+    ScenCredit [label="Кредитование | "];
+    AppGeneric [label="Заявка | "];
+    IssueGeneric [label="Выдача | "];
+
+    // ===================================================
+    // 5. УРОВЕНЬ 5: ЭКЗЕМПЛЯР СЦЕНАРИЯ И СЦЕНЫ
+    // ===================================================
+    ScenCreditIv [label="Кредитование Иванова | АКО Кредитование"];
+    AppIvanov    [label="Заявка Иванова | АКО Заявка"];
+    IssueIvanov  [label="Выдача Иванову | АКО Выдача"];
+
+    // ===================================================
+    // ПРИНУДИТЕЛЬНЫЕ ГОРИЗОНТАЛЬНЫЕ СЛОИ (ЯРУСЫ СВЕРХУ ВНИЗ)
+    // ===================================================
+    { rank=same; Bank; Human; }
+    { rank=same; Sberbank; VTB; Manager; Client; }
+    { rank=same; Smirnova; Ivanov; }
+    { rank=same; ScenCredit; AppGeneric; IssueGeneric; }
+    { rank=same; ScenCreditIv; AppIvanov; IssueIvanov; }
+
+    // Вертикальный стержень жесткости
+    Bank -> Sberbank -> Smirnova -> ScenCredit -> ScenCreditIv [style=invis, weight=8];
+
+    // ===================================================
+    // СВЯЗИ НАСЛЕДОВАНИЯ (АКО)
+    // ===================================================
+    Bank -> Sberbank        [label="АКО"];
+    Bank -> VTB             [label="АКО"];
+    Human -> Manager        [label="АКО"];
+    Human -> Client         [label="АКО"];
+    Manager -> Smirnova     [label="АКО"];
+    Client -> Ivanov        [label="АКО"];
+    ScenCredit -> ScenCreditIv [label="АКО"];
+    AppGeneric -> AppIvanov    [label="АКО"];
+    IssueGeneric -> IssueIvanov[label="АКО"];
+
+    // ===================================================
+    // СЛОТЫ УЧАСТНИКОВ И МЕСТА РАБОТЫ
+    // ===================================================
+    Sberbank -> Smirnova    [label="Слот: Место работы"];
+    ScenCreditIv -> Sberbank[label="Слот: Банк"];
+    Ivanov -> ScenCreditIv  [label="Слот: Клиент"];
+    Smirnova -> ScenCreditIv[label="Слот: Менеджер"];
+
+    // ===================================================
+    // СЛОТЫ СЦЕН И ДЕЙСТВИЙ
+    // ===================================================
+    ScenCredit -> AppIvanov   [label="Сцена: Слот 1"];
+    ScenCredit -> IssueIvanov [label="Сцена: Слот 3"];
+
+    Ivanov -> AppGeneric    [label="Слот: Подал"];
+    Smirnova -> AppGeneric  [label="Слот: Принял"];
+}

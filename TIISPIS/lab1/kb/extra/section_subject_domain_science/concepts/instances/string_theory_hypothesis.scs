@@ -1,0 +1,8 @@
+string_theory_hypothesis
+<- concept_hypothesis;
+=> nrel_main_idtf:
+	[Теория струн] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[String theory] (* <- lang_en;; *);
+=> nrel_note:
+	[Гипотеза о фундаментальной природе материи в виде одномерных объектов] (* <- lang_ru;; *);;

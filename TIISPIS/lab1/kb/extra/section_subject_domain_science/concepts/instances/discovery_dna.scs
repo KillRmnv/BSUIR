@@ -1,0 +1,8 @@
+discovery_dna
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие структуры ДНК] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of DNA structure] (* <- lang_en;; *);
+=> nrel_note:
+	[Открытие двойной спирали ДНК Уотсоном и Криком в 1953 году] (* <- lang_ru;; *);;

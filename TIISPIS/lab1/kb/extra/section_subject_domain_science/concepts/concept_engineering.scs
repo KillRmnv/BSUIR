@@ -1,0 +1,12 @@
+concept_engineering
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_applied_science;
+=> nrel_main_idtf:
+	[Инженерия] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Engineering] (* <- lang_en;; *);
+=> nrel_note:
+	[Применение научных знаний для создания технических систем] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Применение научных знаний для создания технических систем] (* <- lang_ru;; *);;

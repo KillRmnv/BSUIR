@@ -1,0 +1,11 @@
+concept_patent
+<- sc_node_class;
+<= nrel_inclusion: concept_wit_entity;
+=> nrel_main_idtf:
+	[Патент] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Patent] (* <- lang_en;; *);
+=> nrel_note:
+	[Документ, удостоверяющий авторское право на изобретение] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Документ, удостоверяющий авторское право на изобретение] (* <- lang_ru;; *);;

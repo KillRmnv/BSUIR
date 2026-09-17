@@ -1,0 +1,6 @@
+conference_icpc
+<- concept_conference;
+=> nrel_main_idtf:
+	[ICPC] (* <- lang_en;; *);
+=> nrel_note:
+	[Международная олимпиада по программированию] (* <- lang_ru;; *);;

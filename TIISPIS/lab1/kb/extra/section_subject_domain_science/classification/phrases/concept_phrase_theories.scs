@@ -1,0 +1,5 @@
+concept_phrase_theories
+<= nrel_inclusion:
+	concept_phrase;
+-> [В этой области есть несколько важных теорий]
+	(* <- lang_ru;; *);;

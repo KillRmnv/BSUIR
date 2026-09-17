@@ -1,0 +1,8 @@
+stanford_university
+<- concept_institution;
+=> nrel_main_idtf:
+	[Стэнфордский университет] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Stanford University] (* <- lang_en;; *);
+=> nrel_note:
+	[Один из ведущих университетов мира] (* <- lang_ru;; *);;

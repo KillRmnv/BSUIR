@@ -1,0 +1,8 @@
+dissertation_phd
+<- concept_dissertation;
+=> nrel_main_idtf:
+	[Докторская диссертация] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Doctoral dissertation] (* <- lang_en;; *);
+=> nrel_note:
+	[Научная работа для получения степени доктора наук] (* <- lang_ru;; *);;

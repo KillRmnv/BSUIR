@@ -1,0 +1,61 @@
+concept_scientist
+<- sc_node_class;
+<- concept_wit_entity;
+=> nrel_main_idtf:
+	[Учёный] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Scientist] (* <- lang_en;; *);
+=> nrel_note:
+	[Человек, занимающийся научной деятельностью] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Человек, занимающийся научной деятельностью] (* <- lang_ru;; *);
+<= nrel_subdividing: 
+	...
+   (*
+		<- sc_node_tuple;;
+		-> ..isaac_newton;;
+		-> ..albert_einstein;;
+		-> ..marie_curie;;
+		-> ..charles_darwin;;
+		-> ..alan_turing;;
+		-> ..dmitri_mendeleev;;
+		-> ..louis_pasteur;;
+		-> ..max_planck;;
+		-> ..niels_bohr;;
+   *);;
+
+..isaac_newton
+=> nrel_main_idtf:
+	[Исаак Ньютон] (* <- lang_ru;; *);;
+
+..albert_einstein
+=> nrel_main_idtf:
+	[Альберт Эйнштейн] (* <- lang_ru;; *);;
+
+..marie_curie
+=> nrel_main_idtf:
+	[Мария Кюри] (* <- lang_ru;; *);;
+
+..charles_darwin
+=> nrel_main_idtf:
+	[Чарльз Дарвин] (* <- lang_ru;; *);;
+
+..alan_turing
+=> nrel_main_idtf:
+	[Алан Тьюринг] (* <- lang_ru;; *);;
+
+..dmitri_mendeleev
+=> nrel_main_idtf:
+	[Дмитрий Менделеев] (* <- lang_ru;; *);;
+
+..louis_pasteur
+=> nrel_main_idtf:
+	[Луи Пастер] (* <- lang_ru;; *);;
+
+..max_planck
+=> nrel_main_idtf:
+	[Макс Планк] (* <- lang_ru;; *);;
+
+..niels_bohr
+=> nrel_main_idtf:
+	[Нильс Бор] (* <- lang_ru;; *);;

@@ -1,0 +1,8 @@
+louis_pasteur
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Луи Пастер] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Louis Pasteur] (* <- lang_en;; *);
+=> nrel_note:
+	[Французский микробиолог и химик, основатель микробиологии] (* <- lang_ru;; *);;

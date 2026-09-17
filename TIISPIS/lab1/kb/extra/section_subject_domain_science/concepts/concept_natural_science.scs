@@ -1,0 +1,12 @@
+concept_natural_science
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_science;
+=> nrel_main_idtf:
+	[Естественная наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Natural science] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука, изучающая природные явления и законы] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Наука, изучающая природные явления и законы] (* <- lang_ru;; *);;

@@ -1,0 +1,6 @@
+science_journal
+<- concept_journal;
+=> nrel_main_idtf:
+	[Science] (* <- lang_en;; *);
+=> nrel_note:
+	[Ведущий научный журнал Американской ассоциации содействия развитию науки] (* <- lang_ru;; *);;

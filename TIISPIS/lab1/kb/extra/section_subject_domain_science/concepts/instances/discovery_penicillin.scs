@@ -1,0 +1,8 @@
+discovery_penicillin
+<- concept_discovery;
+=> nrel_main_idtf:
+	[Открытие пенициллина] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Discovery of penicillin] (* <- lang_en;; *);
+=> nrel_note:
+	[Открытие первого антибиотика Александром Флемингом в 1928 году] (* <- lang_ru;; *);;

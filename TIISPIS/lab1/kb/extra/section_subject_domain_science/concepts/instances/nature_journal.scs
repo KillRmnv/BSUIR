@@ -1,0 +1,6 @@
+nature_journal
+<- concept_journal;
+=> nrel_main_idtf:
+	[Nature] (* <- lang_en;; *);
+=> nrel_note:
+	[Один из наиболее цитируемых научных журналов мира] (* <- lang_ru;; *);;

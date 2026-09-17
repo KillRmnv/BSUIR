@@ -1,0 +1,12 @@
+concept_physics
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_natural_science;
+=> nrel_main_idtf:
+	[Физика] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Physics] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука о природных явлениях и строении материи] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Наука о природных явлениях и строении материи] (* <- lang_ru;; *);;

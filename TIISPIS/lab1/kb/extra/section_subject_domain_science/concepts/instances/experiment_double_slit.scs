@@ -1,0 +1,8 @@
+experiment_double_slit
+<- concept_experiment;
+=> nrel_main_idtf:
+	[Опыт с двумя щелями] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Double-slit experiment] (* <- lang_en;; *);
+=> nrel_note:
+	[Классический эксперимент, демонстрирующий волновую природу света] (* <- lang_ru;; *);;

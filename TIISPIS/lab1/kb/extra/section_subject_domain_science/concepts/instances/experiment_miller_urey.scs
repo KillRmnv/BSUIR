@@ -1,0 +1,8 @@
+experiment_miller_urey
+<- concept_experiment;
+=> nrel_main_idtf:
+	[Опыт Миллера — Юри] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Miller-Urey experiment] (* <- lang_en;; *);
+=> nrel_note:
+	[Эксперимент по синтезу органических молекул из неорганических] (* <- lang_ru;; *);;

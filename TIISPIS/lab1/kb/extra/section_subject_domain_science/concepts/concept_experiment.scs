@@ -1,0 +1,11 @@
+concept_experiment
+<- sc_node_class;
+<= nrel_inclusion: concept_wit_entity;
+=> nrel_main_idtf:
+	[Эксперимент] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Experiment] (* <- lang_en;; *);
+=> nrel_note:
+	[Метод познания, заключающийся в воздействии на изучаемый объект] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Метод познания, заключающийся в воздействии на изучаемый объект] (* <- lang_ru;; *);;

@@ -1,0 +1,8 @@
+russian_academy
+<- concept_institution;
+=> nrel_main_idtf:
+	[Российская академия наук] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Russian Academy of Sciences] (* <- lang_en;; *);
+=> nrel_note:
+	[Крупнейшая научная организация в России] (* <- lang_ru;; *);;

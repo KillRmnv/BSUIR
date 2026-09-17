@@ -1,0 +1,5 @@
+concept_phrase_about_entity_2
+<= nrel_inclusion:
+	concept_phrase;
+-> [Данное понятие относится к научной области]
+	(* <- lang_ru;; *);;

@@ -1,0 +1,8 @@
+model_atom
+<- concept_model;
+=> nrel_main_idtf:
+	[Модель атома] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Atomic model] (* <- lang_en;; *);
+=> nrel_note:
+	[Теоретическая модель строения атома] (* <- lang_ru;; *);;

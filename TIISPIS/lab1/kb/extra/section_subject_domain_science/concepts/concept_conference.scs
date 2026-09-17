@@ -1,0 +1,26 @@
+concept_conference
+<- sc_node_class;
+<- concept_wit_entity;
+=> nrel_main_idtf:
+	[Научная конференция] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Scientific conference] (* <- lang_en;; *);
+=> nrel_note:
+	[Форма организации научной деятельности, обмена опытом] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Форма организации научной деятельности, обмена опытом] (* <- lang_ru;; *);
+<= nrel_subdividing: 
+	...
+   (*
+		<- sc_node_tuple;;
+		-> ..conference_icpc;;
+		-> ..conference_neurips;;
+   *);;
+
+..conference_icpc
+=> nrel_main_idtf:
+	[ICPC] (* <- lang_en;; *);;
+
+..conference_neurips
+=> nrel_main_idtf:
+	[NeurIPS] (* <- lang_en;; *);;

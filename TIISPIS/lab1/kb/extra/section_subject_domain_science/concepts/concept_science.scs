@@ -1,0 +1,20 @@
+concept_science
+<- sc_node_class;
+<- concept_wit_entity;
+=> nrel_main_idtf:
+	[Наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Science] (* <- lang_en;; *);
+=> nrel_note:
+	[Систематизированная деятельность человека, направленная на развитие знаний о мире] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Систематизированная деятельность человека, направленная на развитие знаний о мире] (* <- lang_ru;; *);
+<= nrel_subdividing: 
+	...
+   (*
+		<- sc_node_tuple;;
+		-> concept_natural_science;;
+		-> concept_human_science;;
+		-> concept_formal_science;;
+		-> concept_applied_science;;
+   *);;

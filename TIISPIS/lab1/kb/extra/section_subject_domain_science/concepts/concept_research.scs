@@ -1,0 +1,11 @@
+concept_research
+<- sc_node_class;
+<= nrel_inclusion: concept_wit_entity;
+=> nrel_main_idtf:
+	[Исследование] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Research] (* <- lang_en;; *);
+=> nrel_note:
+	[Систематическая деятельность для получения новых знаний] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Систематическая деятельность для получения новых знаний] (* <- lang_ru;; *);;

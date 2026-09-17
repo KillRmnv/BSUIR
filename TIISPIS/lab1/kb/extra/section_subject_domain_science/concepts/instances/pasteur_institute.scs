@@ -1,0 +1,8 @@
+pasteur_institute
+<- concept_institution;
+=> nrel_main_idtf:
+	[Институт Пастера] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Pasteur Institute] (* <- lang_en;; *);
+=> nrel_note:
+	[Французский исследовательский институт] (* <- lang_ru;; *);;

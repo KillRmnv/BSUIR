@@ -1,0 +1,83 @@
+digraph BankProductionSystem {
+    graph [
+        rankdir=TB,
+        splines=spline,
+        nodesep=0.45,
+        ranksep=0.6,
+        size="7.5,10.5!",
+        ratio="compress",
+        fontname="Arial"
+    ];
+
+    node [
+        fontname="Arial",
+        color="#222222",
+        fontcolor="#222222"
+    ];
+
+    edge [
+        fontname="Arial",
+        fontsize=8.5,
+        color="#222222",
+        fontcolor="#222222",
+        arrowsize=0.7
+    ];
+
+    // Продукционные правила (прямоугольники со скруглением)
+    node [shape=box, style="rounded,solid", width=2.4, height=0.4, fontsize=9.5];
+    P1 [label="П1 (5, Ф1 и Ф2)"];
+    P2 [label="П2 (4, Ф3)"];
+    P3 [label="П3 (4, не Ф3)"];
+    P5 [label="П5 (3, Д2 и Ф4)"];
+    P4 [label="П4 (3, Д3 и Ф5)"];
+    P7 [label="П7 (2, Д4 и Ф6)"];
+    P6 [label="П6 (2, Д5 и Ф6)"];
+    P8 [label="П8 (1, Д6 или Д7)"];
+
+    // Действия и факты вывода (овалы)
+    node [shape=ellipse, style=solid, width=0.8, height=0.4, fontsize=9];
+    D1 [label="Д1"];
+    D2 [label="Д2"];
+    D3 [label="Д3"];
+    D4 [label="Д4"];
+    D5 [label="Д5"];
+    D6 [label="Д6"];
+    D7 [label="Д7"];
+    D8 [label="Д8"];
+
+    // Горизонтальные ярусы графа вывода
+    { rank=same; P1; }
+    { rank=same; D1; }
+    { rank=same; P2; P3; }
+    { rank=same; D2; D3; }
+    { rank=same; P5; P4; }
+    { rank=same; D4; D5; }
+    { rank=same; P7; P6; }
+    { rank=same; D6; D7; }
+    { rank=same; P8; }
+    { rank=same; D8; }
+
+    // Логические связи прямого вывода
+    P1 -> D1;
+    D1 -> P2;
+    D1 -> P3;
+
+    // Левая ветвь (экспресс-канал)
+    P2 -> D2;
+    D2 -> P5;
+    P5 -> D4;
+    D4 -> P7;
+    P7 -> D6;
+
+    // Правая ветвь (стандартный канал СБ)
+    P3 -> D3;
+    D3 -> P4;
+    P4 -> D5;
+    D5 -> P6;
+    P6 -> D7;
+
+    // Схождение ветвей к целевому заключению
+    D6 -> P8;
+    D7 -> P8;
+    P8 -> D8;
+}

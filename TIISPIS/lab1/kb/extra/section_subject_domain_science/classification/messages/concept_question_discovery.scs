@@ -1,0 +1,6 @@
+concept_question_discovery
+<- sc_node_class;
+=> nrel_main_idtf:
+	[Вопрос об открытии] (* <- lang_ru;; *);
+=> nrel_wit_ai_idtf:
+	[question_discovery];;

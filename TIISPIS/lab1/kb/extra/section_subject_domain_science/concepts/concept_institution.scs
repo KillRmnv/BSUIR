@@ -1,0 +1,51 @@
+concept_institution
+<- sc_node_class;
+<- concept_wit_entity;
+=> nrel_main_idtf:
+	[Научное учреждение] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Scientific institution] (* <- lang_en;; *);
+=> nrel_note:
+	[Организация, осуществляющая научную деятельность] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Организация, осуществляющая научную деятельность] (* <- lang_ru;; *);
+<= nrel_subdividing: 
+	...
+   (*
+		<- sc_node_tuple;;
+		-> ..cern;;
+		-> ..mit;;
+		-> ..russian_academy;;
+		-> ..stanford_university;;
+		-> ..max_planck_institute;;
+		-> ..pasteur_institute;;
+		-> ..moscow_state_university;;
+   *);;
+
+..cern
+=> nrel_main_idtf:
+	[ЦЕРН] (* <- lang_ru;; *);;
+
+..mit
+=> nrel_main_idtf:
+	[Массачусетский технологический институт] (* <- lang_ru;; *);;
+
+..russian_academy
+=> nrel_main_idtf:
+	[Российская академия наук] (* <- lang_ru;; *);;
+
+..stanford_university
+=> nrel_main_idtf:
+	[Стэнфордский университет] (* <- lang_ru;; *);;
+
+..max_planck_institute
+=> nrel_main_idtf:
+	[Институт Макса Планка] (* <- lang_ru;; *);;
+
+..pasteur_institute
+=> nrel_main_idtf:
+	[Институт Пастера] (* <- lang_ru;; *);;
+
+..moscow_state_university
+=> nrel_main_idtf:
+	[Московский государственный университет] (* <- lang_ru;; *);;

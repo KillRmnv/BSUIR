@@ -1,0 +1,5 @@
+concept_phrase_hello_2
+<= nrel_inclusion:
+	concept_phrase;
+-> [Здравствуйте! Чем могу помочь?]
+	(* <- lang_ru;; *);;

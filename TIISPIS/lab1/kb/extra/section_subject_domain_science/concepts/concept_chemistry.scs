@@ -1,0 +1,12 @@
+concept_chemistry
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_natural_science;
+=> nrel_main_idtf:
+	[Химия] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Chemistry] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука о веществах, их строении, свойствах и превращениях] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Наука о веществах, их строении, свойствах и превращениях] (* <- lang_ru;; *);;

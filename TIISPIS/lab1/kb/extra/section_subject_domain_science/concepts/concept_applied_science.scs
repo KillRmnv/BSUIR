@@ -1,0 +1,12 @@
+concept_applied_science
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_science;
+=> nrel_main_idtf:
+	[Прикладная наука] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Applied science] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука, направленная на практическое применение знаний] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Наука, направленная на практическое применение знаний] (* <- lang_ru;; *);;

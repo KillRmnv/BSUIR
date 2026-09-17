@@ -1,0 +1,8 @@
+quantum_mechanics
+<- concept_theory;
+=> nrel_main_idtf:
+	[Квантовая механика] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Quantum mechanics] (* <- lang_en;; *);
+=> nrel_note:
+	[Теория, описывающая поведение материи на атомном и субатомном уровнях] (* <- lang_ru;; *);;

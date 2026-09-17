@@ -1,0 +1,8 @@
+mathematical_modeling
+<- concept_method;
+=> nrel_main_idtf:
+	[Математическое моделирование] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Mathematical modeling] (* <- lang_en;; *);
+=> nrel_note:
+	[Метод исследования с помощью математических моделей] (* <- lang_ru;; *);;

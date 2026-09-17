@@ -1,0 +1,8 @@
+mit
+<- concept_institution;
+=> nrel_main_idtf:
+	[Массачусетский технологический институт] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Massachusetts Institute of Technology] (* <- lang_en;; *);
+=> nrel_note:
+	[Один из ведущих технологических университетов мира] (* <- lang_ru;; *);;

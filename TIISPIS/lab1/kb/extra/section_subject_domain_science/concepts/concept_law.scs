@@ -1,0 +1,31 @@
+concept_law
+<- sc_node_class;
+<- concept_wit_entity;
+=> nrel_main_idtf:
+	[Закон научный] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Scientific law] (* <- lang_en;; *);
+=> nrel_note:
+	[Обобщение эмпирических фактов, выражающее объективную закономерность] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Обобщение эмпирических фактов, выражающее объективную закономерность] (* <- lang_ru;; *);
+<= nrel_subdividing: 
+	...
+   (*
+		<- sc_node_tuple;;
+		-> ..newton_laws;;
+		-> ..thermodynamics_laws;;
+		-> ..periodic_law;;
+   *);;
+
+..newton_laws
+=> nrel_main_idtf:
+	[Законы Ньютона] (* <- lang_ru;; *);;
+
+..thermodynamics_laws
+=> nrel_main_idtf:
+	[Законы термодинамики] (* <- lang_ru;; *);;
+
+..periodic_law
+=> nrel_main_idtf:
+	[Периодический закон] (* <- lang_ru;; *);;

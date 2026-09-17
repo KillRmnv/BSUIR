@@ -1,0 +1,21 @@
+concept_dissertation
+<- sc_node_class;
+<- concept_wit_entity;
+=> nrel_main_idtf:
+	[Диссертация] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Dissertation] (* <- lang_en;; *);
+=> nrel_note:
+	[Научная работа, представленная для получения учёной степени] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Научная работа, представленная для получения учёной степени] (* <- lang_ru;; *);
+<= nrel_subdividing: 
+	...
+   (*
+		<- sc_node_tuple;;
+		-> ..dissertation_phd;;
+   *);;
+
+..dissertation_phd
+=> nrel_main_idtf:
+	[Докторская диссертация] (* <- lang_ru;; *);;

@@ -1,0 +1,13 @@
+nrel_replaces
+<- sc_node_non_role_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+<- antireflexive_relation;
+<- asymmetric_relation;
+=> nrel_main_idtf:
+	[Заменяет] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Replaces] (* <- lang_en;; *);
+=> nrel_first_domain: concept_paradigm;
+=> nrel_second_domain: concept_paradigm;;

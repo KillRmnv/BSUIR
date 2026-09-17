@@ -1,0 +1,12 @@
+concept_biology
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_natural_science;
+=> nrel_main_idtf:
+	[Биология] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Biology] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука о живых организмах и их взаимодействии со средой] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Наука о живых организмах и их взаимодействии со средой] (* <- lang_ru;; *);;

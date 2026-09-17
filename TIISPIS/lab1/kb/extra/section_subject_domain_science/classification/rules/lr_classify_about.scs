@@ -1,0 +1,25 @@
+if_message_content = [* 
+	_message 
+		<-_ concept_message;
+		_=> nrel_sc_text_translation:: .._node;;
+    @message_content_link = _[что такое];;
+    .._node -> @message_content_link;;
+*];;
+
+@message_content_link => nrel_main_idtf: [что такое];;
+
+then_message_class = [* 
+	concept_message_about_entity _-> _message;;
+*];;
+
+lr_classify_about
+<- concept_classify_message_rule_priority_1;
+<- rrel_main_key_sc_element: (if_message_content => then_message_class)
+	(* <- nrel_implication;; *);;
+
+atomic_logical_formula
+-> if_message_content;
+-> then_message_class;;
+
+concept_template_with_links
+-> if_message_content;;

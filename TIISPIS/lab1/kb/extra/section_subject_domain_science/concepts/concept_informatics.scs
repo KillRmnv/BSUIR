@@ -1,0 +1,12 @@
+concept_informatics
+<- sc_node_class;
+<- concept_wit_entity;
+<= nrel_inclusion: concept_formal_science;
+=> nrel_main_idtf:
+	[Информатика] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Informatics] (* <- lang_en;; *);
+=> nrel_note:
+	[Наука об обработке, хранении и передаче информации] (* <- lang_ru;; *);
+=> nrel_definition:
+    [Наука об обработке, хранении и передаче информации] (* <- lang_ru;; *);;

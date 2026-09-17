@@ -1,0 +1,8 @@
+albert_einstein
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Альберт Эйнштейн] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Albert Einstein] (* <- lang_en;; *);
+=> nrel_note:
+	[Немецкий физик-теоретик, создатель теории относительности] (* <- lang_ru;; *);;

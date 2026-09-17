@@ -1,0 +1,6 @@
+conference_neurips
+<- concept_conference;
+=> nrel_main_idtf:
+	[NeurIPS] (* <- lang_en;; *);
+=> nrel_note:
+	[Конференция по нейронным сетям и обработке информации] (* <- lang_ru;; *);;

@@ -1,0 +1,8 @@
+alan_turing
+<- concept_scientist;
+=> nrel_main_idtf:
+	[Алан Тьюринг] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[Alan Turing] (* <- lang_en;; *);
+=> nrel_note:
+	[Английский математик, один из основателей информатики] (* <- lang_ru;; *);;

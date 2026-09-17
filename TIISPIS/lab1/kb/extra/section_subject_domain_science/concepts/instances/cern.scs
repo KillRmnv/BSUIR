@@ -1,0 +1,8 @@
+cern
+<- concept_institution;
+=> nrel_main_idtf:
+	[ЦЕРН] (* <- lang_ru;; *);
+=> nrel_main_idtf:
+	[CERN] (* <- lang_en;; *);
+=> nrel_note:
+	[Европейская организация по ядерным исследованиям] (* <- lang_ru;; *);;
