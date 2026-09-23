@@ -1,0 +1,69 @@
+@startuml activity_tts
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+
+skinparam activity {
+    BorderColor #2563EB
+    BackgroundColor #EAF2FB
+    ArrowColor #475569
+    DiamondBorderColor #D97706
+    DiamondBackgroundColor #FEF3C7
+}
+
+title Блок-схема алгоритма синтеза речи (Variant 8, EN+FR)
+
+start
+:Ввод текста\n(textarea / буфер обмена / литературный пример);
+
+if (voice задан явно?) then (да)
+    :Берём голос из реестра;
+else (нет)
+    if (lang задан?) then (да)
+        :Голос = default_by_lang[lang];
+    else (нет)
+        :Определение языка:\nngram + alphabet + neural,\nmajority vote;
+        :Голос = default_by_lang[detected];
+    endif
+endif
+
+if (голос доступен\n(piper: ONNX есть,\nespeak: бинарник есть)?) then (да)
+else (нет)
+    :Fallback: espeak-голос\nтого же языка;
+endif
+
+:Нормализация текста:\nHTML/markdown → чисто,\n« » "" → ",  « » → запятая-пауза,\n… → ..., переносы → пробел,\nубрать пробел перед знаками;
+
+if (текст пуст\nили > 4000 символов?) then (да)
+    :HTTP 400 ValidationError;
+    stop
+else (нет)
+endif
+
+if (движок?) then (piper)
+    :length_scale = 1 / rate;\nvolume = pct / 100;
+    :Загрузка ONNX-модели\nиз кэша (или load + lock);
+    :PiperVoice.synthesize_wav()\n(espeak-ng фонемизация →\nнейросеть → PCM);
+else (espeak)
+    :wpm = 175 × rate,\na = volume, p = pitch;
+    :subprocess: espeak-ng -v … -w out.wav;
+endif
+
+:Сборка метрик:\nelapsed_ms, duration_s, bytes,\nзаголовки X-TTS-*;
+
+:HTTP 200 → audio/wav;
+
+:Клиент: blob URL → <audio>\nавтовоспроизведение;
+stop
+
+note right
+  Параметры (UI → движок):
+  rate 0,5…2,0 → length_scale / wpm;
+  volume 0…100% → volume / -a;
+  pitch 0…99 → только espeak (-p).
+  Первый вызов модели: ~0,4 с
+  (загрузка ONNX в кэш памяти).
+end note
+
+@enduml

@@ -46,7 +46,7 @@ def summarize(text: str, method: str = 'textrank',
 		\hline
 		\texttt{/api/summarize} & POST & Реферирование текста: принимает \texttt{text}, \texttt{method}, \texttt{n\_sentences}, \texttt{lang} \\
 		\hline
-		\texttt{/api/summarize-doc} & POST & Реферирование документа по ID: принимает \texttt{doc\_id}, \texttt{method}, \texttt{n\_sentences}; извлекает текст из БД \\
+		\texttt{/api/summarize-doc} & POST & Реферирование документа по ID: принимает \texttt{doc\_id}, \texttt{method}, \texttt{n\_sentences}; извлекает текст из S3 через \texttt{s3\_key} \\
 		\hline
 	\end{tabular}
 	\caption{Эндпоинты подсистемы реферирования.}
@@ -89,13 +89,15 @@ def summarize(text: str, method: str = 'textrank',
 \begin{equation}
 	\text{tf}(t, S_i) = \frac{\text{count}(t, S_i)}{|S_i|},
 	\qquad
-	w(t, D) = 0.5 + 0.5 \cdot \frac{\text{tf}(t, D)}{\text{tf}_{\max}(D)}
+	w(t, D) = \left(0.5 + 0.5 \cdot \frac{\text{tf}(t, D)}{\text{tf}_{\max}(D)}\right) \cdot \text{IDF}(t)
 	\label{eq:summary_tf}
 \end{equation}
 
-где $\text{tf}(t, S_i)$ "--- частота термина в предложении, $w(t, D)$ "--- аугментированная частота
-термина в документе (коэффициент 0.5 снижает влияние сверхчастых слов),
-$\text{tf}_{\max}(D)$ "--- максимальная частота термина в документе.
+где $\text{tf}(t, S_i)$ "--- частота термина в предложении, $\text{tf}(t, D)$ "--- частота
+термина в документе, $\text{tf}_{\max}(D)$ "--- максимальная частота термина в документе,
+$\text{IDF}(t) = \log(22 \cdot |DB| / df(t))$ "--- обратная частота документа
+(с гладящим множителем 22), $|DB|$ "--- число документов в корпусе,
+$df(t)$ "--- число документов, содержащих термин $t$.
 
 \textbf{Позиция в документе (Posd).}
 

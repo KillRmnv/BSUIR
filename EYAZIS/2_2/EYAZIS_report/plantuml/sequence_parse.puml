@@ -5,14 +5,14 @@ skinparam sequenceParticipantBorderColor #222222
 skinparam sequenceLifeLineBorderColor #BBBBBB
 skinparam noteBorderColor #888888
 
-title Sequence: Syntax Parse Tree
+title Sequence: Syntax Parse Tree (spaCy + NLTK)
 
 actor User
 participant "translate.html\n(Syntax Tree)" as FE
 participant "app.py\n(REST)" as API
 participant "syntax_parser.py\n(parse_text)" as SP
-participant "pos_tagger.py\n(pos_tag_en)" as POS
-participant "NLTK RegexpParser\n(EN_GRAMMAR)" as RP
+participant "spaCy\n(en_core_web_sm /\nfr_core_news_sm)" as SPACY
+participant "NLTK RegexpParser\n(universal POS grammar)" as RP
 
 User -> FE : Enter text + select lang\n+ click "Parse"
 activate FE
@@ -27,27 +27,29 @@ SP -> SP : sent_tokenize(text)
 
 loop for each sentence
 
-    SP -> POS : pos_tag_en(sentence)
-    activate POS
-    POS --> SP : [(word, POS), ...]
-    deactivate POS
+    SP -> SPACY : nlp(sentence)
+    activate SPACY
+    SPACY --> SP : Doc\n[(word, universal_POS), ...]
+    deactivate SPACY
 
-    SP -> RP : EN_PARSER.parse(tagged)
+    SP -> SP : Filter punctuation\nApply POS aliases
+
+    SP -> RP : parser.parse(tagged)
     activate RP
-    RP --> SP : Tree (NP, VP, PP, ...)
+    RP --> SP : Tree (S, NP, VP, PP, REL, ...)
     deactivate RP
 
-    SP -> SP : tree_to_dict(tree)\nstr(tree)
+    SP -> SP : tree_to_constituency(tree)\n{label, children, is_leaf, text}
 
 end
 
-SP --> API : [\n  {sentence, tree, tree_str}, ...\n]
+SP --> API : [\n  {sentence, constituency_tree, tree_str}, ...\n]
 deactivate SP
 
 API --> FE : JSON response
 deactivate API
 
-FE --> User : Show parse trees\n(preformatted)
+FE --> User : Show parse trees\n(CSS dendrograms)
 deactivate FE
 
 @enduml

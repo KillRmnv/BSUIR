@@ -47,11 +47,42 @@ class SearchEngine:
         if not self._ensure_vocab():
             return {"error": "Vocabulary not initialized. Call /api/init-db first.", "query": query_string, "keywords": [], "results": [], "total_found": 0}
 
-        query_lang = self._detect_lang(query_string)
-        query_vector = self.process_query(query_string, query_lang)
-        log_search(query_string, query_vector)
-        raw_results = search_documents(query_vector, top_k)
-        raw_results = [r for r in raw_results if r["similarity"] > 0]
+        detected = self._detect_lang(query_string)
+        order = [detected, "fr" if detected == "en" else "en"]
+        if not any(v in query_string.lower() for v in "éèêëàâçîïôöùûüœ") and detected == "fr" and len(query_string.split()) == 1:
+            order = ["en", "fr"]
+        best = None
+        for query_lang in order:
+            query_vector = self.process_query(query_string, query_lang)
+            if not any(query_vector):
+                continue
+            raw_results = search_documents(query_vector, top_k)
+            raw_results = [
+                r for r in raw_results
+                if r["similarity"] is not None and r["similarity"] == r["similarity"] and r["similarity"] > 0
+            ]
+            if raw_results or best is None:
+                best = {
+                    "query_lang": query_lang,
+                    "query_vector": query_vector,
+                    "raw_results": raw_results,
+                }
+            if raw_results:
+                break
+
+        if best is None:
+            return {
+                "query": query_string,
+                "query_lang": detected,
+                "keywords": [],
+                "results": [],
+                "total_found": 0,
+                "note": "query_out_of_vocabulary",
+            }
+
+        query_lang = best["query_lang"]
+        log_search(query_string, best["query_vector"])
+        raw_results = best["raw_results"]
         keywords = extract_keywords(query_string, lang=query_lang)
         query_terms = set(get_query_terms(query_string, query_lang))
 

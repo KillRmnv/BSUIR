@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IR System - Voice</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">IR System</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Search</a>
+            <a href="upload.html" class="nav-link">Upload</a>
+            <a href="documents.html" class="nav-link">Documents</a>
+            <a href="metrics.html" class="nav-link">Metrics</a>
+            <a href="classify.html" class="nav-link">Classification</a>
+            <a href="summarize.html" class="nav-link">Summarize</a>
+            <a href="translate.html" class="nav-link">Translate</a>
+            <a href="tts.html" class="nav-link">Speech</a>
+            <a href="stt.html" class="nav-link active">Voice</a>
+            <a href="help.html" class="nav-link">Help</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="search-hero">
+            <h1>Voice Control</h1>
+            <p class="subtitle">Offline speech recognition (Vosk) — voice commands for EN/FR, literary domain</p>
+        </div>
+
+        <div id="sttChips" style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; font-size:0.85rem;"></div>
+
+        <div class="upload-section">
+            <!-- Left: microphone -->
+            <div class="upload-card">
+                <h3>Microphone</h3>
+
+                <div class="form-group">
+                    <label for="langSelect">Interface language (ЕЯ) / Recognition language</label>
+                    <select id="langSelect" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:var(--radius);">
+                        <option value="en" selected>English (en)</option>
+                        <option value="fr">Français (fr)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="docSelect">Document <small>(for “summarize”)</small></label>
+                    <select id="docSelect" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:var(--radius);">
+                        <option value="">— none selected —</option>
+                    </select>
+                </div>
+
+                <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+                    <button id="micBtn" class="btn btn-primary" style="flex:1;">● Record</button>
+                    <button id="saySampleBtn" class="btn btn-secondary">Say: search for hamlet</button>
+                </div>
+
+                <div id="recMeter" style="height:6px; background:var(--border); border-radius:3px; overflow:hidden; margin-bottom:8px;">
+                    <div id="recLevel" style="height:100%; width:0%; background:#2563EB; transition:width .05s;"></div>
+                </div>
+
+                <div id="sttStatus" class="upload-status"></div>
+
+                <h3 style="margin-top:1.2rem;">Recognition log</h3>
+                <div id="logBox" style="font-size:0.88rem; line-height:1.45; border-top:1px solid var(--border); padding-top:8px; max-height:280px; overflow-y:auto; min-height:80px;">
+                    <span style="color:var(--text-light);">— no commands yet —</span>
+                </div>
+            </div>
+
+            <!-- Right: result + commands editor -->
+            <div class="upload-card">
+                <h3>Last reaction</h3>
+                <div id="lastResult" class="summary-stats" style="display:none; flex-wrap:wrap;">
+                    <div class="stat-item"><span class="stat-value" id="stOp">—</span><span class="stat-label">Operation</span></div>
+                    <div class="stat-item"><span class="stat-value" id="stConf">—</span><span class="stat-label">Confidence</span></div>
+                    <div class="stat-item"><span class="stat-value" id="stRecMs">—</span><span class="stat-label">Recognize, ms</span></div>
+                    <div class="stat-item"><span class="stat-value" id="stPhrase">—</span><span class="stat-label">Phrase</span></div>
+                </div>
+                <div id="notifyBox" style="margin-top:12px; padding:10px 12px; border:1px solid var(--border); border-radius:var(--radius); background:#EAF2FB; font-size:0.92rem; display:none;"></div>
+                <div id="heardBox" style="margin-top:10px; font-size:0.9rem; color:var(--text-light);"></div>
+
+                <div style="display:flex; gap:8px; margin-top:12px;">
+                    <label style="font-size:0.88rem; display:flex; align-items:center; gap:6px;">
+                        <input type="checkbox" id="voiceNotify" checked> Voice notification (TTS)
+                    </label>
+                </div>
+
+                <h3 style="margin-top:1.5rem;" id="commandsPanel">Commands (editable phrases)</h3>
+                <p style="font-size:0.85rem; color:var(--text-light);">
+                    Operations are fixed; only the trigger phrases (one per line) may be changed.
+                    The same operation is executed whatever phrase you assign to it.
+                </p>
+                <div id="commandsEditor" style="max-height:360px; overflow-y:auto; font-size:0.85rem;"></div>
+                <div style="display:flex; gap:8px; margin-top:10px;">
+                    <button id="saveCmdBtn" class="btn btn-primary btn-small">Save phrases</button>
+                    <button id="resetCmdBtn" class="btn btn-secondary btn-small">Reset to defaults</button>
+                    <span id="cmdStatus" class="upload-status"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="js/voice-core.js"></script>
+    <script src="js/voice-fab.js"></script>
+
+    <script src="js/stt.js"></script>
+</body>
+</html>

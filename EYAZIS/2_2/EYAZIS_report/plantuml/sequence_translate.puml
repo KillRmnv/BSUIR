@@ -5,17 +5,22 @@ skinparam sequenceParticipantBorderColor #222222
 skinparam sequenceLifeLineBorderColor #BBBBBB
 skinparam noteBorderColor #888888
 
-title Sequence: Machine Translation (text)
+title Sequence: Machine Translation (Dictionary + NMT)
 
 actor User
 participant "translate.html" as FE
 participant "app.py\n(REST)" as API
-participant "translation_engine.py\n(translate)" as TE
-participant "pos_tagger.py\n(tag_text)" as POS
-participant "dictionary.py\n(lookup)" as DB
-database "PostgreSQL\n(translation_dictionary)" as PG
+participant "translation_engine.py" as TE
+participant "pos_tagger.py" as POS
+participant "common_words.py\n(in-memory)" as CW
+participant "dictionary.py\n(3-level lookup + fuzzy)" as DICT
+database "PostgreSQL\n(translation_dictionary\nPARTITION BY pos_group,\nphrase_dictionary)" as PG
+participant "spaCy\n(en_core_web_sm lemma)" as LEMMA
+participant "nmt_engine.py\n(opus-mt-en-fr)" as NMT
 
-User -> FE : Enter English text\n+ click "Translate"
+== Режим 1: Dictionary (пословный) ==
+
+User -> FE : Enter English text\n+ select "Dictionary"\n+ click "Translate"
 activate FE
 
 FE -> API : POST /api/translate\n{text}
@@ -31,28 +36,103 @@ deactivate POS
 
 loop for each (word, pos) in tagged
 
-    TE -> DB : lookup(word, pos)
-    activate DB
-    DB -> PG : SELECT target_word\nWHERE source=word AND pos=pos
-    PG --> DB : [result]
-    DB --> TE : entries[0].target
-    deactivate DB
-
-    alt found
-        TE -> TE : fr_word = entries[0].target\ntranslated_count++
-    else not found
-        TE -> TE : keep English word
+    alt phrase match (2-3 words)
+        TE -> DICT : lookup_phrase(words)
+        activate DICT
+        DICT -> PG : SELECT FROM phrase_dictionary
+        PG --> DICT : target_phrase
+        DICT --> TE : phrase translation
+        deactivate DICT
+    else single word
+        TE -> CW : COMMON_WORDS.get(word)
+        CW --> TE : (fr, en_pos, fr_pos) or MISS
+        alt found in-memory
+            TE -> TE : fr_word = translated
+        else miss
+            TE -> DICT : lookup(word, pos)
+            activate DICT
+            DICT -> DICT : COMMON_WORDS.get(word)
+            alt found in-memory
+                DICT --> TE : translated
+            else miss
+                DICT -> PG : SELECT ... WHERE source_word = word\n AND pos_group = <pruned> AND frequency > 0
+                note right of PG
+                    Прунинг до 1 партиции;
+                    покрывающий индекс
+                end note
+                alt exact hit
+                    PG --> DICT : entries
+                else empty (word inflected?)
+                    DICT -> LEMMA : spacy_lemma(word)
+                    LEMMA --> DICT : lemma\n(mice -> mouse)
+                    DICT -> PG : SELECT ... WHERE source_word = lemma
+                    PG --> DICT : entries
+                end
+                DICT --> TE : entries[0].target
+            end
+            deactivate DICT
+        end
     end
+
+    TE -> TE : Apply French rules:\n- verb conjugation (-er/-ir/-re)\n- article agreement (le/la/les)\n- negation (ne...pas)
 
 end
 
-TE --> API : {\n  translated_text,\n  stats: {coverage, ...},\n  words: [{en, fr, pos}, ...]\n}
+TE --> API : {\n  translated_text,\n  stats: {coverage},\n  words: [{en, fr, pos}, ...]\n}
 deactivate TE
 
 API --> FE : JSON response
 deactivate API
 
-FE --> User : Show translation\n+ stats + detailed table
+FE --> User : Show translation\n+ word table + coverage
+deactivate FE
+
+== Вкладка Dictionary (управление словарём, нечёткий поиск) ==
+
+User -> FE : open Dictionary tab
+FE -> API : GET /api/translate/dict/search?q=...
+activate API
+API -> DICT : search(query, limit)
+activate DICT
+DICT -> PG : prefix LIKE 'q%' (text_pattern_ops)
+PG --> DICT : rows (или < limit)
+alt rows < limit
+    DICT -> PG : similarity(q, source_word)\n(trgm, ordered)
+    PG --> DICT : fuzzy rows
+end
+DICT --> API : entries (prefix + fuzzy)
+deactivate DICT
+API --> FE : JSON
+deactivate API
+FE --> User : list of EN->FR pairs
+note right of User
+  historee -> history
+  conected -> connecter
+end note
+
+== Режим 2: Neural MT (полный текст) ==
+
+User -> FE : Enter text\n+ select "Neural MT"\n+ click "Translate"
+activate FE
+
+FE -> API : POST /api/translate-nmt\n{text}
+activate API
+
+API -> NMT : translate_text(text)
+activate NMT
+
+NMT -> NMT : sent_tokenize(text)
+loop for each sentence
+    NMT -> NMT : tokenizer(sentence)\nmodel.generate()\ntokenizer.decode()
+end
+
+NMT --> API : {\n  translated_text,\n  method: "nmt",\n  word_count, processing_time\n}
+deactivate NMT
+
+API --> FE : JSON response
+deactivate API
+
+FE --> User : Show full translation
 deactivate FE
 
 @enduml

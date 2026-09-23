@@ -1,0 +1,77 @@
+@startuml architecture_stt
+!pragma layout smetana
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam defaultFontName DejaVu Sans
+skinparam ArrowColor #475569
+skinparam rectangle {
+    BackgroundColor #EAF2FB
+    BorderColor #2563EB
+}
+skinparam rectangle<<client>> {
+    BackgroundColor #FEF3C7
+    BorderColor #D97706
+}
+skinparam rectangle<<server>> {
+    BackgroundColor #DCFCE7
+    BorderColor #16A34A
+}
+skinparam rectangle<<engine>> {
+    BackgroundColor #FCE7F3
+    BorderColor #DB2777
+}
+skinparam rectangle<<model>> {
+    BackgroundColor #EDE9FE
+    BorderColor #7C3AED
+}
+
+rectangle "КЛИЕНТ — stt.html + js/stt.js\nмикрофон (getUserMedia + ScriptProcessor),\nдаунсемпл 16 кГц → WAV, селектор ЕЯ,\nлог, toast-уведомления, редактор фраз,\nголосовое уведомление через TTS" <<client>> as FE
+
+rectangle "СЕРВЕР — Flask REST" <<server>> as API
+rectangle "controllers/stt.py\nstatus / commands /\ncommands/reset / recognize\n(возврат JSON)" as CTRL
+rectangle "services/stt_service.py\nвалидация, dual-pass\nраспознавание, диспетчер\nопераций, метрики" as SVC
+rectangle "stt/matcher.py\nнормализация (без акцентов),\nexact/prefix/substring/fuzzy,\ntoken coverage" as MATCH
+rectangle "stt/commands.py\nреестр операций +\nредактируемые фразы EN/FR\n(data/stt_commands.json)" as CMD
+rectangle "lang_detection\n(majority vote) — реюз\n(detect_language)" as LANG
+rectangle "search / summarize /\ntranslate services\n(реакция)" as OPS
+
+rectangle "stt/engines.py\nдвойной проход:\nfree + constrained vocab" as ENG
+
+rectangle "Vosk (Kaldi, offline)\nKaldiRecognizer\n16 kHz mono PCM" <<engine>> as VOSK
+
+rectangle "Модели ONNX/Kaldi:\nvosk-model-small-en-us-0.15\nvosk-model-small-fr-0.22\n/vosk_models/" <<model>> as MODELS
+
+rectangle "TTS subsystem\n(Piper / eSpeak)\nголосовое уведомление" as TTS
+
+rectangle "JSON response:\n{text, operation, argument,\nconfidence, notify, client_action}" as RESP
+
+FE -down-> API : POST /api/stt/recognize\nmultipart: wav + lang + doc_id?
+API -down-> CTRL
+CTRL -down-> SVC
+SVC -down-> ENG
+ENG -down-> VOSK
+VOSK -down-> MODELS
+SVC -right-> MATCH : текст → команда
+SVC -up-> CMD : load/save фраз
+SVC -right-> OPS : диспетчер операций
+OPS -down-> LANG : detect_language
+SVC -right-> TTS : speak notify (клиент)
+SVC -down-> RESP
+RESP -up-> FE : JSON\n(клиент: toast + navigate + TTS)
+
+note bottom of CMD
+  Операции фиксированы в коде;
+  редактируются только фразы
+  (GET/POST /api/stt/commands,
+   POST .../commands/reset).
+end note
+
+note bottom of ENG
+  Pass 1: free Vosk → аргументы.
+  Pass 2: constrained vocab
+  (слова всех фраз) → матчинг.
+  Лимит: 30 с, 16 кГц.
+end note
+
+@enduml

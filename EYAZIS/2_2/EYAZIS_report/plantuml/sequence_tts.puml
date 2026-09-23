@@ -1,0 +1,83 @@
+@startuml sequence_tts
+skinparam backgroundColor #FEFEFE
+skinparam sequenceArrowThickness 2
+skinparam sequenceParticipantBorderColor #222222
+skinparam sequenceLifeLineBorderColor #BBBBBB
+skinparam noteBorderColor #888888
+
+title Sequence: Speech Synthesis (Piper / eSpeak-NG)
+
+actor User
+participant "tts.html\n(js/tts.js)" as FE
+participant "controllers/tts.py\n(REST)" as API
+participant "services/tts_service.py" as SVC
+participant "tts/normalize.py" as NORM
+participant "lang_detection\n(majority vote)" as LANG
+participant "tts/engines.py" as ENG
+participant "Piper / eSpeak-NG\n(offline)" as ENGINE
+
+== Настройка (однократно) ==
+
+FE -> API : GET /api/tts/voices
+API --> FE : 7 голосов (4 piper + 3 espeak)\n+ default_by_lang
+FE -> API : GET /api/tts/status
+API --> FE : models presence, espeak availability
+
+== Определение языка (кнопка Detect) ==
+
+User -> FE : ввод EN/FR текста\n+ click "Detect language"
+FE -> API : POST /api/tts/detect-lang {text}
+activate API
+API -> SVC : detect_lang(text)
+SVC -> LANG : classify_text_all(text)
+LANG --> SVC : lang (majority), agreed, ms
+SVC --> API : {lang, default_voice}
+API --> FE : {lang: "fr", default_voice: "fr-siwis"}
+deactivate API
+FE -> FE : voiceSelect = default_voice
+
+== Синтез ==
+
+User -> FE : click "Synthesize & Play"
+activate FE
+FE -> API : POST /api/tts/synthesize\n{text, voice, rate, volume, pitch}
+activate API
+API -> SVC : synthesize(...)
+activate SVC
+
+SVC -> NORM : normalize_text(text)
+NORM --> SVC : чистый текст\n(паузы, кавычки, без markdown)
+
+alt voice указан
+    SVC -> SVC : registry lookup + валидация
+else voice не указан
+    SVC -> LANG : classify_text_all
+    LANG --> SVC : lang → default voice
+end
+
+SVC -> SVC : клампинг rate/volume/pitch,\nлимит 4000 символов\n(HTTP 400 при нарушении)
+
+alt engine = piper
+    SVC -> ENG : synthesize_piper(voice, text, rate, volume)
+    ENG -> ENG : length_scale=1/rate,\nvolume=pct/100,\nкэш ONNX (lock)
+    ENG -> ENGINE : PiperVoice.synthesize_wav(text, cfg)
+    ENGINE --> ENG : WAV (PCM 16 бит)
+else engine = espeak (fallback)
+    SVC -> ENG : synthesize_espeak(..., pitch)
+    ENG -> ENGINE : espeak-ng -s wpm -a amp -p pitch -w out.wav
+    ENGINE --> ENG : WAV
+end
+
+ENG --> SVC : wav_bytes
+SVC -> SVC : метрики: elapsed_ms,\nduration_s, chars
+SVC --> API : {audio, voice, engine, ...}
+deactivate SVC
+
+API --> FE : 200 audio/wav\n+ X-TTS-Voice/Engine/Elapsed-Ms/Duration-S
+deactivate API
+
+FE -> FE : Blob → URL.createObjectURL\n→ <audio>.play()
+FE --> User : воспроизведение + статистика\n(голос, движок, мс, сек)
+deactivate FE
+
+@enduml

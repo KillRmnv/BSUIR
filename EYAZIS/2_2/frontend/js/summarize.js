@@ -186,5 +186,34 @@
         return div.innerHTML;
     }
 
+    function openDocFromQuery() {
+        var docId = new URLSearchParams(location.search).get('doc');
+        if (!docId) return;
+        sourceEl.value = 'doc';
+        if (docInputEl) docInputEl.classList.remove('hidden');
+        if (textInputEl) textInputEl.classList.add('hidden');
+        var tries = 0;
+        var apply = function () {
+            tries += 1;
+            var found = false;
+            for (var i = 0; i < docSelectEl.options.length; i++) {
+                if (String(docSelectEl.options[i].value) === String(docId)) {
+                    docSelectEl.value = String(docId);
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                btnEl.click();
+            } else if (tries < 40) {
+                setTimeout(apply, 150);
+            } else {
+                showStatus('Document #' + docId + ' not found.', true);
+            }
+        };
+        setTimeout(apply, 250);
+    }
+
     loadDocuments();
+    openDocFromQuery();
 })();

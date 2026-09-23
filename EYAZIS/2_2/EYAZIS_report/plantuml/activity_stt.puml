@@ -1,0 +1,83 @@
+@startuml activity_stt
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam defaultFontName DejaVu Sans
+
+skinparam activity {
+    BorderColor #2563EB
+    BackgroundColor #EAF2FB
+    ArrowColor #475569
+    DiamondBorderColor #D97706
+    DiamondBackgroundColor #FEF3C7
+}
+
+title Блок-схема алгоритма голосовой команды (вариант 8, EN+FR)
+
+start
+:Микрофон: getUserMedia\n+ ScriptProcessor (Float32 chunks);
+
+if (нажат Stop?) then (да)
+else (нет)
+endif
+:Слияние чанков → даунсемпл 16 кГц\n→ WAV (mono, int16);
+
+:POST /api/stt/recognize\n{wav, lang ∈ {en,fr}, doc_id?};
+
+if (валидация:\nпусто / >8 МБ / >30 с /\nlang не en|fr?) then (да)
+  :HTTP 400 ValidationError;
+  stop
+else (нет)
+endif
+
+partition "Dual-pass распознавание (Vosk)" {
+  :Загрузка модели lang\n(кэш ONNX/Kaldi, lock);
+  :Pass 1 — free:\nKaldiRecognizer(model, 16k)\n→ text_free (для аргументов);
+  :Сборка словаря из всех\nфраз команд (normalize → tokens);
+  :Pass 2 — constrained:\nKaldiRecognizer(model, 16k, words)\n→ text_cmd (для матчинга);
+}
+
+partition "Матчинг команды (stt/matcher)" {
+  :Нормализация: lower,\nснятие акцентов (NFD), пунктуация;
+  :Для каждой операции × её фраз (lang):\nexact 1.0 / prefix 0.95 / inside 0.88\n/ fuzzy ratio≥0.68 / token coverage ≥0.6;
+  :Лучший (score, длина фразы);\nесли score < 0.68 → no match;
+}
+
+if (команда\nраспознана?) then (нет)
+  :notify EN/FR:\n«Command not recognized…»\n(JSON matched=false);
+  stop
+else (да)
+endif
+
+partition "Диспетчер операций (stt_service)" {
+  if (operation?) then (search)
+    :аргумент = хвост фразы\n→ search_service → top-5;
+  elseif (summarize) then
+    :doc_id из формы\n(summarize_document);
+  elseif (translate) then
+    :translation_service.translate(arg);
+  elseif (read_aloud) then
+    :speak = arg / default;\nклиент вызовет TTS;
+  elseif (detect_language) then
+    :classify_text_all(arg) — реюз;
+  elseif (list_commands) then
+    :вернуть реестр операций;
+  else (open_* / help)
+    :client_action = navigate:page.html;
+  endif
+}
+
+:JSON:\n{text, operation, argument, confidence,\nnotify{en,fr}, client_action, result};
+
+:Клиент: log + toast notify[lang]\n+ опционально TTS speak notify\n+ navigate(client_action);
+stop
+
+note right
+  Операции фиксированы;
+  фразы редактируются
+  в data/stt_commands.json.
+  Голосовое уведомление —
+  через существующий TTS.
+end note
+
+@enduml

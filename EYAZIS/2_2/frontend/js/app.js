@@ -114,6 +114,12 @@ modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
 });
 
+const initialQ = new URLSearchParams(location.search).get('q');
+if (initialQ) {
+    searchInput.value = initialQ;
+    searchForm.requestSubmit();
+}
+
 function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str;

@@ -1,0 +1,76 @@
+@startuml sequence_stt
+skinparam backgroundColor #FEFEFE
+skinparam sequenceArrowThickness 2
+skinparam sequenceParticipantBorderColor #222222
+skinparam sequenceLifeLineBorderColor #BBBBBB
+skinparam noteBorderColor #888888
+
+title Sequence: Voice Command Recognition (Vosk)
+
+actor User
+participant "stt.html\n(js/stt.js)" as FE
+participant "controllers/stt.py\n(REST)" as API
+participant "services/stt_service.py" as SVC
+participant "stt/commands.py\n(phrases JSON)" as CMD
+participant "stt/matcher.py" as MATCH
+participant "stt/engines.py\n(Vosk dual-pass)" as ENG
+participant "search/summarize/\ntranslate/lang services" as OPS
+participant "TTS /api/tts/synthesize" as TTS
+
+== Настройка (однократно) ==
+
+FE -> API : GET /api/stt/status
+API --> FE : models en/fr presence, sample_rate
+FE -> API : GET /api/stt/commands
+API --> FE : 16 operations + editable phrases EN/FR
+
+== Редактирование фраз ==
+
+User -> FE : меняет фразы в таблице\n(операция та же)
+FE -> API : POST /api/stt/commands\n{operations:[{id, phrases}]}
+API -> CMD : save_commands (validate ids)
+CMD --> API : saved
+API --> FE : {operations, saved:true}
+
+== Запись и распознавание ==
+
+User -> FE : ▶ Record → говорит → ■ Stop
+FE -> FE : merge Float32 chunks\n→ resample 16 kHz → WAV blob
+FE -> API : POST /api/stt/recognize\nmultipart: wav, lang, doc_id?
+activate API
+API -> SVC : recognize(wav, lang, doc_id, engine)
+activate SVC
+
+SVC -> CMD : get_operations()
+CMD --> SVC : operations (+phrases)
+SVC -> ENG : free pass: recognize_pcm(lang, pcm)
+ENG --> SVC : text_free
+SVC -> ENG : constrained pass: recognize_pcm(..., words=vocab)
+ENG --> SVC : text_cmd
+
+SVC -> MATCH : match_command(text_free / text_cmd, ops, lang)
+MATCH --> SVC : match {operation, argument, confidence} | None
+
+alt not matched
+    SVC --> API : matched=false + notify EN/FR
+else matched
+    SVC -> OPS : dispatch (search | summarize | translate | detect | list | navigate)
+    OPS --> SVC : result / client_action
+    SVC --> API : {operation, argument, confidence,\nnotify, client_action, result}
+end
+deactivate SVC
+API --> FE : 200 JSON
+deactivate API
+
+FE -> FE : log entry + toast notify[lang]\nstats: op/conf/ms/phrase
+alt client_action = navigate:*
+    FE -> FE : location.href after 600 ms
+end
+alt voiceNotify checked
+    FE -> TTS : POST /api/tts/synthesize {notify[lang], lang}
+    TTS --> FE : audio/wav → play
+end
+FE --> User : уведомление + переход
+deactivate FE
+
+@enduml

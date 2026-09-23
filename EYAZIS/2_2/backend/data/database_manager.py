@@ -39,7 +39,6 @@ def fetch_content(s3_key: Optional[str]) -> Optional[str]:
 
 def insert_document(title: str, content: str, embedding: List[float], summary: Optional[str] = None, file_path: Optional[str] = None, lang: Optional[str] = None, s3_key: Optional[str] = None) -> int:
     """Insert document. Content is stored in S3, not in DB."""
-    # Upload content to S3 if not already uploaded
     if not s3_key and content:
         import uuid
         ext = title.rsplit(".", 1)[-1] if "." in title else "txt"
@@ -125,7 +124,6 @@ def get_all_document_texts() -> List[str]:
     cur.close()
     conn.close()
     return texts
-
 
 def get_all_document_texts_with_lang() -> List[Tuple[str, str]]:
     """Full content + language of every document from S3 — for multilingual vocab/IDF rebuilds."""

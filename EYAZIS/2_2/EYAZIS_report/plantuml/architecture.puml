@@ -1,4 +1,5 @@
 @startuml architecture
+!pragma layout smetana
 skinparam backgroundColor white
 skinparam shadowing false
 skinparam roundCorner 12
@@ -31,6 +32,10 @@ rectangle "index.html\n(поиск)" as INDEX
 rectangle "upload.html\n(загрузка)" as UPLOAD
 rectangle "documents.html\n(список)" as DOCS
 rectangle "metrics.html\n(оценка)" as METRICS
+rectangle "classify.html\n(классификация)" as CLASSIFY
+rectangle "summarize.html\n(реферирование)" as SUMMARIZE
+rectangle "translate.html\n(перевод)" as TRANSLATE
+rectangle "tts.html\n(синтез речи)" as TTS
 
 rectangle "ФАЙЛОВЫЙ НАБЛЮДАТЕЛЬ — watchdog (Python)\nCLI-клиент: мониторинг директории,\nавтоматическая репликация" <<watcher>> as WATCHER
 
@@ -41,25 +46,43 @@ rectangle "СЕРВЕРНЫЙ УРОВЕНЬ — Flask (Python 3.11), REST API /
 rectangle "search_engine.py\nпоиск, подсветка" as SE
 rectangle "document_processor.py\nTF-IDF, словарь, IDF" as DP
 rectangle "document_loader.py\nизвлечение текста\n(pdf, docx, html...)" as LOADER
-rectangle "database_manager.py\nPostgreSQL CRUD,\nвекторный поиск" as DBM
+rectangle "database_manager.py\nPostgreSQL CRUD,\nвекторный поиск,\nS3 fetch" as DBM
 rectangle "evaluator.py\nPrecision / Recall /\nF-мера + графики" as EVAL
 rectangle "watch_handler.py\nобработка событий\nфайлового наблюдателя" as WH
 rectangle "migrate.py\nмиграции БД" as MIGRATE
-rectangle "s3_client.py\nMinIO S3-клиент\n(upload, download,\npresigned URL)" as S3
+rectangle "s3_client.py\nMinIO S3-клиент\n(upload_text,\ndownload_text)" as S3
 
-rectangle "PostgreSQL 16 + pgvector\n(documents, search_logs,\nvocabulary, idf_values,\nschema_migrations,\nwatch_clients, watch_events)" <<db>> as PG
+rectangle "translation_engine.py\nпословный перевод,\nсопряжения, грамматика" as TE
+rectangle "nmt_engine.py\nHelsinki-NLP\nopus-mt-en-fr\n(Neural MT)" as NMT
+rectangle "common_words.py\n~1500 слов\nin-memory dict" as CW
+rectangle "dictionary.py\nlookup: dict->DB\nсловарь переводов" as DICT
+rectangle "syntax_parser.py\nspaCy + RegexpParser\nконституэнтные деревья" as SYNTAX
+rectangle "pos_tagger.py\nPOS-теги EN/FR" as POS
+rectangle "lang_methods.py\n3 метода:\nngram, alphabet, neural\nmajority vote" as LANG
+rectangle "tts/engines.py\nPiper (нейро) + espeak-ng\nсинтез WAV" as TTS_ENG
+rectangle "tts/normalize.py\nнормализация текста\nдля синтеза" as TTS_NORM
 
-rectangle "MinIO Object Storage\n(bucket: documents)\nхранилище оригинальных\nфайлов" <<db>> as MINIO
+rectangle "PostgreSQL 16 + pgvector\n(documents, search_logs,\nvocabulary, idf_values,\ntranslation_dictionary,\nphrase_dictionary,\nschema_migrations,\nwatch_clients, watch_events)" <<db>> as PG
+
+rectangle "MinIO Object Storage\n(bucket: documents)\nхранилище текстов\ndокументов" <<db>> as MINIO
 
 CLIENT -down-> INDEX
 CLIENT -down-> UPLOAD
 CLIENT -down-> DOCS
 CLIENT -down-> METRICS
+CLIENT -down-> CLASSIFY
+CLIENT -down-> SUMMARIZE
+CLIENT -down-> TRANSLATE
+CLIENT -down-> TTS
 
 INDEX -down-> FLASK
 UPLOAD -down-> FLASK
 DOCS -down-> FLASK
 METRICS -down-> FLASK
+CLASSIFY -down-> FLASK
+SUMMARIZE -down-> FLASK
+TRANSLATE -down-> FLASK
+TTS -down-> FLASK : POST /api/tts/synthesize
 
 WATCHER -down-> WCLI
 WCLI -down-> FLASK : HTTP POST\n/api/watch-event
@@ -70,10 +93,24 @@ FLASK -right-> LOADER
 FLASK -right-> DBM
 FLASK -right-> WH
 FLASK -right-> S3
+FLASK -right-> TE
+FLASK -right-> NMT
+FLASK -right-> SYNTAX
+FLASK -right-> LANG
+FLASK -right-> TTS_ENG
+FLASK -right-> TTS_NORM
+
+TE -down-> DICT
+TE -down-> POS
+TE -down-> CW
+DICT -down-> DBM
+SYNTAX -down-> POS
+TTS_NORM -down-> TTS_ENG
 
 SE -down-> EVAL
 DBM -down-> PG
 WH -down-> DBM
 S3 -down-> MINIO
+DBM -down-> MINIO
 
 @enduml

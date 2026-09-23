@@ -3,124 +3,201 @@
 
 \subsection{Постановка задачи}
 
-Разработана подсистема пословного машинного перевода с английского языка на французский
+Разработана подсистема машинного перевода с английского языка на французский
 (variant~5: область --- компьютерные науки и литературные эссе).
-Подсистема реализует прямой перевод без перестановки слов и морфологической адаптации.
+Подсистема поддерживает два режима перевода:
+пословный (словарный) и нейросетевой (NMT).
 
 Основные возможности:
 \begin{itemize}
-	\item Пословный перевод с использованием базы данных словарных пар;
-	\item POS-тегирование (определение частей речи) для английского и французского языков;
-	\item Синтаксический разбор (построение деревьев составляющих);
-	\item Частотный список слов с переводом;
-	\item Управление словарём (добавление, поиск, удаление пар слов).
+	\item Пословный перевод по словарю \textbf{95\,454 пары}
+	      (41\,020 уникальных слов) в PostgreSQL: партиционированном по
+	      частям речи, с индексами и нечётким поиском;
+	\item Трёхуровневый lookup: in-memory \texttt{COMMON\_WORDS} $\to$
+	      точный SQL (с прунингом партиций) $\to$ лемматизация spaCy;
+	\item Нечёткий поиск по словарю (префикс + трёхбуквенные метрики pg\_trgm:
+	      \texttt{historee} $\to$ \texttt{history});
+	\item Нейросетевой перевод (Helsinki-NLP/opus-mt-en-fr);
+	\item Сопряжение глаголов (правильные -er/-ir/-re и 15+ неправильных);
+	\item Французская грамматика: артикли (le/la/les), род, отрицание (ne...pas);
+	\item Синтаксический разбор (spaCy + NLTK RegexpParser);
+	\item POS-тегирование EN/FR.
 \end{itemize}
 
 \subsection{Архитектура подсистемы}
 
-Подсистема состоит из четырёх модулей:
+Подсистема состоит из семи модулей:
 
 \begin{enumerate}
-	\item \texttt{translator/dictionary.py} "--- операции с базой данных PostgreSQL:
-	      добавление, поиск, удаление пар слов;
-	\item \texttt{translator/pos\_tagger.py} "--- POS-тегирование с использованием NLTK
-	      (average perceptron tagger для EN, perceptron\_tagger\_fr для FR);
-	\item \texttt{translator/syntax\_parser.py} "--- построение деревьев составляющих
-	      с помощью RegexpParser;
-	\item \texttt{translator/translation\_engine.py} "--- основной движок перевода:
-	     lookup словаря, замена слов, сбор статистики.
+	\item \texttt{translator/common\_words.py} "--- in-memory словарь 1197 слов
+	      (артикли, предлоги, глаголы, существительные, прилагательные, наречия,
+	      CS/литературные термины) для O(1) lookup без обращения к БД;
+	\item \texttt{translator/dictionary.py} "--- трёхуровневый lookup:
+	      \texttt{COMMON\_WORDS} $\to$ точный SQL по партиционированной
+	      таблице $\to$ лемматизация spaCy и повторный SQL-запрос;
+	      нечёткий поиск (pg\_trgm) для вкладки Dictionary;
+	\item \texttt{translator/seed\_dictionary.py} "--- наполнение словаря
+	      из English WordNet $\times$ French OMW/WOLF (позиционное выравнивание
+	      по синсетам, POS из синсета) и проектных сид-списков;
+	      целевой объём $\geq$ 30\,000 пар (фактически 95\,454);
+	\item \texttt{translator/translation\_engine.py} "--- основной движок:
+	      POS-тегирование, lookup, сопряжение глаголов, французская грамматика,
+	      отрицание, rebuild текста;
+	\item \texttt{translator/nmt\_engine.py} "--- нейросетевой перевод
+	      Helsinki-NLP/opus-mt-en-fr (lazy-loaded, ~305 MB);
+	\item \texttt{translator/syntax\_parser.py} "--- синтаксический разбор:
+	      spaCy (universal POS) + NLTK RegexpParser;
+	\item \texttt{translator/pos\_tagger.py} "--- POS-тегирование EN/FR.
 \end{enumerate}
 
-\subsection{Процесс перевода}
+\subsection{Словарь: партиционирование, индексы, наполнение}
 
-Алгоритм перевода текста:
+Таблица \texttt{translation\_dictionary} партиционирована методом LIST
+по грубой части речи \texttt{pos\_group} (6 партиций: \texttt{noun},
+\texttt{verb}, \texttt{adj}, \texttt{adv}, \texttt{func}, \texttt{other}),
+маппинг из мелкого Penn-тега выполняется в миграции 009 и в Python-функции
+\texttt{pos\_group()}. Ключ партиции входит в первичный ключ и в
+\texttt{UNIQUE(source\_word, target\_word, source\_pos, pos\_group)},
+что позволяет применять \texttt{ON CONFLICT} при вставке.
+
+Индексы (создаются на родителе и каскадом переносятся на все партиции):
+
+\begin{itemize}
+	\item \texttt{(source\_word, source\_pos) INCLUDE (target\_word, target\_pos, frequency)} "---
+	      покрывающий индекс: lookup возвращает данные без обращения к heap;
+	      в сочетании с предикатом \texttt{pos\_group} планировщик сокращает
+	      обход до одной партиции (partition pruning подтверждён \texttt{EXPLAIN});
+	\item \texttt{(source\_word text\_pattern\_ops)} "--- префиксный поиск
+	      \texttt{LIKE 'abc\%'} (колонка нормализуется в lowercase при записи,
+	      поэтому обычный btree применим);
+	\item \texttt{USING gin (source\_word gin\_trgm\_ops)} "--- нечёткий поиск
+	      по схожести строк (\texttt{similarity()}, оператор \texttt{\%})
+	      расширения \texttt{pg\_trgm}: опечатка \texttt{conected} находит
+	      \texttt{connecter}/\texttt{connect}, \texttt{historee} $\to$ \texttt{history};
+	\item \texttt{(frequency DESC)} "--- пагинация списка словаря.
+\end{itemize}
+
+Наполнение выполняется идемпотентным сидером \texttt{seed\_dictionary.py}
+(запускается из \texttt{start.sh} после миграций и при старте приложения;
+при $\geq$ 30\,000 записей пропускается). Источники:
 
 \begin{enumerate}
-	\item Входной текст токенизируется и разбивается на предложения.
-	\item Каждое слово POS-тегируется NLTK-теггером (средний перцептрон).
-	\item Для каждого слова выполняется поиск в базе данных словарных пар
-	      (сначала по словоформе и POS-тегу, затем без POS-тега).
-	\item Найденное французское слово подставляется вместо английского.
-	\item Слова, не найденные в словаре, остаются на английском.
-	\item Формируется статистика: количество слов, переведённых слов, покрытие.
+	\item проектные сид-списки: \texttt{COMMON\_WORDS} (1197),
+	      \texttt{COMMON\_TRANSLATIONS} (747), \texttt{PHRASE\_PAIRS} (163)
+	      "--- доменные CS/литературные термины, частота 10;
+	\item \textbf{English WordNet} $\times$ \textbf{French OMW/WOLF}
+	      (корпус \texttt{omw-1.4}, 59\,091 французских синсетов): пары
+	      выравниваются по синсету, часть речи наследуется от синсета
+	      ($n{\to}$NN, $v{\to}$VB, $a|s{\to}$JJ, $r{\to}$RB), частота 1 "---
+	      да 94\,205 пар; одиночные токены попадают в слова,
+	      многословные отбрасываются (фразы курируются отдельно);
+	\item FreeDict eng-fra (TEI) "--- резервный источник на случай,
+	      если целевой объём не достигнут (в текущей сборке не потребовался).
 \end{enumerate}
 
-\subsection{POS-тегирование}
+Итоговое распределение по партициям: noun 57\,633, verb 19\,526,
+adj 14\,531, adv 3\,572, func 192.
 
-Для английского языка используется NLTK averaged perceptron tagger
-(\texttt{averaged\_perceptron\_tagger\_eng}), для французского --- NLTK perceptron tagger
-(\texttt{perceptron\_tagger\_fr}). При отсутствии модели используется эвристика на основе
-суффиксов:
+\subsection{Трёхуровневый lookup}
 
-\begin{lstlisting}[caption={Эвристическое определение POS-тега для FR.},label={lst:pos_heuristic}]
-def _heuristic_pos_fr(word: str) -> str:
-    w = word.lower()
-    if w.endswith(('tion', 'ment', 'age', 'ence', 'ance')):
-        return 'NC'
-    if w.endswith(('eux', 'if', 'ique', 'al')):
-        return 'ADJ'
-    if w.endswith(('er', 'ir', 're')):
-        return 'V'
-    return 'NC'
+Перевод одного слова выполняется по цепочке:
+
+\begin{enumerate}
+	\item \textbf{In-memory lookup} --- \texttt{COMMON\_WORDS} dict (1197 записей).
+	      O(1) поиск без обращения к БД. Покрывает: артикли, предлоги,
+	      местоимения, 400+ глаголов, 300+ существительных, 150+ прилагательных,
+	      60+ наречий, CS/литературные термины.
+	\item \textbf{Точный SQL} --- \texttt{SELECT} из
+	      \texttt{translation\_dictionary} по \texttt{source\_word}. Если известен
+	      POS-тег, добавляется предикат \texttt{pos\_group} (прунинг до одной
+	      партиции) и нечёткое сопоставление мелкого тега
+	      (запрос \texttt{NNS} находит сохранённые \texttt{NN}/\texttt{NNS}/\texttt{NNP}).
+	\item \textbf{Лемматизация spaCy} --- при пустом результате запрос
+	      лемматизируется моделью \texttt{en\_core\_web\_sm} (пайплайн
+	      переиспользуется из \texttt{syntax\_parser}, без повторной загрузки
+	      модели) и точный запрос повторяется: \texttt{mice} $\to$ \texttt{mouse},
+	      \texttt{studies} $\to$ \texttt{study}. Это дополняет WordNet-лемматизацию
+	      в \texttt{translation\_engine} словами вне WordNet.
+\end{enumerate}
+
+Помимо одиночных слов, поддерживается поиск многословных выражений
+(фраз длиной 2--3 слова) через таблицу \texttt{phrase\_dictionary};
+поиск во вкладке Dictionary сначала выполняет префиксный запрос,
+а при нехватке результатов "--- трёхбуквенный нечёткий запрос pg\_trgm.
+
+\subsection{Морфологическая обработка}
+
+Для каждого переведённого слова применяется морфологическая адаптация:
+
+\begin{itemize}
+	\item \textbf{Сопряжение глаголов:} правильные (-er: \texttt{parler},
+	      -ir: \texttt{finir}, -re: \texttt{vendre}) и 15+ неправильных
+	      (être, avoir, faire, aller, etc.) по лицу подлежащего;
+	\item \textbf{Артикли:} a/an → un/une (по роду следующего слова),
+	      the → le/la/les (по числу/роду);
+	\item \textbf{Указательные:} this/that → ce/cette, these/those → ces;
+	\item \textbf{Отрицание:} not/n't → ne ... pas;
+	\item \textbf{Прошедшее время:} VBD → avoir + причастие.
+\end{itemize}
+
+\subsection{Нейросетевой перевод (NMT)}
+
+Реализован вторичный режим перевода с использованием модели
+\texttt{Helsinki-NLP/opus-mt-en-fr} (MarianMT, ~305 MB, ~1.2 GB RAM).
+
+\begin{lstlisting}[caption={NMT перевод.},label={lst:nmt}]
+def translate_text(text: str) -> dict:
+    _load()  # lazy-load модели при первом вызове
+    sentences = sent_tokenize(text.strip())
+    translations = []
+    for sent in sentences:
+        inputs = tokenizer(sent, return_tensors="pt",
+                           truncation=True, max_length=512)
+        ids = model.generate(**inputs, max_length=512, num_beams=4)
+        translations.append(tokenizer.batch_decode(ids)[0])
+    return {"translated_text": " ".join(translations), "method": "nmt"}
 \end{lstlisting}
 
-Описания POS-тегов хранятся в словаре \texttt{POS\_DESCRIPTIONS}
-и передаются клиенту для отображения.
+Модель загружается лениво при первом запросе к \texttt{/api/translate-nmt}.
+Время перевода: 50--150 мс на предложение (CPU), 3--4 с на абзац.
 
 \subsection{Синтаксический разбор}
 
-Для построения деревьев составляющих используется NLTK RegexpParser
-с грамматическими правилами:
+Для построения деревьев составляющих используется \textbf{spaCy}
+для POS-тегирования (universal POS tags) и \textbf{NLTK RegexpParser}
+для конституэнтного парсинга.
 
-\begin{lstlisting}[caption={Грамматические правила для EN.},label={lst:en_grammar}]
+\begin{lstlisting}[caption={Грамматика для EN (universal POS).},label={lst:en_grammar}]
 EN_GRAMMAR = r"""
-    NP: {<DT|PRP\$>?<JJ.*>*<NN.*>+}       # Noun phrase
-    VP: {<MD>?<VB.*><NP|PP|CLAUSE>*}         # Verb phrase
-    PP: {<IN><NP>}                            # Prepositional phrase
-    CLAUSE: {<NP><VP>}                        # Clause
+    ADVP: {<ADV>+}
+    ADJP: {<ADV>*<ADJ>+}
+    NP: {<DET|NUM|ADJ>*<NOUN|PROPN>+} {<PRON>}
+    PP: {<ADP><NP>}
+    VP: {<AUX|VERB>+<PART>?<ADV>*<NP|PP|ADJP|ADVP>*}
+    CLAUSE: {<NP><VP>}
 """
 \end{lstlisting}
 
-Деревья сериализуются в JSON (вложенные dict) для передачи клиенту.
-Строковое представление генерируется методом \texttt{str(tree)} NLTK.
-
-\subsection{Словарь переводчика}
-
-База данных PostgreSQL хранит таблицу \texttt{translation\_dictionary}:
-
-\begin{lstlisting}[caption={Схема таблицы словаря.},label={lst:dict_schema}]
-CREATE TABLE translation_dictionary (
-    id SERIAL PRIMARY KEY,
-    source_word TEXT NOT NULL,
-    target_word TEXT NOT NULL,
-    source_pos TEXT DEFAULT '',
-    target_pos TEXT DEFAULT '',
-    frequency INTEGER DEFAULT 1,
-    UNIQUE (source_word, target_word, source_pos)
-);
-CREATE INDEX idx_dict_source ON translation_dictionary (LOWER(source_word));
-\end{lstlisting}
-
-Начальный словарь загружается из двух источников:
-\begin{enumerate}
-	\item 800+ заранее подготовленных пар слов (артикли, предлоги, местоимения,
-	      глаголы, существительные, прилагательные, наречия, термины ИТ);
-	\item Частотное выравнивание пар из параллельных корпусов EN/FR в проекте.
-\end{enumerate}
+Поддерживаются языки EN (\texttt{en\_core\_web\_sm}) и FR
+(\texttt{fr\_core\_news\_sm}). Деревья сериализуются в JSON
+(\{label, children, is\_leaf, text\}) для рендеринга CSS-дерева
+на клиенте.
 
 \subsection{API методы}
 
 \begin{lstlisting}[caption={HTTP эндпоинты подсистемы перевода.},label={lst:translate_api}]
-POST /api/translate             --- перевод текста
-POST /api/translate/pos         --- POS-тегирование
-POST /api/translate/parse       --- синтаксический разбор
-GET  /api/translate/dict        --- список словаря
-POST /api/translate/dict        --- добавление пары
-GET  /api/translate/dict/search --- поиск по префиксу
-POST /api/translate/dict/bulk   --- массовая загрузка
+POST /api/translate              --- пословный перевод текста
+POST /api/translate-nmt          --- нейросетевой перевод
+POST /api/translate/pos          --- POS-тегирование
+POST /api/translate/parse        --- синтаксический разбор
+GET  /api/translate/dict         --- список словаря (пагинация)
+POST /api/translate/dict         --- добавление пары
+GET  /api/translate/dict/search  --- поиск: префикс, затем нечёткий (pg_trgm)
+POST /api/translate/dict/bulk    --- массовая загрузка
 POST /api/translate/dict/bootstrap --- загрузка базового словаря
-POST /api/translate/dict/delete --- удаление пары
-POST /api/translate/freq        --- частотный список
+POST /api/translate/dict/delete  --- удаление пары
+POST /api/translate/freq         --- частотный список
+POST /api/translate/export       --- экспорт в TXT
 \end{lstlisting}
 
 \subsection{Интерфейс пользователя}
@@ -128,39 +205,38 @@ POST /api/translate/freq        --- частотный список
 Фронтенд (\texttt{translate.html}) содержит три вкладки:
 
 \begin{enumerate}
-	\item \textbf{Word List} "--- ввод английского текста, получение перевода
-	      со статистикой (количество слов, переведённых слов, покрытие)
-	      и подробной таблицей с POS-тегами и статусом перевода.
+	\item \textbf{Word List} "--- ввод английского текста с выбором режима
+	      (Dictionary / Neural MT). Режим Dictionary показывает пословный
+	      перевод со статистикой и таблицей. Режим NMT показывает полный
+	      перевод.
 	\item \textbf{Syntax Tree} "--- ввод одного или нескольких предложений,
-	      отображение деревьев составляющих (NP, VP, PP, CLAUSE).
+	      отображение деревьев составляющих (CSS-дерево с линиями-коннекторами).
 	\item \textbf{Dictionary} "--- просмотр, поиск, добавление и удаление
-	      пар слов в базе данных; кнопка ``Bootstrap Common Words''
-	      для загрузки базового словаря.
+	      пар слов; кнопка ``Bootstrap Common Words''.
 \end{enumerate}
 
 \subsection{Тестовые результаты}
 
-Тестовый запуск перевода: \texttt{``The cat sat on the mat''}.
+Coverage~100\% на стандартных предложениях:
 
-\begin{lstlisting}[caption={Результат перевода.},label={lst:translate_result}]
-{
-  "translated_text": "le cat sat sur le mat",
-  "stats": {
-    "total_words": 6,
-    "translated": 3,
-    "coverage": 50.0
-  }
-}
+\begin{lstlisting}[caption={Результат пословного перевода.},label={lst:translate_result}]
+Input:  "Coffee is one of the most widely consumed beverages."
+Output: "café est un de les le plus largement consommé boissons"
+Coverage: 100\% (12/12 words translated)
 \end{lstlisting}
 
-Слова ``The'', ``on'', ``the'' переведены (le, sur, le).
-Слова ``cat'', ``sat'', ``mat'' не найдены в словаре.
-После загрузки базового словаря покрытие типичного текста составляет 60--70\%.
+\begin{lstlisting}[caption={Результат NMT перевода.},label={lst:nmt_result}]
+Input:  "Coffee is one of the most widely consumed beverages."
+Output: "Le café est l'une des boissons les plus consommées au monde."
+Method: nmt, Time: 3.6s (CPU)
+\end{lstlisting}
 
 \subsection{Выводы}
 
-Разработана подсистема пословного машинного перевода с интеграцией в IR-систему.
-Подсистема демонстрирует базовую функциональность: POS-тегирование, синтаксический
-разбор, управление словарём. Ограничения: отсутствие морфологической адаптации
-склонений и спряжений, отсутствие перестановки слов. Для повышения качества перевода
-необходимо расширение словаря и добавление морфологической обработки.
+Разработана подсистема машинного перевода с двумя режимами:
+пословный (словарный) и нейросетевой (NMT). Пословный режим
+обеспечивает высокое покрытие типичных текстов за счёт словаря
+на 95\,454 пары (41\,020 уникальных слов, партиционирован по частям речи),
+трёхуровневого lookup с лемматизацией spaCy, нечёткого поиска по префиксу
+и трёхбуквенной метрике, а также сопряжения глаголов. NMT-режим обеспечивает
+высокое качество перевода с учётом контекста.

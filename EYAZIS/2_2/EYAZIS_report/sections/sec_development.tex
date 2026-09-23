@@ -181,7 +181,7 @@ S3-совместимое хранилище объектов. При загру
 
 \subsection{Структура базы данных системы}
 
-База данных содержит семь таблиц, перечисленных в таблице~\ref{tab:db_tables}.
+База данных содержит девять таблиц, перечисленных в таблице~\ref{tab:db_tables}.
 
 \begin{table}[H]
 	\centering
@@ -189,7 +189,7 @@ S3-совместимое хранилище объектов. При загру
 		\hline
 		\textbf{Таблица} & \textbf{Назначение} \\
 		\hline
-		\texttt{documents} & Индексированные документы: идентификатор, заголовок, полный текст, дата добавления, TF-IDF-вектор размерности 5000, саммари, путь к файлу, код языка (\texttt{lang}: \texttt{en}/\texttt{fr}), ключ объекта в MinIO (\texttt{s3\_key}) \\
+		\texttt{documents} & Метаданные документов: идентификатор, заголовок, дата добавления, TF-IDF-вектор размерности 5000, саммари, путь к файлу, код языка (\texttt{lang}: \texttt{en}/\texttt{fr}), ключ объекта в MinIO (\texttt{s3\_key}). Текст хранится в S3, не в БД. \\
 		\hline
 		\texttt{search\_logs} & Логи поисковых запросов: текст запроса, вектор запроса, время \\
 		\hline
@@ -197,11 +197,15 @@ S3-совместимое хранилище объектов. При загру
 		\hline
 		\texttt{idf\_values} & Инверсные документные частоты терминов словаря \\
 		\hline
+		\texttt{translation\_dictionary} & Словарь перевода EN$\to$FR (95\,454 пары): слово-источник (lowercase), слово-перевод, POS-теги, частота; \textbf{PARTITION BY LIST (pos\_group)} "--- 6 партиций (noun/verb/adj/adv/func/other); индексы: покрывающий (source\_word, source\_pos), префиксный text\_pattern\_ops, GIN pg\_trgm, frequency DESC \\
+		\hline
+		\texttt{phrase\_dictionary} & Словарь многословных выражений: фраза-источник, фраза-перевод, частота \\
+		\hline
 		\texttt{schema\_migrations} & Служебная таблица учёта применённых миграций \\
 		\hline
-		\texttt{watch\_clients} & Зарегистрированные клиенты-наблюдатели: ID, наблюдаемая директория, время регистрации \\
+		\texttt{watch\_clients} & Зарегистрированные клиенты-наблюдатели \\
 		\hline
-		\texttt{watch\_events} & Логи событий файлового наблюдателя: тип события, путь к файлу, время \\
+		\texttt{watch\_events} & Логи событий файлового наблюдателя \\
 		\hline
 	\end{tabular}
 	\caption{Таблицы базы данных и их назначение.}
@@ -345,7 +349,7 @@ LIMIT %s
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\textwidth]{png/sequense_indexing.png}
+	\includegraphics[width=1.0\textwidth]{png/sequence_indexing.png}
 	\caption{Диаграмма последовательности индексирования документа.}
 	\label{fig:indexing}
 \end{figure}

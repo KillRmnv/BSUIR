@@ -20,7 +20,7 @@ import time
 from typing import Dict, List, Tuple
 
 from lang_detection.lang_text import FR_EXTRA, preprocess_for_lang
-
+from lang_detection.lang_text import chunk_text
 LANG_EN = "en"
 LANG_FR = "fr"
 
@@ -137,7 +137,7 @@ def tune_threshold(en_texts: List[str], fr_texts: List[str]) -> dict:
     score and the best EN score (falls back to DEFAULT_THRESHOLD if the
     classes overlap).
     """
-    from lang_detection.lang_text import chunk_text
+    
 
     params = default_params()
     en_scores = [score_text(c, params)["fr_score"]

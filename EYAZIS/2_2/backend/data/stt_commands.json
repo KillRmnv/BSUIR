@@ -1,0 +1,298 @@
+{
+  "version": 1,
+  "operations": [
+    {
+      "id": "search",
+      "description": "Поиск документов / Search documents",
+      "takes_argument": true,
+      "client_action": null,
+      "phrases": {
+        "en": [
+          "search for",
+          "look up",
+          "find documents about",
+          "search"
+        ],
+        "fr": [
+          "rechercher",
+          "chercher",
+          "trouver des documents sur",
+          "recherche"
+        ]
+      }
+    },
+    {
+      "id": "summarize",
+      "description": "Реферирование документа / Summarize document",
+      "takes_argument": true,
+      "client_action": null,
+      "phrases": {
+        "en": [
+          "summarize the document",
+          "make a summary",
+          "summarize",
+          "sum up"
+        ],
+        "fr": [
+          "résumer le document",
+          "faire un résumé",
+          "résumer",
+          "resume"
+        ]
+      }
+    },
+    {
+      "id": "translate",
+      "description": "Перевод текста / Translate text",
+      "takes_argument": true,
+      "client_action": null,
+      "phrases": {
+        "en": [
+          "translate",
+          "translate this",
+          "give a translation"
+        ],
+        "fr": [
+          "traduire",
+          "traduire ce texte",
+          "donner une traduction"
+        ]
+      }
+    },
+    {
+      "id": "read_aloud",
+      "description": "Озвучить текст / Read text aloud (TTS)",
+      "takes_argument": true,
+      "client_action": null,
+      "phrases": {
+        "en": [
+          "read aloud",
+          "read the text",
+          "speak this",
+          "read"
+        ],
+        "fr": [
+          "lire à voix haute",
+          "lire le texte",
+          "lire",
+          "dicte"
+        ]
+      }
+    },
+    {
+      "id": "detect_language",
+      "description": "Определить язык / Detect language",
+      "takes_argument": true,
+      "client_action": null,
+      "phrases": {
+        "en": [
+          "detect language",
+          "what language is this",
+          "identify the language"
+        ],
+        "fr": [
+          "détecter la langue",
+          "quelle est cette langue",
+          "identifier la langue"
+        ]
+      }
+    },
+    {
+      "id": "list_commands",
+      "description": "Список команд / List available commands",
+      "takes_argument": false,
+      "client_action": null,
+      "phrases": {
+        "en": [
+          "list commands",
+          "what can you do",
+          "show commands"
+        ],
+        "fr": [
+          "lister les commandes",
+          "que peux-tu faire",
+          "montrer les commandes"
+        ]
+      }
+    },
+    {
+      "id": "open_search",
+      "description": "Открыть поиск / Open search page",
+      "takes_argument": false,
+      "client_action": "navigate:index.html",
+      "phrases": {
+        "en": [
+          "open search",
+          "go to search"
+        ],
+        "fr": [
+          "ouvrir la recherche",
+          "aller à la recherche"
+        ]
+      }
+    },
+    {
+      "id": "open_documents",
+      "description": "Открыть документы / Open documents page",
+      "takes_argument": false,
+      "client_action": "navigate:documents.html",
+      "phrases": {
+        "en": [
+          "open documents",
+          "show documents",
+          "go to documents"
+        ],
+        "fr": [
+          "ouvrir les documents",
+          "montrer les documents"
+        ]
+      }
+    },
+    {
+      "id": "open_summarize",
+      "description": "Открыть реферирование / Open summarizer",
+      "takes_argument": false,
+      "client_action": "navigate:summarize.html",
+      "phrases": {
+        "en": [
+          "open summarize",
+          "go to summarizer",
+          "open the summarizer"
+        ],
+        "fr": [
+          "ouvrir le résumé",
+          "aller au résumé",
+          "ouvrir le résumer"
+        ]
+      }
+    },
+    {
+      "id": "open_translate",
+      "description": "Открыть переводчик / Open translator",
+      "takes_argument": false,
+      "client_action": "navigate:translate.html",
+      "phrases": {
+        "en": [
+          "open translator",
+          "go to translator",
+          "open the translator"
+        ],
+        "fr": [
+          "ouvrir le traducteur",
+          "aller au traducteur"
+        ]
+      }
+    },
+    {
+      "id": "open_classify",
+      "description": "Открыть классификатор / Open language classifier",
+      "takes_argument": false,
+      "client_action": "navigate:classify.html",
+      "phrases": {
+        "en": [
+          "open classifier",
+          "open classification",
+          "go to classifier"
+        ],
+        "fr": [
+          "ouvrir le classifieur",
+          "ouvrir la classification",
+          "aller au classifieur"
+        ]
+      }
+    },
+    {
+      "id": "open_upload",
+      "description": "Открыть загрузку / Open upload page",
+      "takes_argument": false,
+      "client_action": "navigate:upload.html",
+      "phrases": {
+        "en": [
+          "open upload",
+          "go to upload",
+          "upload a document"
+        ],
+        "fr": [
+          "ouvrir le téléversement",
+          "aller au téléversement",
+          "téléverser un document"
+        ]
+      }
+    },
+    {
+      "id": "open_metrics",
+      "description": "Открыть метрики / Open metrics page",
+      "takes_argument": false,
+      "client_action": "navigate:metrics.html",
+      "phrases": {
+        "en": [
+          "open metrics",
+          "show metrics",
+          "go to metrics",
+          "open statistics"
+        ],
+        "fr": [
+          "ouvrir les métriques",
+          "montrer les métriques",
+          "ouvrir les statistiques"
+        ]
+      }
+    },
+    {
+      "id": "open_tts",
+      "description": "Открыть озвучку / Open text-to-speech page",
+      "takes_argument": false,
+      "client_action": "navigate:tts.html",
+      "phrases": {
+        "en": [
+          "open text to speech",
+          "open speech synthesis",
+          "open tts",
+          "go to tts"
+        ],
+        "fr": [
+          "ouvrir la synthèse vocale",
+          "ouvrir le tts",
+          "aller au tts"
+        ]
+      }
+    },
+    {
+      "id": "open_stt",
+      "description": "Открыть распознавание / Open speech recognition page",
+      "takes_argument": false,
+      "client_action": "navigate:stt.html",
+      "phrases": {
+        "en": [
+          "open speech recognition",
+          "open voice commands",
+          "open stt",
+          "go to voice"
+        ],
+        "fr": [
+          "ouvrir la reconnaissance vocale",
+          "ouvrir les commandes vocales",
+          "aller à la voix"
+        ]
+      }
+    },
+    {
+      "id": "help",
+      "description": "Справка / Open help",
+      "takes_argument": false,
+      "client_action": "navigate:help.html",
+      "phrases": {
+        "en": [
+          "open help",
+          "show help",
+          "help"
+        ],
+        "fr": [
+          "ouvrir l'aide",
+          "montrer l'aide",
+          "aide"
+        ]
+      }
+    }
+  ]
+}

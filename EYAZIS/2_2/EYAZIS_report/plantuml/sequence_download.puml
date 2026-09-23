@@ -15,24 +15,16 @@ participant "database_manager.py" as DB
 participant "s3_client.py\n(Storage)" as S3
 participant "MinIO\nObject Storage" as MinIO
 
-== Скачивание документа (s3_key существует) ==
-
 User -> Browser : кликает «Download»
 Browser -> Flask : GET /api/documents/<id>/download
 Flask -> DB : get_document_by_id(id)
+DB -> DB : SELECT id, title, s3_key FROM documents
+DB -> S3 : download_text(s3_key)
+S3 -> MinIO : GET /<bucket>/<s3_key>
+MinIO --> S3 : file bytes (UTF-8 text)
+S3 --> DB : text string
 DB --> Flask : {s3_key, title, content}
-
-alt s3_key существует
-    Flask -> S3 : download_file(s3_key)
-    S3 -> MinIO : GET /<bucket>/<s3_key>
-    MinIO --> S3 : file bytes
-    S3 --> Flask : bytes
-    Flask --> Browser : 200 OK\nContent-Disposition: attachment;\nfilename="<title>.<ext>"
-    Browser -> User : файл скачивается
-else s3_key = NULL
-    Flask -> Flask : генерация .txt из content
-    Flask --> Browser : 200 OK\nContent-Disposition: attachment;\nfilename="<title>.txt"
-    Browser -> User : файл скачивается
-end
+Flask --> Browser : 200 OK\nContent-Type: text/plain;\ncharset=utf-8\nfilename="<title>.txt"
+Browser -> User : файл скачивается
 
 @enduml

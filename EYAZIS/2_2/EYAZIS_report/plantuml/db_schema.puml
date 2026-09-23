@@ -1,4 +1,5 @@
 @startuml db_schema
+!pragma layout smetana
 skinparam backgroundColor white
 skinparam shadowing false
 skinparam roundCorner 8
@@ -17,7 +18,6 @@ entity "documents" as documents {
     * id : SERIAL <<PK>>
     --
     title : VARCHAR(500)
-    content : TEXT
     date_added : TIMESTAMP
     embedding : vector(5000)
     summary : TEXT
@@ -48,6 +48,26 @@ entity "idf_values" as idf_values {
     idf_value : DOUBLE PRECISION
 }
 
+entity "translation_dictionary\n(PARTITION BY LIST pos_group)" as translation_dict {
+    * id : BIGSERIAL <<PK>>
+    --
+    source_word : VARCHAR(255) <<lowercase>>
+    target_word : VARCHAR(255)
+    source_pos : VARCHAR(20)
+    target_pos : VARCHAR(20)
+    pos_group : VARCHAR(10) <<PK>>
+    frequency : INTEGER
+    UNIQUE(source_word, target_word, source_pos, pos_group)
+}
+
+entity "phrase_dictionary" as phrase_dict {
+    * id : SERIAL <<PK>>
+    --
+    source_phrase : VARCHAR(500) <<UNIQUE>>
+    target_phrase : VARCHAR(500)
+    frequency : INTEGER
+}
+
 entity "schema_migrations" as schema_migrations {
     * id : SERIAL <<PK>>
     --
@@ -76,16 +96,37 @@ entity "watch_events" as watch_events {
 
 watch_clients ||--o{ watch_events
 
-note bottom of schema_migrations
-  Служебная таблица:
-  учёт применённых
-  SQL-миграций
+note bottom of documents
+  Текст хранится в S3 (MinIO),
+  в БД — только s3_key
 end note
 
-note bottom of watch_clients
-  Клиенты-наблюдатели:
-  машины, мониторящие
-  локальные директории
+note bottom of translation_dict
+  Словарь EN->FR: 95 454 пары
+  (41 020 уникальных слов).
+  Партиции по pos_group:
+  noun / verb / adj / adv /
+  func / other (маппинг из
+  Penn-тега, миграция 009).
+  Источники: сид-списки +
+  English WordNet x French OMW.
+  Индексы (наследуются
+  партициями):
+  - (source_word, source_pos)
+    INCLUDE (...) — покрывающий,
+    прунинг партиций;
+  - source_word text_pattern_ops
+    — префиксный LIKE;
+  - GIN gin_trgm_ops — нечёткий
+    поиск (опечатки);
+  - frequency DESC — пагинация.
+  Ключи нормализуются в
+  lowercase при записи.
+end note
+
+note bottom of phrase_dict
+  Словарь переводов
+  многословных выражений
 end note
 
 @enduml

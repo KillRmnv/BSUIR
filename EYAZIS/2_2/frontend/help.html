@@ -17,6 +17,8 @@
             <a href="classify.html" class="nav-link">Classification</a>
             <a href="summarize.html" class="nav-link">Summarize</a>
             <a href="translate.html" class="nav-link">Translate</a>
+            <a href="tts.html" class="nav-link">Speech</a>
+            <a href="stt.html" class="nav-link">Voice</a>
             <a href="help.html" class="nav-link active">Help</a>
         </div>
     </nav>
@@ -296,6 +298,115 @@
                     </div>
                 </section>
 
+                <!-- ===== Speech Synthesis Theory ===== -->
+                <section class="help-section" id="speech">
+                    <h2>Speech Synthesis Theory</h2>
+
+                    <div class="terms-container">
+                        <div class="term-card">
+                            <div class="term-name">Piper (Neural TTS, primary)</div>
+                            <div class="term-definition">
+                                Offline neural synthesis: text → espeak-ng phonemization → ONNX voice model → PCM audio (WAV).
+                                Voices: <code>fr_FR-siwis-medium</code>, <code>fr_FR-tom-medium</code>,
+                                <code>en_US-amy-medium</code>, <code>en_US-lessac-medium</code> (~63 MB each, bundled in the image).
+                                Parameters: <code>length_scale</code> (tempo: scale = 1/rate), <code>volume</code> (sample multiplier).
+                                Models are loaded lazily and cached in memory.
+                                Implementation: <code>tts.engines.synthesize_piper</code>.
+                            </div>
+                            <div class="term-formula">length_scale = 1 / rate, &nbsp; rate ∈ [0.5 … 2.0]</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">eSpeak-NG (formant TTS, fallback)</div>
+                            <div class="term-definition">
+                                Classic formant synthesis via the <code>espeak-ng</code> CLI: fast (~100 ms) and always available,
+                                lower naturalness than Piper. Parameters: <code>-s</code> words-per-minute (175 × rate),
+                                <code>-a</code> amplitude (0–200 ← volume %), <code>-p</code> pitch (0–99).
+                                Used as automatic fallback when a Piper model file is missing.
+                                Implementation: <code>tts.engines.synthesize_espeak</code>.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Text Normalization (literary domain)</div>
+                            <div class="term-definition">
+                                Input texts (literary essays, quotes, poems) are cleaned before synthesis:
+                                HTML/markdown artifacts stripped; em/en dashes → pause (comma); ellipsis normalized;
+                                typographic quotes « » “ ” → plain quotes; line breaks collapsed;
+                                spaces removed before punctuation. This prevents mispronunciation artifacts
+                                and produces natural pauses.
+                                Implementation: <code>tts.normalize.normalize_text</code>.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Language Detection &amp; Voice Selection</div>
+                            <div class="term-definition">
+                                The speech page reuses the Variant 7 classifier (n-gram + alphabet + neural majority vote)
+                                to auto-select a voice: detected FR → <code>fr-siwis</code>, EN → <code>en-amy</code>.
+                                Seven voices total (4 Piper + 3 eSpeak) cover both genders/languages.
+                                Implementation: <code>services.tts_service.detect_lang</code>.
+                            </div>
+                            <div class="term-formula">voice = default_by_lang[majority_vote(text)]</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== Speech Recognition Theory ===== -->
+                <section class="help-section" id="voice">
+                    <h2>Speech Recognition Theory</h2>
+
+                    <div class="terms-container">
+                        <div class="term-card">
+                            <div class="term-name">Vosk (offline STT)</div>
+                            <div class="term-definition">
+                                Offline speech-to-text based on Kaldi models bundled in the image:
+                                <code>vosk-model-small-en-us-0.15</code> (EN) and <code>vosk-model-small-fr-0.22</code> (FR),
+                                both expecting 16 kHz mono PCM. Models are lazily loaded and cached with a lock.
+                                Implementation: <code>stt.engines</code>.
+                            </div>
+                            <div class="term-formula">audio(WAV) → mono int16 @16 kHz → KaldiRecognizer → text</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Command → Operation Mapping</div>
+                            <div class="term-definition">
+                                The recognized utterance is matched against editable trigger phrases of fixed operations
+                                (search, summarize, translate, read aloud, detect language, list commands, open pages, help).
+                                Matching is case- and accent-insensitive (important for French: Vosk often drops accents),
+                                longest-phrase-first with exact/prefix/substring scoring and a fuzzy fallback
+                                (<code>SequenceMatcher ≥ 0.68</code>). For argument-taking commands the remainder after
+                                the phrase becomes the parameter (e.g. <i>“search for hamlet” → query = hamlet</i>).
+                                Implementation: <code>stt.matcher.match_command</code>.
+                            </div>
+                            <div class="term-formula">score = 1.0 exact | 0.95 prefix | 0.88 inside | 0.92·ratio fuzzy</div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Editable Phrases</div>
+                            <div class="term-definition">
+                                Operation ids and their behaviour are fixed in code; only the trigger phrases
+                                (EN/FR lists) are user-editable via <code>GET/POST /api/stt/commands</code>
+                                and stored in <code>backend/data/stt_commands.json</code> (mtime-cached).
+                                <code>POST /api/stt/commands/reset</code> restores defaults.
+                                Implementation: <code>stt.commands</code>.
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <div class="term-name">Reaction &amp; Notification</div>
+                            <div class="term-definition">
+                                After matching, the dispatcher calls the target subsystem (search / summarizer /
+                                translator / language detector) or returns a client navigation action.
+                                The user is notified with a bilingual message (toast + optional spoken announcement
+                                through the TTS subsystem). Browser capture uses <code>getUserMedia</code> +
+                                <code>ScriptProcessor</code>, client-side resample to 16 kHz, WAV upload.
+                                Implementation: <code>services.stt_service</code>, <code>js/stt.js</code>.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- ===== System Overview ===== -->
                 <section class="help-section" id="overview">
                     <h2>System Overview</h2>
@@ -330,6 +441,10 @@
                             <p>Word-by-word EN→FR translation with POS tagging, syntax tree visualization, and dictionary management. View word frequency lists and translation coverage.</p>
                         </div>
                         <div class="help-card">
+                            <h3>Speech</h3>
+                            <p>Offline EN/FR text-to-speech: Piper neural voices + eSpeak-NG fallback, tempo/volume/pitch settings, auto language detection.</p>
+                        </div>
+                        <div class="help-card">
                             <h3>Help</h3>
                             <p>This page: theory and navigation, available offline.</p>
                         </div>
@@ -343,10 +458,14 @@
                 <a href="#search">Search Theory</a>
                 <a href="#summarization">Summarization Theory</a>
                 <a href="#translation">Translation Theory</a>
+                <a href="#speech">Speech Synthesis Theory</a>
+                <a href="#voice">Speech Recognition Theory</a>
                 <a href="#overview">System Overview</a>
             </nav>
         </div>
     </main>
+    <script src="js/voice-core.js"></script>
+    <script src="js/voice-fab.js"></script>
 
     <script>
     (function () {

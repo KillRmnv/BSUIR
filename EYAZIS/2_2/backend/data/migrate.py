@@ -75,6 +75,14 @@ def run_migrations():
             cur = conn.cursor()
             try:
                 cur.execute(sql)
+                # Record the migration in the SAME transaction so a crash
+                # can never leave it applied-but-unrecorded (005..008 used
+                # to self-insert inconsistently; the runner now owns this).
+                cur.execute(
+                    "INSERT INTO schema_migrations (migration_name) "
+                    "VALUES (%s) ON CONFLICT DO NOTHING",
+                    (name,),
+                )
                 conn.commit()
                 print(f"  OK: {name}")
             except Exception as e:

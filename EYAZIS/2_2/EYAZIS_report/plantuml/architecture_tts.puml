@@ -1,0 +1,68 @@
+@startuml architecture_tts
+!pragma layout smetana
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam defaultFontName DejaVu Sans
+skinparam ArrowColor #475569
+skinparam rectangle {
+    BackgroundColor #EAF2FB
+    BorderColor #2563EB
+}
+skinparam rectangle<<client>> {
+    BackgroundColor #FEF3C7
+    BorderColor #D97706
+}
+skinparam rectangle<<server>> {
+    BackgroundColor #DCFCE7
+    BorderColor #16A34A
+}
+skinparam rectangle<<engine>> {
+    BackgroundColor #FCE7F3
+    BorderColor #DB2777
+}
+skinparam rectangle<<model>> {
+    BackgroundColor #EDE9FE
+    BorderColor #7C3AED
+}
+
+rectangle "КЛИЕНТ — tts.html + js/tts.js\nввод/буфер, слайдеры темпа/громкости/питча,\nвыбор голоса, <audio> плеер,\nлитературные примеры EN/FR" <<client>> as FE
+
+rectangle "СЕРВЕР — Flask REST" <<server>> as API
+rectangle "controllers/tts.py\nstatus / voices /\ndetect-lang / synthesize\n(возврат: audio/wav)" as CTRL
+rectangle "services/tts_service.py\nвалидация, клампинг\nпараметров, выбор голоса,\nметрики elapsed/duration" as SVC
+rectangle "tts/normalize.py\nтипографика → паузы\nHTML/markdown → чистый текст" as NORM
+rectangle "lang_detection\n(ngram + alphabet + neural,\nmajority vote) — реюз" as LANG
+
+rectangle "tts/engines.py\nдиспетчер движков" as ENG
+
+rectangle "Piper (нейро, primary)\nSynthesisConfig:\nlength_scale = 1/rate,\nvolume = pct/100\nкэш ONNX-моделей (lock)" <<engine>> as PIPER
+rectangle "eSpeak-NG CLI (fallback)\n-s wpm=175×rate,\n-a amp, -p pitch\n(~60–140 мс)" <<engine>> as ESPEAK
+
+rectangle "4 голоса ONNX (~63 МБ):\nfr_FR-siwis-medium (F)\nfr_FR-tom-medium (M)\n en_US-amy-medium (F)\n en_US-lessac-medium (M)\n/usr tts_models/" <<model>> as MODELS
+rectangle "3 голоса espeak-ng:\nfr-fr, en-us, en-gb" <<model>> as EVOICES
+
+rectangle "WAV PCM 16 бит\n(через HTTP-запись\nX-TTS-* заголовки)" as WAV
+
+FE -down-> API : POST /api/tts/synthesize\n{text, voice, rate, volume, pitch}
+API -down-> CTRL
+CTRL -down-> SVC
+SVC -down-> NORM
+SVC -right-> LANG : detect-lang / авто-голос
+SVC -down-> ENG : dispatch\n(piper | espeak)
+ENG -down-> PIPER
+ENG -down-> ESPEAK
+PIPER -down-> MODELS : load()\n(кэш в памяти)
+ESPEAK -down-> EVOICES
+PIPER -right-> WAV
+ESPEAK -right-> WAV
+WAV -up-> FE : audio/wav + X-TTS-*
+
+note bottom of SVC
+  Fallback: если ONNX-файл
+  голоса отсутствует →
+  авто-espeak для языка.
+  Лимит текста 4000 символов.
+end note
+
+@enduml

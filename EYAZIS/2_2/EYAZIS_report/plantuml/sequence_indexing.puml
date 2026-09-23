@@ -46,14 +46,14 @@ alt формат поддержан (.txt, .md, .pdf, .docx, .html, .rtf...)
     API -> API : валидация\n(текст не пуст)
 
     API -> DBM : get_all_documents()
-    DBM -> DB : SELECT id, title, content\nFROM documents
+    DBM -> DB : SELECT id, title, s3_key\nFROM documents
     DB --> DBM : текущий корпус
     DBM --> API : список документов
 
     API -> DP : build_vocabulary(all_texts)
     DP -> DP : clean_text + Counter,\nсортировка терминов
     API -> DP : compute_idf(all_texts)
-    DP -> DP : IDF_i = log(N / (P_i + 1)) + 1
+    DP -> DP : IDF_i = log(22 * N / df_i)
 
     API -> DBM : save_vocabulary(VOCAB)
     DBM -> DB : DELETE + INSERT INTO vocabulary
@@ -63,7 +63,10 @@ alt формат поддержан (.txt, .md, .pdf, .docx, .html, .rtf...)
     API -> DP : vectorize_text_with_dim(content, 5000)
     DP --> API : TF-IDF-вектор документа
 
-    API -> DBM : insert_document(title, content, embedding,\nsummary, s3_key, lang)
+    API -> DBM : insert_document(title, embedding,\nsummary, s3_key, lang)
+    DBM -> S3 : upload_text(content, s3_key)
+    S3 -> MINIO : PUT text to S3
+    MINIO --> S3 : OK
     DBM -> DB : INSERT INTO documents\n(embedding vector(5000),\ns3_key, lang)
     DB --> DBM : id документа
     DBM --> API : doc_id

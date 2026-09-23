@@ -30,9 +30,13 @@ MinIO --> S3 : OK
 S3 --> DS : s3_key
 DS -> Loader : extract_text(file)
 Loader --> DS : extracted_text
+DS -> S3 : upload_text(extracted_text, s3_key)
+S3 -> MinIO : PUT text to S3
+MinIO --> S3 : OK
+S3 --> DS : OK
 DS -> DP : process(extracted_text)
 DP --> DS : embedding, summary
-DS -> DB : insert_document(title, content, embedding,\nsummary, s3_key=s3_key, lang=lang)
+DS -> DB : insert_document(title, embedding,\nsummary, s3_key=s3_key, lang=lang)
 DB -> PG : INSERT INTO documents (..., s3_key, lang)
 PG --> DB : OK
 DB --> DS : OK

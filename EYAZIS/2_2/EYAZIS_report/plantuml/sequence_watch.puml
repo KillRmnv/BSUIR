@@ -48,11 +48,11 @@ alt state-файл существует
         API -> WH : handle_watch_event(...)
         WH -> LOADER : extract_text_from_bytes(data, filename)
         LOADER --> WH : текст документа
-        WH -> S3 : upload_file(file_bytes, object_name)
-        S3 -> MINIO : PUT /<bucket>/<object_name>
+        WH -> S3 : upload_text(text, s3_key)
+        S3 -> MINIO : PUT text to S3
         MINIO --> S3 : OK
-        S3 --> WH : s3_key
-        WH -> DP : build_vocabulary(all_texts + new)
+        S3 --> WH : OK
+        WH -> DP : expand_vocabulary(new_text, all_texts)
         WH -> DP : compute_idf(all_texts + new)
         WH -> DBM : save_vocabulary(), save_idf()
         WH -> DP : generate_summary(text)

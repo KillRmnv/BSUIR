@@ -30,15 +30,16 @@ box "Серверный уровень (Flask)" #DCFCE7
     participant "database_manager.py" as DBM
 end box
 database "PostgreSQL 16\n+ pgvector" as DB
+participant "s3_client.py\n(MinIO)" as S3
 
 == Выбор документа ==
 
 User -> UI : выбирает документ из списка,\nметод, кол-во предложений
 UI -> API : GET /api/documents
 API -> DBM : get_all_documents()
-DBM -> DB : SELECT id, title, content, lang\nFROM documents
+DBM -> DB : SELECT id, title, s3_key, lang\nFROM documents
 DB --> DBM : строки документов
-DBM --> API : [{id, title, content, lang}]
+DBM --> API : [{id, title, s3_key, lang}]
 API --> UI : JSON список документов
 
 User -> UI : нажимает "Summarize"
@@ -47,9 +48,11 @@ UI -> API : POST /api/summarize-doc\n{doc_id, method, n_sentences}
 == Извлечение документа ==
 
 API -> DBM : get_document_by_id(doc_id)
-DBM -> DB : SELECT * FROM documents\nWHERE id = doc_id
-DB --> DBM : {id, title, content, lang}
-DBM --> API : документ
+DBM -> DB : SELECT id, title, s3_key, lang\nFROM documents WHERE id = doc_id
+DB --> DBM : {id, title, s3_key, lang}
+DBM -> S3 : download_text(s3_key)
+S3 --> DBM : text content
+DBM --> API : документ с content
 
 == Обработка (аналогично /api/summarize) ==
 

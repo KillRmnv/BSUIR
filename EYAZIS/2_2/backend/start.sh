@@ -10,6 +10,9 @@ echo "PostgreSQL is ready."
 echo "Running migrations..."
 python /app/data/migrate.py
 
+echo "Seeding translation dictionary (target: 30000+ entries)..."
+python /app/translator/seed_dictionary.py || echo "WARNING: dictionary seed failed (continuing)"
+
 echo "Starting Flask application (auto-initializes corpus + auto-summaries)..."
 python /app/app.py &
 APP_PID=$!

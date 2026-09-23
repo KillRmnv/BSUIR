@@ -13,6 +13,7 @@ from data.database_manager import (
 from search.document_processor import build_vocabulary, compute_idf
 from search import document_processor as dp
 from lang_detection.lang_methods import classify_text_all, status_all, train_all
+from translator.seed_dictionary import seed as _seed_dictionary
 
 
 def _classify_lang(text: str) -> str:
@@ -36,6 +37,10 @@ def _backfill_summaries():
 
 def initialize_corpus(engine, base_dir: str) -> dict:
     init_db()
+    try:
+        _seed_dictionary()
+    except Exception as e:
+        print(f"Dictionary seed skipped: {e}")
     docs_dir = os.path.join(base_dir, "documents")
     txt_files = glob.glob(os.path.join(docs_dir, "*.txt"))
     if txt_files:
@@ -60,6 +65,10 @@ def initialize_corpus(engine, base_dir: str) -> dict:
 
 def ensure_corpus(engine, base_dir: str):
     init_db()
+    try:
+        _seed_dictionary()
+    except Exception as e:
+        print(f"Dictionary seed skipped: {e}")
     all_docs = get_all_document_texts()
     if not all_docs:
         docs_dir = os.path.join(base_dir, "documents")

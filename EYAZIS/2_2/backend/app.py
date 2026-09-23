@@ -9,7 +9,7 @@ from services.init_service import ensure_corpus, ensure_lang_model
 from storage.s3_client import ensure_bucket
 from controllers import (
     search_bp, documents_bp, lang_bp, summarize_bp,
-    translate_bp, watcher_bp, admin_bp,
+    translate_bp, tts_bp, stt_bp, watcher_bp, admin_bp,
 )
 from services.errors import AppError
 
@@ -27,6 +27,8 @@ def create_app():
     app.register_blueprint(lang_bp)
     app.register_blueprint(summarize_bp)
     app.register_blueprint(translate_bp)
+    app.register_blueprint(tts_bp)
+    app.register_blueprint(stt_bp)
     app.register_blueprint(watcher_bp)
     app.register_blueprint(admin_bp)
 
@@ -58,8 +60,6 @@ def create_app():
 if __name__ == "__main__":
     app = create_app()
     engine = app.config["ENGINE"]
-
-    # Create S3 bucket BEFORE corpus init (documents upload to S3)
     try:
         ensure_bucket()
     except Exception:
